@@ -3,41 +3,154 @@
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Impera Portal</title>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
 
-  <div ng-view></div>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
 
-  <div>Angular seed app: v<span app-version></span></div>
+  <nav class="navbar navbar-default" role="navigation" >
+      <div class="container-fluid">
+        <div class="navbar-header" >
+          <!-- for toggle button on phone -->
+          <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img alt="Impera" src="img/impera.png"  height="24"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse bs-js-navbar-collapse" collapse="navCollapsed">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">My applications</a></li>
+            <li><a href="#contact">My platforms</a></li>
+            <li><a href="#contact">My reports</a></li>
+           
+          </ul>
+         
+          <ul class="nav navbar-nav navbar-right" >
+             <li dropdown  >
+              <a dropdown-toggle>Account <b class="caret"></b></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Preferences</a></li>
+                <li><a href="#">Account options</a></li>
+                <li><a href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container-fluid" id="sidebar">
+     <div class="row">
+       <div class="col-md-2 sidebar">
+      
+            <ul class="nav nav-pills nav-stacked">
+               <li><a>Deploy new application</a></li>
+               <li><a>Show alerts</a></li>
+               <li><a>Show bug reports</a></li>
+               <li><a>Create new platform</a></li>
+            </ul>
+       </div>
+     </div>
+     <div class="col-md-10 main col-md-offset-2 ">
+       <div class="row">
+           <table class="table table-lined">  
+            <tr > 
+             <td><input type="checkbox" value=""></td>
+             <td>Name</td> 
+             <td>Platform/Env</td> 
+             <td># instances</td>
+             <td>Active</td>
+             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+             <td><button class="btn btn-default btn-xs" ng-init="navCollapsedone = true" ng-click="navCollapsedone = !navCollapsedone"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+             </tr>
+
+          
+        
+        <tr >
+            <td colspan="9"  class="hiddenRow"><div collapse="navCollapsedone" class="accordian-body collapse">
+
+ <table class="table">
+  <tr> <th> test: test </th> <th> test: test </th> <th> test: test </th></tr>
+  <tr> <td> test: test </td> <td> test: test </td> <td> test: test </td></tr>
+  <tr> <td> test: test </td> <td> test: test </td> <td> test: test </td></tr> 
+ </table>
+
+</div></td>
+        </tr>
+   
+                <tr class="emptyline"> </tr>
+
+             <tr> 
+             <td><input type="checkbox" value=""></td>
+             <td>Name</td> 
+             <td>Platform/Env</td> 
+             <td># instances</td>
+             <td>Active</td>
+             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+             <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td> </tr>
+                <tr class="emptyline"> </tr>
+             <tr> 
+             <td><input type="checkbox" value=""></td>
+             <td>Name</td> 
+             <td>Platform/Env</td> 
+             <td># instances</td>
+             <td>Active</td>
+             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td> 
+<td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td></tr>
+                <tr class="emptyline"> </tr>
+             <tr> 
+             <td><input type="checkbox" value=""></td>
+             <td>Name</td> 
+             <td>Platform/Env</td> 
+             <td># instances</td>
+             <td>Active</td>
+             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
+             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+<td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td> </tr>
+           </table>
+       </div>
+     </div>
+    </div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="app.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
+
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
-</body>
+  </body>
 </html>
