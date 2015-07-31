@@ -11,14 +11,14 @@ describe('Portal Controller', function() {
 
 var scope, $httpBackend;
 
-beforeEach(module('imperaControl'));
+beforeEach(module('ImperaApp.portalview'));
 
 beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
     $httpBackend = _$httpBackend_;
    
     
     scope = $rootScope.$new();
-    $controller('portalCtrl', {$scope: scope});
+    $controller('portalController', {$scope: scope});
   }));
 
  it('should set fields', function() {

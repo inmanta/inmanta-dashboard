@@ -2,10 +2,9 @@
 
 // Declare app level module which depends on views, and components
 angular.module('ImperaApp', [
-  'ngRoute',
+  'ui.router',
   'ui.bootstrap',
-  'imperaControl'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}]);
+  'ImperaApp.portalView'
+]).config(function($urlRouterProvider) {
+ $urlRouterProvider.otherwise("/portal");   
+})

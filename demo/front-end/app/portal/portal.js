@@ -1,13 +1,35 @@
-var imperaControl = angular.module('imperaControl',['imperaApi'])
+'use strict';
 
-imperApi.controller('portalCtrl', ['$scope', 'imperaService', function($scope, imperaService) {
+
+
+var portalview = angular.module('ImperaApp.portalView', ['ui.router','imperaApi'])
+
+portalview.config(function($stateProvider) {
+ $stateProvider
+    .state('portal', {
+      url: "/portal",
+      views:{
+        "body":{
+            templateUrl: "portal/portalBody.html",
+            controller:"portalController"
+        },
+        "side":{
+            templateUrl: "portal/portalSide.html"
+          
+        }
+      }
+      
+    })
+})
+portalview.controller('portalController', ['$scope', 'imperaService', function($scope, imperaService) {
  
   $scope.projects = null;
   $scope.envs = null;
+  $scope.lines = [];
   var projectIndex = {};
 
   function fill(){
-    lines = $scope.envs.map(function(line){
+    var lines = $scope.envs.map(function(line){
         var out = angular.copy(line);
         out.projectname = projectIndex[line["project"]].name;
         return out;
