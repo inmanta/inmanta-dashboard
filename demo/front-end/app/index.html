@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html lang="en" ng-app="ImpApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="ImpApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="ImpApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="ImpApp" class="no-js"> <!--<![endif]-->
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -71,13 +71,14 @@
             </ul>
        </div>
      </div>
-     <div class="col-md-10 main col-md-offset-2 ">
+     <div class="col-md-10 main col-md-offset-2 "  >
        <div class="row">
-           <table class="table table-lined">  
-            <tr > 
+           <table class="table table-lined" ng-controller="portalCtrl">  
+            
+            <tr ng-repeat-start="line in lines" > 
              <td><input type="checkbox" value=""></td>
-             <td>Name</td> 
-             <td>Platform/Env</td> 
+             <td>{{line.name}}</td> 
+             <td>{{line.projectName}}</td> 
              <td># instances</td>
              <td>Active</td>
              <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
@@ -100,40 +101,9 @@
 </div></td>
         </tr>
    
-                <tr class="emptyline"> </tr>
+                <tr class="emptyline" ng-repeat-end> </tr>
 
-             <tr> 
-             <td><input type="checkbox" value=""></td>
-             <td>Name</td> 
-             <td>Platform/Env</td> 
-             <td># instances</td>
-             <td>Active</td>
-             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
-             <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td> </tr>
-                <tr class="emptyline"> </tr>
-             <tr> 
-             <td><input type="checkbox" value=""></td>
-             <td>Name</td> 
-             <td>Platform/Env</td> 
-             <td># instances</td>
-             <td>Active</td>
-             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td> 
-<td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td></tr>
-                <tr class="emptyline"> </tr>
-             <tr> 
-             <td><input type="checkbox" value=""></td>
-             <td>Name</td> 
-             <td>Platform/Env</td> 
-             <td># instances</td>
-             <td>Active</td>
-             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
-<td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td> </tr>
+             
            </table>
        </div>
      </div>
@@ -146,11 +116,9 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+ 
+  <script src="components/config.js"></script>
+  <script src="components/imperaApi.js"></script>
+  <script src="components/portalController.js"></script>
   </body>
 </html>
