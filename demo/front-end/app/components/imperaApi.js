@@ -5,7 +5,7 @@
  * @name impWebApp.Nodeservice
  * @description # Nodeservice Service in the impWebApp.
  */
-var imperApi = angular.module('imperaApi',['imperaApp.config'])
+var imperApi = angular.module('imperaApi',['imperaApi.config'])
 
 function formatDate(d){
     if(d == null)
