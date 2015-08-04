@@ -1,0 +1,27 @@
+ 
+       <div class="row">
+           <ol class="breadcrumb">
+            <li><a ui-sref="portal">Home</a></li>
+            <li>Environment:<a ui-sref="envs(state.env)"> {{state.env}}</a></li>
+            <li class="active"> Version: {{state.version}}</li>
+           </ol>
+
+           <table class="table table-lined" ng-table="tableParams" show-filter="true">  
+            
+            <tr ng-repeat="res in $data track by res.id" ng-class="{'bg-info':res.id==toHighlight}" > 
+            
+            
+             <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}">{{res.id_fields.entity_type}}</td> 
+             <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
+             <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
+             <td data-title="'deps'" sortable="'deporder'" > <div ng-repeat="d in res.requires"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
+             <td data-title="'state'" sortable="'state'"> {{res.state}} </td>
+            
+             </tr>
+
+             
+           </table>
+
+            
+       </div>
+
