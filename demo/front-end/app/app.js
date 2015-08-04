@@ -4,7 +4,10 @@
 angular.module('ImperaApp', [
   'ui.router',
   'ui.bootstrap',
-  'ImperaApp.portalView'
+  'ngTable',
+  'ImperaApp.portalView',
+  'ImperaApp.resourceView',
+  'ImperaApp.envView'
 ]).config(function($urlRouterProvider) {
- $urlRouterProvider.otherwise("/portal");   
+  $urlRouterProvider.otherwise("/portal");   
 })

@@ -11,7 +11,7 @@ describe('Portal Controller', function() {
 
 var scope, $httpBackend;
 
-beforeEach(module('ImperaApp.portalview'));
+beforeEach(module('ImperaApp.portalView'));
 
 beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
     $httpBackend = _$httpBackend_;

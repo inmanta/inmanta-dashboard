@@ -1,0 +1,22 @@
+ 
+       <div class="row">
+          
+
+           <table class="table table-lined" ng-table="tableParams" show-filter="true">  
+            
+            <tr ng-repeat="env in $data"> 
+            
+            
+             <td data-title="'version'" sortable="'version'" filter="{ 'version':'text'}"><a ui-sref="resources({env:env,version:env.version})">{{env.version}}</a></td>
+             <td data-title="'date'" sortable="'date'" filter="{ 'date':'text'}">{{env.date|date:'M/d/yy H:mm'}}</td>  
+             <td data-title="'release_status'" sortable="'release_status'" filter="{ 'release_status':'text'}">{{env.release_status}}</td> 
+             
+            
+             </tr>
+
+             
+           </table>
+
+            
+       </div>
+

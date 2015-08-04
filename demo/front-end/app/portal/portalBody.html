@@ -1,11 +1,11 @@
  
        <div class="row">
            <table class="table table-lined">  
-            
+            <tr> <th></th> <th>env</th> <th>project</th> </tr>
             <tr ng-repeat-start="line in lines" > 
              <td><input type="checkbox" value=""></input></td>
-             <td>{{line.name}}</td> 
-             <td>{{line.projectName}}</td> 
+             <td><a ui-sref="envs({env:line.id})">{{line.name}}</a></td> 
+             <td>{{line.projectname}}</td> 
              <td># instances</td>
              <td>Active</td>
              <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>

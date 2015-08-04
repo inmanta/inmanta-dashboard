@@ -109,4 +109,101 @@ it('should have one env', function() {
 
  });
 
+
+ it('should have resources', function() {
+$httpBackend.expectGET('http://192.168.104.111:8888/cmversion/1435695748',{"X-Impera-tid":"a20623b5-8a7c-41d4-911c-85b44ce8e81f","Accept":"application/json, text/plain, */*"}).
+        respond({
+    "model": {
+        "date": "2015-06-30T22:22:28.067000", 
+        "environment": "a20623b5-8a7c-41d4-911c-85b44ce8e81f", 
+        "release_status": "DEPLOY", 
+        "version": 1435695748
+    }, 
+    "resources": [
+        {
+            "id": "std::Package[vm1,name=which],v=1435695748", 
+            "name": "which", 
+            "reload": false, 
+            "requires": [], 
+            "state": "installed", 
+            "version": 1435695748
+        }, 
+        {
+            "group": "root", 
+            "id": "std::Directory[vm1,path=/etc/my.cnf.d],v=1435695748", 
+            "owner": "root", 
+            "path": "/etc/my.cnf.d", 
+            "permissions": 755, 
+            "purged": false, 
+            "reload": false, 
+            "requires": [], 
+            "version": 1435695748
+        }, 
+        {
+            "id": "std::Package[vm1,name=httpd],v=1435695748", 
+            "name": "httpd", 
+            "reload": false, 
+            "requires": [], 
+            "state": "installed", 
+            "version": 1435695748
+        }, 
+        {
+            "id": "std::Package[vm1,name=php-drush-drush],v=1435695748", 
+            "name": "php-drush-drush", 
+            "reload": false, 
+            "requires": [
+                "std::Package[vm1,name=which],v=1435695748"
+            ], 
+            "state": "installed", 
+            "version": 1435695748
+        }
+    ]});
+
+  var result;
+  imperaApi.getResources("a20623b5-8a7c-41d4-911c-85b44ce8e81f","1435695748").then(function(returnFromPromise) {
+    result = returnFromPromise;
+  });
+  $httpBackend.flush();
+  expect(result).toEqual( [
+        {
+            "id": "std::Package[vm1,name=which],v=1435695748", 
+            "name": "which", 
+            "reload": false, 
+            "requires": [], 
+            "state": "installed", 
+            "version": 1435695748
+        }, 
+        {
+            "group": "root", 
+            "id": "std::Directory[vm1,path=/etc/my.cnf.d],v=1435695748", 
+            "owner": "root", 
+            "path": "/etc/my.cnf.d", 
+            "permissions": 755, 
+            "purged": false, 
+            "reload": false, 
+            "requires": [], 
+            "version": 1435695748
+        }, 
+        {
+            "id": "std::Package[vm1,name=httpd],v=1435695748", 
+            "name": "httpd", 
+            "reload": false, 
+            "requires": [], 
+            "state": "installed", 
+            "version": 1435695748
+        }, 
+        {
+            "id": "std::Package[vm1,name=php-drush-drush],v=1435695748", 
+            "name": "php-drush-drush", 
+            "reload": false, 
+            "requires": [
+                "std::Package[vm1,name=which],v=1435695748"
+            ], 
+            "state": "installed", 
+            "version": 1435695748
+        }
+    ]);
+ });
+
+ 
 });
