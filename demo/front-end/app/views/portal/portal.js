@@ -48,10 +48,20 @@ portalview.controller('portalController', ['$scope', 'imperaService', function($
     }
   });
 
-  imperaService.getEnvironments().then(function(data) {
+  function loadEnvs(){
+   imperaService.getEnvironments().then(function(data) {
     $scope.envs = data ;
     if($scope.projects != null){
         fill();
     }
-  });
+   });
+  }
+
+  loadEnvs();
+
+
+  $scope.deleteEnv = function(envID){
+        imperaService.removeEnvironment(envID).then( loadEnvs);
+       
+  }
 }]);

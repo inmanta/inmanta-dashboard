@@ -25,6 +25,14 @@ imperApi.service('imperaService',
 		impAPI.getProjects = function() {
 			return $http.get(impURL + 'project').then(function(data){ return data.data;});
 		};
+
+        impAPI.addEnvironment = function(projectid, name) {
+			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name}).then(function(data){ return data.data;});
+		};
+
+        impAPI.removeEnvironment = function(envid) {
+			return $http.delete(impURL + 'environment/'+envid);
+		};
 		
 		impAPI.getEnvironments = function() {
 			return $http.get(impURL + 'environment').then(function(data){ return data.data;});
