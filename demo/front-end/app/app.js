@@ -8,7 +8,8 @@ angular.module('ImperaApp', [
   'ImperaApp.portalView',
   'ImperaApp.resourceView',
   'ImperaApp.envView',
-  'ImperaApp.addEnv'
+  'ImperaApp.addEnv',
+  'ImperaApp.graphView'
 ]).config(function($urlRouterProvider) {
   $urlRouterProvider.otherwise("/portal");   
 })
