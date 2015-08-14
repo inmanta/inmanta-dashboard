@@ -2,7 +2,7 @@
 
 
 
-var portalview = angular.module('ImperaApp.portalView', ['ui.router','imperaApi'])
+var portalview = angular.module('ImperaApp.portalView', ['ui.router','imperaApi','dialogs.main'])
 
 portalview.config(function($stateProvider) {
  $stateProvider
@@ -21,7 +21,7 @@ portalview.config(function($stateProvider) {
       
     })
 })
-portalview.controller('portalController', ['$scope', 'imperaService', function($scope, imperaService) {
+portalview.controller('portalController', ['$scope', 'imperaService','dialogs', function($scope, imperaService,dialogs) {
  
   $scope.projects = null;
   $scope.envs = null;
@@ -61,7 +61,10 @@ portalview.controller('portalController', ['$scope', 'imperaService', function($
 
 
   $scope.deleteEnv = function(envID){
-        imperaService.removeEnvironment(envID).then( loadEnvs);
-       
+	var dlg = dialogs.confirm("Confirm delete","do you really want to delete the environment " + 		envID);
+	dlg.result.then(function(btn){
+		imperaService.removeEnvironment(envID).then( loadEnvs);
+	});        
+
   }
 }]);

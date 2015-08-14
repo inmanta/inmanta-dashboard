@@ -4,16 +4,21 @@
   margin-bottom:0;
 }
 
-body { padding-top: 50px; }
+body { padding-top: 50px; 
+       overflow:hidden;}
 
 /* Sidebar Styles */
 
 .sidebar {
     height: 100%;
+    display:block;
     border-right: 1px solid #eee;
     background: #fafafa;
     position: fixed;
     padding: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 

@@ -40,7 +40,8 @@ function getIconCode(type) {
 
 resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
             function($scope, imperaService, $stateParams) {
-                $scope.active = {name:"test"}
+		
+                $scope.state = $stateParams
                 var diagonal = d3.svg.diagonal()
                 var width = 2000,
                     height = 2000,
@@ -62,9 +63,18 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     })
                     .size([width, height]);
 
+		var zoom = d3.behavior.zoom().size([width,height]).on("zoom", zoom)
+
                 var vis = d3.select("#chart").append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
+                    .attr("width", "100%")
+                    .attr("height", "2000px")
+		    .append("g")
+			    
+		 zoom(d3.select("#chart"))
+                 
+               function zoom() {
+		  vis.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + 			")");
+	        }
 
                 imperaService.getResources($stateParams.env, $stateParams.version).then(function(json) {
                     var idcounter = 0;

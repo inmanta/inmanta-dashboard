@@ -13,7 +13,7 @@
     "angular-bootstrap": "~0.13.1",
     "angular-ui-router": "~0.2.15",
     "ng-table": "~0.8.1",
-    "angular-dialog-service": "~5.2.8"
+    "angular-dialog-service": "~5.2.8",
     "d3": "~3.5.6"
   }
 }

@@ -1,37 +1,27 @@
  
        <div class="row">
            <table class="table table-lined">  
-            <tr> <th></th> <th>env</th> <th>project</th> </tr>
-            <tr ng-repeat-start="line in lines" > 
-             <td><input type="checkbox" value=""></input></td>
+            <tr> <th>env</th> <th>project</th>  <th>state</th> <th>remove</th></tr>
+           
+   <tr class="emptyline" ng-repeat-start="line in lines"> </tr>
+
+	 <tr ng-repeat-end > 
              <td><a ui-sref="envs({env:line.id})">{{line.name}}</a></td> 
              <td>{{line.projectname}}</td> 
-             <td># instances</td>
+           
              <td>Active</td>
-             <td><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></td>
-             <td><span class="glyphicon glyphicon-off" aria-hidden="true"></span></td>
+          
+           
              <td><button class="btn btn-default btn-xs" ng-click="deleteEnv(line.id)">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
              </button> </td>
-             <td><button class="btn btn-default btn-xs" ng-init="navCollapsedone = true" ng-click="navCollapsedone = !navCollapsedone"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+            
              </tr>
 
           
-        
-        <tr >
-            <td colspan="9"  class="hiddenRow"><div collapse="navCollapsedone" class="accordian-body collapse">
-
- <table class="table">
-  <tr> <th> test: test </th> <th> test: test </th> <th> test: test </th></tr>
-  <tr> <td> test: test </td> <td> test: test </td> <td> test: test </td></tr>
-  <tr> <td> test: test </td> <td> test: test </td> <td> test: test </td></tr> 
- </table>
-
-</div></td>
-        </tr>
+       
    
-                <tr class="emptyline" ng-repeat-end> </tr>
-
+             
              
            </table>
        </div>

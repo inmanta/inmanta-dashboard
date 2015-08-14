@@ -1,6 +1,13 @@
-<div> {{active.name}} </div>
+<div class="row" style="overflow:hidden">
 
-<div id="chart" style="overflow-x:scroll"></div>
+<ol class="breadcrumb">
+            <li><a ui-sref="portal">Home</a></li>
+            <li>Environment:<a ui-sref="envs({env:state.env})"> {{state.env}}</a></li>
+            <li> Version: <a ui-sref="resources({env:state.env,version:state.version})"> {{state.version}}</a></li>
+	    <li class="active"> graph </li> 
+</ol>
+
+<div id="chart" style="overflow:hidden" ></div>
 
 
-
+</div>
