@@ -61,7 +61,7 @@ portalview.controller('portalController', ['$scope', 'imperaService','dialogs', 
 
 
   $scope.deleteEnv = function(envID){
-	var dlg = dialogs.confirm("Confirm delete","do you really want to delete the environment " + 		envID);
+	var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the environment " + 		envID);
 	dlg.result.then(function(btn){
 		imperaService.removeEnvironment(envID).then( loadEnvs);
 	});        
