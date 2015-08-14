@@ -34,14 +34,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><img alt="Impera" src="img/impera.png"  height="24"></a>
+          <a class="navbar-brand" ui-sref="portal"><img alt="Impera" src="img/impera.png"  height="24"></a>
         </div>
         <div id="navbar" class="navbar-collapse bs-js-navbar-collapse" collapse="navCollapsed">
           <ul class="nav navbar-nav" >
-            <li ui-sref-active="active"><a ui-sref="portal">Home</a></li>
-            <li ui-sref-active="active"><a ui-sref="portals">My applications</a></li>
-            <li ui-sref-active="active"><a ui-sref="portalx">My platforms</a></li>
-            <li ui-sref-active="active"><a ui-sref="portald">My reports</a></li>
+ 
+            <li ui-sref-active="active"><a ui-sref="portal">My Environments</a></li>
            
           </ul>
          
@@ -59,11 +57,9 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-        <div class="container-fluid" id="sidebar" ui-view="side" >
-    
-     </div>
-     <div class="col-md-10 main col-md-offset-2 " ui-view="body" >
-        </div>
+       <div class="col-md-2" id="sidebar" ui-view="side" > </div>
+     <div class="col-md-10 main  " ui-view="body" > </div>
+     
     </div>
 
    
@@ -75,6 +71,8 @@
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/ng-table/dist/ng-table.js"></script>
+  <script src="bower_components/angular-dialog-service/dist/dialogs.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="app.js"></script>
  
   <script src="components/config.js"></script>

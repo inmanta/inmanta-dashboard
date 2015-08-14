@@ -13,6 +13,7 @@ body { padding-top: 50px; }
     border-right: 1px solid #eee;
     background: #fafafa;
     position: fixed;
+    padding: 0;
 }
 
 
