@@ -59,7 +59,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                         return -700;
                     })
                     .linkDistance(function(d) {
-                        return d.toHost ? linkDistance * (d.target.depth - 2) : linkDistance;
+                        var bd = Math.abs(linkDistance * (d.target.depth - d.source.depth))
+                        return d.toHost ? bd*1.5 : bd;
                     })
                     .size([width, height]);
 
@@ -175,8 +176,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                         })
                     neg.on("click", click)
                         .call(force.drag);
-
-
+                    neg.on("mousedown", function(d) { //drag has priority on zoom
+                                                       d3.event.stopPropagation();});
 
                     neg.append("text")
                         .attr("dx", function(d) {

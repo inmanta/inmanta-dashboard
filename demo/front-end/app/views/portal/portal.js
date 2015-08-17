@@ -27,6 +27,7 @@ portalview.controller('portalController', ['$scope', 'imperaService','dialogs', 
   $scope.envs = null;
   $scope.lines = [];
   var projectIndex = {};
+  var envIndex = {};
 
   function fill(){
     var lines = $scope.envs.map(function(line){
@@ -51,6 +52,8 @@ portalview.controller('portalController', ['$scope', 'imperaService','dialogs', 
   function loadEnvs(){
    imperaService.getEnvironments().then(function(data) {
     $scope.envs = data ;
+    envIndex={};
+    angular.forEach(data,function(d) {this[d.id]= d;},envIndex);
     if($scope.projects != null){
         fill();
     }
@@ -61,7 +64,7 @@ portalview.controller('portalController', ['$scope', 'imperaService','dialogs', 
 
 
   $scope.deleteEnv = function(envID){
-	var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the environment " + 		envID);
+	var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the environment " + envIndex[envID].name);
 	dlg.result.then(function(btn){
 		imperaService.removeEnvironment(envID).then( loadEnvs);
 	});        
