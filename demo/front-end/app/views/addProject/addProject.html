@@ -1,0 +1,16 @@
+<h2>Create a new Project</h2>
+
+
+<form name="userForm" class="form-horizontal" ng-submit="addProject(name)" novalidate>
+ <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }"">
+    <label for="inputName" class="col-sm-2 control-label" >Name</label>
+    <div class="col-sm-4">
+      <input type="text" name="name" ng-model="name" class="form-control" id="inputName" required ></input> 
+    </div>
+ </div>
+ <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Create</button>
+</form>
+
+
+
+

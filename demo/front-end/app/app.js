@@ -9,6 +9,7 @@ angular.module('ImperaApp', [
   'ImperaApp.resourceView',
   'ImperaApp.envView',
   'ImperaApp.addEnv',
+  'ImperaApp.addProject',
   'ImperaApp.graphView',
   'imperaApi.config'
 ]).config(function($urlRouterProvider) {

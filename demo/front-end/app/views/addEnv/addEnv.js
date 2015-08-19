@@ -24,13 +24,16 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state', functi
  
     $scope.name = null;
 
-    $scope.tags = [ {name:"test"} ,{name:"foef"}]
+    $scope.tags = [ {name:"test"} ]
+    $scope.selectedTag = $scope.tags[0]
+
+
     $scope.ready = function(){
         return $scope.selectedProject;
     }
     imperaService.getProjects().then(function(data) {
         $scope.projects = data;
-        
+       
     });
 
     $scope.addEnv = function(project,name,repo,tag){
