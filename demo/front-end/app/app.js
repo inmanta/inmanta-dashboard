@@ -9,7 +9,10 @@ angular.module('ImperaApp', [
   'ImperaApp.resourceView',
   'ImperaApp.envView',
   'ImperaApp.addEnv',
-  'ImperaApp.graphView'
+  'ImperaApp.graphView',
+  'imperaApi.config'
 ]).config(function($urlRouterProvider) {
   $urlRouterProvider.otherwise("/portal");   
-})
+}).controller("configCtrl",["$scope","imperaConfig",function($scope,imperaConfig){
+  $scope.config=imperaConfig
+}])
