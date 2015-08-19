@@ -76,6 +76,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                function zoom() {
 		  vis.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + 			")");
 	        }
+        zoom.translate([0,-(height-window.innerHeight)*0.5])
+        zoom.event(d3.select("#chart"))
 
                 imperaService.getResources($stateParams.env, $stateParams.version).then(function(json) {
                     var idcounter = 0;
@@ -235,7 +237,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                                 if (d.parent) {
                                     pl = d.parent.x;
                                 }
-                                pl = pl + d.depth * levelspacing + r;
+                                pl = pl + levelspacing + r;
 
                                 //distance away
                                 var delta = pl - d.x;
@@ -354,8 +356,15 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     for (var i = level_widths.length; --i > 0;) {
                         max_width = Math.max(max_width, level_widths[i]);
                     }
+                    
                     var ky = (height - 20) / max_width;
+
+                  
+
                     var kx = (width - 20) / max_depth;
+
+                   
+
                     for (i = nodes.length; --i >= 0;) {
                         var node = nodes[i];
                         if (!node.px) {
