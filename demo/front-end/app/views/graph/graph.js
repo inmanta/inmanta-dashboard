@@ -233,11 +233,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                             // #1.0: hierarchy: same level nodes have to remain with a 1 LY band vertically:
                             if (d.children) {
                                 //itended X position
-                                var pl = 0;
-                                if (d.parent) {
-                                    pl = d.parent.x;
-                                }
-                                pl = pl + levelspacing + r;
+                                var pl =  d.depth * levelspacing + r;
 
                                 //distance away
                                 var delta = pl - d.x;
