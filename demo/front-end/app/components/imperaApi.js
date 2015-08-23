@@ -21,25 +21,28 @@ imperApi.service('imperaService',
 	function Nodeservice($http,imperaConfig) {
 		var impAPI = {};
 		var impURL = imperaConfig.backend;
+		var envCache ={}
 
 		impAPI.getProjects = function() {
 			return $http.get(impURL + 'project').then(function(data){ return data.data;});
 		};
-
-        impAPI.addProject = function(name) {
+	
+        	impAPI.addProject = function(name) {
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
-        impAPI.addEnvironment = function(projectid, name) {
+        	impAPI.addEnvironment = function(projectid, name) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name}).then(function(data){ return data.data;});
 		};
 
-        impAPI.removeEnvironment = function(envid) {
+        	impAPI.removeEnvironment = function(envid) {
 			return $http.delete(impURL + 'environment/'+envid);
 		};
 		
 		impAPI.getEnvironments = function() {
-			return $http.get(impURL + 'environment').then(function(data){ return data.data;});
+			return $http.get(impURL + 'environment').then(function(data){ 
+				data.data.forEach(function(d){envCache[d.id]=d})
+				return data.data;});
 		};
 
 		
@@ -50,13 +53,14 @@ imperApi.service('imperaService',
                     return data.data;});
 		};
 
-        impAPI.getResources = function(env,cmversion) {
+	    impAPI.getResources = function(env,cmversion) {
 			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     return data.data.resources
                 });
 		};
 
+		
 
 		return impAPI;
 });
