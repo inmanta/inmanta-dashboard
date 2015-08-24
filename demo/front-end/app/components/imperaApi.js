@@ -18,7 +18,7 @@ function formateVersion(d){
 }
 
 imperApi.service('imperaService',
-	function Nodeservice($http,imperaConfig) {
+	function Nodeservice($http,imperaConfig,$q) {
 		var impAPI = {};
 		var impURL = imperaConfig.backend;
 		var envCache ={}
@@ -27,15 +27,15 @@ imperApi.service('imperaService',
 			return $http.get(impURL + 'project').then(function(data){ return data.data;});
 		};
 	
-        	impAPI.addProject = function(name) {
+        impAPI.addProject = function(name) {
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
-        	impAPI.addEnvironment = function(projectid, name) {
+        impAPI.addEnvironment = function(projectid, name) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name}).then(function(data){ return data.data;});
 		};
 
-        	impAPI.removeEnvironment = function(envid) {
+        impAPI.removeEnvironment = function(envid) {
 			return $http.delete(impURL + 'environment/'+envid);
 		};
 		
@@ -49,12 +49,29 @@ imperApi.service('imperaService',
             if( envCache[id]){
                 var out = $q.defer()
                 out.resolve(envCache[id])
-                return out
+                return out.promise
             }else{
                 return $http.get(impURL + 'environment/'+id).then(function(data){ 
     				envCache[data.data.id]=data.data
 	    			return data.data;});
             }            
+        }
+
+        impAPI.getAgents = function(){
+            return $http.get(impURL + 'agent').then(function(data){ 
+                var out = []
+                data.data.forEach( function(machine){
+                    machine.agents.forEach( function(agent){
+                       out.push({
+                        "name":agent.name,
+                        "environment":agent.environment,
+                        "last_seen":formatDate(machine.last_seen),
+                        "hostname":machine.hostname
+                        });
+                    });
+				});
+                return out
+            });
         }
 		
 		impAPI.getVersions = function(env) {

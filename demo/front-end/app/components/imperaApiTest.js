@@ -205,5 +205,46 @@ $httpBackend.expectGET('http://192.168.104.111:8888/cmversion/1435695748',{"X-Im
     ]);
  });
 
+ it('should parse agents', function() {
+$httpBackend.expectGET('http://192.168.104.111:8888/agent').
+        respond([{
+    "agents": [{
+        "role": "agent",
+        "environment": "6dd3ed28-4a72-49b4-ae7f-6411bb0eec5e",
+        "name": "dnetcloud"
+    }],
+    "last_seen": "2015-08-24T11:10:31.156000",
+    "hostname": "impera-server"
+}, {
+    "agents": [],
+    "last_seen": "2015-08-19T20:12:26.179000",
+    "hostname": "tripel"
+}, {
+    "agents": [{
+        "role": "agent",
+        "environment": "6dd3ed28-4a72-49b4-ae7f-6411bb0eec5e",
+        "name": "app1"
+    }],
+    "last_seen": "2015-08-24T11:10:31.131000",
+    "hostname": "app1"
+}]);
+
+  var result;
+  imperaApi.getAgents().then(function(returnFromPromise) {
+    result = returnFromPromise;
+  });
+  $httpBackend.flush();
+  expect(result).toEqual([
+    {'name':"dnetcloud",
+     "environment": "6dd3ed28-4a72-49b4-ae7f-6411bb0eec5e",
+     "last_seen": new Date("2015-08-24T11:10:31.156000"),
+     "hostname": "impera-server"
+    },{"name": "app1",
+     "environment": "6dd3ed28-4a72-49b4-ae7f-6411bb0eec5e",
+      "last_seen": new Date("2015-08-24T11:10:31.131000"),
+      "hostname": "app1"
+    }
+ ]);
+ });
  
 });

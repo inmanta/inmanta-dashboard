@@ -7,6 +7,11 @@ module.exports = function(config){
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'app/bower_components/ng-table/dist/ng-table.js',
+      'app/bower_components/angular-dialog-service/dist/dialogs.js',
+      'app/bower_components/d3/d3.js',
+      'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/components/**/*.js',
       'app/views/**/*.js'
     ],
