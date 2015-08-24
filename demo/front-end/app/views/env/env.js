@@ -69,5 +69,5 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams","ngT
         }
     });
  $scope.resources = null
-  
+ imperaService.getEnvironment($stateParams.env).then(function(d){$scope.env=d});
 }]);

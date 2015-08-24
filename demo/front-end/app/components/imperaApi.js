@@ -45,6 +45,17 @@ imperApi.service('imperaService',
 				return data.data;});
 		};
 
+        impAPI.getEnvironment = function(id){
+            if( envCache[id]){
+                var out = $q.defer()
+                out.resolve(envCache[id])
+                return out
+            }else{
+                return $http.get(impURL + 'environment/'+id).then(function(data){ 
+    				envCache[data.data.id]=data.data
+	    			return data.data;});
+            }            
+        }
 		
 		impAPI.getVersions = function(env) {
 			return $http.get(impURL + 'cmversion',{headers:{"X-Impera-tid":env}}).then( 

@@ -1,38 +1,37 @@
- 
-       <div class="row">
-           <table class="table table-lined">  
-            <tr> <th>Env</th> <th>Project</th>  <th>State</th> <th>Remove</th> <th></th></tr>
-           
-   <tr class="emptyline" ng-repeat-start="line in lines"> </tr>
-
-	 <tr  > 
-             <td><a ui-sref="envs({env:line.id})">{{line.name}}</a></td> 
-             <td>{{line.projectname}}</td> 
-           
-             <td>Active</td>
-          
-           
-             <td><button class="btn btn-default btn-xs" ng-click="deleteEnv(line.id)">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
-             </button> </td>
-            
-			<td><button class="btn btn-default btn-xs" ng-init="navCollapsedone = true" ng-click="navCollapsedone = !navCollapsedone"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-             </tr>
-
-            <tr ng-repeat-end>
-            <td colspan="9"  class="hiddenRow"><div collapse="navCollapsedone" class="accordian-body collapse">
-
- 		<table class="table" ng-repeat-end>
- 	 <tr> <td> repo: {{line.repo_url}} </td> <td> branch: {{line.repo_branch}} </td></tr>
- 		</table>
-
-</div></td>
+<div class="row">
+    <table class="table table-lined">
+        <tr>
+            <th>Env</th>
+            <th>Project</th>
+            <th>State</th>
+            <th>Remove</th>
+            <th></th>
         </tr>
-       
-   
-             
-             
-           </table>
-       </div>
-
-
+        <tr class="emptyline" ng-repeat-start="line in lines"> </tr>
+        <tr>
+            <td><a ui-sref="envs({env:line.id})">{{line.name}}</a></td>
+            <td>{{line.projectname}}</td>
+            <td>Active</td>
+            <td>
+                <button class="btn btn-default btn-xs" ng-click="deleteEnv(line.id)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-default btn-xs" ng-init="navCollapsedone = true" ng-click="navCollapsedone = !navCollapsedone">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </button>
+            </td>
+        </tr>
+        <tr  ng-repeat-end>
+            <td colspan="5" class="hiddenRow">
+                <div collapse="navCollapsedone" class="accordian-body collapse detail">
+                    <p><strong>repo:</strong> {{line.repo_url}} </p>
+                    <p><strong> branch:</strong> {{line.repo_branch}} </p>
+                       
+                  
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
