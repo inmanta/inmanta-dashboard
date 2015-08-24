@@ -49,18 +49,19 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     link,
                     root;
 
-                var maxFreedom = 500;
+                var maxFreedom = 400;
                 var levelspacing = 300;
-                var linkDistance = 200
+                var linkDistance = 280;
+		var cutoff = 0.08
 
                 var force = d3.layout.force()
                     .on("tick", tick)
                     .charge(function(d) {
-                        return -700;
+                        return -600;
                     })
                     .linkDistance(function(d) {
                         var bd = Math.abs(linkDistance * (d.target.depth - d.source.depth))
-                        return d.toHost ? bd*1.5 : bd;
+                        return bd;
                     })
                     .size([width, height]);
 
@@ -222,8 +223,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     // max distance away from line
                     // alpha always > 0.005 
                     // compensate to get lines
-                    var freedom = Math.max((e.alpha - 0.006) * maxFreedom, 0);
-
+                    var freedom = Math.max((e.alpha - cutoff) * maxFreedom, 0);
+		    console.log(e.alpha,freedom)
                     force.nodes().forEach(function(d) {
 
                         if (!d.fixed) {
@@ -272,8 +273,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                 // Assign one parent to each node
                 // Also assign each node a reasonable starting x/y position: we can do better than random placement since we're force-layout-ing a hierarchy!
                 function flatten(nodes, links) {
-                    var level_widths = [1],
-                        max_width, max_depth = 1;
+                    var 
+                        max_width=0, max_depth = 1;
 
                     //get depth of node  (longest chain of parents)
                     function getDepth(node) {
@@ -286,7 +287,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                         return order;
                     }
 
-                    //get deptweight of node  (recursive total nr of children)
+                    //get weight of node  (recursive total nr of children)
                     function getWeight(node) {
                         if (node.weight) {
                             return node.weight;
@@ -301,10 +302,6 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     nodes.forEach(getDepth);
                     nodes.forEach(getWeight);
 
-                    //sort by weight, so the most important nodes are placed first (to the top) in the inital layout
-                    nodes.sort(function(a, b) {
-                        return b.weight - a.weight;
-                    });
 
                     //create root node, above all depth 0 nodes
                     root = {
@@ -327,20 +324,23 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     //determine initial placement in grid
 
                     function recurse(node, x) {
+			max_width = Math.max(max_width, x);
                         if (node.children) {
-                            var w = level_widths[node.depth + 1] || 0;
-                            level_widths[node.depth + 1] = w + node.children.length;
+//sort by weight, so the most important nodes are placed first (to the top) in the inital layout
+			    node.children.sort(function(a, b) {
+                        	return b.weight - a.weight;
+                    	    });
                             max_depth = Math.max(max_depth, node.depth + 1);
                             node.size = node.children.reduce(function(p, v, i) {
-                                return p + recurse(v, w + i);
-                            }, 0);
+                                return p + recurse(v, x + p);
+                            }, 1);
                         }
 
 
 
                         if (!node.x) {
                             node.x = node.depth;
-                            node.y = x;
+                            node.y = x + node.size/2;
                         }
                         return node.size;
                     }
@@ -348,10 +348,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     root.size = recurse(root, 0);
 
                     // now correct/balance the x positions:
-                    max_width = 1;
-                    for (var i = level_widths.length; --i > 0;) {
-                        max_width = Math.max(max_width, level_widths[i]);
-                    }
+                  
                     
                     var ky = (height - 20) / max_width;
 
@@ -360,7 +357,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     var kx = (width - 20) / max_depth;
 
                    
-
+		    var i
                     for (i = nodes.length; --i >= 0;) {
                         var node = nodes[i];
                         if (!node.px) {
