@@ -26,9 +26,11 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams","ngT
  
  $scope.state = $stateParams
  
+ var mostseen = 0;
+
  $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
-        count: 1000,          // count per page
+        count: 10,          // count per page
         sorting: {
             'id_fields.entity_type': 'asc'   // initial sorting
         }
@@ -50,9 +52,10 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams","ngT
                   filters[father] = {};
                   filters[father][son] = value;
               });
-              imperaService.getVersions($stateParams.env).then(function(data) {
+              imperaService.getVersionsPaged($stateParams.env,(params.page() - 1) * params.count(),params.count()).then(function(data) {
                     $scope.alldata = {}
                     
+		    var len = data.length
                     var orderedData = params.filter() ?
                         $filter('filter')(data,filters) :
                         data;
@@ -61,8 +64,16 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams","ngT
                     orderedData = params.sorting() ?
                         $filter('orderBy')(orderedData, params.orderBy()) :
                         orderedData;
-                    params.total(orderedData.length);
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+		    var total = (params.page() + 1) * params.count();
+
+		    if(len<params.count()){
+			  total = (params.page()-1) * params.count()+len;
+			  mostseen = total
+		    }else{
+				total= Math.max(total,mostseen)
+		    }
+                    params.total(total);
+                    $defer.resolve(orderedData);
                     
             }); 
            

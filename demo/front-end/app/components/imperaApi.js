@@ -80,6 +80,15 @@ imperApi.service('imperaService',
                     data.data.forEach(formateVersion)
                     return data.data;});
 		};
+	
+		impAPI.getVersionsPaged = function(env,from,count) {
+			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Impera-tid":env}})
+				.then( 
+                function(data){
+                    data.data.forEach(formateVersion)
+                    return data.data;});
+		};
+
 
 	    impAPI.getResources = function(env,cmversion) {
 			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}}).then( 
