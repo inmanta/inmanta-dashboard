@@ -126,3 +126,43 @@ imperApi.service('imperaService',
 
 
 
+imperApi.directive("deployProgress",  function() {
+  var typesSeq = ['DONE', 'WAITING', 'ERROR']
+        var types = {
+            'DONE': 'success',
+            'WAITING': 'info',
+            'ERROR': 'danger'
+        }
+
+        var processProgress = function(prog) {
+            var bars = []
+            var total = prog["TOTAL"]
+            var progress = {
+                'total': total,
+                'bars': bars
+            }
+            typesSeq.forEach(function(key) {
+                bars.push({
+                    "name": key,
+                    "value": prog[key] * 100 / total,
+                    "label": prog[key],
+                    "type": types[key]
+                })
+            })
+            return progress
+        }
+
+  return {
+    restrict: 'E',
+    templateUrl: 'components/deployProgress.html',
+    scope: {
+      datain: '=data',
+      name: '=name'
+    }, 
+    link: function(scope, element, attrs){
+        scope.$watch('datain',function(newValue, oldValue) {if(newValue) {scope.data = processProgress(newValue)} })
+        
+    }
+  };
+})
+
