@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.graphView', ['ui.router', 'imperaApi'])
+var resv = angular.module('ImperaApp.graphView', ['ui.router', 'imperaApi','dialogs.main','ImperaApp.resourceDetail'])
 
 resv.config(function($stateProvider) {
     $stateProvider
@@ -38,8 +38,8 @@ function getIconCode(type) {
     return "?";
 }
 
-resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
-            function($scope, imperaService, $stateParams) {
+resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","dialogs",
+            function($scope, imperaService, $stateParams,dialogs) {
 		
                 $scope.state = $stateParams
                 var diagonal = d3.svg.diagonal()
@@ -92,13 +92,14 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     json.forEach(function(n) {
                         var node = {
                             name: n.id,
-                            req: n.requires,
+                            req: n.fields.requires,
                             parents: [],
                             children: [],
                             id: idcounter++,
                             sname: n.id_fields.attribute_value.substring(0, 25),
                             icon: getIconCode(n.id_fields.entity_type),
-                            agent: n.id_fields.agent_name
+                            agent: n.id_fields.agent_name,
+                            source: n
                         }
                         nodes.push(node)
                         idx[n.id] = node
@@ -224,7 +225,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
                     // alpha always > 0.005 
                     // compensate to get lines
                     var freedom = Math.max((e.alpha - cutoff) * maxFreedom, 0);
-		    console.log(e.alpha,freedom)
+		    //console.log(e.alpha,freedom)
                     force.nodes().forEach(function(d) {
 
                         if (!d.fixed) {
@@ -266,8 +267,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams",
 
                 // Toggle children on click.
                 function click(d) {
-                    $scope.active = d
-                     $scope.$apply();
+                    if (d3.event.defaultPrevented) return;
+                    dialogs.create('views/resourceDetail/resourceDetail.html','resourceDetailCtrl',{resource: d.source},{})
                 }
 
                 // Assign one parent to each node

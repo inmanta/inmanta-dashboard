@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.resourceView', ['ui.router','imperaApi','ngTable'])
+var resv = angular.module('ImperaApp.resourceView', ['ui.router','imperaApi','ngTable','dialogs.main','ImperaApp.resourceDetail'])
 
 resv.config(function($stateProvider) {
  $stateProvider
@@ -22,7 +22,7 @@ resv.config(function($stateProvider) {
     })
 });
 
-resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams","ngTableParams","$filter",function($scope, imperaService,$stateParams,ngTableParams, $filter) {
+resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams","ngTableParams","$filter","dialogs",function($scope, imperaService,$stateParams,ngTableParams, $filter, dialogs) {
  $scope.state = $stateParams
  $scope.toHighlight = null
  $scope.highlight = function(name){
@@ -79,7 +79,7 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
  
  $scope.deporderInt =  function(id){
         if($scope.alldata[id].deporderv == null){
-            var order = Math.max.apply(null,$scope.alldata[id].requires.map($scope.deporderInt));
+            var order = Math.max.apply(null,$scope.alldata[id].fields.requires.map($scope.deporderInt));
             order = Math.max(order,0)+1;
             $scope.alldata[id].deporderv = order;
             return order;
@@ -91,6 +91,11 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
         var out = $scope.deporderInt(item.id);
         item.deporder = out;
         return out;
+ }
+
+ $scope.details = function(item){
+    dialogs.create('views/resourceDetail/resourceDetail.html','resourceDetailCtrl',{resource: item},{})
+    
  }
   
 }]);

@@ -1,0 +1,17 @@
+<div class="modal-header dialog-header-confirm">
+    <button type="button" class="close" ng-click="no()">&times;</button>
+    <h4 class="modal-title"><span class="{{icon}}"></span> {{header}}</h4></div>
+<div class="modal-body">
+    <div><strong> ID: </strong> {{data.id}} </div>
+    <div><strong> State: </strong> {{data.state}} </div>
+    <div ng-repeat="detail in keys">
+        
+        <strong> {{detail}}: </strong> {{data.fields[detail]}}
+    </div
+
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+</div>
