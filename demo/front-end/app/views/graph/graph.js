@@ -89,7 +89,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","d
                     var links = [];
 
                     //make nodes and node index
-                    json.forEach(function(n) {
+                    json.resources.forEach(function(n) {
                         var node = {
                             name: n.id,
                             req: n.fields.requires,

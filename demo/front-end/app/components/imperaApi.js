@@ -97,7 +97,7 @@ imperApi.service('imperaService',
 	    impAPI.getResources = function(env,cmversion) {
 			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
-                    return data.data.resources
+                    return data.data
                 });
 		};
 

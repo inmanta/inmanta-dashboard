@@ -22,7 +22,10 @@ resv.config(function($stateProvider) {
     })
 });
 
+
+
 resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams","ngTableParams","$filter","dialogs",function($scope, imperaService,$stateParams,ngTableParams, $filter, dialogs) {
+ var types = { 'DONE':'success', 'WAITING':'info','ERROR':'danger'}
  $scope.state = $stateParams
  $scope.toHighlight = null
  $scope.highlight = function(name){
@@ -55,7 +58,18 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
                   filters[father] = {};
                   filters[father][son] = value;
               });
-            imperaService.getResources($stateParams.env,$stateParams.version).then(function(data) {
+            imperaService.getResources($stateParams.env,$stateParams.version).then(function(info) {
+                    
+
+                    $scope.progress = []
+                    $scope.total = info.progress["TOTAL"]
+                    Object.keys(info.progress).forEach(function (key) {
+                            if(key != "TOTAL"){
+                                $scope.progress.push({"name":key,"value":info.progress[key]*100/$scope.total, "label":info.progress[key], "type":types[key]})
+                            }
+                        })
+
+                    var data = info.resources
                     $scope.alldata = {}
                     angular.forEach(data,function(item){ $scope.alldata[item.id] = item})
                     angular.forEach(data,function(item){ $scope.deporder(item)})

@@ -9,9 +9,15 @@
 	   <div class="col-md-1">
 		<a ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Graph View</button> </a>
 	   </div>	
-	
-</div>
-<div class="row">
+
+    
+	    <div class="col-md-11">
+           <progress><bar ng-repeat="bar in progress" value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar></progress>
+        </div>
+        <div class="col-md-1">
+            total: {{total}}
+        </div>
+<div class="col-md-12">
            <table class="table table-lined" ng-table="tableParams" show-filter="true">  
             
             <tr ng-repeat="res in $data track by res.id" ng-class="{'bg-info':res.id==toHighlight}" > 
@@ -21,6 +27,8 @@
              <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
              <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
              <td data-title="'deps'" sortable="'deporder'" > <div ng-repeat="d in res.fields.requires"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
+             <td data-title="'State'" sortable="'state'" > {{res.state}} </td>    
+             <td data-title="'Result'" sortable="'result'" > {{res.result}} </td>    
              <td data-title="'Details'"> <button class="btn btn-default" ng-click="details(res)"> Details </button> </td>
             
              </tr>
@@ -28,6 +36,6 @@
              
            </table>
 
-            
+       </div>           
        </div>
 
