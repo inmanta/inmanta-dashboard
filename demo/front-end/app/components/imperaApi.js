@@ -104,10 +104,21 @@ imperApi.service('imperaService',
 		impAPI.getParameters = function(env) {
 			return $http.get(impURL + 'parameter',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
-                    data.data.forEach(formatParameter);
+                    data.data.parameters.forEach(formatParameter);
+                    data.data.now=formatDate(data.data.now)
                     return data.data
                 });
 		};
+
+
+        impAPI.getParameter = function(env,name,resource) {
+			return $http.get(impURL + 'parameter/'+ window.encodeURIComponent(name) + "?resource_id="+window.encodeURIComponent(resource),{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    formatParameter(data.data);
+                    return data.data
+                });
+		};
+
 
 		return impAPI;
 });

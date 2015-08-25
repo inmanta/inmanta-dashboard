@@ -50,9 +50,12 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
                 filters[father] = {};
                 filters[father][son] = value;
             });
-            imperaService.getParameters($stateParams.env).then(function(data) {
-               
-
+            imperaService.getParameters($stateParams.env).then(function(info) {
+                var data = info.parameters
+                $scope.expire = info.expire
+                var timeInMs = Date.now();
+                $scope.servertime = info.now
+                $scope.drift = info.now-timeInMs;
                 var len = data.length
                 var orderedData = params.filter() ?
                     $filter('filter')(data, filters) :
@@ -74,6 +77,21 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
     imperaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
+
+    $scope.getRecord = function(param){
+        return { 'in':param,
+                  'show':false,
+                  'value':''
+                } 
+    }
+
+    $scope.getValue = function(param){
+       imperaService.getParameter($scope.state.env,param.in.name,param.in.resource_id).then(function(d){
+           param.out = d;
+           param.value = d.value;
+           param.show = true
+        })
+    }
 
      $scope.names = function() {
        var def = $q.defer()

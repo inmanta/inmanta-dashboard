@@ -4,18 +4,29 @@
         <li class="active">Environment: {{env.name}}</a>
         </li>
     </ol>
-    <div class="col-md-10 detail">
+    <div class="col-md-5 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
            <p><strong>ID:</strong> {{env.id}} </p>   
+           
     </div>
+    <div class="col-md-5 detail">
+           <p><strong>Expire:</strong> {{expire}} </p>   
+           <p><strong>Server Time:</strong> {{servertime}} </p>   
+           <p><strong>Drift:</strong> {{drift}} </p>   
+    </div>
+    
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="param in $data">
-            <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}">{{param.name}}</td>
+            <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}" >{{param.name}}</td>
             <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
             <td data-title="'Updated'" sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'M/d/yy H:mm'}}</td>
-            <td data-title="'Source'" sortable="'source'" filter="{ 'source':'select'}" filter-data="names()" >{{param.source}}</td>
+            <td data-title="'Source'" sortable="'source'" filter="{ 'source':'select'}" filter-data="names()"> {{param.source}}</td>
+            <td data-title="'Value'"  ng-init="controlrecord=getRecord(param)">
+                <button ng-hide="controlrecord.show" class="btn-default btn" ng-click="getValue(controlrecord)"> Show </button>
+                <div ng-hide="!controlrecord.show"> {{controlrecord.value}} </div>
+            </td>
         </tr>
     </table>
     </div>

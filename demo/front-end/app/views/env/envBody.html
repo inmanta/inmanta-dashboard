@@ -4,11 +4,14 @@
         <li class="active">Environment: {{env.name}}</a>
         </li>
     </ol>
-    <div class="col-md-10 detail">
+    <div class="col-md-9 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
            <p><strong>ID:</strong> {{env.id}} </p>   
     </div>
+    <div class="col-md-1">
+		<a ui-sref="params({env:state.env})"><button type="button" class="btn btn-primary" >Parameters View</button> </a>
+	</div>	
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="env in $data">
