@@ -56,6 +56,12 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
                 var timeInMs = Date.now();
                 $scope.servertime = info.now
                 $scope.drift = info.now-timeInMs;
+                
+                data.forEach( function(d){
+                    d.expired = d.updated.getTime()+($scope.expire*1000)<$scope.servertime.getTime()
+                  
+                })
+                
                 var len = data.length
                 var orderedData = params.filter() ?
                     $filter('filter')(data, filters) :
@@ -105,6 +111,23 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
             },{
                 'id':  "plugin",
                 'title': "plugin"
+            }]
+                  
+
+            
+       def.resolve(names);
+       return def;
+        };
+
+      $scope.tf = function() {
+       var def = $q.defer()
+       var names = [
+            {
+                'id':  "true",
+                'title': "expired"
+            },{
+                'id':  "false",
+                'title': "not expired"
             }]
                   
 

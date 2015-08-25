@@ -11,21 +11,22 @@
            
     </div>
     <div class="col-md-5 detail">
-           <p><strong>Expire:</strong> {{expire}} </p>   
-           <p><strong>Server Time:</strong> {{servertime}} </p>   
-           <p><strong>Drift:</strong> {{drift}} </p>   
+           <p><strong>Expire (s):</strong> {{expire}} </p>   
+           <p><strong>Server Time:</strong> {{servertime|date:'M/d/yy H:mm'}} </p>   
+           <p><strong>Drift (ms):</strong> {{drift}} </p>   
     </div>
     
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
-        <tr ng-repeat="param in $data">
+        <tr ng-repeat="param in $data" ng-class="{'warning':param.expired}" >
             <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}" >{{param.name}}</td>
             <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
             <td data-title="'Updated'" sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'M/d/yy H:mm'}}</td>
             <td data-title="'Source'" sortable="'source'" filter="{ 'source':'select'}" filter-data="names()"> {{param.source}}</td>
-            <td data-title="'Value'"  ng-init="controlrecord=getRecord(param)">
-                <button ng-hide="controlrecord.show" class="btn-default btn" ng-click="getValue(controlrecord)"> Show </button>
+            <td data-title="'Value'"  sortable="'expired'" filter="{ 'expired':'select'}" filter-data="tf()" ng-init="controlrecord=getRecord(param)">
+                <button ng-hide="controlrecord.show || param.expired" class="btn-default btn" ng-click="getValue(controlrecord)"> Show </button>
                 <div ng-hide="!controlrecord.show"> {{controlrecord.value}} </div>
+                <div ng-hide="! param.expired"> Expired </div>
             </td>
         </tr>
     </table>
