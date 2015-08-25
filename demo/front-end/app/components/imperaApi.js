@@ -85,7 +85,7 @@ imperApi.service('imperaService',
 			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Impera-tid":env}})
 				.then( 
                 function(data){
-                    data.data.forEach(formateVersion)
+                    data.data.versions.forEach(formateVersion)
                     return data.data;});
 		};
 
@@ -97,7 +97,13 @@ imperApi.service('imperaService',
                 });
 		};
 
-		
+		impAPI.getParameters = function(env) {
+			return $http.get(impURL + 'parameter',{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    data.data.forEach(formatParameter);
+                    return data.data
+                });
+		};
 
 		return impAPI;
 });
