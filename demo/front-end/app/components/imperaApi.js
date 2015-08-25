@@ -13,6 +13,10 @@ function formatDate(d){
     return new Date(d)
 }
 
+function formatParameter(d){
+    d["updated"] = formatDate(d["updated"]); 
+}
+
 function formateVersion(d){
     d["date"] = formatDate(d["date"]); 
 }
