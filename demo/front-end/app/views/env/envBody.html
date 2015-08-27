@@ -11,10 +11,20 @@
     </div>
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
-        <tr ng-repeat="env in $data">
-            <td data-title="'version'" sortable="'version'" filter="{ 'version':'text'}"><a ui-sref="resources({env:env.environment,version:env.version})">{{env.version}}</a></td>
-            <td data-title="'date'" sortable="'date'" filter="{ 'date':'text'}">{{env.date|date:'M/d/yy H:mm'}}</td>
-            <td data-title="'release_status'" sortable="'release_status'" filter="{ 'release_status':'text'}">{{env.release_status}}</td>
+        <tr ng-repeat="resource in $data">
+            <td data-title="'version'" sortable="'version'" filter="{ 'version':'text'}"><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
+            <td data-title="'date'" sortable="'date'" filter="{ 'date':'text'}">{{resource.date|date:'M/d/yy H:mm'}}</td>
+            <td data-title="'dry_run'" sortable="'dry_run'" filter="{ 'dry_run':'text'}">
+                <button class="btn btn-default btn-xs" ng-click="startDryRun(resource.version)">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </button>
+            </td>
+            <td data-title="'deploy'" sortable="'deploy'" filter="{ 'deploy':'text'}">
+                <button class="btn btn-default btn-xs" ng-click="deploy(resource.version)">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </button>
+            </td>
+            <td data-title="'release_status'" sortable="'release_status'" filter="{ 'release_status':'text'}">{{resource.release_status}}</td>
         </tr>
     </table>
     </div>
