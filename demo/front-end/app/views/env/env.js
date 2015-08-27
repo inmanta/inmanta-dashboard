@@ -74,4 +74,11 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams", "ng
     imperaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
+    
+    $scope.startDryRun = function(resVersion) {
+        imperaService.changeReleaseStatus($stateParams.env,resVersion,true,true).then(function(d){$scope.tableParams.reload()});
+    }
+    $scope.deploy = function(resVersion) {
+        imperaService.changeReleaseStatus($stateParams.env,resVersion,false,true).then(function(d){$scope.tableParams.reload()});
+    }
 }]);

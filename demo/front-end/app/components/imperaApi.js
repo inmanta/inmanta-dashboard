@@ -118,6 +118,10 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+		
+		impAPI.changeReleaseStatus = function(env, cmversion, dry_run, push) {
+		    return $http.post(impURL + 'cmversion/'+cmversion,{'dryrun':dry_run,'push':push},{headers:{'X-Impera-tid':env}}).then(function(data){ return data.data;});
+		};
 
 
 		return impAPI;
