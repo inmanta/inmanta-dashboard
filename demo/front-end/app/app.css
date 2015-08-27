@@ -8,6 +8,11 @@
  margin:15px;
 }
 
+.table > tbody > tr > td.row {
+ padding-left:0;
+ padding-right:0;
+}
+
 body { padding-top: 50px;}
 
 /* Sidebar Styles */
@@ -22,6 +27,10 @@ body { padding-top: 50px;}
     z-index: 1000;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.progress.compact {
+    margin: 0;
 }
 
 
