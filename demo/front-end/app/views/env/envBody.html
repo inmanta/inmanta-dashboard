@@ -1,9 +1,13 @@
 <div class="row">
     <ol class="breadcrumb">
         <li><a ui-sref="portal">Home</a></li>
-        <li class="active">Environment: {{env.name}}</a>
-        </li>
+        <li class="active">Environment: {{env.name}}</a></li>
     </ol>
+    <div>
+    <button class="btn btn-default btn-xs" ng-click="deleteEnv(line.id)">
+                    <span class="glyphicon glyphicon-wrench"></span>
+            </button>
+    </div>
     <div class="col-md-9 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
