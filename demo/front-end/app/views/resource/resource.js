@@ -24,8 +24,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter", "dialogs",
-    function($scope, imperaService, $stateParams, ngTableParams, $filter, dialogs) {
+resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter", "dialogs","$q",
+    function($scope, imperaService, $stateParams, ngTableParams, $filter, dialogs,$q) {
         var typesSeq = ['DONE', 'WAITING', 'ERROR']
         var types = {
             'DONE': 'success',
@@ -136,6 +136,47 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
             }, {})
 
         }
+
+       $scope.states = function() {
+       var def = $q.defer()
+       var names = [
+            {
+                'id':  "AVAILABLE",
+                'title': "AVAILABLE"
+            },{
+                'id':  "DRYRUN",
+                'title': "DRYRUN"
+            },{
+                'id':  "DEPLOY",
+                'title': "DEPLOY"
+            }]
+                  
+
+            
+       def.resolve(names);
+       return def;
+        };
+
+      $scope.results = function() {
+       var def = $q.defer()
+       var names = [
+            {
+                'id':  "SUCCESS",
+                'title': "SUCCESS"
+            },{
+                'id':  "ERROR",
+                'title': "ERROR"
+            },{
+                'id':  "WAITING",
+                'title': "WAITING"
+            }]
+                  
+
+            
+       def.resolve(names);
+       return def;
+        };
+
 
     }
 ]);

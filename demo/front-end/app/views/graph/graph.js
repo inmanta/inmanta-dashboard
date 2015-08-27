@@ -31,11 +31,24 @@ var types = {
     "vm::Host": "\ue017"
 }
 
+var colors = {
+    "SUCCESS": "#5cb85c",
+    "ERROR": "#d9534f",
+    "WAITING": "#5bc0de"
+}
+
 function getIconCode(type) {
     var out = types[type]
     if (out)
         return out;
     return "?";
+}
+
+function getColorCode(type) {
+    var out = colors[type]
+    if (out)
+        return out;
+    return "#337ab7";
 }
 
 resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","dialogs",
@@ -99,7 +112,8 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","d
                             sname: n.id_fields.attribute_value.substring(0, 25),
                             icon: getIconCode(n.id_fields.entity_type),
                             agent: n.id_fields.agent_name,
-                            source: n
+                            source: n,
+                            color: getColorCode(n.result)
                         }
                         nodes.push(node)
                         idx[n.id] = node
@@ -202,6 +216,9 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","d
                         .attr('font-size', function(d) {
                             return '1em'
                         })
+                        .attr('fill', function(d) {
+                            return d.color
+                        })
                         .text(function(d) {
                             return d.icon;
                         });
@@ -258,7 +275,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","d
 
                 // Color leaf nodes orange, and packages white or blue.
                 function color(d) {
-                    return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+                    return d.color;
                 }
 
                 function circle_radius(d) {

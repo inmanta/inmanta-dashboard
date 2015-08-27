@@ -81,4 +81,7 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams", "ng
     $scope.deploy = function(resVersion) {
         imperaService.changeReleaseStatus($stateParams.env,resVersion,false,true).then(function(d){$scope.tableParams.reload()});
     }
+
+
+    
 }]);
