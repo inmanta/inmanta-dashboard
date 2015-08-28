@@ -2,7 +2,7 @@
 
 var rscdet = angular.module('ImperaApp.resourceDetail', ['imperaApi','dialogs.main'])
 
-rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',function($scope,$modalInstance,data){
+rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',"dialogs",function($scope,$modalInstance,data,dialogs){
 	//-- Variables -----//
 
 	$scope.header = "Details for " + data.resource.id ;
@@ -20,4 +20,12 @@ rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',functio
 		$modalInstance.close();
 		$scope.$destroy();
 	}; // end close
+
+
+    $scope.open = function() {
+            dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
+                resource: $scope.data
+            }, {})
+
+    }
 }]); // end WaitDialogCtrl

@@ -27,6 +27,8 @@ imperApi.service('imperaService',
 		var impURL = imperaConfig.backend;
 		var envCache ={}
 
+
+//project
 		impAPI.getProjects = function() {
 			return $http.get(impURL + 'project').then(function(data){ return data.data;});
 		};
@@ -35,6 +37,7 @@ imperApi.service('imperaService',
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
+//env
         impAPI.addEnvironment = function(projectid, name) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name}).then(function(data){ return data.data;});
 		};
@@ -61,6 +64,7 @@ imperApi.service('imperaService',
             }            
         }
 
+//agent
         impAPI.getAgents = function(){
             return $http.get(impURL + 'agent').then(function(data){ 
                 var out = []
@@ -78,6 +82,7 @@ imperApi.service('imperaService',
             });
         }
 		
+//resources
 		impAPI.getVersions = function(env) {
 			return $http.get(impURL + 'cmversion',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
@@ -100,7 +105,7 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
-
+//parameters
 		impAPI.getParameters = function(env) {
 			return $http.get(impURL + 'parameter',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
@@ -123,7 +128,13 @@ imperApi.service('imperaService',
 		    return $http.post(impURL + 'cmversion/'+cmversion,{'dryrun':dry_run,'push':push},{headers:{'X-Impera-tid':env}}).then(function(data){ return data.data;});
 		};
 
-
+//files
+        impAPI.getFile = function(id) {
+			return $http.get(impURL + 'file/'+ window.encodeURIComponent(id)).then( 
+                function(data){
+                    return data.data
+                });
+		};
 		return impAPI;
 });
 

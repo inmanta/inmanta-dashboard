@@ -27,7 +27,7 @@
              <td data-title="'State'" sortable="'state'"  filter="{ 'state':'select'}" filter-data="states()"> {{res.state}} </td>    
              <td data-title="'Result'" sortable="'result'" filter="{ 'result':'select'}" filter-data="results()" > {{res.result}} </td>    
              <td data-title="'Details'"> <button class="btn btn-default" ng-click="details(res)"> Details </button> </td>
-            
+             <td data-title="'Open'"> <button ng-if="res.fields.hash" class="btn btn-default" ng-click="open(res)"> Open </button> </td>
              </tr>
 
              

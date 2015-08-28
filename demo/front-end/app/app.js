@@ -5,6 +5,7 @@ angular.module('ImperaApp', [
   'ui.router',
   'ui.bootstrap',
   'ngTable',
+  'hljs',
   'ImperaApp.portalView',
   'ImperaApp.resourceView',
   'ImperaApp.envView',

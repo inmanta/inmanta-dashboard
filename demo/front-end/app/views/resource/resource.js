@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.resourceView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail'])
+var resv = angular.module('ImperaApp.resourceView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail','ImperaApp.fileDetail'])
 
 resv.config(function($stateProvider) {
     $stateProvider
@@ -137,6 +137,12 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
 
         }
 
+        $scope.open = function(item) {
+            dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
+                resource: item
+            }, {})
+
+        }
        $scope.states = function() {
        var def = $q.defer()
        var names = [
