@@ -177,6 +177,12 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
        return def;
         };
 
+      $scope.setsort = function(name){
+        if(name == "DONE"){ name = "SUCCESS"}
+        $scope.tableParams.filter()['result']=name
+      }
 
     }
+
+    
 ]);

@@ -10,8 +10,8 @@
 		<a ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Graph View</button> </a>
 	   </div>	
 </div>
-<deploy-progress data="status.DRYRUN" name="'Dry run'"> </deploy-progress> 
-<deploy-progress data="status.DEPLOY" name="'Deploy'"> </deploy-progress> 
+<deploy-progress data="status.DRYRUN" name="'Dry run'" action="setsort"> </deploy-progress> 
+<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort"> </deploy-progress> 
 <div class="row">
 
 <div class="col-md-12">

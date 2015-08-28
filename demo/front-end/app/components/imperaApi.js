@@ -161,7 +161,8 @@ imperApi.directive("deployProgress",  function() {
     templateUrl: 'components/deployProgress.html',
     scope: {
       datain: '=data',
-      name: '=name'
+      name: '=name',
+      action: '='
     }, 
     link: function(scope, element, attrs){
         scope.$watch('datain',function(newValue, oldValue) {if(newValue) {scope.data = processProgress(newValue)} })

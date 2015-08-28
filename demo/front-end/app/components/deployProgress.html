@@ -3,7 +3,7 @@
            <strong> {{name}}: </strong>
         </div>
 	    <div class="col-md-10">
-           <progress><bar ng-repeat="bar in data.bars" value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar></progress>
+           <progress><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)"  value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar></progress>
         </div>
         <div class="col-md-1">
             total: {{data.total}}
@@ -11,5 +11,5 @@
 </div>
 
 <div ng-if="!name">
-           <progress class="compact"><bar ng-repeat="bar in data.bars" value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar></progress>
+           <progress class="compact"><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)" value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar></progress>
 </div>
