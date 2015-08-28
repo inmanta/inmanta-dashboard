@@ -14,7 +14,8 @@ angular.module('ImperaApp', [
   'ImperaApp.graphView',
   'imperaApi.config',
   'ImperaApp.agentsView',
-  'ImperaApp.prametersView'
+  'ImperaApp.prametersView',
+  'ImperaApp.logsView'
 ]).config(function($urlRouterProvider) {
   $urlRouterProvider.otherwise("/portal");   
 }).controller("configCtrl",["$scope","imperaConfig",function($scope,imperaConfig){

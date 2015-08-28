@@ -6,7 +6,7 @@ rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',"dialog
 	//-- Variables -----//
 
 	$scope.header = "Details for " + data.resource.id ;
-    
+    $scope.env=data.env
    
 
     $scope.keys = Object.keys(data.resource.fields)
@@ -23,9 +23,12 @@ rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',"dialog
 
 
     $scope.open = function() {
+         $modalInstance.close();
             dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
                 resource: $scope.data
             }, {})
+       
+		$scope.$destroy();
 
     }
 }]); // end WaitDialogCtrl

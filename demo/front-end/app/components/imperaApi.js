@@ -135,6 +135,15 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+		
+
+//logs
+       impAPI.getLogForResource = function(env,id) {
+			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true",{headers:{'X-Impera-tid':env}}).then( 
+                function(data){
+                    return data.data
+                });
+		};
 		return impAPI;
 });
 

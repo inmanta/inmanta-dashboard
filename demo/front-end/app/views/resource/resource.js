@@ -139,7 +139,8 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
 
         $scope.open = function(item) {
             dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
-                resource: item
+                resource: item,
+                env:$stateParams.env
             }, {})
 
         }
@@ -187,6 +188,12 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
         if(name == "DONE"){ name = "SUCCESS"}
         $scope.tableParams.filter()['result']=name
       }
+
+
+        $scope.resources = null
+    imperaService.getEnvironment($stateParams.env).then(function(d) {
+        $scope.env = d
+    });
 
     }
 

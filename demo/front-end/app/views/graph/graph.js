@@ -22,6 +22,11 @@ resv.config(function($stateProvider) {
         })
 });
 
+
+
+resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","dialogs",
+            function($scope, imperaService, $stateParams,dialogs) {
+		
 var types = {
     "std::File": "\ue022",
     "std::Package": "\ue139",
@@ -50,10 +55,14 @@ function getColorCode(type) {
         return out;
     return "#337ab7";
 }
+        
 
-resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","dialogs",
-            function($scope, imperaService, $stateParams,dialogs) {
-		
+        $scope.resources = null
+    imperaService.getEnvironment($stateParams.env).then(function(d) {
+        $scope.env = d
+    });
+
+
                 $scope.state = $stateParams
                 var diagonal = d3.svg.diagonal()
                 var width = 2000,
@@ -285,7 +294,7 @@ resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","d
                 // Toggle children on click.
                 function click(d) {
                     if (d3.event.defaultPrevented) return;
-                    dialogs.create('views/resourceDetail/resourceDetail.html','resourceDetailCtrl',{resource: d.source},{})
+                    dialogs.create('views/resourceDetail/resourceDetail.html','resourceDetailCtrl',{resource: d.source,env:$stateParams.env},{})
                 }
 
                 // Assign one parent to each node

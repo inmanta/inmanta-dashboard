@@ -2,9 +2,9 @@
 
 <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
-            <li>Environment:<a ui-sref="envs({env:state.env})"> {{state.env}}</a></li>
+            <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
             <li> Version: <a ui-sref="resources({env:state.env,version:state.version})"> {{state.version}}</a></li>
-	    <li class="active"> graph </li> 
+	    <li class="active"> Graph </li> 
 </ol>
 
 <div id="chart" style="overflow:hidden;cursor: pointer;" ></div>
