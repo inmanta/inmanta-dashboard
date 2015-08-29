@@ -19,23 +19,23 @@
             <td data-title="'date'" sortable="'date'" filter="{ 'date':'text'}">{{resource.date|date:'M/d/yy H:mm'}}</td>
             <td data-title="'dry_run'" class="row">
                
-                <div class="col-md-1">
+                <div class="col-xs-1">
                 <button class="btn btn-default btn-xs" ng-click="startDryRun(resource.version)" >
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
                 </button>
                 </div> 
-              <deploy-progress data="resource.progress.DRYRUN" class="col-md-11"> </deploy-progress>                
+              <deploy-progress data="resource.progress.DRYRUN" class="col-md-10"> </deploy-progress>                
                 
             </td>
             <td data-title="'deploy'" class="row" >
                
-                <div class="col-md-1">
+                <div class="col-xs-1">
                 <button class="btn btn-default btn-xs" ng-click="deploy(resource.version)" >
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
                 </button> 
                 </div> 
                 
-                <deploy-progress data="resource.progress.DEPLOY" class="col-md-11"> </deploy-progress>                               
+                <deploy-progress data="resource.progress.DEPLOY" class="col-xs-10"> </deploy-progress>                               
 
                 
             </td>
