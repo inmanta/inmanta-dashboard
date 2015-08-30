@@ -132,7 +132,8 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
 
         $scope.details = function(item) {
             dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
-                resource: item
+                resource: item,
+                env:$stateParams.env
             }, {})
 
         }
