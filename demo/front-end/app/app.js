@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('ImperaApp', [
+var app = angular.module('ImperaApp', [
   'ui.router',
   'ui.bootstrap',
   'ngTable',
@@ -16,8 +16,51 @@ angular.module('ImperaApp', [
   'ImperaApp.agentsView',
   'ImperaApp.prametersView',
   'ImperaApp.logsView'
-]).config(function($urlRouterProvider) {
+])
+
+app.config(function($urlRouterProvider) {
   $urlRouterProvider.otherwise("/portal");   
-}).controller("configCtrl",["$scope","imperaConfig",function($scope,imperaConfig){
+})
+
+app.controller("configCtrl",["$scope","imperaConfig",function($scope,imperaConfig){
   $scope.config=imperaConfig
 }])
+
+app.service("alertService",function alertService($rootScope){
+	var alerts = [];
+	var alertService = {};
+	
+	alertService.add=function(type,data){
+		alerts.push({type:type,msg:data})
+		$rootScope.$broadcast("alert-update",alerts)
+	}
+
+	return alertService;
+})
+
+app.config(function($httpProvider){
+  $httpProvider.interceptors.push(function($q,alertService) {
+    return {
+      'responseError': function(rejection) {
+        // do something on error
+        alertService.add("danger",rejection.data?rejection.data.message:rejection.statusText)
+        return $q.reject(rejection);
+        }
+    }
+                                   
+  });
+})
+
+app.controller("alertCtrl",["$scope","alertService",function($scope){
+  $scope.$on("alert-update",function(event,args){
+  	$scope.alerts = args;
+  })
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+ 
+}])
+
+
+

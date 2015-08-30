@@ -60,10 +60,13 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-       <div class="col-md-2" id="sidebar" ui-view="side" > </div>
-     <div class="col-md-10 main  " ui-view="body" >
-     </div>
-     
+    <div class="row">
+      	<div class="col-md-2" id="sidebar" ui-view="side" > </div>
+     	<div class="col-md-10 main" ng-controller="alertCtrl" > 
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+		<div ui-view="body"> </div> 
+	</div>
+    </div>
     </div>
 
    
