@@ -22,12 +22,12 @@
             
              <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}"><a ui-sref="logs({env:state.env,id:res.id})">{{res.id_fields.entity_type}}</a></td> 
              <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
-             <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
-             <td data-title="'deps'" sortable="'deporder'" > <div ng-repeat="d in res.fields.requires"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
-             <td data-title="'State'" sortable="'state'"  filter="{ 'state':'select'}" filter-data="states()"> {{res.state}} </td>    
-             <td data-title="'Result'" sortable="'result'" filter="{ 'result':'select'}" filter-data="results()" > {{res.result}} </td>    
-             <td data-title="'Details'"> <button class="btn btn-default" ng-click="details(res)"> Details </button> </td>
-             <td data-title="'Open'"> <button ng-if="res.fields.hash" class="btn btn-default" ng-click="open(res)"> Open </button> </td>
+             <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}" class="col-md-2">{{res.id_fields.attribute_value}}</td> 
+             <td data-title="'deps'" sortable="'deporder'" class="col-md-2" style="max-width: 90px; word-wrap: break-word;"> <div ng-repeat="d in res.fields.requires track by $index"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
+             <td data-title="'State'" sortable="'state'"  filter="{ 'state':'select'}" filter-data="states()" class="col-xs-1 "> {{res.state}} </td>    
+             <td data-title="'Result'" sortable="'result'" filter="{ 'result':'select'}" filter-data="results()" class="col-xs-1 "> {{res.result}} </td>    
+             <td data-title="'Details'"> <button class="btn btn-default" ng-click="details(res)" class="col-xs-1 "> Details </button> </td>
+             <td data-title="'Open'"> <button ng-if="res.fields.hash" class="btn btn-default" ng-click="open(res)" class="col-xs-1 "> Open </button> </td>
              </tr>
 
              

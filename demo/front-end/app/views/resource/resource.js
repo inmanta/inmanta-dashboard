@@ -61,7 +61,7 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
         }
         $scope.tableParams = new ngTableParams({
             page: 1, // show first page
-            count: 1000, // count per page
+            count: 10, // count per page
             sorting: {
                 'id_fields.entity_type': 'asc' // initial sorting
             }
