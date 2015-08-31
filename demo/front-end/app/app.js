@@ -34,7 +34,9 @@ app.service("alertService",function alertService($rootScope){
 		alerts.push({type:type,msg:data})
 		$rootScope.$broadcast("alert-update",alerts)
 	}
-
+    
+   
+    
 	return alertService;
 })
 
@@ -51,11 +53,19 @@ app.config(function($httpProvider){
   });
 })
 
-app.controller("alertCtrl",["$scope","alertService",function($scope){
+app.controller("alertCtrl",["$scope",function($scope){
+  $scope.alerts = []
+
+  $scope.$on("$stateChangeStart",function(event, toState, toParams, fromState, fromParams){
+        $scope.alerts.length = 0
+        
+  })
+
   $scope.$on("alert-update",function(event,args){
   	$scope.alerts = args;
   })
 
+  
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
   };

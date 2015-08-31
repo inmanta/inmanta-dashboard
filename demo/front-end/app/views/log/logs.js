@@ -25,6 +25,7 @@ resv.config(function($stateProvider) {
 resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter","$q", function($scope, imperaService, $stateParams, ngTableParams, $filter, $q) {
     $stateParams.id = window.decodeURIComponent($stateParams.id)
     $scope.state = $stateParams
+    $scope.cmversion= $stateParams.id.substring($stateParams.id.lastIndexOf("=")+1)
 
     $scope.tableParams = new ngTableParams({
         page: 1, // show first page

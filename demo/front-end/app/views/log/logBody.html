@@ -1,9 +1,9 @@
 <div class="row">
     <ol class="breadcrumb">
         <li><a ui-sref="portal">Home</a></li>
-        <li><a ui-sref="envs({env:state.env})"> {{env.name}}</a></a>
-        <li class="active">Resource: {{state.id}}</a>
-        </li>
+        <li><a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
+        <li><a ui-sref="resources({env:state.env,version:cmversion})">{{cmversion}}</a></li>
+        <li class="active"> {{state.id}} </li>
     </ol>
     <div class="col-md-5 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
