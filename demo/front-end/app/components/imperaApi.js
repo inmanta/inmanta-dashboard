@@ -25,19 +25,38 @@ imperApi.service('imperaService',
 	function Nodeservice($http,imperaConfig,$q) {
 		var impAPI = {};
 		var impURL = imperaConfig.backend;
-		var envCache ={}
+		var envCache ={};
+		var projCache = {};
 
 		impAPI.getProjects = function() {
-			return $http.get(impURL + 'project').then(function(data){ return data.data;});
+			return $http.get(impURL + 'project').then(function(data){
+			    data.data.forEach(function(d){projCache[d.id]=d})
+			    return data.data;});
 		};
+	
+	    impAPI.getProject = function(project_id) {
+	        if( projCache[project_id]){
+                var out = $q.defer()
+                out.resolve(projCache[project_id])
+                return out.promise
+            }else{
+                return impAPI.getProjects().then(function(){return projCache[project_id];});
+            } 
+	    }
 	
         impAPI.addProject = function(name) {
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
-        impAPI.addEnvironment = function(projectid, name) {
-			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name}).then(function(data){ return data.data;});
+        impAPI.addEnvironment = function(projectid, name, repo_url, repo_branch) {
+			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data;});
 		};
+		
+		impAPI.editEnvironment = function(env) {
+		    return $http.post(impURL + 'environment/'+env.id,{'id':env.project,'name':env.name,'repository':env.repo_url,'branch':env.repo_branch}).then(function(data){ 
+		        envCache[env.id]=env; 
+		        return data.data;});
+		}
 
         impAPI.removeEnvironment = function(envid) {
 			return $http.delete(impURL + 'environment/'+envid);

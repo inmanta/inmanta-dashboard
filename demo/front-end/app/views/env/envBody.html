@@ -1,21 +1,19 @@
 <div class="row">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb col-md-10">
         <li><a ui-sref="portal">Home</a></li>
         <li class="active">Environment: {{env.name}}</a></li>
     </ol>
-    <div>
-    <button class="btn btn-default btn-xs" ng-click="deleteEnv(line.id)">
-                    <span class="glyphicon glyphicon-wrench"></span>
-            </button>
-    </div>
+    <div class="col-md-2">
+        <a ui-sref="editEnv({env:state.env})"><button type="button" class="btn btn-primary">Edit <span class="glyphicon glyphicon-wrench"></span></button></a>
+		<a ui-sref="params({env:state.env})"><button type="button" class="btn btn-primary" >Parameters View</button></a>
+	</div>
+</div>
+<div class="row">
     <div class="col-md-9 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
            <p><strong>ID:</strong> {{env.id}} </p>   
-    </div>
-    <div class="col-md-1">
-		<a ui-sref="params({env:state.env})"><button type="button" class="btn btn-primary" >Parameters View</button> </a>
-	</div>	
+    </div>	
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="env in $data">
