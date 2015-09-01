@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.logsView', ['ui.router', 'imperaApi', 'ngTable'])
+var resv = angular.module('ImperaApp.logsView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
 
 resv.config(function($stateProvider) {
     $stateProvider
@@ -22,55 +22,26 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter","$q", function($scope, imperaService, $stateParams, ngTableParams, $filter, $q) {
+resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable","$q", function($scope, imperaService, $stateParams, BackhaulTable, $q) {
     $stateParams.id = window.decodeURIComponent($stateParams.id)
     $scope.state = $stateParams
     $scope.cmversion= $stateParams.id.substring($stateParams.id.lastIndexOf("=")+1)
 
-    $scope.tableParams = new ngTableParams({
+    $scope.tableParams = new BackhaulTable($scope,{
         page: 1, // show first page
         count: 10, // count per page
         sorting: {
             'timestamp': 'desc' // initial sorting
         }
-    }, {
-        getData: function($defer, params) {
-            var filters = {};
-            angular.forEach(params.filter(), function(value, key) {
-                var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
-
-                if (!splitedKey) {
-                    filters[key] = value;
-                    return;
-                }
-
-                splitedKey = splitedKey.splice(1);
-
-                var father = splitedKey[0],
-                    son = splitedKey[1];
-                filters[father] = {};
-                filters[father][son] = value;
-            });
-            imperaService.getLogForResource($stateParams.env,$stateParams.id).then(function(info) {
+    },function(prms){
+            return imperaService.getLogForResource($stateParams.env,$stateParams.id).then(function(info) {
                 var data = info.logs
                 $scope.resource = info.resource
                                
-                var len = data.length
-                var orderedData = params.filter() ?
-                    $filter('filter')(data, filters) :
-                    data;
-
-                // use build-in angular filter
-                orderedData = params.sorting() ?
-                    $filter('orderBy')(orderedData, params.orderBy()) :
-                    orderedData;
-                
-                 params.total(orderedData.length);
-                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                return data;
 
             });
 
-        }
     });
    
     imperaService.getEnvironment($stateParams.env).then(function(d) {
