@@ -35,12 +35,16 @@ imperApi.service('imperaService',
 		};
 	
 	    impAPI.getProject = function(project_id) {
-	        if( projCache[project_id]){
+	        if(projCache[project_id]) {
                 var out = $q.defer()
                 out.resolve(projCache[project_id])
                 return out.promise
-            }else{
-                return impAPI.getProjects().then(function(){return projCache[project_id];});
+            } else {
+//                return impAPI.getProjects().then(function(){return projCache[project_id];});
+                return $http.get(impURL + 'project/'+project_id).then(function(data) {
+                        projCache[data.data.id]=data.data
+                        return data.data;
+                });       
             } 
 	    }
 	

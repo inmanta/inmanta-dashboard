@@ -1,6 +1,5 @@
 <h2>Edit environment: {{env.name}}</h2>
-{{selectedProject.id}}
-{{env.id}}
+
 <form name="userForm" class="form-horizontal" ng-submit="editEnv(selectedProject.id,name,repo_url,selectedTag.name)" novalidate>
 
  <div class="form-group" ng-class="{ 'has-error' : userForm.project.$invalid && !userForm.project.$pristine }"">
