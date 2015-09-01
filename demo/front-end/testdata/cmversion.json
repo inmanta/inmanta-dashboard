@@ -1,0 +1,57 @@
+{
+    "model": {
+        "progress": {
+            "DRYRUN": {
+                "DONE": 506,
+                "WAITING": 2,
+                "TOTAL": 508,
+                "ERROR": 0
+            }
+        },
+        "status_result": "WAITING",
+        "environment": "29fc89b9-35f6-4132-a90a-b58825bf8f5f",
+        "date": "2015-08-30T13:28:45.040000",
+        "release_status": "DRYRUN",
+        "version": 1440934124
+    },
+    "progress": {
+        "DONE": 506,
+        "WAITING": 2,
+        "TOTAL": 508,
+        "ERROR": 0
+    },
+    "resources": [{
+        "id": "std::Package[vm1,name=which],v=1435695748",
+        "name": "which",
+        "reload": false,
+        "requires": [],
+        "state": "installed",
+        "version": 1435695748
+    }, {
+        "group": "root",
+        "id": "std::Directory[vm1,path=/etc/my.cnf.d],v=1435695748",
+        "owner": "root",
+        "path": "/etc/my.cnf.d",
+        "permissions": 755,
+        "purged": false,
+        "reload": false,
+        "requires": [],
+        "version": 1435695748
+    }, {
+        "id": "std::Package[vm1,name=httpd],v=1435695748",
+        "name": "httpd",
+        "reload": false,
+        "requires": [],
+        "state": "installed",
+        "version": 1435695748
+    }, {
+        "id": "std::Package[vm1,name=php-drush-drush],v=1435695748",
+        "name": "php-drush-drush",
+        "reload": false,
+        "requires": [
+            "std::Package[vm1,name=which],v=1435695748"
+        ],
+        "state": "installed",
+        "version": 1435695748
+    }]
+}

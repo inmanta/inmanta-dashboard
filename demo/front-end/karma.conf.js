@@ -12,8 +12,10 @@ module.exports = function(config){
       'app/bower_components/angular-dialog-service/dist/dialogs.js',
       'app/bower_components/d3/d3.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
+      'app/bower_components/karma-read-json/karma-read-json.js',
       'app/components/**/*.js',
-      'app/views/**/*.js'
+      'app/views/**/*.js', 
+       {pattern: 'testdata/*.json', included: false}
     ],
 
     autoWatch : true,

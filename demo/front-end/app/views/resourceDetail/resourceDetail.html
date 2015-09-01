@@ -4,7 +4,7 @@
 <div class="modal-body">
     <div><strong> ID: </strong> {{data.id}} </div>
     <div><strong> State: </strong> {{data.state}} </div>
-    <div ng-repeat="detail in keys">
+    <div ng-repeat="detail in keys" class="abrev">
         
         <strong> {{detail}}: </strong> {{data.fields[detail]}}
     </div

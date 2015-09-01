@@ -136,7 +136,12 @@ imperApi.service('imperaService',
                 });
 		};
 		
-
+        impAPI.getDiff = function(h1,h2) {
+			return $http.post(impURL + 'filediff',{a:h1, b:h2}).then( 
+                function(data){
+                    return data.data
+                });
+		};
 //logs
        impAPI.getLogForResource = function(env,id) {
 			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true",{headers:{'X-Impera-tid':env}}).then( 
@@ -144,6 +149,43 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+
+// getReport
+
+function formatAction(action){
+    action["timestamp"] = formatDate(action["timestamp"]); 
+    return action
+}
+function formatReport(res){
+    var out = {
+        type:res["id_fields"]["entity_type"],
+        attr:res["id_fields"]["attribute"],
+        state:res["id_fields"]["attribute_value"],
+        last_result:res["state"],
+        id_fields:res["id_fields"],
+        action:formatAction(res.actions[0])
+        };
+    return out;
+}
+
+       impAPI.getDryRunReport = function(env,cmversion) {
+			return $http.get(impURL + 'cmversion/'+cmversion+'?include_logs=true',{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    var resources = []
+                    data.data.resources.forEach(function(res){
+                        if(res.actions &&  res.actions[0].data && Object.keys(res.actions[0].data)!=0){
+                            
+                            resources.push(formatReport(res))
+                        }
+
+                        
+                    })
+                    return resources;               
+                });
+                
+		};
+
+
 		return impAPI;
 });
 

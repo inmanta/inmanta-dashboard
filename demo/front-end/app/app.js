@@ -6,6 +6,7 @@ var app = angular.module('ImperaApp', [
   'ui.bootstrap',
   'ngTable',
   'hljs',
+  'angularSpinner',
   'ImperaApp.portalView',
   'ImperaApp.resourceView',
   'ImperaApp.envView',
@@ -15,7 +16,8 @@ var app = angular.module('ImperaApp', [
   'imperaApi.config',
   'ImperaApp.agentsView',
   'ImperaApp.prametersView',
-  'ImperaApp.logsView'
+  'ImperaApp.logsView',
+  'ImperaApp.reportView'
 ])
 
 app.config(function($urlRouterProvider) {
