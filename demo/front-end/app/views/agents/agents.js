@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTable'])
+var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTable','impera.services.backhaul'])
 
 resv.config(function($stateProvider) {
  $stateProvider
@@ -22,7 +22,7 @@ resv.config(function($stateProvider) {
     })
 });
 
-resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","ngTableParams","$filter","$q",function($scope, imperaService,$stateParams,ngTableParams, $filter,$q) {
+resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$q","BackhaulTable",function($scope, imperaService,$stateParams,$q,BackhaulTable) {
  
  $scope.state = $stateParams
  
@@ -34,52 +34,25 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","n
  }
  $scope.envs = $q.defer()
 
- $scope.tableParams = new ngTableParams({
+ $scope.tableParams = new BackhaulTable($scope,{
         page: 1,            // show first page
         count: 1000          // count per page
        
-    }, {
-        getData: function($defer, params) {
-              var filters = {};
-              angular.forEach(params.filter(), function(value, key) {
-                  var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
-
-                  if(!splitedKey) {
-                    filters[key] = value;
-                    return;
-                  }
-
-                  splitedKey = splitedKey.splice(1);
-
-                  var father = splitedKey[0],
-                  son = splitedKey[1];
-                  filters[father] = {};
-                  filters[father][son] = value;
-              });
-              imperaService.getAgents().then(function(data) {
+    }, function(params) {
+             return imperaService.getAgents().then(function(data) {
                     $scope.alldata = {}
                     var envs = [];
 
                     (new Set(data.map(function(d){return d.environment})))
                         .forEach(function(item){envs.push(item)})
                     $scope.envs.resolve(envs)                    
-                    var orderedData = params.filter() ?
-                        $filter('filter')(data,filters) :
-                        data;
-
-                    // use build-in angular filter
-                    orderedData = params.sorting() ?
-                        $filter('orderBy')(orderedData, params.orderBy()) :
-                        orderedData;
-                    params.total(orderedData.length);
                     
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    return data;
                     
-            }); 
+            }) 
 
             
            
-        }
     });
  $scope.resources = null
  $scope.names = function() {

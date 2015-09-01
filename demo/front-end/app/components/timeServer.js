@@ -3,11 +3,16 @@ var services = angular.module('impera.services.time',[])
 
 //based on kibana
 
+
+//will cause "refresh" events to be broadcasted to all $scopes
+
 services.service('timeSrv',
 	function($rootScope,$timeout) {
         var timeSrv = {};
         var refresh, refresh_timer;
+        
 
+        //set interval takes a human reable interval (e.g: 1s)
         timeSrv.setInterval = function (interval) {
             interval = timeSrv.interval_to_ms(interval)
             if (interval) {

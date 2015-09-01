@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.resourceView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail','ImperaApp.fileDetail'])
+var resv = angular.module('ImperaApp.resourceView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail','ImperaApp.fileDetail','impera.services.backhaul'])
 
 resv.config(function($stateProvider) {
     $stateProvider
@@ -24,8 +24,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter", "dialogs","$q",
-    function($scope, imperaService, $stateParams, ngTableParams, $filter, dialogs,$q) {
+resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
+    function($scope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
         var typesSeq = ['DONE', 'WAITING', 'ERROR']
         var types = {
             'DONE': 'success',
@@ -59,31 +59,14 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
             } else
                 $scope.toHighlight = name
         }
-        $scope.tableParams = new ngTableParams({
+        $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
             count: 10, // count per page
             sorting: {
                 'id_fields.entity_type': 'asc' // initial sorting
             }
-        }, {
-            getData: function($defer, params) {
-                var filters = {};
-                angular.forEach(params.filter(), function(value, key) {
-                    var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
-
-                    if (!splitedKey) {
-                        filters[key] = value;
-                        return;
-                    }
-
-                    splitedKey = splitedKey.splice(1);
-
-                    var father = splitedKey[0],
-                        son = splitedKey[1];
-                    filters[father] = {};
-                    filters[father][son] = value;
-                });
-                imperaService.getResources($stateParams.env, $stateParams.version).then(function(info) {
+        }, function(params){
+                    return imperaService.getResources($stateParams.env, $stateParams.version).then(function(info) {
 
                     $scope.status = info.model.progress
                     
@@ -96,20 +79,10 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
                     angular.forEach(data, function(item) {
                         $scope.deporder(item)
                     })
-                    var orderedData = params.filter() ?
-                        $filter('filter')(data, filters) :
-                        data;
+                    
+                    return data;
 
-                    // use build-in angular filter
-                    orderedData = params.sorting() ?
-                        $filter('orderBy')(orderedData, params.orderBy()) :
-                        orderedData;
-                    params.total(orderedData.length);
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-
-                });
-
-            }
+                })
         });
         $scope.resources = null
 

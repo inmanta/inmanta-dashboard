@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.envView', ['ui.router', 'imperaApi', 'ngTable'])
+var resv = angular.module('ImperaApp.envView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
 
 resv.config(function($stateProvider) {
     $stateProvider
@@ -22,54 +22,21 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.controller('envController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter", function($scope, imperaService, $stateParams, ngTableParams, $filter) {
+resv.controller('envController', ['$scope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope, imperaService, $stateParams, BackhaulTablePaged) {
 
     $scope.state = $stateParams
+  
 
-    $scope.tableParams = new ngTableParams({
+    $scope.tableParams = BackhaulTablePaged($scope,{
         page: 1, // show first page
         count: 10, // count per page
         sorting: {
             'id_fields.entity_type': 'asc' // initial sorting
         }
-    }, {
-        getData: function($defer, params) {
-            var filters = {};
-            angular.forEach(params.filter(), function(value, key) {
-                var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
-
-                if (!splitedKey) {
-                    filters[key] = value;
-                    return;
-                }
-
-                splitedKey = splitedKey.splice(1);
-
-                var father = splitedKey[0],
-                    son = splitedKey[1];
-                filters[father] = {};
-                filters[father][son] = value;
-            });
-            imperaService.getVersionsPaged($stateParams.env, (params.page() - 1) * params.count(), params.count()).then(function(info) {
-                var data = info.versions
-
-                var len = data.length
-                var orderedData = params.filter() ?
-                    $filter('filter')(data, filters) :
-                    data;
-
-                // use build-in angular filter
-                orderedData = params.sorting() ?
-                    $filter('orderBy')(orderedData, params.orderBy()) :
-                    orderedData;
-                
-                params.total(info.count);
-                $defer.resolve(orderedData);
-
-            });
-
-        }
-    });
+    }, function(start,extent) {
+           return imperaService.getVersionsPaged($stateParams.env, start, extent)
+    }, "versions");
+    
     $scope.resources = null
     imperaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
