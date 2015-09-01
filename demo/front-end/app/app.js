@@ -17,7 +17,8 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.agentsView',
   'ImperaApp.prametersView',
   'ImperaApp.logsView',
-  'ImperaApp.reportView'
+  'ImperaApp.reportView',
+  'ImperaApp.controllers.refresh'
 ])
 
 app.config(function($urlRouterProvider) {

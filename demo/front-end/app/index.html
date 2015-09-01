@@ -47,14 +47,7 @@
           </ul>
          
           <ul class="nav navbar-nav navbar-right" >
-             <li dropdown  >
-              <a dropdown-toggle>Account <b class="caret"></b></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Preferences</a></li>
-                <li><a href="#">Account options</a></li>
-                <li><a href="#">Logout</a></li>
-              </ul>
-            </li>
+             <ng-include src="'partials/refresh.html'"> </ng-include> 
           </ul>
           
         </div><!--/.nav-collapse -->
@@ -90,6 +83,8 @@
  
   <script src="components/config.js"></script>
   <script src="components/imperaApi.js"></script>
+  <script src="components/timeServer.js"></script> 
+  <script src="partials/refreshController.js"></script>
   <script src="views/portal/portal.js"></script>
   <script src="views/resource/resource.js"></script>
   <script src="views/env/env.js"></script>
