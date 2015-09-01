@@ -1,5 +1,5 @@
 <div class="row">
-	   <div class="col-md-11">
+	   <div class="col-md-10">
            <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
             <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
@@ -7,11 +7,18 @@
            </ol>
  	   </div>
 	   <div class="col-md-1">
-		<a ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Graph View</button> </a>
+		<a ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Graph</button> </a>
+	   </div>
+	   <div class="col-md-1">
+		<a ui-sref="report({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Report</button> </a> 
 	   </div>	
 </div>
-<deploy-progress data="status.DRYRUN" name="'Dry run'" action="setsort"> </deploy-progress> 
-<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort"> </deploy-progress> 
+
+<deploy-progress data="status.DRYRUN" name="'Dry run'" action="setsort">
+	
+</deploy-progress> 
+<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" > 
+</deploy-progress> 
 <div class="row">
 
 <div class="col-md-12">
