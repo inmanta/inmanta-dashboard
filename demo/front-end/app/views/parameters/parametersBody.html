@@ -1,10 +1,10 @@
 <div class="row">
-    <ol class="breadcrumb col-md-10">
+    <ol class="breadcrumb col-xs-12 col-sm-8 col-md-8 col-lg-9">
         <li><a ui-sref="portal">Home</a></li>
         <li class="active">Environment: {{env.name}}</a>
         </li>
     </ol>
-    <div class="col-md-2">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
         <a ui-sref="editEnv({env:state.env})"><button type="button" class="btn btn-primary">Edit <span class="glyphicon glyphicon-wrench"></span></button></a>
 		<a ui-sref="envs({env:state.env})"><button type="button" class="btn btn-primary" >Versions View</button></a>
 	</div>
