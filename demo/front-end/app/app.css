@@ -130,3 +130,33 @@ line.link {
   stroke-width: 1.5px;
 }
 
+.btn-primary {
+    background: #006e7f;
+    color: #ffffff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #80868d;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #006e7f;
+    box-shadow: none;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+  outline: none;
+}
+a {
+  color: #006e7f;
+}
+a:hover,
+a:focus,
+a:active,
+a.active {
+  color: #00424c;
+}
