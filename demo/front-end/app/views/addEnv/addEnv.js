@@ -27,7 +27,6 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state', functi
     $scope.tags = [ {name:"test"}, {name:"master"}, {name:"foo"}, {name:"bar"} ]
     $scope.selectedTag = $scope.tags[0]
 
-
     $scope.ready = function(){
         return $scope.selectedProject;
     }

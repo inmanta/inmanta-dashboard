@@ -1,6 +1,5 @@
 <h2>Create a new Environment</h2>
 
-
 <form name="userForm" class="form-horizontal" ng-submit="addEnv(selectedProject.id,name,repo,selectedTag.name)" novalidate>
 
  <div class="form-group" ng-class="{ 'has-error' : userForm.project.$invalid && !userForm.project.$pristine }"">
@@ -27,15 +26,9 @@
 <div class="form-group" ng-class="{ 'has-error' : userForm.tag.$invalid && !userForm.tag.$pristine }"">
     <label for="inputTag" class="col-sm-2 control-label" >Tag:</label>
     <div class="col-sm-4">
-        <select name="tag" ng-options="item.name for item in tags track by item.id" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
+        <select name="tag" ng-options="item.name for item in tags track by item.name" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
     </div>
  </div>
 
  <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Create</button>
 </form>
-
-
-{{res}}
-
-
-
