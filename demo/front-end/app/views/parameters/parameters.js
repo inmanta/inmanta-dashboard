@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.prametersView', ['ui.router', 'imperaApi', 'ngTable'])
+var resv = angular.module('ImperaApp.parametersView', ['ui.router', 'imperaApi', 'ngTable'])
 
 resv.config(function($stateProvider) {
     $stateProvider

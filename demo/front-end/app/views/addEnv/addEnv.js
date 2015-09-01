@@ -24,9 +24,8 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state', functi
  
     $scope.name = null;
 
-    $scope.tags = [ {name:"test"} ]
+    $scope.tags = [ {name:"test"}, {name:"master"}, {name:"foo"}, {name:"bar"} ]
     $scope.selectedTag = $scope.tags[0]
-
 
     $scope.ready = function(){
         return $scope.selectedProject;
@@ -38,7 +37,7 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state', functi
 
     $scope.addEnv = function(project,name,repo,tag){
         //console.log(project,name,repo,tag)
-        imperaService.addEnvironment(project,name).then(function(d){$state.go("envs",{ env:d.id })})
+        imperaService.addEnvironment(project,name,repo,tag).then(function(d){$state.go("envs",{ env:d.id })})
     }
 
     
