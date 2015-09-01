@@ -11,11 +11,12 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.resourceView',
   'ImperaApp.envView',
   'ImperaApp.addEnv',
+  'ImperaApp.editEnv',
   'ImperaApp.addProject',
   'ImperaApp.graphView',
   'imperaApi.config',
   'ImperaApp.agentsView',
-  'ImperaApp.prametersView',
+  'ImperaApp.parametersView',
   'ImperaApp.logsView',
   'ImperaApp.reportView'
 ])

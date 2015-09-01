@@ -1,0 +1,38 @@
+<h2>Edit environment: {{env.name}}</h2>
+
+<form name="userForm" class="form-horizontal" ng-submit="editEnv(selectedProject.id,name,repo_url,selectedTag.name)" novalidate>
+
+ <div class="form-group" ng-class="{ 'has-error' : userForm.project.$invalid && !userForm.project.$pristine }"">
+    <label for="inputProject" class="col-sm-2 control-label" >Project</label>
+    <div class="col-sm-4">
+      <label name="project" class="form-control">{{selectedProject.name}}</label>
+    </div>
+ </div>
+
+ <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }"">
+    <label for="inputName" class="col-sm-2 control-label" >Name</label>
+    <div class="col-sm-4">
+      <input type="text" name="name" ng-model="name" class="form-control" id="inputName" required ></input> 
+    </div>
+ </div>
+
+ <div class="form-group" ng-class="{ 'has-error' : userForm.repo.$invalid && !userForm.repo.$pristine }"">
+    <label for="inputRepo" class="col-sm-2 control-label" >Repository</label>
+    <div class="col-sm-4">
+        <input type="text" name="repo" ng-model="repo" class="form-control" id="inputRepo"s required ></input> 
+    </div>
+ </div>
+
+<div class="form-group" ng-class="{ 'has-error' : userForm.tag.$invalid && !userForm.tag.$pristine }"">
+    <label for="inputTag" class="col-sm-2 control-label" >Tag:</label>
+    <div class="col-sm-4">
+        <select name="tag" ng-options="item.name for item in tags track by item.name" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
+    </div>
+ </div>
+ 
+ <div class="row">
+    <a ui-sref="envs({env:env.id})"><button class="btn btn-primary">Cancel</button></a>
+    <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+ </div>
+</form>
+
