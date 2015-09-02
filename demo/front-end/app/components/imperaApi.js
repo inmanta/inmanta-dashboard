@@ -199,7 +199,7 @@ function formatReport(res){
 }
 
        impAPI.getDryRunReport = function(env,cmversion) {
-			return $http.get(impURL + 'cmversion/'+cmversion+'?include_logs=true',{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'cmversion/'+cmversion+'?include_logs=true&log_filter=dryrun&limit=1',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     var resources = []
                     data.data.resources.forEach(function(res){
@@ -251,12 +251,18 @@ imperApi.directive("deployProgress",  function() {
   return {
     restrict: 'E',
     templateUrl: 'components/deployProgress.html',
+    transclude: true,
     scope: {
       datain: '=data',
       name: '=name',
       action: '='
     }, 
     link: function(scope, element, attrs){
+	scope.width = 10;
+	if(attrs["width"]){
+		scope.width = attrs["width"]
+	}
+	scope.remainder = 10-scope.width;
         scope.$watch('datain',function(newValue, oldValue) {if(newValue) {scope.data = processProgress(newValue)} })
         
     }
