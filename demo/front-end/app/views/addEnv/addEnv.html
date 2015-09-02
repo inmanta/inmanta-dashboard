@@ -26,9 +26,10 @@
 <div class="form-group" ng-class="{ 'has-error' : userForm.tag.$invalid && !userForm.tag.$pristine }"">
     <label for="inputTag" class="col-sm-2 control-label" >Branch:</label>
     <div class="col-sm-4">
-        <input type="text" name="tag" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
+        <input type="text" name="branch" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
     </div>
  </div>
 
+ <a ui-sref="portal"><button class="btn btn-warning">Cancel</button></a>
  <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Create</button>
 </form>
