@@ -59,7 +59,7 @@ imperApi.service('imperaService',
 		};
 		
 		impAPI.editEnvironment = function(env) {
-		    return $http.post(impURL + 'environment/'+env.id,{'id':env.project,'name':env.name,'repository':env.repo_url,'branch':env.repo_branch}).then(function(data){ 
+		    return $http.post(impURL + 'environment/'+env.id,{'id':env.id,'name':env.name,'repository':env.repo_url,'branch':env.repo_branch}).then(function(data){ 
 		        envCache[env.id]=env; 
 		        return data.data;});
 		}
@@ -171,6 +171,14 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+		
+		impAPI.sendFeedback = function(feedback) {
+//		    return TODO
+            // DUMMY CODE
+			    var out = $q.defer()
+                out.resolve(null)
+                return out.promise
+		}
 
 // getReport
 

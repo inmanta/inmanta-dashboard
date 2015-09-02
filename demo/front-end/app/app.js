@@ -6,6 +6,7 @@ var app = angular.module('ImperaApp', [
   'ui.bootstrap',
   'ngTable',
   'hljs',
+  'dialogs.main',
   'angularSpinner',
   'ImperaApp.portalView',
   'ImperaApp.resourceView',
@@ -19,15 +20,20 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.parametersView',
   'ImperaApp.logsView',
   'ImperaApp.reportView',
-  'ImperaApp.controllers.refresh'
+  'ImperaApp.controllers.refresh',
+  'ImperaApp.feedback'
 ])
 
 app.config(function($urlRouterProvider) {
   $urlRouterProvider.otherwise("/portal");   
 })
 
-app.controller("configCtrl",["$scope","imperaConfig",function($scope,imperaConfig){
+app.controller("configCtrl",["$scope","imperaConfig", "dialogs", function($scope, imperaConfig, dialogs){
   $scope.config=imperaConfig
+  
+  $scope.openFeedback = function(user_tenant_Id){
+     dialogs.create('views/feedback/feedback.html','feedbackCtrl', { user:user_tenant_Id },{});    
+  }
 }])
 
 app.service("alertService",function alertService($rootScope){
