@@ -175,9 +175,9 @@ imperApi.service('imperaService',
 		impAPI.sendFeedback = function(feedback) {
 //		    return TODO
             // DUMMY CODE
-            return $http.get(impURL + 'project').then(function(data){
-			    data.data.forEach(function(d){projCache[d.id]=d})
-			    return data.data;});
+			    var out = $q.defer()
+                out.resolve(null)
+                return out.promise
 		}
 
 // getReport
