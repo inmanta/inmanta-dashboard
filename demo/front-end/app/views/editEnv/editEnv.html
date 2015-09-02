@@ -1,6 +1,6 @@
 <h2>Edit environment: {{env.name}}</h2>
 
-<form name="userForm" class="form-horizontal" ng-submit="editEnv(selectedProject.id,name,repo_url,selectedTag.name)" novalidate>
+<form name="userForm" class="form-horizontal" ng-submit="editEnv(selectedProject.id,name,repo_url,selectedTag)" novalidate>
 
  <div class="form-group" ng-class="{ 'has-error' : userForm.project.$invalid && !userForm.project.$pristine }"">
     <label for="inputProject" class="col-sm-2 control-label" >Project</label>
@@ -26,7 +26,7 @@
 <div class="form-group" ng-class="{ 'has-error' : userForm.tag.$invalid && !userForm.tag.$pristine }"">
     <label for="inputTag" class="col-sm-2 control-label" >Tag:</label>
     <div class="col-sm-4">
-        <select name="tag" ng-options="item.name for item in tags track by item.name" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
+        <input type="text" name="tag" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 
     </div>
  </div>
  

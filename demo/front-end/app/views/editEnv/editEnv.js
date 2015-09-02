@@ -24,7 +24,7 @@ resv.controller('editEnvController', ['$scope', 'imperaService', '$stateParams',
  
     $scope.state = $stateParams
  
-    $scope.tags = [ {name:"test"}, {name:"master"}, {name:"foo"}, {name:"bar"} ]
+    
     
     imperaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
@@ -32,7 +32,7 @@ resv.controller('editEnvController', ['$scope', 'imperaService', '$stateParams',
             $scope.selectedProject = p;
         })
         $scope.name = d.name
-        $scope.selectedTag = {name:d.repo_branch}
+        $scope.selectedTag = d.repo_branch
         $scope.repo = d.repo_url
     });
 
@@ -40,6 +40,6 @@ resv.controller('editEnvController', ['$scope', 'imperaService', '$stateParams',
         $scope.env.name = env_name;
         $scope.env.repo_branch = branch;
         $scope.env.repo_url = repo_url
-        imperaService.editEnvironment($scope.env);
+        imperaService.editEnvironment($scope.env).then(function(d){$state.go("envs",{ env:d.id })});
     }
 }]);

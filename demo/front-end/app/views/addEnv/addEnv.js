@@ -24,8 +24,7 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state', functi
  
     $scope.name = null;
 
-    $scope.tags = [ {name:"test"}, {name:"master"}, {name:"foo"}, {name:"bar"} ]
-    $scope.selectedTag = $scope.tags[0]
+    $scope.selectedTag = null;
 
     $scope.ready = function(){
         return $scope.selectedProject;
