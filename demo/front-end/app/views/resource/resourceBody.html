@@ -6,18 +6,16 @@
             <li class="active"> Version: {{state.version}}</li>
            </ol>
  	   </div>
-	   <div class="col-md-1">
+	   <div class="col-md-2">
 		<a ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Graph</button> </a>
-	   </div>
-	   <div class="col-md-1">
+	  
 		<a ui-sref="report({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Report</button> </a> 
 	   </div>	
 </div>
 
-<deploy-progress data="status.DRYRUN" name="'Dry run'" action="setsort">
-	
+<deploy-progress data="status.DRYRUN" name="'Dry run'" action="setsort" emptyname="DRY RUN" emptyaction="dryrun">
 </deploy-progress> 
-<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" > 
+<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="DEPLOY" emptyaction="deploy" > 
 </deploy-progress> 
 <div class="row">
 

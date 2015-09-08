@@ -26,31 +26,7 @@ resv.config(function($stateProvider) {
 
 resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
     function($scope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
-        var typesSeq = ['DONE', 'WAITING', 'ERROR']
-        var types = {
-            'DONE': 'success',
-            'WAITING': 'info',
-            'ERROR': 'danger'
-        }
-
-        var processProgress = function(prog) {
-            var bars = []
-            var total = prog["TOTAL"]
-            var progress = {
-                'total': total,
-                'bars': bars
-            }
-            typesSeq.forEach(function(key) {
-                bars.push({
-                    "name": key,
-                    "value": prog[key] * 100 / total,
-                    "label": prog[key],
-                    "type": types[key]
-                })
-            })
-            return progress
-        }
-
+        
         $scope.state = $stateParams
         $scope.toHighlight = null
         $scope.highlight = function(name) {
@@ -59,6 +35,15 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
             } else
                 $scope.toHighlight = name
         }
+
+
+        $scope.dryrun = function() {
+            imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,true,true).then(function(d){$scope.tableParams.reload()});
+        }
+        $scope.deploy = function() {
+            imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,false,true).then(function(d){$scope.tableParams.reload()});
+        }
+
         $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
             count: 10, // count per page

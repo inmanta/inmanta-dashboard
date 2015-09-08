@@ -3,7 +3,13 @@
            <strong> {{name}}: </strong>
         </div>
 	    <div class="col-md-{{width}}">
-           <progress><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)"  value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar></progress>
+           <progress><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)"  value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar>
+            <div ng-if="!data.bars && emptyaction" style="width: 100%; text-align: center;" ng-click="emptyaction()">
+                
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{emptyname}}
+             </div>
+
+            </progress>
         </div>
         <div class="col-md-1">
             total: {{data.total}}
