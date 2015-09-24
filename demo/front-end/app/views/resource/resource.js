@@ -24,8 +24,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
-    function($scope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
+resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
+    function($scope, $rootScope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
         
         $scope.state = $stateParams
         $scope.toHighlight = null
@@ -38,10 +38,22 @@ resv.controller('resourceController', ['$scope', 'imperaService', "$stateParams"
 
 
         $scope.dryrun = function() {
-            imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,true,true).then(function(d){$scope.tableParams.reload()});
+             imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,true,true).then(function(d){$rootScope.$broadcast('refresh')});
+             $scope.status.DRYRUN={
+               'TOTAL':1,
+               'DONE': 0,
+               'WAITING': 1,
+               'ERROR': 0
+             }
         }
         $scope.deploy = function() {
-            imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,false,true).then(function(d){$scope.tableParams.reload()});
+            imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,false,true).then(function(d){$rootScope.$broadcast('refresh')});
+            $scope.status.DEPLOY={
+               'TOTAL':1,
+               'DONE': 0,
+               'WAITING': 1,
+               'ERROR': 0
+             }
         }
 
         $scope.tableParams = new BackhaulTable($scope,{

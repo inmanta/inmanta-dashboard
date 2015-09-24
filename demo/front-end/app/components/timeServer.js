@@ -9,16 +9,25 @@ var services = angular.module('impera.services.time',[])
 services.service('timeSrv',
 	function($rootScope,$timeout) {
         var timeSrv = {};
-        var refresh, refresh_timer;
+        var refresh, refresh_timer, myinterval;
         
+        timeSrv.getRefresh = function(){
+            return refresh
+        }
 
+        timeSrv.getInterval = function(){
+            return myinterval
+        }
+        
         //set interval takes a human reable interval (e.g: 1s)
         timeSrv.setInterval = function (interval) {
+            myinterval = interval;
             interval = timeSrv.interval_to_ms(interval)
             if (interval) {
                refresh = interval;
                timeSrv.start_refresh(interval);
             } else {
+               myinterval = "Off";
                timeSrv.cancel_refresh();
             }
         }
@@ -73,6 +82,8 @@ services.service('timeSrv',
             var info = timeSrv.describe_interval(string);
             return info.sec * 1000 * info.count;
         };
+        
+        timeSrv.setInterval("30s")
         
         return timeSrv;
 

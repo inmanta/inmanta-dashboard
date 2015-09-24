@@ -256,18 +256,15 @@ imperApi.directive("deployProgress",  function() {
       datain: '=data',
       name: '=name',
       action: '=',
-      emptyaction: '=?',
-      emptyname: '=?'
+      emptyaction: '=?emptyaction',
+      emptyname: '=?emptyname'
     }, 
     link: function(scope, element, attrs){
 	scope.width = 10;
 	if(attrs["width"]){
 		scope.width = attrs["width"]
 	}
-    
-    if(attrs["emptyname"]){
-        scope.emptyname = attrs["emptyname"];
-    }
+
 	scope.remainder = 10-scope.width;
     scope.data=null;
         scope.$watch('datain',function(newValue, oldValue) {if(newValue) {scope.data = processProgress(newValue)} })
