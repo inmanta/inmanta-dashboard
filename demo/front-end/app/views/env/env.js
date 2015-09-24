@@ -22,7 +22,7 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.controller('envController', ['$scope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope, imperaService, $stateParams, BackhaulTablePaged) {
+resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged) {
 
     $scope.state = $stateParams
   
@@ -42,11 +42,26 @@ resv.controller('envController', ['$scope', 'imperaService', "$stateParams", "Ba
         $scope.env = d
     });
     
-    $scope.startDryRun = function(resVersion) {
-        imperaService.changeReleaseStatus($stateParams.env,resVersion,true,true).then(function(d){$scope.tableParams.reload()});
+    $scope.startDryRun = function(res) {
+        var resVersion = res.version 
+        imperaService.changeReleaseStatus($stateParams.env,resVersion,true,true).then(function(d){$rootScope.$broadcast('refresh')});
+        res.progress.DRYRUN={
+            'TOTAL':1,
+            'DONE': 0,
+            'WAITING': 1,
+            'ERROR': 0
+        }
+        
     }
-    $scope.deploy = function(resVersion) {
-        imperaService.changeReleaseStatus($stateParams.env,resVersion,false,true).then(function(d){$scope.tableParams.reload()});
+    $scope.deploy = function(res) {
+        var resVersion = res.version 
+        imperaService.changeReleaseStatus($stateParams.env,resVersion,false,true).then(function(d){$rootScope.$broadcast('refresh')});
+        res.progress.DEPLOY={
+            'TOTAL':1,
+            'DONE': 0,
+            'WAITING': 1,
+            'ERROR': 0
+        }
     }
 
 
