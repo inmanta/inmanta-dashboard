@@ -39,21 +39,11 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
         $scope.dryrun = function() {
              imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,true,true).then(function(d){$rootScope.$broadcast('refresh')});
-             $scope.status.DRYRUN={
-               'TOTAL':1,
-               'DONE': 0,
-               'WAITING': 1,
-               'ERROR': 0
-             }
+            
         }
         $scope.deploy = function() {
             imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,false,true).then(function(d){$rootScope.$broadcast('refresh')});
-            $scope.status.DEPLOY={
-               'TOTAL':1,
-               'DONE': 0,
-               'WAITING': 1,
-               'ERROR': 0
-             }
+          
         }
 
         $scope.tableParams = new BackhaulTable($scope,{

@@ -45,23 +45,12 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
     $scope.startDryRun = function(res) {
         var resVersion = res.version 
         imperaService.changeReleaseStatus($stateParams.env,resVersion,true,true).then(function(d){$rootScope.$broadcast('refresh')});
-        res.progress.DRYRUN={
-            'TOTAL':1,
-            'DONE': 0,
-            'WAITING': 1,
-            'ERROR': 0
-        }
-        
+	
     }
     $scope.deploy = function(res) {
         var resVersion = res.version 
         imperaService.changeReleaseStatus($stateParams.env,resVersion,false,true).then(function(d){$rootScope.$broadcast('refresh')});
-        res.progress.DEPLOY={
-            'TOTAL':1,
-            'DONE': 0,
-            'WAITING': 1,
-            'ERROR': 0
-        }
+       
     }
 
 
