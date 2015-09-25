@@ -3,7 +3,7 @@
            <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
             <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
-            <li class="active"> Version: {{state.version}}</li>
+            <li class="active"> Version: <a ui-sref="resources({env:state.env,version:state.version})">  {{state.version}}</a></li>
            </ol>
  	   </div>
 	   <div class="col-md-1">
