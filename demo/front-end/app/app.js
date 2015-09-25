@@ -41,7 +41,12 @@ app.service("alertService",function alertService($rootScope){
 	var alertService = {};
 	
 	alertService.add=function(type,data){
-		alerts.push({type:type,msg:data})
+		var last = alerts[alerts.length-1]
+		if(last && last.msg == data){
+			last.times = last.times+1;
+		}else{
+			alerts.push({type:type,msg:data,times:1})
+		}
 		$rootScope.$broadcast("alert-update",alerts)
 	}
     
@@ -55,7 +60,11 @@ app.config(function($httpProvider){
     return {
       'responseError': function(rejection) {
         // do something on error
-        alertService.add("danger",rejection.data?rejection.data.message:rejection.statusText)
+	var alert = rejection.data?rejection.data.message:rejection.statusText
+	if(!alert){
+		alert="Could not connect to server";
+	}
+        alertService.add("danger",alert)
         return $q.reject(rejection);
         }
     }
