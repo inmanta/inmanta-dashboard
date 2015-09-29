@@ -4,8 +4,7 @@
     <li dropdown >
       <a id="simple-dropdown" class="pull-right"   dropdown-toggle>
        <small><span class="glyphicon glyphicon-th-list"></span></small>       
-
-        <span> {{currentProject.name}} {{currentEnv.name}} </span> 
+       <span> {{currentProject.name}} {{currentEnv.name}} </span> 
        <small><span class="glyphicon glyphicon-chevron-down"></span></small>
       </a>
       <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
@@ -15,8 +14,9 @@
                 <li ng-repeat="env in project.envs"> <a ui-sref="envs({env:env.id})"> {{env.name}} </a> </li>
               </ul>       
         </li>
+         <li role="separator" class="divider"></li>
+        <li> <a ui-sref="projects()">all projects</a> </li>
       </ul>
-
     </li>
 </ul>
 
