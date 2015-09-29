@@ -1,0 +1,19 @@
+<!--<div ng-controller="refreshController">-->
+    
+    <ul class="nav navbar-nav navbar-right">
+         <li >
+            <a ng-click="timeSrv.refresh()"><span class="glyphicon glyphicon-refresh"></i></a>
+         </li>
+         <li dropdown  >
+              <a dropdown-toggle>
+                    <span class="glyphicon glyphicon-clock"></span>
+					<span ng-show="!refresh">Refresh Off</span>
+					<span ng-show="refresh" class="text-warning">refreshed every {{refresh}} </span>
+			   </a>
+             <ul class="dropdown-menu">
+                <li ng-repeat="interval in refresh_intervals" ng-class={"active":interval==refresh}><a ng-click="setRefresh(interval)">{{interval}}</a></li>
+               
+              </ul>
+         </li>
+    </ul>
+<!--</div>-->
