@@ -1,9 +1,9 @@
- <div class="row">
+<div class="row">
        <div class="col-md-2 sidebar">
-        <ul class="nav nav-pills nav-stacked" ng-if="state.env"> 
-            <li> <a ui-sref="editEnv({env:state.env})"> Edit </a> </li>
-			<li> <a ui-sref="params({env:state.env})">Parameters View</a> </li>
-            <li> <a ui-sref="agents({env:state.env})">Agent View </a> </li>
+        <ul class="nav nav-pills nav-stacked"> 
+          <li ui-sref-active="active"> <a ui-sref="resources({env:state.env,version:state.version})">Overview </a></li>
+          <li ui-sref-active="active"> <a ui-sref="graph({env:state.env,version:state.version})">Graph </a></li> 
+	  <li ui-sref-active="active"><a ui-sref="report({env:state.env,version:state.version})">Report </a> </li>
         </ul>
 	    </div>
        <div class="row" style="position:absolute; bottom:50px;" ng-controller="configCtrl">

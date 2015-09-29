@@ -29,7 +29,7 @@ var app = angular.module('ImperaApp', [
 ])
 
 app.config(function($urlRouterProvider) {
-  $urlRouterProvider.otherwise("/portal");   
+  $urlRouterProvider.otherwise("/projects");   
 })
 
 app.controller("configCtrl",["$scope","imperaConfig", "dialogs", function($scope, imperaConfig, dialogs){

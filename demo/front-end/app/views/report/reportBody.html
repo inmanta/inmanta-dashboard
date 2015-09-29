@@ -1,14 +1,12 @@
 <div class="row">
-	   <div class="col-md-11">
+	   <div class="col-md-12">
            <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
             <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
             <li class="active"> Version: {{state.version}}</li>
            </ol>
  	   </div>
-	   <div class="col-md-1">
-		<a ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn btn-primary" >Graph View</button> </a>
-	   </div>	
+	  
 </div>
 
 <div class="row">

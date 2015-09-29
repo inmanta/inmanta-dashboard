@@ -7,16 +7,17 @@ var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTa
 resv.config(function($stateProvider) {
  $stateProvider
     .state('agents', {
-      url: "/agents",
+      url: "/agents?env",
       views:{
         "body":{
             templateUrl: "views/agents/agentBody.html",
             controller:"agentController"
         },
-        "side":{
-            templateUrl: "views/portal/portalSide.html"
-          
-        }
+                "side": {
+                    templateUrl: "views/env/envSide.html",
+                    controller: "sideController"
+
+                }
       }
       
     })
@@ -54,6 +55,12 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
             
            
     });
+
+ if($stateParams["env"]){
+	
+		$scope.tableParams.filter()['environment']=$stateParams["env"]
+	
+ }
  $scope.resources = null
  $scope.names = function() {
             var def = $q.defer(),

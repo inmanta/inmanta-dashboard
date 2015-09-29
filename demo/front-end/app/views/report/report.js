@@ -14,7 +14,8 @@ resv.config(function($stateProvider) {
                     controller: "reportController"
                 },
                 "side": {
-                    templateUrl: "views/portal/portalSide.html"
+                    templateUrl: "views/resource/resourceSide.html",
+		    controller: "sideController"
 
                 }
             }
