@@ -57,14 +57,17 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+<div class="container-fluid">
     <div class="row">
-      	<div class="col-md-2" id="sidebar" ui-view="side" > </div>
-     	<div class="col-md-10 main" ng-controller="alertCtrl" > 
-		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-		<div ui-view="body"> </div> 
-	</div>
+        <div class="col-md-2" id="sidebar" ui-view="side">
+        </div>
+        <div class="col-md-10 main" ng-controller="alertCtrl">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}"
+            close="closeAlert($index)">{{alert.msg}}</alert>
+            <div ui-view="body"></div>
+        </div>
     </div>
-    </div>
+</div>
 
    
 
@@ -91,6 +94,7 @@
   <script src="components/backhaul.js"></script> 
   <script src="partials/projects/projectsController.js"></script>
   <script src="partials/refresh/refreshController.js"></script>
+  <script src="partials/sideController.js"></script>
   <script src="views/portal/portal.js"></script>
   <script src="views/projects/projects.js"></script>
   <script src="views/project/project.js"></script>

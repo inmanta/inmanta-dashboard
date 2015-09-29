@@ -24,6 +24,7 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.reportView',
   'ImperaApp.controllers.refresh',
   'ImperaApp.controllers.projects',
+  'ImperaApp.controllers.side',
   'ImperaApp.feedback'
 ])
 
