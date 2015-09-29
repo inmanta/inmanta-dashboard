@@ -1,35 +1,38 @@
 'use strict';
 
-var prj = angular.module('ImperaApp.controllers.projects', ['imperaApi'])
+var resv = angular.module('ImperaApp.controllers.projects', ['imperaApi'])
 
-prj.controller('projectsController',['$scope', 'imperaService', function ($scope, imperaService) {
+resv.controller('projectsController',['$scope','imperaService',function($scope,imperaService){
 
-  $scope.projects = [];
-  $scope.currentProject = null;
-  
-  imperaService.getProjects().then( function(data) {
-    var projects = [];
-    angular.forEach(data,function(d) {this.push(d);}, projects);
-    $scope.projects = projects;
+   function load(){
+       imperaService.getProjectsAndEnvironments().then(function(d){$scope.projects=d})
+   }
+   
+   load()
+   $scope.$on('refresh',load)
+    
+   $scope.$on("$stateChangeStart",function(event, toState, toParams, fromState, fromParams){
+       if(toParams["env"]){
+           setEnv(toParams["env"])
+       }else{
+            $scope.currentEnv = null;
+            if(toParams["project"]){
+                setProject(toParams["project"])
+            }else{
+                $scope.currentProject = null;
+            }
+       }
+    })
 
-    $scope.currentProject = projects[0];
-  });
 
-  $scope.status = {
-    isopen: false
-  };
+   function setEnv(envid){
+       imperaService.getEnvironment(envid).then(function(d){
+            $scope.currentEnv = d
+            setProject(d.project)})
+   }
 
-  $scope.toggled = function(open) {
-//    $log.log('Dropdown is now: ', open);
-  };
+   function setProject(pid){
+       imperaService.getProject(pid).then(function(d){$scope.currentProject = d})
+   }
 
-  $scope.toggleDropdown = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.status.isopen = !$scope.status.isopen;
-  };
-  
-  $scope.setCurrentProject = function(project) {
-    $scope.currentProject = project;
-  };
-}]);
+}])
