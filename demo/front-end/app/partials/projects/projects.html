@@ -1,28 +1,22 @@
 <!--<div ng-controller="projectsController">-->
     
-    <ul class="nav navbar-nav" >
-    <li dropdown>
-    
-      <a href id="simple-dropdown" dropdown-toggle>
-        {{currentProject.name}} <span class="glyphicon glyphicon-chevron-down"></span>
+<ul class="nav navbar-nav" >
+    <li dropdown >
+      <a id="simple-dropdown" class="pull-right"   dropdown-toggle>
+       <small><span class="glyphicon glyphicon-th-list"></span></small>       
+
+        <span> {{currentProject.name}} {{currentEnv.name}} </span> 
+       <small><span class="glyphicon glyphicon-chevron-down"></span></small>
       </a>
       <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
-        <li ng-repeat="choice in projects">
-          <a href="#/environment/{{choice.id}}" ng-click="setCurrentProject(choice)">{{choice.name}}</a>
+        <li ng-repeat="project in projects">
+              <a ui-sref="project({project:project.id})">{{project.name}}</a>
+              <ul >
+                <li ng-repeat="env in project.envs"> <a ui-sref="envs({env:env.id})"> {{env.name}} </a> </li>
+              </ul>       
         </li>
       </ul>
 
     </li>
 </ul>
-<!--         <li dropdown  >-->
-<!--              <a dropdown-toggle>-->
-<!--                    <span class="glyphicon glyphicon-clock"></span>-->
-<!--					<span ng-show="!refresh">Refresh Off</span>-->
-<!--					<span ng-show="refresh" class="text-warning">refreshed every {{refresh}} </span>-->
-<!--			   </a>-->
-<!--             <ul class="dropdown-menu">-->
-<!--                <li ng-repeat="interval in refresh_intervals" ng-class={"active":interval==refresh}><a ng-click="setRefresh(interval)">{{interval}}</a></li>-->
-<!--               -->
-<!--              </ul>-->
-<!--         </li>-->
-<!--</div>-->
+

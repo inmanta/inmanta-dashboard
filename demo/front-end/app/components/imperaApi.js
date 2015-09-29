@@ -35,6 +35,20 @@ imperApi.service('imperaService',
 			    data.data.forEach(function(d){projCache[d.id]=d})
 			    return data.data;});
 		};
+
+        
+        impAPI.getProjectsAndEnvironments = function() {
+			return $q.all({projects:impAPI.getProjects(),envs:impAPI.getEnvironments()}).then(
+                function(d){
+                    var projects = angular.copy(d.projects);
+                    var proI = {};
+                    projects.forEach(function(d){proI[d.id] = d; d.envs=[]})
+                    angular.copy(d.envs).forEach(function(d){proI[d.project].envs.push(d)})
+                    return projects;
+                }
+            )
+		};
+        
 	
 	    impAPI.getProject = function(project_id) {
 	        if(projCache[project_id]) {
