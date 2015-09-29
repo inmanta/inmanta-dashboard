@@ -90,16 +90,17 @@ imperApi.service('imperaService',
 		};
 		
 		impAPI.getEnvironmentsByProject = function(project_id) {
-		    var out = [];
-		    impAPI.getEnvironments().then( function(data) {
-		        data.data.forEach(function(env){
-		                if(env.project_id == project_id) {
+		    
+		    return impAPI.getEnvironments().then( function(data) {
+                var out = [];
+		        data.forEach(function(env){
+		                if(env.project == project_id) {
 		                    out.push(env);
 		                }
 		            })
-		            return data.data;
+		            return out;
 		    });
-		    return out;
+		    
 		}
 
         impAPI.getEnvironment = function(id){

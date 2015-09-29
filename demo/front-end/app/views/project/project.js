@@ -1,15 +1,15 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.projectsView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
+var resv = angular.module('ImperaApp.projectView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
 
 resv.config(function($stateProvider) {
     $stateProvider
-        .state('projects', {
-            url: "/projects",
+        .state('project', {
+            url: "/project/:project",
             views: {
                 "body": {
-                    templateUrl: "views/projects/projectBody.html",
-                    controller: "projectsviewController"
+                    templateUrl: "views/project/projectBody.html",
+                    controller: "projectviewController"
                 },
                 "side": {
                     templateUrl: "partials/emptysidebar.html"
@@ -22,7 +22,7 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('projectsviewController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q",
+resv.controller('projectviewController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q",
     function($scope, imperaService, $stateParams, BackhaulTable,$q) {
         
         $scope.state = $stateParams
@@ -34,7 +34,7 @@ resv.controller('projectsviewController', ['$scope', 'imperaService', "$statePar
                 'name': 'asc' // initial sorting
             }
         }, function(params){
-                    return imperaService.getProjects()
+                    return imperaService.getEnvironmentsByProject($stateParams.project)
            }
         );
 

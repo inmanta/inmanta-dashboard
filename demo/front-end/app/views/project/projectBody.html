@@ -1,0 +1,20 @@
+<div class="row">   
+	   <div class="col-md-2 "><p>
+		<a ui-sref="addEnv({project:state.project})"><button type="button" class="btn btn-primary" >Add new environment</button> </a>
+	   </p></div>	
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+    <table class="table table-lined" ng-table="tableParams" show-filter="false">
+        <tr ng-repeat="env in $data">
+            <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}"><a ui-sref="envs({env:env.id})" > {{env.name}}</a></td>
+            <td data-title="'Repo'" sortable="'repo_url'" filter="{ 'repo_url':'text'}">{{env.repo_url}}</td>      
+            <td data-title="'Branch'" sortable="'repo_branch'" filter="{ 'repo_branch':'text'}">{{env.repo_branch}}</td>      
+            <td data-title="'Id'" sortable="'id'" filter="{ 'id':'text'}">{{env.id}}</td>         
+            
+           
+        </tr>
+    </table>
+    </div>
+</div>
