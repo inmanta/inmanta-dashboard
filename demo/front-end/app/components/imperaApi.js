@@ -54,6 +54,7 @@ imperApi.service('imperaService',
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
+//envs
         impAPI.addEnvironment = function(projectid, name, repo_url, repo_branch) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data;});
 		};
@@ -171,7 +172,14 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+
+
+//compile
+         impAPI.triggerCompile = function(env) {
+			return $http.get(impURL + 'notify/' + env);
+		};
 		
+// feedback
 		impAPI.sendFeedback = function(feedback) {
 //		    return TODO
             // DUMMY CODE
