@@ -54,6 +54,7 @@ imperApi.service('imperaService',
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
+//environment
         impAPI.addEnvironment = function(projectid, name, repo_url, repo_branch) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data;});
 		};
@@ -73,6 +74,19 @@ imperApi.service('imperaService',
 				data.data.forEach(function(d){envCache[d.id]=d})
 				return data.data;});
 		};
+		
+		impAPI.getEnvironmentsByProject = function(project_id) {
+		    var out = [];
+		    impAPI.getEnvironments().then( function(data) {
+		        data.data.forEach(function(env){
+		                if(env.project_id == project_id) {
+		                    out.push(env);
+		                }
+		            })
+		            return data.data;
+		    });
+		    return out;
+		}
 
         impAPI.getEnvironment = function(id){
             if( envCache[id]){

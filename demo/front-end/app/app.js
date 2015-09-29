@@ -21,6 +21,7 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.logsView',
   'ImperaApp.reportView',
   'ImperaApp.controllers.refresh',
+  'ImperaApp.controllers.projects',
   'ImperaApp.feedback'
 ])
 
@@ -81,6 +82,3 @@ app.controller("alertCtrl",["$scope",function($scope){
   };
  
 }])
-
-
-

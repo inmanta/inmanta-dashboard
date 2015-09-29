@@ -38,16 +38,20 @@
           </button>
           <a class="navbar-brand" ui-sref="portal"><img alt="Impera" src="img/impera.png"  height="24"></a>
         </div>
+        
         <div id="navbar" class="navbar-collapse bs-js-navbar-collapse" collapse="navCollapsed">
+          
+          <ng-include ng-controller="projectsController" src="'partials/projects/projects.html'"> </ng-include>
+          
           <ul class="nav navbar-nav" >
- 
+            
             <li ui-sref-active="active"><a ui-sref="portal">Environments</a></li>
             <li ui-sref-active="active"><a ui-sref="agents">Agents</a></li>
            
           </ul>
          
           <ul class="nav navbar-nav navbar-right" >
-             <ng-include src="'partials/refresh.html'"> </ng-include> 
+             <ng-include ng-controller="refreshController"src="'partials/refresh/refresh.html'"> </ng-include> 
           </ul>
           
         </div><!--/.nav-collapse -->
@@ -85,7 +89,8 @@
   <script src="components/imperaApi.js"></script>
   <script src="components/timeServer.js"></script> 
   <script src="components/backhaul.js"></script> 
-  <script src="partials/refreshController.js"></script>
+  <script src="partials/projects/projectsController.js"></script>
+  <script src="partials/refresh/refreshController.js"></script>
   <script src="views/portal/portal.js"></script>
   <script src="views/resource/resource.js"></script>
   <script src="views/env/env.js"></script>
