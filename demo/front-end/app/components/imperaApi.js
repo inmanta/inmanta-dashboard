@@ -202,13 +202,17 @@ imperApi.service('imperaService',
 		};
 		
 		impAPI.sendFeedback = function(feedback) {
-//		    return TODO
+            // return TODO
             // DUMMY CODE
 			    var out = $q.defer()
                 out.resolve(null)
                 return out.promise
 		}
 
+// compile 
+         impAPI.compile = function(env) {
+			return $http.get(impURL + 'notify/'+ env);
+		};
 // getReport
 
 function formatAction(action){

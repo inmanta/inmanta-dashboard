@@ -35,6 +35,13 @@ body { padding-top: 50px;}
 
 }
 
+.sidebar > ul > li {
+    text-align: right;
+}
+
+.sidebar > ul > li.divider {
+    border-bottom:1px solid #ccc;
+}
 
 /* Page buildup Styles */
 
