@@ -1,7 +1,12 @@
 <div class="row">   
-	   <div class="col-md-2 "><p>
+     <div class="col-md-12">
+         <div class="page-header">
+            <h1> Environments </h1>
+         </div>
+      </div>  
+	  <div class="col-md-12 page-button-band ">
 		<a ui-sref="addEnv({project:state.project})"><button type="button" class="btn btn-primary" >Add new environment</button> </a>
-	   </p></div>	
+	  </div>	
 </div>
 
 <div class="row">
@@ -12,8 +17,6 @@
             <td data-title="'Repo'" sortable="'repo_url'" filter="{ 'repo_url':'text'}">{{env.repo_url}}</td>      
             <td data-title="'Branch'" sortable="'repo_branch'" filter="{ 'repo_branch':'text'}">{{env.repo_branch}}</td>      
             <td data-title="'Id'" sortable="'id'" filter="{ 'id':'text'}">{{env.id}}</td>         
-            
-           
         </tr>
     </table>
     </div>

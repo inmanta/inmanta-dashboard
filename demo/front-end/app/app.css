@@ -35,6 +35,28 @@ body { padding-top: 50px;}
 
 }
 
+
+/* Page buildup Styles */
+
+.page-header {
+    border-bottom-style: none;
+    margin-bottom: 0px;
+}
+
+.page-button-band {
+     margin: 0px 0 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
 .progress.compact {
     margin: 0;
 }
@@ -107,6 +129,8 @@ body { padding-top: 50px;}
 .table-lined > tfoot > tr {
   border: 1px solid #ddd;
 }
+
+
 
 /*graph*/
 
