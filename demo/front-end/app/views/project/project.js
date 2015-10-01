@@ -22,8 +22,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('projectviewController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q",
-    function($scope, imperaService, $stateParams, BackhaulTable,$q) {
+resv.controller('projectviewController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q",'dialogs','$rootScope',
+    function($scope, imperaService, $stateParams, BackhaulTable,$q,dialogs,$rootScope) {
         
         $scope.state = $stateParams
 
@@ -38,7 +38,11 @@ resv.controller('projectviewController', ['$scope', 'imperaService', "$statePara
            }
         );
 
-    }
+	$scope.deleteEnv = function(env){
+		var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the environment " + env.name);
+		dlg.result.then(function(btn){
+			imperaService.removeEnvironment(env.id).then( function(){$rootScope.$broadcast('refresh');});
+		})
+	}  	
 
-    
-]);
+}]);

@@ -20,7 +20,7 @@ resv.config(function($stateProvider) {
     })
 });
 
-resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$stateParams', function($scope, imperaService, $state,$stateParams) {
+resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$stateParams','$rootScope', function($scope, imperaService, $state,$stateParams,$rootScope) {
  
     $scope.name = null;
 
@@ -40,7 +40,7 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$state
     
     $scope.addEnv = function(project,name,repo,tag){
         //console.log(project,name,repo,tag)
-        imperaService.addEnvironment(project,name,repo,tag).then(function(d){$state.go("envs",{ env:d.id })})
+        imperaService.addEnvironment(project,name,repo,tag).then(function(d){$rootScope.$broadcast('refresh'); $state.go("envs",{ env:d.id })})
     }
 
     
