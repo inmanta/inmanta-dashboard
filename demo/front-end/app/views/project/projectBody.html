@@ -15,8 +15,7 @@
         <tr ng-repeat="env in $data">
             <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}"><a ui-sref="envs({env:env.id})" > {{env.name}}</a></td>
             <td data-title="'Repo'" sortable="'repo_url'" filter="{ 'repo_url':'text'}">{{env.repo_url}}</td>      
-            <td data-title="'Branch'" sortable="'repo_branch'" filter="{ 'repo_branch':'text'}">{{env.repo_branch}}</td>      
-            <td data-title="'Id'" sortable="'id'" filter="{ 'id':'text'}">{{env.id}}</td>       
+            <td data-title="'Branch'" sortable="'repo_branch'" filter="{ 'repo_branch':'text'}">{{env.repo_branch}}</td>       
 	    <td>
                 <button class="btn btn-default btn-xs" ng-click="deleteEnv(env)">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

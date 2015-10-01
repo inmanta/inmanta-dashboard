@@ -119,13 +119,18 @@ imperApi.service('imperaService',
         impAPI.getAgents = function(){
             return $http.get(impURL + 'agent').then(function(data){ 
                 var out = []
-                data.data.forEach( function(machine){
+				var now = new Date(data.data.servertime).getTime()
+                
+                data.data.nodes.forEach( function(machine){
                     machine.agents.forEach( function(agent){
+		       		   var ls=formatDate(machine.last_seen)
                        out.push({
                         "name":agent.name,
                         "environment":agent.environment,
-                        "last_seen":formatDate(machine.last_seen),
-                        "hostname":machine.hostname
+                        "last_seen":ls,
+                        "hostname":machine.hostname,
+                        "interval":agent.interval,  
+                        "expired": ls.getTime()+(agent.interval*1000)<now
                         });
                     });
 				});
