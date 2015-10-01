@@ -63,6 +63,11 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
        
     }
 
+    $scope.deleteVersion = function(res) {
+	var resVersion = res.version 
+	imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
+    }
+
 
     
 }]);

@@ -141,6 +141,10 @@ imperApi.service('imperaService',
                     return data.data;});
 		};
 	
+		impAPI.deleteVersion = function(env,cmversion) {
+			return $http.delete(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}})
+		};
+
 		impAPI.getVersionsPaged = function(env,from,count) {
 			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Impera-tid":env}})
 				.then( 
