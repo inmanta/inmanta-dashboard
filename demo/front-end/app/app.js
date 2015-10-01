@@ -9,6 +9,8 @@ var app = angular.module('ImperaApp', [
   'dialogs.main',
   'angularSpinner',
   'ImperaApp.portalView',
+  'ImperaApp.projectsView',
+  'ImperaApp.projectView',
   'ImperaApp.resourceView',
   'ImperaApp.envView',
   'ImperaApp.addEnv',
@@ -21,11 +23,13 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.logsView',
   'ImperaApp.reportView',
   'ImperaApp.controllers.refresh',
+  'ImperaApp.controllers.projects',
+  'ImperaApp.controllers.side',
   'ImperaApp.feedback'
 ])
 
 app.config(function($urlRouterProvider) {
-  $urlRouterProvider.otherwise("/portal");   
+  $urlRouterProvider.otherwise("/projects");   
 })
 
 app.controller("configCtrl",["$scope","imperaConfig", "dialogs", function($scope, imperaConfig, dialogs){
@@ -90,6 +94,3 @@ app.controller("alertCtrl",["$scope",function($scope){
   };
  
 }])
-
-
-

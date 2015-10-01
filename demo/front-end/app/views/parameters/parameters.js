@@ -14,7 +14,8 @@ resv.config(function($stateProvider) {
                     controller: "paramsController"
                 },
                 "side": {
-                    templateUrl: "views/portal/portalSide.html"
+                    templateUrl: "views/env/envSide.html",
+                    controller: "envSideController"
 
                 }
             }

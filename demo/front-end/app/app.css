@@ -36,7 +36,38 @@ body { padding-top: 50px;}
     z-index: 1000;
     overflow-x: hidden;
     overflow-y: auto;
+    padding-top: 15px;
+
 }
+
+.sidebar > ul > li {
+    text-align: right;
+}
+
+.sidebar > ul > li.divider {
+    border-bottom:1px solid #ccc;
+}
+
+/* Page buildup Styles */
+
+.page-header {
+    border-bottom-style: none;
+    margin-bottom: 0px;
+}
+
+.page-button-band {
+     margin: 0px 0 15px;
+}
+
+
+
+
+
+
+
+
+
+
 
 .progress.compact {
     margin: 0;
@@ -110,6 +141,8 @@ body { padding-top: 50px;}
 .table-lined > tfoot > tr {
   border: 1px solid #ddd;
 }
+
+
 
 /*graph*/
 

@@ -35,6 +35,20 @@ imperApi.service('imperaService',
 			    data.data.forEach(function(d){projCache[d.id]=d})
 			    return data.data;});
 		};
+
+        
+        impAPI.getProjectsAndEnvironments = function() {
+			return $q.all({projects:impAPI.getProjects(),envs:impAPI.getEnvironments()}).then(
+                function(d){
+                    var projects = angular.copy(d.projects);
+                    var proI = {};
+                    projects.forEach(function(d){proI[d.id] = d; d.envs=[]})
+                    angular.copy(d.envs).forEach(function(d){proI[d.project].envs.push(d)})
+                    return projects;
+                }
+            )
+		};
+        
 	
 	    impAPI.getProject = function(project_id) {
 	        if(projCache[project_id]) {
@@ -54,6 +68,7 @@ imperApi.service('imperaService',
 			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
 		};
 
+//environment
         impAPI.addEnvironment = function(projectid, name, repo_url, repo_branch) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data;});
 		};
@@ -73,6 +88,20 @@ imperApi.service('imperaService',
 				data.data.forEach(function(d){envCache[d.id]=d})
 				return data.data;});
 		};
+		
+		impAPI.getEnvironmentsByProject = function(project_id) {
+		    
+		    return impAPI.getEnvironments().then( function(data) {
+                var out = [];
+		        data.forEach(function(env){
+		                if(env.project == project_id) {
+		                    out.push(env);
+		                }
+		            })
+		            return out;
+		    });
+		    
+		}
 
         impAPI.getEnvironment = function(id){
             if( envCache[id]){
@@ -173,13 +202,17 @@ imperApi.service('imperaService',
 		};
 		
 		impAPI.sendFeedback = function(feedback) {
-//		    return TODO
+            // return TODO
             // DUMMY CODE
 			    var out = $q.defer()
                 out.resolve(null)
                 return out.promise
 		}
 
+// compile 
+         impAPI.compile = function(env) {
+			return $http.get(impURL + 'notify/'+ env);
+		};
 // getReport
 
 function formatAction(action){

@@ -14,13 +14,23 @@ resv.config(function($stateProvider) {
                     controller: "envController"
                 },
                 "side": {
-                    templateUrl: "views/portal/portalSide.html"
+                    templateUrl: "views/env/envSide.html",
+                    controller: "envSideController"
 
                 }
             }
 
         })
 });
+
+resv.controller('envSideController',['$scope', 'imperaService', "$stateParams",function($scope, imperaService, $stateParams) {
+	$scope.state= $stateParams
+	
+	$scope.compile = function(env){
+        imperaService.compile(env)
+    }
+
+}])
 
 resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged) {
 
