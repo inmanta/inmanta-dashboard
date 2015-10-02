@@ -12,7 +12,7 @@
             <td data-title="'Environment'" sortable="'environment'" filter="{ 'environment':'select'}" filter-data="names()" ng-init="env=getEnv(agent.environment)"><a ui-sref="envs({env:agent.environment})">{{env[0].name}}</a></td>
             <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}">{{agent.name}}</td>
             <td data-title="'Last seen'" sortable="'last_seen'" filter="{ 'last_seen':'text'}">{{agent.last_seen|date:'M/d/yy H:mm'}}</td>
-	     <td data-title="'Interval'" sortable="'interval'" filter="{ 'interval':'number'}">{{agent.interval}}</td>
+	     <td data-title="'Interval'" sortable="'interval'" >{{agent.interval}}</td>
 
         </tr>
     </table>
