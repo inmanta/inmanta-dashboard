@@ -1,15 +1,12 @@
 <div class="row">
-    <ol class="breadcrumb col-xs-12 col-sm-8 col-md-8 col-lg-9">
+    <ol class="breadcrumb col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <li><a ui-sref="portal">Home</a></li>
         <li class="active">Environment: {{env.name}}</a></li>
     </ol>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3">
-        <a ui-sref="editEnv({env:state.env})"><button type="button" class="btn btn-primary">Edit <span class="glyphicon glyphicon-wrench"></span></button></a>
-		<a ui-sref="params({env:state.env})"><button type="button" class="btn btn-primary" >Parameters View</button></a>
-	</div>
+   
 </div>
 <div class="row">
-    <div class="col-md-10 detail">
+    <div class="col-md-12 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
            <p><strong>ID:</strong> {{env.id}} </p>   
@@ -41,6 +38,11 @@
 
                 
             </td>
+	     <td>
+                <button class="btn btn-default btn-xs" ng-click="deleteVersion(resource)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+             </td>  
             
         </tr>
     </table>

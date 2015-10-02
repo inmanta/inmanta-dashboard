@@ -11,10 +11,11 @@ resv.config(function($stateProvider) {
             templateUrl: "views/editEnv/editEnv.html",
             controller:"editEnvController"
         },
-        "side":{
-            templateUrl: "views/portal/portalSide.html"
-          
-        }
+                "side": {
+                    templateUrl: "views/env/envSide.html",
+                    controller: "envSideController"
+
+                }
       }
       
     })

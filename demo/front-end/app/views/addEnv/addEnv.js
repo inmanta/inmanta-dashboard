@@ -5,7 +5,7 @@ var resv = angular.module('ImperaApp.addEnv', ['ui.router','imperaApi','ngTable'
 resv.config(function($stateProvider) {
  $stateProvider
     .state('addEnv', {
-      url: "/addEnvironment",
+      url: "/addEnvironment?project",
       views:{
         "body":{
             templateUrl: "views/addEnv/addEnv.html",
@@ -20,7 +20,7 @@ resv.config(function($stateProvider) {
     })
 });
 
-resv.controller('addEnvController', ['$scope', 'imperaService', '$state', function($scope, imperaService, $state) {
+resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$stateParams','$rootScope', function($scope, imperaService, $state,$stateParams,$rootScope) {
  
     $scope.name = null;
 
@@ -31,12 +31,16 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state', functi
     }
     imperaService.getProjects().then(function(data) {
         $scope.projects = data;
-       
+        if($stateParams["project"]){
+            
+            $scope.selectedProject = data.filter(function(d){return d.id == $stateParams["project"]})[0]
+        }       
     });
 
+    
     $scope.addEnv = function(project,name,repo,tag){
         //console.log(project,name,repo,tag)
-        imperaService.addEnvironment(project,name,repo,tag).then(function(d){$state.go("envs",{ env:d.id })})
+        imperaService.addEnvironment(project,name,repo,tag).then(function(d){$rootScope.$broadcast('refresh'); $state.go("envs",{ env:d.id })})
     }
 
     

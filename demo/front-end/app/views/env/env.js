@@ -14,13 +14,23 @@ resv.config(function($stateProvider) {
                     controller: "envController"
                 },
                 "side": {
-                    templateUrl: "views/portal/portalSide.html"
+                    templateUrl: "views/env/envSide.html",
+                    controller: "envSideController"
 
                 }
             }
 
         })
 });
+
+resv.controller('envSideController',['$scope', 'imperaService', "$stateParams",function($scope, imperaService, $stateParams) {
+	$scope.state= $stateParams
+	
+	$scope.compile = function(env){
+        imperaService.compile(env)
+    }
+
+}])
 
 resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged) {
 
@@ -51,6 +61,11 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
         var resVersion = res.version 
         imperaService.changeReleaseStatus($stateParams.env,resVersion,false,true).then(function(d){$rootScope.$broadcast('refresh')});
        
+    }
+
+    $scope.deleteVersion = function(res) {
+	var resVersion = res.version 
+	imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
     }
 
 

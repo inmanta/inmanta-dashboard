@@ -83,7 +83,7 @@ services.service('timeSrv',
             return info.sec * 1000 * info.count;
         };
         
-        timeSrv.setInterval("30s")
+        timeSrv.setInterval("5s")
         
         return timeSrv;
 
