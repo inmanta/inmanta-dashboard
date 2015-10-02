@@ -14,8 +14,8 @@ resv.config(function($stateProvider) {
                     controller: "resourceController"
                 },
                 "side": {
-                    templateUrl: "views/resource/resourceSide.html",
-		    controller: "sideController"
+                    templateUrl: "views/env/envSide.html",
+                    controller: "sideController"
 
                 }
             }

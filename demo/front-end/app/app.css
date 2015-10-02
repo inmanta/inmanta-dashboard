@@ -60,14 +60,16 @@ body { padding-top: 50px;}
 }
 
 
+.page-button-band > a > button,
+.page-button-band > button {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
 
-
-
-
-
-
-
-
+.page-button-band > a{
+    float: right !important;
+}
 
 .progress.compact {
     margin: 0;

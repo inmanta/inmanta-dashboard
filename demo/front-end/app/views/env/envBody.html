@@ -9,8 +9,13 @@
     <div class="col-md-12 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
-           <p><strong>ID:</strong> {{env.id}} </p>   
     </div>	
+
+    <div class="col-md-12 page-button-band ">
+		<a ui-sref="editEnv({env:state.env})"><button type="button" class="btn" >Edit</button> </a>
+	</div>	
+
+
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="resource in $data">

@@ -15,7 +15,7 @@ resv.config(function($stateProvider) {
                 },
                 "side": {
                     templateUrl: "views/env/envSide.html",
-                    controller: "envSideController"
+                    controller: "sideController"
 
                 }
             }
@@ -23,23 +23,6 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.controller('envSideController',['$scope', '$rootScope', 'imperaService', "$stateParams",function($scope, $rootScope, imperaService, $stateParams) {
-	$scope.state= $stateParams
-	
-	$scope.compile = function(env){
-        imperaService.compile(env).then(function(){
-            $scope.cstate=true; 
-            $rootScope.$broadcast('refresh')  
-        })
-    }
-
-    function getState(){
-        imperaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
-    }
-
-    getState()
-    $scope.$on("refresh",getState)
-}])
 
 resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged) {
 
