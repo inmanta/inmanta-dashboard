@@ -6,13 +6,20 @@
             <li class="active"> Version: {{state.version}}</li>
            </ol>
  	   </div>
+      
+       
 </div>
+
+
 
 <deploy-progress data="status.DRYRUN" name="'Dry run'" action="setsort" emptyname="'DRY RUN'" emptyaction="dryrun">
 </deploy-progress> 
 <deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="'DEPLOY'" emptyaction="deploy" > 
 </deploy-progress> 
 <div class="row">
+
+<ng-include src="'views/resource/buttonBar.html'"></ng-include>
+
 
 <div class="col-md-12">
            <table class="table table-lined" ng-table="tableParams" show-filter="true">  

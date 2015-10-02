@@ -1,4 +1,4 @@
-<div class="row" style="overflow:hidden">
+<div class="row" >
 
 <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
@@ -6,6 +6,11 @@
             <li> Version: <a ui-sref="resources({env:state.env,version:state.version})"> {{state.version}}</a></li>
 	    <li class="active"> Graph </li> 
 </ol>
+<ng-include src="'views/resource/buttonBar.html'"></ng-include>
+
+</div>
+<div class="row" style="overflow:hidden"> 
+
 
 <div id="chart" style="overflow:hidden;cursor: pointer;" ></div>
 

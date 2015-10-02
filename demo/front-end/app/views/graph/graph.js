@@ -13,9 +13,9 @@ resv.config(function($stateProvider) {
                     templateUrl: "views/graph/graph.html",
                     controller: "graphController"
                 },
-                    "side": {
-                    templateUrl: "views/resource/resourceSide.html",
-		    controller: "sideController"
+                "side": {
+                    templateUrl: "views/env/envSide.html",
+                    controller: "sideController"
 
                 }
             }
