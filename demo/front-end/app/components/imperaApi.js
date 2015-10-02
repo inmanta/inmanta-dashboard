@@ -222,6 +222,16 @@ imperApi.service('imperaService',
          impAPI.compile = function(env) {
 			return $http.get(impURL + 'notify/'+ env);
 		};
+
+         impAPI.isCompiling = function(env) {
+			return $http.head(impURL + 'notify/'+ env).then(function(d){
+                if(d.status==200){
+                    return true
+                }else{
+                    return false
+                }
+            });
+		};
 // getReport
 
 function formatAction(action){
