@@ -17,8 +17,36 @@ function formatParameter(d){
     d["updated"] = formatDate(d["updated"]); 
 }
 
+function formatCompileSubReport(d){
+    d["completed"] = formatDate(d["completed"]); 
+    d["started"] = formatDate(d["started"]); 
+}
+
+
+function formatCompileReport(d){
+    d["completed"] = formatDate(d["completed"]); 
+    d["started"] = formatDate(d["started"]); 
+    d.reports.forEach(formatCompileSubReport);
+}
+
+function formatCompileReports(d){
+    d.reports.forEach(formatCompileReport);
+}
+
 function formateVersion(d){
     d["date"] = formatDate(d["date"]); 
+}
+
+function formatDryrunShort(d){
+    d["date"] = formatDate(d["date"]); 
+}
+
+function formatDryruns(d){
+    d.reports.forEach(formatDryrunShort);
+}
+
+function formatDryrun(d){
+     d["date"] = formatDate(d["date"]); 
 }
 
 imperApi.service('imperaService',
@@ -184,9 +212,45 @@ imperApi.service('imperaService',
                 });
 		};
 		
-		impAPI.changeReleaseStatus = function(env, cmversion, dry_run, push) {
-		    return $http.post(impURL + 'cmversion/'+cmversion,{'dryrun':dry_run,'push':push},{headers:{'X-Impera-tid':env}}).then(function(data){ return data.data;});
+		impAPI.deploy = function(env, cmversion, push) {
+		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Impera-tid':env}}).then(
+		        function(data){ 
+		            return data.data;
+		        });
 		};
+
+        impAPI.dryrun = function(env, cmversion) {
+		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Impera-tid':env}}).then(
+		        function(data){
+		            formatDryrun(data.data.dryrun);
+		            return data.data.dryrun;
+	            });
+		};
+
+        impAPI.getDryruns = function(env, cmversion) {
+            if(cmversion){
+                return $http.get(impURL + 'dryrun?version='+cmversion,{headers:{'X-Impera-tid':env}}).then(
+                    function(data){
+                        formatDryruns(data.data.dryruns)
+                        return data.data.dryruns;
+                    });
+            }else{
+                return $http.get(impURL + 'dryrun',{headers:{'X-Impera-tid':env}}).then(
+                    function(data){ 
+                        formatDryruns(data.data.dryruns)
+                        return data.data.dryruns;
+                    });
+            }
+		    
+		};
+		
+		impAPI.getDryrun = function(env, id) {
+		     return $http.get(impURL + 'dryrun/'+window.encodeURIComponent(id),{headers:{'X-Impera-tid':env}}).then(
+                    function(data){
+                        formatDryrun(data.data.dryrun)
+                        return data.data.dryrun;
+                    });
+		}
 
 //files
         impAPI.getFile = function(id) {
@@ -232,6 +296,13 @@ imperApi.service('imperaService',
                 }
             });
 		};
+
+        impAPI.getCompileReports = function(env) {
+			return $http.get(impURL + 'compilereport',{headers:{"X-Impera-tid":env}}).then( function(data){
+                    formatCompileReports(data.data);
+                    return data.data.reports
+                });
+		};
 // getReport
 
 function formatAction(action){
@@ -250,12 +321,13 @@ function formatReport(res){
     return out;
 }
 
-       impAPI.getDryRunReport = function(env,cmversion) {
-			return $http.get(impURL + 'cmversion/'+cmversion+'?include_logs=true&log_filter=dryrun&limit=1',{headers:{"X-Impera-tid":env}}).then( 
+       impAPI.getDryRunReport = function(env,id) {
+			return impAPI.get.then( 
                 function(data){
                     var resources = []
                     data.data.resources.forEach(function(res){
-                        if(res.actions &&  res.actions[0].data && Object.keys(res.actions[0].data)!=0){
+                        console.log(res)
+                        if(res.actions && res.actions.length>0 && res.actions[0].data && Object.keys(res.actions[0].data)!=0){
                             
                             resources.push(formatReport(res))
                         }

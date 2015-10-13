@@ -25,7 +25,8 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.controllers.refresh',
   'ImperaApp.controllers.projects',
   'ImperaApp.controllers.side',
-  'ImperaApp.feedback'
+  'ImperaApp.feedback',
+  'ImperaApp.compileReport'
 ])
 
 app.config(function($urlRouterProvider) {

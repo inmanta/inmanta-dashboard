@@ -18,17 +18,19 @@
 
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
-        <tr ng-repeat="resource in $data">
+        <tr ng-repeat="resource in $data track by resource.version" ng-init="extra = {}">
             <td data-title="'version'" sortable="'version'" filter="{ 'version':'text'}"><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
             <td data-title="'date'" sortable="'date'" filter="{ 'date':'text'}">{{resource.date|date:'M/d/yy H:mm'}}</td>
-            <td data-title="'dry_run'" class="col-md-3 row">
-               
-                <div class="col-xs-1">
-                <button class="btn btn-default btn-xs" ng-click="startDryRun(resource)" >
+            <td data-title="'dry_run'">
+                <button class="btn btn-default btn-xs" ng-click="startDryRun(resource,extra)" >
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
                 </button>
-                </div> 
-              <deploy-progress data="resource.progress.DRYRUN" class="col-xs-10"> </deploy-progress>                
+                <a ng-if="extra.dryrunid" ui-sref="report({env:state.env,version:resource.version,id:extra.dryrunid})"> <button class="btn btn-default btn-xs" >
+                    Current Report
+                </button> </a>
+                <a ui-sref="report({env:state.env,version:resource.version})"> <button class="btn btn-default btn-xs" >
+                    Last Report
+                </button> </a>
                 
             </td>
             <td data-title="'deploy'" class="col-md-3 row" >

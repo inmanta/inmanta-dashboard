@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a ui-sref="portal">Home</a>
+            </li>
+            <li class="active">Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a>
+            </li>
+        </ol>
+    </div>
+
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <select class="form-control" ng-model="compile" ng-options="compile.started for compile in compiles"></select>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12 detail">
+        <p><strong>Started:</strong> {{compile.started|date:'medium'}}</p>
+        <p><strong>Ended:</strong> {{compile.completed|date:'medium'}}</p>
+        <p><strong>Time (s):</strong> {{(compile.completed-compile.started)/1000}}</p>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <table class="table table-lined">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Command</th>
+                <th>Start (s)</th>
+                <th>Duration (s)</th>
+            </tr>
+            <tr ng-repeat-start="sub in compile.reports">
+                <td> <i ng-click="sub.open=!sub.open" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': sub.open, 'glyphicon-chevron-right': !sub.open}"></i> 
+                </td>
+                <td>{{sub.name}}</td>
+                <td>{{sub.command}}</td>
+                <td>+{{(sub.started-compile.started)/1000}}</td>
+                <td>{{(sub.completed-sub.started)/1000}}</td>
+
+            </tr>
+            <tr ng-repeat-end  class="accordian-body collapse" collapse="!sub.open" >
+                <td colspan="5">
+                    <div class="detail">
+                        <p><strong>Out stream:</strong>
+                            <div hljs source="sub.outstream">
+                            </div>
+                        </p>
+                        <p><strong>Error stream:</strong>
+                            <div hljs source="sub.errstream">
+                            </div>
+                        </p>
+
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

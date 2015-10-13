@@ -39,11 +39,11 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
 
         $scope.dryrun = function() {
-             imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,true,true).then(function(d){$rootScope.$broadcast('refresh')});
+             imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
             
         }
         $scope.deploy = function() {
-            imperaService.changeReleaseStatus($stateParams.env,$stateParams.version,false,true).then(function(d){$rootScope.$broadcast('refresh')});
+            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
           
         }
 

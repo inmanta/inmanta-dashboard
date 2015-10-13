@@ -7,7 +7,7 @@ var resv = angular.module('ImperaApp.reportView', ['ui.router', 'imperaApi', 'ng
 resv.config(function($stateProvider) {
     $stateProvider
         .state('report', {
-            url: "/environment/:env/version/:version/report",
+            url: "/environment/:env/version/:version/report?id",
             views: {
                 "body": {
                     templateUrl: "views/report/reportBody.html",
@@ -25,62 +25,15 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('reportController', ['$scope', 'imperaService', "$stateParams", "ngTableParams", "$filter","dialogs",
-    function($scope, imperaService, $stateParams, ngTableParams, $filter,dialogs) {
+resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","dialogs",
+    function($scope, imperaService, $stateParams,dialogs) {
       
 
         $scope.state = $stateParams
-        var cache;
-      
-        $scope.tableParams = new ngTableParams({
-            page: 1, // show first page
-            count: 10, // count per page
-            sorting: {
-                'id_fields.entity_type': 'asc' // initial sorting
-            }
-        }, {
-            getData: function($defer, params) {
-                var filters = {};
-                angular.forEach(params.filter(), function(value, key) {
-                    var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
-
-                    if (!splitedKey) {
-                        filters[key] = value;
-                        return;
-                    }
-
-                    splitedKey = splitedKey.splice(1);
-
-                    var father = splitedKey[0],
-                        son = splitedKey[1];
-                    filters[father] = {};
-                    filters[father][son] = value;
-                });
-
-                function processData(data){
-                    var orderedData = params.filter() ?
-                        $filter('filter')(data, filters) :
-                        data;
-
-                    // use build-in angular filter
-                    orderedData = params.sorting() ?
-                        $filter('orderBy')(orderedData, params.orderBy()) :
-                        orderedData;
-                    params.total(orderedData.length);
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-                if(cache){
-                    processData(cache)
-                }else
-                imperaService.getDryRunReport($stateParams.env, $stateParams.version).then(function(data) {
-                    cache = data;
-                    processData(data)
-
-                });
-
-            }
+        
+        imperaService.getDryrun($stateParams.env,$stateParams.id).then(function(d) {
+            $scope.dryrun=d
         });
-        $scope.resources = null
 
 
         imperaService.getEnvironment($stateParams.env).then(function(d) {
@@ -95,6 +48,11 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams", 
        
 		
 
+        }
+
+        $scope.dryrun = function() {
+             imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
+            
         }
     
     }

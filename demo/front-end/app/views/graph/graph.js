@@ -28,6 +28,11 @@ resv.config(function($stateProvider) {
 resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","dialogs",
             function($scope, imperaService, $stateParams,dialogs) {
 		
+$scope.dryrun = function() {
+             imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
+            
+        }
+
 var types = {
     "std::File": "\ue022",
     "std::Package": "\ue139",
