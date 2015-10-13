@@ -8,21 +8,25 @@
  	   </div>
 	  <ng-include src="'views/resource/buttonBar.html'"></ng-include>
 </div>
+<div class="row">
+    <div class="col-md-6 page-button-band ">
+        <select class="form-control" ng-model="xdryrun" ng-options="dryrun.id for dryrun in dryruns track by dryrun.id"></select>
+    </div>
+</div>
 
 <div class="row">
 
 <div class="col-md-12">
            <div class="col-md-12" style="min-height:150px" ng-hide="tableParams.data.length != 0 || !tableParams.settings().$loading"  > <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> </div>
-           <table ng-hide="tableParams.data.length == 0 && tableParams.settings().$loading" class="table table-lined"  show-filter="true">  
+           <table ng-table="tableParams" ng-hide="tableParams.data.length == 0 && tableParams.settings().$loading" class="table table-lined"  show-filter="true">  
             
-            <tr ng-repeat="(name,res) in dryrun.resources "  > 
-            
-            
-             <td data-title="'type'" sortable="'type'" filter="{ 'type':'text'}">{{name}}</td> 
-             <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res}}</td> 
+            <tr ng-repeat="res in $data"  > 
+
+             <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}">{{res.id_fields.entity_type}}</td> 
+             <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
              <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
-             <td data-title="'timestamp'" sortable="'action.timestamp'" > {{res.action.timestamp | date:'M/d/yy H:mm:ss'}}</td>
-             <td data-title="'Level'" sortable="'action.level'" filter="{ 'action.level':'text'}" > {{res.action.level}} </td>    
+             <td data-title="'Log'"> {{res.log}}</td>
+                
              <td data-title="'Data'" > 
                 <div ng-repeat="(prop,ft) in res.changes"> 
                     <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}} </p>

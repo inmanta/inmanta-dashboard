@@ -42,11 +42,27 @@ function formatDryrunShort(d){
 }
 
 function formatDryruns(d){
-    d.reports.forEach(formatDryrunShort);
+    d.forEach(formatDryrunShort);
 }
 
 function formatDryrun(d){
      d["date"] = formatDate(d["date"]); 
+     for(var k in d.resources){
+        d.resources[k]["id_fields"] = parseID(k)
+     }
+    
+}
+
+var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)=([a-zA-Z0-9_-]+)\],v=(\d+)/
+function parseID(id){
+    var o = idRegEx.exec(id)
+    return  {
+            "agent_name": o[2],
+            "version": o[5],
+            "entity_type": o[1],
+            "attribute": o[3],
+            "attribute_value": o[4]
+        }
 }
 
 imperApi.service('imperaService',

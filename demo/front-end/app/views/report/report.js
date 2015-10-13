@@ -25,16 +25,42 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","dialogs",
-    function($scope, imperaService, $stateParams,dialogs) {
-      
+resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","dialogs","BackhaulTable","$q",
+    function($scope, imperaService, $stateParams,dialogs,BackhaulTable, $q) {
+        
 
         $scope.state = $stateParams
         
-        imperaService.getDryrun($stateParams.env,$stateParams.id).then(function(d) {
-            $scope.dryrun=d
-        });
+        $scope.tableParams = new BackhaulTable($scope,{
+            page: 1, // show first page
+            count: 50 // count per page
+        }, function(params){
+           if(! $stateParams.id){
+                var out = $q.defer()
+                out.resolve([])
+                return out.promise
+           }else{          
+               return imperaService.getDryrun($stateParams.env,$stateParams.id).then(function(d) {
+                    $scope.dryrun=d
+                    var out=[]
+                    for(var k in d.resources){
+                        var res = angular.copy(d.resources[k])
+                        res["id"] = k
+                        out.push(res)
+                    }
+                    return out;
+                });
+           }
 
+        });
+    
+        imperaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
+            $scope.dryruns = d
+            if(!$scope.state.id){
+                $scope.state.id = d[d.length-1].id
+                $scope.tableParams.refresh()
+            }
+        });
 
         imperaService.getEnvironment($stateParams.env).then(function(d) {
             $scope.env = d

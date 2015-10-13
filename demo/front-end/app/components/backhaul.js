@@ -70,6 +70,8 @@ services.service('Backhaul',
                 }
 
             }
+            
+            this.refresh = refresh
 
            
                         
@@ -127,6 +129,7 @@ services.service('BackhaulTable', function(Backhaul, ngTableParams, $filter) {
 
             }
         });
+      tableParams.refresh = backhaul.refresh
       return tableParams;
     }
 })
