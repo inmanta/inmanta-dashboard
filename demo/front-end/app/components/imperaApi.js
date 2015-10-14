@@ -332,7 +332,7 @@ imperApi.service('imperaService',
 		};
 
         impAPI.getCompileReports = function(env) {
-			return $http.get(impURL + 'compilereport',{headers:{"X-Impera-tid":env}}).then( function(data){
+			return $http.get(impURL + 'compilereport?environment='+env).then( function(data){
                     formatCompileReports(data.data);
                     return data.data.reports
                 });
