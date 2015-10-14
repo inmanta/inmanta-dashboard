@@ -33,7 +33,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
         
         $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
-            count: 50 // count per page
+            count: 50 // count per page,
         }, function(params){
            if(! $stateParams.id){
                 var out = $q.defer()
@@ -46,6 +46,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
                     for(var k in d.resources){
                         var res = angular.copy(d.resources[k])
                         res["id"] = k
+                        res["changessize"] = Object.keys(res.changes).length
                         out.push(res)
                     }
                     return out;

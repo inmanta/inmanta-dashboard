@@ -1,9 +1,10 @@
+
 <div class="row">
 	   <div class="col-md-12">
            <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
-            <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
-            <li class="active"> Version: <a ui-sref="resources({env:state.env,version:state.version})">  {{state.version}}</a></li>
+            <li class="active">Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
+            
            </ol>
  	   </div>
 	  <ng-include src="'views/resource/buttonBar.html'"></ng-include>
@@ -30,7 +31,7 @@
              <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
              <td data-title="'Log'"> {{res.log}}</td>
                 
-             <td data-title="'Data'" > 
+             <td data-title="'Data'" sortable="'changessize'"  filter="{ 'changessize':'partials/emptyFilter.html'}"> 
                 <div ng-repeat="(prop,ft) in res.changes"> 
                     <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}} </p>
                     <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft)"> Diff </btn>
