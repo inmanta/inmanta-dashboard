@@ -2,8 +2,7 @@
 	   <div class="col-md-12">
            <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
-            <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
-            <li class="active"> Version: {{state.version}}</li>
+            <li class="active">Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
            </ol>
  	   </div>
       
@@ -13,7 +12,7 @@
 <deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="'DEPLOY'" emptyaction="deploy" > 
 </deploy-progress> 
 
-<div class="row" >
+<div class="row page-button-band" >
     <div class="col-md-1">
            <strong> Dryrun: </strong>
     </div>
@@ -33,8 +32,6 @@
 </div>
 
 <div class="row">
-
-<ng-include src="'views/resource/buttonBar.html'"></ng-include>
 
 
 <div class="col-md-12">
