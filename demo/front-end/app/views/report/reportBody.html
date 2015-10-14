@@ -9,13 +9,16 @@
 	  <ng-include src="'views/resource/buttonBar.html'"></ng-include>
 </div>
 <div class="row">
-    <div class="col-md-6 page-button-band ">
-        <select class="form-control" ng-model="dryrun" ng-options="dryrun.id for dryrun in dryruns track by dryrun.id"></select>
+    <div class="col-md-5 page-button-band ">
+        <select class="form-control" ng-model="dryrun" ng-options="dryrun.date for dryrun in dryruns track by dryrun.id"></select>
     </div>
+   
 </div>
-
 <div class="row">
-
+<div class="col-md-5 detail" ng-if="dryrun">
+           <p><strong>Started:</strong> {{dryrun.date|date:'M/d/yy H:mm'}} </p>   
+           <p><strong>Progress:</strong> {{dryrun.total-dryrun.todo}}/{{dryrun.total}} </p>   
+</div>
 <div class="col-md-12">
            <div class="col-md-12" style="min-height:150px" ng-hide="tableParams.data.length != 0 || !tableParams.settings().$loading"  > <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> </div>
            <table ng-table="tableParams" ng-hide="tableParams.data.length == 0 && tableParams.settings().$loading" class="table table-lined"  show-filter="true">  

@@ -12,6 +12,26 @@
 
 <deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="'DEPLOY'" emptyaction="deploy" > 
 </deploy-progress> 
+
+<div class="row" >
+    <div class="col-md-1">
+           <strong> Dryrun: </strong>
+    </div>
+
+    <div class="col-md-11">
+                <button class="btn btn-default btn-xs" ng-click="startDryRun()" >
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </button>
+                <a ng-if="dryrunid" ui-sref="report({env:state.env,version:resource.version,id:dryrunid})"> <button class="btn btn-default btn-xs" >
+                    Current Report
+                </button> </a>
+                <a ui-sref="report({env:state.env,version:resource.version})"> <button class="btn btn-default btn-xs" >
+                    Last Report
+                </button> </a>
+    </div>
+                
+</div>
+
 <div class="row">
 
 <ng-include src="'views/resource/buttonBar.html'"></ng-include>

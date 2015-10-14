@@ -62,9 +62,10 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
         },true)
         
         imperaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
+            d.reverse()
             $scope.dryruns = d
             if(!$scope.state.id){
-                $scope.state.id = d[d.length-1].id
+                $scope.state.id = d[0].id
                 $scope.tableParams.refresh()
             }
         });
