@@ -1,0 +1,61 @@
+<div class="row">
+	   <div class="col-md-12">
+           <ol class="breadcrumb">
+            <li><a ui-sref="portal">Home</a></li>
+            <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
+            <li class="active"> Version: {{state.version}}</li>
+           </ol>
+ 	   </div>
+      
+       
+</div>
+
+<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="'DEPLOY'" emptyaction="deploy" > 
+</deploy-progress> 
+
+<div class="row" >
+    <div class="col-md-1">
+           <strong> Dryrun: </strong>
+    </div>
+
+    <div class="col-md-11">
+                <button class="btn btn-default btn-xs" ng-click="startDryRun()" >
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </button>
+                <a ng-if="dryrunid" ui-sref="report({env:state.env,version:resource.version,id:dryrunid})"> <button class="btn btn-default btn-xs" >
+                    Current Report
+                </button> </a>
+                <a ui-sref="report({env:state.env,version:resource.version})"> <button class="btn btn-default btn-xs" >
+                    Last Report
+                </button> </a>
+    </div>
+                
+</div>
+
+<div class="row">
+
+<ng-include src="'views/resource/buttonBar.html'"></ng-include>
+
+
+<div class="col-md-12">
+           <table class="table table-lined" ng-table="tableParams" show-filter="true">  
+            
+            <tr ng-repeat="res in $data track by res.id" ng-class="{'bg-info':res.id==toHighlight}" > 
+            
+            
+             <td data-title="'type'" sortable="'id_fields.type'" filter="{ 'id_fields.type':'text'}"><a ui-sref="logs({env:state.env,id:res.id})">{{res.id_fields.type}}</a></td> 
+             <td data-title="'agent'" sortable="'id_fields.agent'" filter="{ 'id_fields.agent':'text'}">{{res.id_fields.agent}}</td> 
+             <td data-title="'value'" sortable="'id_fields.value'" filter="{ 'id_fields.value':'text'}" class="col-md-2">{{res.id_fields.value}}</td> 
+             <td data-title="'value'" sortable="'id_fields.value'" filter="{ 'id_fields.value':'text'}" class="col-md-2">{{res}}</td> 
+             
+            
+             <td data-title="'Details'"> <button class="btn btn-default" ng-click="details(res)" class="col-xs-1 "> Details </button> </td>
+            
+             </tr>
+
+             
+           </table>
+
+       </div>           
+       </div>
+
