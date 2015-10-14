@@ -12,7 +12,7 @@ resv.config(function($stateProvider) {
             controller:"addProjectController"
         },
         "side":{
-            templateUrl: "views/portal/portalSide.html"
+            templateUrl: "partials/emptysidebar.html"
           
         }
       }
