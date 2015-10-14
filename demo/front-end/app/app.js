@@ -12,6 +12,7 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.projectsView',
   'ImperaApp.projectView',
   'ImperaApp.resourceView',
+  'ImperaApp.resourceCentricView',
   'ImperaApp.envView',
   'ImperaApp.addEnv',
   'ImperaApp.editEnv',

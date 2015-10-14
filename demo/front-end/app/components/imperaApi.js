@@ -212,6 +212,21 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+		
+		
+		impAPI.getResourcesState  = function(env){
+		    return $http.get(impURL + 'environment/'+env+'?resources=1&versions=5').then( 
+                function(data){
+                    return data.data.environment
+                });
+		}
+		//resource has version in id!
+		impAPI.getResource = function(env,id) {
+			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=",{headers:{'X-Impera-tid':env}}).then( 
+                function(data){
+                    return data.data.resource
+                });
+		};
 //parameters
 		impAPI.getParameters = function(env) {
 			return $http.get(impURL + 'parameter',{headers:{"X-Impera-tid":env}}).then( 
