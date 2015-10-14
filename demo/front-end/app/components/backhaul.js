@@ -27,12 +27,14 @@ services.service('Backhaul',
             }
 
             var refresh = function(){
-                callGetData().then(function(d){ 
-                    if(!angular.equals(data,d)){
-                        data=d;
-                        reload();
-                    }
-                })
+                if(getData){
+                    callGetData().then(function(d){ 
+                        if(!angular.equals(data,d)){
+                            data=d;
+                            reload();
+                        }
+                    })
+                }
             }
 //this function expects n arguments
 //get(rld,gb,[args])
