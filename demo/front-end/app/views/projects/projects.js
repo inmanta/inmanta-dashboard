@@ -22,8 +22,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('projectsviewController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q",
-    function($scope, imperaService, $stateParams, BackhaulTable,$q) {
+resv.controller('projectsviewController', ['$scope', 'imperaService', '$rootScope', "$stateParams", "BackhaulTable", "$q",
+    function($scope, imperaService,$rootScope, $stateParams, BackhaulTable,$q) {
         
         $scope.state = $stateParams
 
@@ -37,6 +37,11 @@ resv.controller('projectsviewController', ['$scope', 'imperaService', "$statePar
                     return imperaService.getProjects()
            }
         );
+        
+        
+        $scope.deleteProject = function(project){
+            imperaService.removeProject(project.id).then( function(){$rootScope.$broadcast('refresh');});
+        }
 
     }
 

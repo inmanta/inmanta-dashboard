@@ -14,7 +14,7 @@
 <div class="row">
 
     <div class="col-md-6">
-        <select class="form-control" ng-model="compile" ng-options="compile.started for compile in compiles"></select>
+        <select class="form-control" ng-model="compile" ng-options="compile.started for compile in compiles track by compile.started"></select>
     </div>
 </div>
 <div class="row">
@@ -25,6 +25,7 @@
         <p><strong>Time (s):</strong> {{(compile.completed-compile.started)/1000}}</p>
     </div>
 </div>
+
 <div class="row">
 
     <div class="col-md-12">
@@ -35,18 +36,19 @@
                 <th>Command</th>
                 <th>Start (s)</th>
                 <th>Duration (s)</th>
+                <th>Return code</th>
             </tr>
-            <tr ng-repeat-start="sub in compile.reports">
+            <tr ng-repeat-start="sub in compile.reports" ng-class="{'warning':sub.returncode!=0}">
                 <td> <i ng-click="sub.open=!sub.open" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': sub.open, 'glyphicon-chevron-right': !sub.open}"></i> 
                 </td>
                 <td>{{sub.name}}</td>
                 <td>{{sub.command}}</td>
                 <td>+{{(sub.started-compile.started)/1000}}</td>
                 <td>{{(sub.completed-sub.started)/1000}}</td>
-
+                <td>{{sub.returncode}}</td>
             </tr>
-            <tr ng-repeat-end  class="accordian-body collapse" collapse="!sub.open" >
-                <td colspan="5">
+            <tr ng-repeat-end  class="accordian-body collapse" collapse="!sub.open" ng-class="{'warning':sub.returncode!=0}">
+                <td colspan="6">
                     <div class="detail">
                         <p><strong>Out stream:</strong>
                             <div hljs source="sub.outstream">

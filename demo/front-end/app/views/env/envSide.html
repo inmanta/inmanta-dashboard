@@ -13,6 +13,9 @@
 <li role="separator" class="divider"></li>
 	       <li ui-sref-active="active" ng-class="{disabled:cstate}" > <a ng-click="compile(state.env)" ng-hide="cstate"> Recompile </a> <a ng-hide="!cstate">Compiling <i class="fa fa-cog fa-spin"></i></a>
             </li>
+            <li ui-sref-active="active"> <a ui-sref="compileReport({env:state.env})"> Compile Reports </a> 
+            </li>
+            
         </ul>
 
     </div>

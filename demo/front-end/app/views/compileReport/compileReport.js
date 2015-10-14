@@ -25,21 +25,33 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('compileReportController', ['$scope','$rootScope', 'imperaService', "$stateParams",
-    function($scope, $rootScope, imperaService, $stateParams) {
+resv.controller('compileReportController', ['$scope', 'imperaService', "$stateParams",
+    function($scope, imperaService, $stateParams) {
         
         $scope.state = $stateParams
         
         imperaService.getEnvironment($stateParams.env).then(function(d) {
             $scope.env = d
         });
-
-        imperaService.getCompileReports($stateParams.env).then(function(d) {
-            $scope.compiles = d
-            //d.forEach(function(d){d.reports.forEach(function(f){f.open=f.errstream.length != 0})})
-            d.forEach(function(d){d.reports.forEach(function(f){f.open=false})})
-            $scope.compile=d[0]
-        });
+        
+        function load(){
+            imperaService.getCompileReports($stateParams.env).then(function(d) {
+                $scope.compiles = d
+                //d.forEach(function(d){d.reports.forEach(function(f){f.open=f.errstream.length != 0})})
+                d.forEach(function(d){d.reports.forEach(function(f){
+                    if(!('open' in f)){
+                        f.open=(f.returncode!=0)
+                    }
+                })})
+                if(!$scope.compile){
+                    $scope.compile=d[0]
+                }
+            });
+        }
+        
+        load();
+        
+        $scope.$on('refresh',load)
 
         
     }

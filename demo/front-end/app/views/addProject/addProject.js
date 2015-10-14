@@ -35,7 +35,7 @@ resv.controller('addProjectController', ['$scope', 'imperaService', '$state', fu
 
     $scope.addProject = function(name){
         //console.log(project,name,repo,tag)
-        imperaService.addProject(name).then(function(d){$state.go("addEnv")})
+        imperaService.addProject(name).then(function(d){$state.go("addEnv",{project:d.id})})
     }
 
     

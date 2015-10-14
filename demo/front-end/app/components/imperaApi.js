@@ -76,8 +76,8 @@ imperApi.service('imperaService',
 //project
 		impAPI.getProjects = function() {
 			return $http.get(impURL + 'project').then(function(data){
-			    data.data.forEach(function(d){projCache[d.id]=d})
-			    return data.data;});
+			    data.data.projects.forEach(function(d){projCache[d.id]=d})
+			    return data.data.projects;});
 		};
 
         
@@ -102,25 +102,28 @@ imperApi.service('imperaService',
             } else {
 //                return impAPI.getProjects().then(function(){return projCache[project_id];});
                 return $http.get(impURL + 'project/'+project_id).then(function(data) {
-                        projCache[data.data.id]=data.data
-                        return data.data;
+                        projCache[data.data.project.id]=data.data.project
+                        return data.data.project;
                 });       
             } 
 	    }
 	
         impAPI.addProject = function(name) {
-			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data;});
+			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data.project;});
 		};
 
+        impAPI.removeProject = function(id) {
+			return $http.delete(impURL + 'project/'+id);
+		};
 //environment
         impAPI.addEnvironment = function(projectid, name, repo_url, repo_branch) {
-			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data;});
+			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data.environment;});
 		};
 		
 		impAPI.editEnvironment = function(env) {
 		    return $http.post(impURL + 'environment/'+env.id,{'id':env.id,'name':env.name,'repository':env.repo_url,'branch':env.repo_branch}).then(function(data){ 
-		        envCache[env.id]=env; 
-		        return data.data;});
+		        envCache[env.id]=data.data.environment; 
+		        return data.data.environment;});
 		}
 
         impAPI.removeEnvironment = function(envid) {
@@ -129,8 +132,8 @@ imperApi.service('imperaService',
 		
 		impAPI.getEnvironments = function() {
 			return $http.get(impURL + 'environment').then(function(data){ 
-				data.data.forEach(function(d){envCache[d.id]=d})
-				return data.data;});
+				data.data.environments.forEach(function(d){envCache[d.id]=d})
+				return data.data.environments;});
 		};
 		
 		impAPI.getEnvironmentsByProject = function(project_id) {
@@ -154,8 +157,8 @@ imperApi.service('imperaService',
                 return out.promise
             }else{
                 return $http.get(impURL + 'environment/'+id).then(function(data){ 
-    				envCache[data.data.id]=data.data
-	    			return data.data;});
+    				envCache[data.data.environment.id]=data.data.environment
+	    			return data.data.environment;});
             }            
         }
 

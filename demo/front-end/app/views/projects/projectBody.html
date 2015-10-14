@@ -15,6 +15,11 @@
         <tr ng-repeat="project in $data">
             <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}"><a ui-sref="project({project:project.id})" > {{project.name}}</a></td>
             <td data-title="'Id'" sortable="'id'" filter="{ 'id':'text'}">{{project.id}}</td>         
+             <td>
+                <button class="btn btn-default btn-xs" ng-click="deleteProject(project)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </td>  
         </tr>
     </table>
     </div>
