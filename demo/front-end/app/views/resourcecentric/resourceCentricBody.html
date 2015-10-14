@@ -8,10 +8,18 @@
       
        
 </div>
-
-<deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="'DEPLOY'" emptyaction="deploy" > 
-</deploy-progress> 
-
+<div class="row">
+    <div class="col-md-2">
+        <strong> Deploy status: </strong>
+    </div>
+    <div class="col-md-10">
+        <div class="progress">
+            <div class="progress-bar" ng-click="setFilter('deployed_version',name)" ng-repeat="(name,count) in counts"  ng-style="{width: count/maxcount*100+'%', 'background-color': 'hsl(100, '+($index+1)/(vcount+1)*100+'%, 50%)'}"s>
+                <span>{{name}} ({{count}})</span>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row page-button-band" >
     <div class="col-md-1">
            <strong> Dryrun: </strong>

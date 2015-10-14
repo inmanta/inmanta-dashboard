@@ -7,7 +7,7 @@ var resv = angular.module('ImperaApp.logsView', ['ui.router', 'imperaApi', 'ngTa
 resv.config(function($stateProvider) {
     $stateProvider
         .state('logs', {
-            url: "/environment/:env/resource/:id",
+            url: "/environment/:env/resource/:id?version",
             views: {
                 "body": {
                     templateUrl: "views/log/logBody.html",
@@ -27,6 +27,7 @@ resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "Ba
     $stateParams.id = window.decodeURIComponent($stateParams.id)
     $scope.state = $stateParams
     $scope.cmversion= $stateParams.id.substring($stateParams.id.lastIndexOf("=")+1)
+    $stateParams.version=$scope.cmversion
 
     $scope.tableParams = new BackhaulTable($scope,{
         page: 1, // show first page

@@ -44,10 +44,8 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
 
         $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
-            count: 50, // count per page
-            sorting: {
-                'id_fields.entity_type': 'asc' // initial sorting
-            }
+            count: 50 // count per page
+           
         }, function(params){
                     return imperaService.getResourcesState($stateParams.env).then(function(info) {
                     $scope.env = info
@@ -55,9 +53,16 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
                     
 
                     var data = info.resources
-                    $scope.alldata = {}
+                    $scope.counts = {}
+                    $scope.vcount = 0
+                    $scope.maxcount = data.length
                     angular.forEach(data, function(item) {
-                        $scope.alldata[item.id] = item
+                        if(!$scope.counts[item.deployed_version]){
+                            $scope.counts[item.deployed_version]=1
+                            $scope.vcount++
+                        }else{
+                            $scope.counts[item.deployed_version]++
+                        }
                     })
                     
                     
@@ -82,63 +87,18 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
         $scope.open = function(item) {
             imperaService.getResource($stateParams.env,item.id+",v="+item.latest_version).then(function(d){
                 dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
-                    resource: item,
+                    resource: d,
                     env:$stateParams.env
                 }, {})
             })
 
         }
-       $scope.states = function() {
-       var def = $q.defer()
-       var names = [
-            {
-                'id':  "AVAILABLE",
-                'title': "AVAILABLE"
-            },{
-                'id':  "DRYRUN",
-                'title': "DRYRUN"
-            },{
-                'id':  "DEPLOY",
-                'title': "DEPLOY"
-            }]
-                  
+     
 
-            
-       def.resolve(names);
-       return def;
-        };
-
-      $scope.results = function() {
-       var def = $q.defer()
-       var names = [
-            {
-                'id':  "SUCCESS",
-                'title': "SUCCESS"
-            },{
-                'id':  "ERROR",
-                'title': "ERROR"
-            },{
-                'id':  "WAITING",
-                'title': "WAITING"
-            }]
-                  
-
-            
-       def.resolve(names);
-       return def;
-        };
-
-      $scope.setsort = function(name){
-        if(name == "DONE"){ name = "SUCCESS"}
-        $scope.tableParams.filter()['result']=name
-      }
-
-
-        $scope.resources = null
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
-        $scope.env = d
-    });
-
+        $scope.setFilter = function(field,value){
+            $scope.tableParams.filter()[field]=value
+        }
+   
     }
 
     
