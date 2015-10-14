@@ -44,7 +44,7 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
 
         $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
-            count: 10, // count per page
+            count: 50, // count per page
             sorting: {
                 'id_fields.entity_type': 'asc' // initial sorting
             }
@@ -69,18 +69,23 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
 
 
         $scope.details = function(item) {
-            dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
-                resource: item,
-                env:$stateParams.env
-            }, {})
+            imperaService.getResource($stateParams.env,item.id+",v="+item.latest_version).then(function(d){
+                dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
+                    resource: d,
+                    env:$stateParams.env
+                }, {})
+
+            })
 
         }
 
         $scope.open = function(item) {
-            dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
-                resource: item,
-                env:$stateParams.env
-            }, {})
+            imperaService.getResource($stateParams.env,item.id+",v="+item.latest_version).then(function(d){
+                dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
+                    resource: item,
+                    env:$stateParams.env
+                }, {})
+            })
 
         }
        $scope.states = function() {
