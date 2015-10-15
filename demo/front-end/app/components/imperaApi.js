@@ -66,12 +66,18 @@ function parseID(id){
 }
 
 imperApi.service('imperaService',
-	function Nodeservice($http,imperaConfig,$q) {
+	function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope) {
 		var impAPI = {};
 		var impURL = imperaConfig.backend;
 		var envCache ={};
 		var projCache = {};
 
+        var defaultCache = $cacheFactory("http-service-cache")
+        $http.defaults.cache = defaultCache
+
+	    $rootScope.$on("refresh", function() {
+	        defaultCache.removeAll();
+	    })
 
 //project
 		impAPI.getProjects = function() {
