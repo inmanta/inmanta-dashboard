@@ -324,7 +324,7 @@ imperApi.service('imperaService',
 
 // compile 
          impAPI.compile = function(env) {
-			return $http.get(impURL + 'notify/'+ env);
+			return $http.get(impURL + 'notify/'+ env + '?update=0');
 		};
 
          impAPI.isCompiling = function(env) {
@@ -346,7 +346,7 @@ imperApi.service('imperaService',
 // getReport
 
 function formatAction(action){
-    action["timestamp"] = formatDate(action["timestamp"]); 
+    action["timestamp"] = formatDate(action["timestamp"]);
     return action
 }
 function formatReport(res){
@@ -362,7 +362,7 @@ function formatReport(res){
 }
 
        impAPI.getDryRunReport = function(env,id) {
-			return impAPI.get.then( 
+			return impAPI.get.then(
                 function(data){
                     var resources = []
                     data.data.resources.forEach(function(res){
