@@ -53,7 +53,7 @@ function formatDryrun(d){
     
 }
 
-var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)=([a-zA-Z0-9_-]+)\],v=(\d+)/
+var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)=([\/a-zA-Z0-9_-]+)\],v=(\d+)/
 function parseID(id){
     var o = idRegEx.exec(id)
     return  {
