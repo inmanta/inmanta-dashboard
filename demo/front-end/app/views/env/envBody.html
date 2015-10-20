@@ -22,7 +22,7 @@
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams">
         <tr ng-repeat="resource in $data track by resource.version" ng-init="extra = {}">
-            <td data-title="'Date'" sortable="'date'" >{{resource.date|date:'d/M/yy HH:mm'}}</td>
+            <td data-title="'Date'" sortable="'date'" >{{resource.date|date:'dd/mm/yyyy hh:mm'}}</td>
             <td data-title="'Version'" sortable="'version'" ><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
             
             
