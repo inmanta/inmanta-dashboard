@@ -39,7 +39,7 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
     
            return imperaService.getVersionsPaged($stateParams.env, start, extent).then(
             function(d){
-                d.versions.forEach(getProgress)
+                
                 d.versions.forEach(function (d){d.state=getState(d)})
                 return d;
             })
@@ -81,21 +81,7 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
         return res.result
     }
 
-    var getProgress = function(version){
-        var out = {}
-        var status = version.status
-        for(var res in status){
-            var state = status[res]
-            if(state in out){
-                out[state]++
-            }else{
-                out[state] = 1
-            }
-        }
-       
-        out["TOTAL"] = version.total
-        version.progress=out;
-    }
+    
     
     //For compile
     

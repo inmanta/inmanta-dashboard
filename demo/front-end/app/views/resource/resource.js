@@ -53,6 +53,10 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
         }
 
 
+        $scope.deploy = function() {
+            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
+          
+        }
       
 
         $scope.tableParams = new BackhaulTable($scope,{
@@ -64,7 +68,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
         }, function(params){
                     return imperaService.getResources($stateParams.env, $stateParams.version).then(function(info) {
 
-                    $scope.status = info.model.progress
+                    $scope.status = info.model
                     
 
                     var data = info.resources

@@ -393,31 +393,45 @@ imperApi.directive("deployProgress",  function() {
             'skipped': 'info',
             'failed': 'danger'
         }
-
-        var processProgress = function(prog) {
+        
+        var getProgress = function(version){
+            var prog = {}
             var bars = []
-            var total = prog["TOTAL"]
-            var progress = {
-                'total': total,
-                'bars': bars
+            var status = version.status
+            var total = version.total
+            for(var res in status){
+                var state = status[res]
+                if(state in prog){
+                    prog[state]++
+                }else{
+                    prog[state] = 1
+                }
             }
-            var done = 0;
+       
             typesSeq.forEach(function(key) {
                 var value = prog[key]
-                if(!value)
-                    value=0;
-                bars.push({
-                    "name": key,
-                    "value": value * 100 / total,
-                    "label": value,
-                    "type": types[key]
-                })
-                done += value
+                if(value){
+                   
+                    bars.push({
+                        "name": key,
+                        "value": value * 100 / total,
+                        "label": value,
+                        "type": types[key]
+                    })
+                }
+                
             })
-            progress.done = done
+            
+            var progress = {
+                'total': version.total,
+                'bars': bars,
+                'done': version.done
+            }
+            
             return progress
         }
 
+       
   return {
     restrict: 'E',
     templateUrl: 'components/deployProgress.html',
@@ -438,7 +452,7 @@ imperApi.directive("deployProgress",  function() {
 	scope.remainder = 10-scope.width;
     scope.data=null;
     scope.$watch('datain',function(newValue, oldValue) {
-        if(newValue) {scope.data = processProgress(newValue)} 
+        if(newValue) {scope.data = getProgress(newValue)} 
     },true)
         
     }
