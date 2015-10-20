@@ -23,7 +23,22 @@ resv.config(function($stateProvider) {
         })
 });
 
-
+resv.controller('resourceButtonController',['$scope','$rootScope', 'imperaService', "$stateParams",
+    function($scope, $rootScope, imperaService, $stateParams) {
+         $scope.dryrun = function() {
+            imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){
+                $scope.dryrunid=d.id
+                $rootScope.$broadcast('refresh')
+            });     
+        }
+        
+        $scope.deploy = function() {
+            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
+          
+        }
+    }
+])
+    
 
 resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
     function($scope, $rootScope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
@@ -38,17 +53,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
         }
 
 
-       $scope.startDryRun = function() {
-            imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){
-                $scope.dryrunid=d.id
-                $rootScope.$broadcast('refresh')
-            });     
-        }
-        
-        $scope.deploy = function() {
-            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
-          
-        }
+      
 
         $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page

@@ -3,8 +3,8 @@
 <ol class="breadcrumb">
             <li><a ui-sref="portal">Home</a></li>
             <li>Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
-            <li> Version: <a ui-sref="resources({env:state.env,version:state.version})"> {{state.version}}</a></li>
-	    <li class="active"> Graph </li> 
+            <li class="active"> Version: {{state.version}}</li>
+	    
 </ol>
 <ng-include src="'views/resource/buttonBar.html'"></ng-include>
 

@@ -1,6 +1,16 @@
-<div class="col-md-12 page-button-band ">
-    <a><button ng-click="dryrun()" type="button" class="btn" >Dryrun </button></a>
-    <a ui-sref-active="hidden" ui-sref="resources({env:state.env,version:state.version})"><button type="button" class="btn" >Overview </button></a>
-    <a ui-sref-active="hidden" ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn" >Graph</button> </a>
-    <a ui-sref-active="hidden" ui-sref="report({env:state.env,version:state.version})"><button type="button" class="btn" >Report </button></a>
+<div class="col-md-12 page-button-band " ng-controller="resourceButtonController">
+
+    <button ui-sref-active="hidden" class="btn btn-default" ui-sref="report({env:state.env,version:state.version})" title="Dry run report">
+               <span class="glyphicon glyphicon-list-alt"> </span> Dry run report
+    </button> 
+    <button class="btn btn-default" ng-click="dryrun()"  title="Perform dry run">
+               <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Perform dry run
+    </button>  
+                
+    <button class="btn btn-default" ng-click="deploy()" ng-disabled="resource.released " title="Release version" >
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Deploy
+    </button>      
+    
+    <a ui-sref-active="hidden" ui-sref="resources({env:state.env,version:state.version})"><button type="button" class="btn" > <span class="fa fa-table"></span> Table view </button></a>
+    <a ui-sref-active="hidden" ui-sref="graph({env:state.env,version:state.version})"><button type="button" class="btn" > <span class="fa fa-codepen"> </span> Graph view </button> </a>
 </div>	

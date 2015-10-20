@@ -25,8 +25,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","dialogs","BackhaulTable","$q",
-    function($scope, imperaService, $stateParams,dialogs,BackhaulTable, $q) {
+resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","dialogs","BackhaulTable","$q","$rootScope",
+    function($scope, imperaService, $stateParams,dialogs,BackhaulTable, $q, $rootScope) {
         
 
         $scope.state = $stateParams
@@ -65,7 +65,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
         imperaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
             d.reverse()
             $scope.dryruns = d
-            if(!$scope.state.id){
+            if(!$scope.state.id && d.length>0){
                 $scope.state.id = d[0].id
                 $scope.tableParams.refresh()
             }

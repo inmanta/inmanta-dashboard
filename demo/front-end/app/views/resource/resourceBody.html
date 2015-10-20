@@ -13,28 +13,10 @@
 <deploy-progress data="status.DEPLOY" name="'Deploy'" action="setsort" emptyname="'DEPLOY'" emptyaction="deploy" > 
 </deploy-progress> 
 
-<div class="row" >
-    <div class="col-md-1">
-           <strong> Dryrun: </strong>
-    </div>
-
-    <div class="col-md-11">
-                <button class="btn btn-default btn-xs" ng-click="startDryRun()" >
-                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-                </button>
-                <a ng-if="dryrunid" ui-sref="report({env:state.env,version:resource.version,id:dryrunid})"> <button class="btn btn-default btn-xs" >
-                    Current Report
-                </button> </a>
-                <a ui-sref="report({env:state.env,version:resource.version})"> <button class="btn btn-default btn-xs" >
-                    Last Report
-                </button> </a>
-    </div>
-                
-</div>
 
 <div class="row">
 
-<ng-include src="'views/resource/buttonBar.html'"></ng-include>
+<ng-include src="'views/resource/buttonBar.html'" ></ng-include>
 
 
 <div class="col-md-12">
@@ -43,10 +25,10 @@
             <tr ng-repeat="res in $data track by res.id" ng-class="{'bg-info':res.id==toHighlight}" > 
             
             
-             <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}"><a ui-sref="logs({env:state.env,id:res.id})">{{res.id_fields.entity_type}}</a></td> 
-             <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
-             <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}" class="col-md-2">{{res.id_fields.attribute_value}}</td> 
-             <td data-title="'deps'" sortable="'deporder'" class="col-md-2" style="max-width: 90px; word-wrap: break-word;"> <div ng-repeat="d in res.fields.requires track by $index"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
+             <td data-title="'Type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}"><a ui-sref="logs({env:state.env,id:res.id})">{{res.id_fields.entity_type}}</a></td> 
+             <td data-title="'Agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
+             <td data-title="'Value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}" class="col-md-2">{{res.id_fields.attribute_value}}</td> 
+             <td data-title="'Deps'" sortable="'deporder'" class="col-md-2" style="max-width: 90px; word-wrap: break-word;"> <div ng-repeat="d in res.fields.requires track by $index"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
              <td data-title="'State'" sortable="'state'"  filter="{ 'state':'select'}" filter-data="states()" class="col-xs-1 "> {{res.state}} </td>    
              <td data-title="'Result'" sortable="'result'" filter="{ 'result':'select'}" filter-data="results()" class="col-xs-1 "> {{res.result}} </td>    
              <td data-title="'Details'"> <button class="btn btn-link" ng-click="details(res)" style="color: #333333"> <span class="glyphicon glyphicon-zoom-in"></span> </button> </td>
