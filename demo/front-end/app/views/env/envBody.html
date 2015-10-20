@@ -21,7 +21,7 @@
         <tr ng-repeat="resource in $data track by resource.version" ng-init="extra = {}">
             <td data-title="'version'" sortable="'version'" filter="{ 'version':'text'}"><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
             <td data-title="'date'" sortable="'date'" filter="{ 'date':'text'}">{{resource.date|date:'M/d/yy H:mm'}}</td>
-            <td data-title="'dry_run'">
+            <td data-title="'dry run'">
                 <button class="btn btn-default btn-xs" ng-click="startDryRun(resource,extra)" >
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
                 </button>
