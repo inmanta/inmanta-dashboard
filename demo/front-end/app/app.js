@@ -96,3 +96,12 @@ app.controller("alertCtrl",["$scope",function($scope){
   };
  
 }])
+
+app.filter('nozero', function() {
+  return function(input) {
+    if(input==0){
+        return ""
+    }
+    return input;
+  };
+})
