@@ -176,12 +176,12 @@ imperApi.service('imperaService',
                 
                 data.data.nodes.forEach( function(machine){
                     machine.agents.forEach( function(agent){
-		       		   var ls=formatDate(machine.last_seen)
+		       		   var ls=formatDate(agent.last_seen)
                        out.push({
                         "name":agent.name,
                         "environment":agent.environment,
                         "last_seen":ls,
-                        "hostname":machine.hostname,
+                        "hostname":agent.node,
                         "interval":agent.interval,  
                         "expired": ls.getTime()+(agent.interval*1000)<now
                         });
