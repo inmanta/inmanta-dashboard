@@ -343,41 +343,8 @@ imperApi.service('imperaService',
                     return data.data.reports
                 });
 		};
-// getReport
 
-function formatAction(action){
-    action["timestamp"] = formatDate(action["timestamp"]);
-    return action
-}
-function formatReport(res){
-    var out = {
-        type:res["id_fields"]["entity_type"],
-        attr:res["id_fields"]["attribute"],
-        state:res["id_fields"]["attribute_value"],
-        last_result:res["state"],
-        id_fields:res["id_fields"],
-        action:formatAction(res.actions[0])
-        };
-    return out;
-}
 
-       impAPI.getDryRunReport = function(env,id) {
-			return impAPI.get.then(
-                function(data){
-                    var resources = []
-                    data.data.resources.forEach(function(res){
-                        console.log(res)
-                        if(res.actions && res.actions.length>0 && res.actions[0].data && Object.keys(res.actions[0].data)!=0){
-                            
-                            resources.push(formatReport(res))
-                        }
-
-                        
-                    })
-                    return resources;               
-                });
-                
-		};
 
 
 		return impAPI;
