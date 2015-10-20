@@ -11,7 +11,7 @@
             <h1> Resources Overview </h1>
        </div>
 </div>
-<div class="row">
+<!--<div class="row">
     <div class="col-md-2">
         <strong> Deploy status: </strong>
     </div>
@@ -23,24 +23,7 @@
         </div>
     </div>
 </div>
-<div class="row page-button-band" >
-    <div class="col-md-1">
-           <strong> Dryrun: </strong>
-    </div>
-
-    <div class="col-md-11">
-                <button class="btn btn-default btn-xs" ng-click="startDryRun()" >
-                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-                </button>
-                <a ng-if="dryrunid" ui-sref="report({env:state.env,version:resource.version,id:dryrunid})"> <button class="btn btn-default btn-xs" >
-                    Current Report
-                </button> </a>
-                <a ui-sref="report({env:state.env,version:resource.version})"> <button class="btn btn-default btn-xs" >
-                    Last Report
-                </button> </a>
-    </div>
-                
-</div>
+-->
 
 <div class="row">
 
@@ -58,7 +41,7 @@
              <td data-title="'latest version'" sortable="'latest_version'" filter="{ 'latest_version':'text'}" class="col-md-2">{{res.latest_version}}</td> 
             
              <td data-title="'Details'"> <button class="btn btn-default" ng-click="details(res)" class="col-xs-1 "> Details </button> </td>
-             <td data-title="'Open'"> <button ng-if="res.id_fields.type == 'std::File'" class="btn btn-default" ng-click="open(res)" class="col-xs-1 "> Open </button> </td>
+            
              </tr>
 
              

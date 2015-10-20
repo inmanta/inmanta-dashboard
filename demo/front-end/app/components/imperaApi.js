@@ -247,8 +247,8 @@ imperApi.service('imperaService',
         impAPI.getParameter = function(env,name,resource) {
 			return $http.get(impURL + 'parameter/'+ window.encodeURIComponent(name) + "?resource_id="+window.encodeURIComponent(resource),{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
-                    formatParameter(data.data);
-                    return data.data
+                    formatParameter(data.data.parameter);
+                    return data.data.parameter
                 });
 		};
 		
