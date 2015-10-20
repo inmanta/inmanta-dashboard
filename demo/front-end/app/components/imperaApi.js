@@ -387,11 +387,11 @@ function formatReport(res){
 
 
 imperApi.directive("deployProgress",  function() {
-  var typesSeq = ['DONE', 'WAITING', 'ERROR']
+  var typesSeq = ['failed', 'skipped', 'deployed']
         var types = {
-            'DONE': 'success',
-            'WAITING': 'info',
-            'ERROR': 'danger'
+            'deployed': 'success',
+            'skipped': 'info',
+            'failed': 'danger'
         }
 
         var processProgress = function(prog) {
@@ -401,14 +401,20 @@ imperApi.directive("deployProgress",  function() {
                 'total': total,
                 'bars': bars
             }
+            var done = 0;
             typesSeq.forEach(function(key) {
+                var value = prog[key]
+                if(!value)
+                    value=0;
                 bars.push({
                     "name": key,
-                    "value": prog[key] * 100 / total,
-                    "label": prog[key],
+                    "value": value * 100 / total,
+                    "label": value,
                     "type": types[key]
                 })
+                done += value
             })
+            progress.done = done
             return progress
         }
 
@@ -431,7 +437,9 @@ imperApi.directive("deployProgress",  function() {
 
 	scope.remainder = 10-scope.width;
     scope.data=null;
-        scope.$watch('datain',function(newValue, oldValue) {if(newValue) {scope.data = processProgress(newValue)} })
+    scope.$watch('datain',function(newValue, oldValue) {
+        if(newValue) {scope.data = processProgress(newValue)} 
+    },true)
         
     }
   };

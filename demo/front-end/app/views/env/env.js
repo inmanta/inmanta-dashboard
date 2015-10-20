@@ -36,7 +36,14 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
             'id_fields.entity_type': 'asc' // initial sorting
         }
     }, function(start,extent) {
-           return imperaService.getVersionsPaged($stateParams.env, start, extent)
+    
+           return imperaService.getVersionsPaged($stateParams.env, start, extent).then(
+            function(d){
+                d.versions.forEach(getProgress)
+                d.versions.forEach(function (d){d.state=getState(d)})
+                return d;
+            })
+            
     }, "versions");
     
     $scope.resources = null
@@ -45,10 +52,9 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
     });
     
    
-    $scope.startDryRun = function(res,extra) {
+    $scope.startDryRun = function(res) {
             var resVersion = res.version 
             imperaService.dryrun($stateParams.env,resVersion).then(function(d){
-                extra.dryrunid=d.id
                 $rootScope.$broadcast('refresh')
             });     
     }
@@ -60,10 +66,52 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
   
 
     $scope.deleteVersion = function(res) {
-	var resVersion = res.version 
-	imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
+	    var resVersion = res.version 
+	    imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
+    }
+    
+    var getState = function(res){
+        if(!res.released){
+            return "new"
+        }
+        if(res.deployed){
+            return "deployed"
+        }
+        
+        return res.result
     }
 
-
+    var getProgress = function(version){
+        var out = {}
+        var status = version.status
+        for(var res in status){
+            var state = status[res]
+            if(state in out){
+                out[state]++
+            }else{
+                out[state] = 1
+            }
+        }
+       
+        out["TOTAL"] = version.total
+        version.progress=out;
+    }
     
+    //For compile
+    
+    $scope.compile = function(env){
+        imperaService.compile(env).then(function(){
+            $scope.cstate=true; 
+            $rootScope.$broadcast('refresh')  
+        })
+    }
+
+    var getCompileState = function(){
+        if($scope.state.env){
+            imperaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
+        }
+    }
+
+    getCompileState()
+    $scope.$on("refresh",getCompileState)
 }]);
