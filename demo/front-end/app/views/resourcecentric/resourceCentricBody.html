@@ -37,12 +37,12 @@
              <td data-title="'Type'" sortable="'id_fields.type'" filter="{ 'id_fields.type':'text'}"><a ui-sref="logs({env:state.env,id:res.id})">{{res.id_fields.type}}</a></td> 
              <td data-title="'Agent'" sortable="'id_fields.agent'" filter="{ 'id_fields.agent':'text'}">{{res.id_fields.agent}}</td> 
              <td data-title="'Value'" sortable="'id_fields.value'" filter="{ 'id_fields.value':'text'}" class="col-md-2">{{res.id_fields.value}}</td> 
-             <td data-title="'Deployed version'" sortable="'deployed_version'" filter="{ 'deployed_version':'text'}" class="col-md-2">
+             <td data-title="'Deployed version'" sortable="'deployed_version'" filter="{ 'deployed_version':'text'}" >
                 <a ui-sref="resources({env:state.env,version:res.deployed_version})">{{res.deployed_version | nozero}}</a></td> 
-             <td data-title="'Latest version'" sortable="'latest_version'" filter="{ 'latest_version':'text'}" class="col-md-2">
+             <td data-title="'Latest version'" sortable="'latest_version'" filter="{ 'latest_version':'text'}" >
                 <a ui-sref="resources({env:state.env,version:res.latest_version})">{{res.latest_version | nozero}}</a>
              </td> 
-              <td data-title="'Latest version'" sortable="'latest_version'" filter="{ 'latest_version':'text'}" class="col-md-2">
+              <td data-title="'Last Deploy'" sortable="'last_deploy'" >
                 {{res.last_deploy |date:'dd/MM/yyyy hh:mm'}}
              </td> 
              <td> <button class="btn btn-link" ng-click="details(res)" style="color: #333333"> <span class="glyphicon glyphicon-zoom-in"> </span> </button> </td>
