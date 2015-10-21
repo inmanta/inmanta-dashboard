@@ -89,6 +89,17 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
              imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
             
         }
+        
+        $scope.details = function(item) {
+            imperaService.getResource($stateParams.env,item.id).then(function(d){
+                dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
+                    resource: d,
+                    env:$stateParams.env
+                }, {})
+
+            })
+
+        }
     
     }
 

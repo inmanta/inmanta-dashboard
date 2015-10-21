@@ -35,20 +35,20 @@
               
             </td>
             <td align="right">
-                <button class="btn btn-default btn-xs" ng-click="startDryRun(resource)"  title="Perform dry run">
+                <button class="btn btn-link btn-xs" ng-click="startDryRun(resource)"  title="Perform dry run">
                     <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
                 </button>  
                 
-                <button class="btn btn-default btn-xs" ui-sref="report({env:state.env,version:resource.version})" title="Dry run report">
+                <button class="btn btn-link btn-xs" ui-sref="report({env:state.env,version:resource.version})" title="Dry run report">
                     <span class="glyphicon glyphicon-list-alt"> </span>
                 </button> 
                 
            
-                <button class="btn btn-default btn-xs" ng-click="deploy(resource)" ng-disabled="resource.released " title="Release version" >
+                <button class="btn btn-link btn-xs" ng-click="deploy(resource)" ng-disabled="resource.released " title="Release version" >
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
                 </button>    
          
-                <button class="btn btn-default btn-xs" ng-click="deleteVersion(resource)" title="Remove version">
+                <button class="btn btn-link btn-xs" ng-click="deleteVersion(resource)" title="Remove version">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
              </td>  

@@ -124,7 +124,7 @@ services.service('BackhaulTable', function(Backhaul, ngTableParams, $filter) {
                             $filter('orderBy')(orderedData, params.orderBy()) :
                             orderedData;
 
-                        params.total(len);
+                        params.total(orderedData.length);
                         $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
                     });

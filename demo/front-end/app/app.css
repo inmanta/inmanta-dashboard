@@ -87,6 +87,9 @@ body { padding-top: 50px;}
   margin-top: 0;
 }
 
+.btn-link {
+    color: #333333
+}
 
 .form-signin {
   max-width: 330px;

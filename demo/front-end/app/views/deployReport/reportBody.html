@@ -1,55 +1,59 @@
-
 <div class="row">
-	   <div class="col-md-12">
-           <ol class="breadcrumb">
-            <li><a ui-sref="projects">Home</a></li>
-            <li class="active">Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
-            
-           </ol>
- 	   </div>
-	  <ng-include src="'views/resource/buttonBar.html'"></ng-include>
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a ui-sref="projects">Home</a>
+            </li>
+            <li class="active">Environment:<a ui-sref="envs({env:state.env})"> {{env.name}}</a>
+            </li>
+
+        </ol>
+    </div>
+    <ng-include src="'views/resource/buttonBar.html'"></ng-include>
 </div>
 <div class="row">
-<div class="col-md-12">
-           <div class="col-md-12" > <h1> Changes Deployed </h1> </div>
-           <div class="col-md-12" style="min-height:150px" ng-hide="tableParams.data.length != 0 || !tableParams.settings().$loading"  > <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> </div>
-           <table ng-table="tableParams" ng-hide="tableParams.data.length == 0 && tableParams.settings().$loading" class="table table-lined"  show-filter="true">  
-            
-            <tr ng-repeat="res in $data"  > 
-
-             <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}">{{res.id_fields.entity_type}}</td> 
-             <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
-             <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
-             <td data-title="'Log'"> {{res.log}}</td>
-                
-             <td data-title="'Data'" sortable="'changessize'"  filter="{ 'changessize':'partials/emptyFilter.html'}"> 
-                <div ng-repeat="(prop,ft) in res.changes"> 
-                    <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}} </p>
-                    <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft)"> Diff </btn>
-                </div>
-             </td>    
-            </tr>
-
-             
-           </table>
-
-       </div>           
-       </div>
-       
     <div class="col-md-12">
-           <div class="col-md-12" > <h1> Unknown Parameters </h1> </div>
-           <div class="col-md-12" style="min-height:150px" ng-hide="unkowns.data.length != 0 || !unkowns.settings().$loading"  > <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> </div>
-           <table ng-table="unkowns" ng-hide="unkowns.data.length == 0 && unkowns.settings().$loading" class="table table-lined"  show-filter="true">  
-            
-            <tr ng-repeat="unk in $data"  > 
+        <h1> Changes Deployed </h1>
+    </div>
+    <div class="col-md-12" style="min-height:150px" ng-hide="tableParams.data.length != 0 || !tableParams.settings().$loading">
+        <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> 
+    </div>
+    <div class="col-md-12">
+        <table ng-table="tableParams" ng-hide="tableParams.data.length == 0 && tableParams.settings().$loading" class="table table-lined" show-filter="true">
 
-             <td data-title="'Source'" sortable="'source'" filter="{ 'source':'text'}">{{unk.source}}</td>
-             <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{unk.resource_id}}</td>
-             <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}">{{unk.name}}</td>    
+            <tr ng-repeat="res in $data">
+
+                <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}">{{res.id_fields.entity_type}}</td>
+                <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td>
+                <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td>
+                <td data-title="'Log'">{{res.log}}</td>
+
+                <td data-title="'Data'" sortable="'changessize'" filter="{ 'changessize':'partials/emptyFilter.html'}">
+                    <div ng-repeat="(prop,ft) in res.changes">
+                        <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}}</p>
+                        <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft)">Diff</btn>
+                    </div>
+                </td>
             </tr>
 
-             
-           </table>
 
-    </div>           
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <h1> Unknown Parameters </h1> 
+        </div>
+        <div class="col-md-12" style="min-height:150px" ng-hide="unkowns.data.length != 0 || !unkowns.settings().$loading"> <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> 
+        </div>
+        <div class="col-md-12">
+            <table ng-table="unkowns" ng-hide="unkowns.data.length == 0 && unkowns.settings().$loading" class="table table-lined" show-filter="true">
+                <tr ng-repeat="unk in $data">
+                    <td data-title="'Source'" sortable="'source'" filter="{ 'source':'text'}">{{unk.source}}</td>
+                    <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{unk.resource_id}}</td>
+                    <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}">{{unk.name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
