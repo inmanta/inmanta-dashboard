@@ -8,6 +8,7 @@ var app = angular.module('ImperaApp', [
   'hljs',
   'dialogs.main',
   'angularSpinner',
+  'ImperaApp.directives',
   'ImperaApp.portalView',
   'ImperaApp.projectsView',
   'ImperaApp.projectView',
@@ -97,12 +98,3 @@ app.controller("alertCtrl",["$scope",function($scope){
   };
  
 }])
-
-app.filter('nozero', function() {
-  return function(input) {
-    if(input==0){
-        return ""
-    }
-    return input;
-  };
-})
