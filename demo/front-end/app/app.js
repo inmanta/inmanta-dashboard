@@ -23,6 +23,7 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.parametersView',
   'ImperaApp.logsView',
   'ImperaApp.reportView',
+  'ImperaApp.deployReportView',
   'ImperaApp.controllers.refresh',
   'ImperaApp.controllers.projects',
   'ImperaApp.controllers.side',

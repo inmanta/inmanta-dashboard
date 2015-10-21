@@ -37,36 +37,12 @@ function formateVersion(d){
     d["date"] = formatDate(d["date"]); 
 }
 
-function formatDryrunShort(d){
-    d["date"] = formatDate(d["date"]); 
-}
 
-function formatDryruns(d){
-    d.forEach(formatDryrunShort);
-}
 
-function formatDryrun(d){
-     d["date"] = formatDate(d["date"]); 
-     for(var k in d.resources){
-        d.resources[k]["id_fields"] = parseID(k)
-     }
-    
-}
 
-var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([^=]+)=([^\]]+)\],v=(\d+)/
-function parseID(id){
-    var o = idRegEx.exec(id)
-    return  {
-            "agent_name": o[2],
-            "version": o[5],
-            "entity_type": o[1],
-            "attribute": o[3],
-            "attribute_value": o[4]
-        }
-}
 
 imperApi.service('imperaService',
-	function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope) {
+	function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope,alertService) {
 		var impAPI = {};
 		var impURL = imperaConfig.backend;
 		var envCache ={};
@@ -79,6 +55,22 @@ imperApi.service('imperaService',
 	        defaultCache.removeAll();
 	    })
 
+//utilities
+        var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([^=]+)=([^\]]+)\],v=(\d+)/
+        
+        function parseID(id){
+            var o = idRegEx.exec(id)
+            if(!o){
+                alertService.add("info","Report to dev: Bad ID received: " + id)
+            }
+            return  {
+                "agent_name": o[2],
+                "version": o[5],
+                "entity_type": o[1],
+                "attribute": o[3],
+                "attribute_value": o[4]
+            }
+        }
 //project
 		impAPI.getProjects = function() {
 			return $http.get(impURL + 'project').then(function(data){
@@ -267,28 +259,32 @@ imperApi.service('imperaService',
         }
 
         function formatReport(res){
-            var out = {
-                type:res["id_fields"]["entity_type"],
-                attr:res["id_fields"]["attribute"],
-                attr_value:res["id_fields"]["attribute_value"],
-                last_result:res["status"],
-                id_fields:res["id_fields"]
-            };
+            var out = []
             
-            
+            for(var act in res.actions){
+                if(act.data && Object.keys(act.data).length > 0){
+                    out.push({
+                        type:res["id_fields"]["entity_type"],
+                        attr:res["id_fields"]["attribute"],
+                        attr_value:res["id_fields"]["attribute_value"],
+                        id_fields:res["id_fields"],
+                        action:act
+                    })
+                }
+            }
             
             return out;
         }
 
-        impAPI.getDeployReport = function(env,id) {
-            return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true&log_filter=deploy",
+        impAPI.getDeployReport = function(env,version) {
+            return $http.get(impURL + 'cmversion/'+ window.encodeURIComponent(version)+"?include_logs=true&log_filter=deploy",
                 {headers:{'X-Impera-tid':env}}).then(
                 function(data){
                     var resources = []
                     data.data.resources.forEach(function(res){
                         
                         if(res.actions && res.actions.length>0){
-                            resources.push(formatReport(res))
+                            resources + formatReport(res)
                         }
 
                         
@@ -300,6 +296,22 @@ imperApi.service('imperaService',
 
 		
 //dryrun
+function formatDryrunShort(d){
+    d["date"] = formatDate(d["date"]); 
+}
+
+function formatDryruns(d){
+    d.forEach(formatDryrunShort);
+}
+
+function formatDryrun(d){
+     d["date"] = formatDate(d["date"]); 
+     for(var k in d.resources){
+        d.resources[k]["id_fields"] = parseID(k)
+     }
+    
+}
+
         impAPI.dryrun = function(env, cmversion) {
 		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Impera-tid':env}}).then(
 		        function(data){

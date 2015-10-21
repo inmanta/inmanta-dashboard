@@ -43,7 +43,7 @@
                 <a ui-sref="resources({env:state.env,version:res.latest_version})">{{res.latest_version | nozero}}</a>
              </td> 
               <td data-title="'Last Deploy'" sortable="'last_deploy'" >
-                {{res.last_deploy |date:'dd/MM/yyyy hh:mm'}}
+                {{res.last_deploy |date:'dd/MM/yyyy HH:mm'}}
              </td> 
              <td> <button class="btn btn-link" ng-click="details(res)" style="color: #333333"> <span class="glyphicon glyphicon-zoom-in"> </span> </button> </td>
             
