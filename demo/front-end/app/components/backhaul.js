@@ -104,7 +104,9 @@ services.service('BackhaulTable', function(Backhaul, ngTableParams, $filter) {
 
                     var father = splitedKey[0],
                         son = splitedKey[1];
-                    filters[father] = {};
+                    if(!filters[father]){
+                        filters[father] = {};
+                    }
                     filters[father][son] = value;
                 });
 
