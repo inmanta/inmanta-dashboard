@@ -53,7 +53,7 @@ function formatDryrun(d){
     
 }
 
-var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)=([\/a-zA-Z0-9_-]+)\],v=(\d+)/
+var idRegEx = /([a-zA-Z0-9:_-]+)\[([a-zA-Z0-9_-]+),([^=]+)=([^\]]+)\],v=(\d+)/
 function parseID(id){
     var o = idRegEx.exec(id)
     return  {
@@ -252,13 +252,54 @@ imperApi.service('imperaService',
                 });
 		};
 		
+//deploy
 		impAPI.deploy = function(env, cmversion, push) {
 		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Impera-tid':env}}).then(
 		        function(data){ 
 		            return data.data;
 		        });
 		};
+		
+		
+		function formatAction(action){
+             action["timestamp"] = formatDate(action["timestamp"]);
+            return action
+        }
 
+        function formatReport(res){
+            var out = {
+                type:res["id_fields"]["entity_type"],
+                attr:res["id_fields"]["attribute"],
+                attr_value:res["id_fields"]["attribute_value"],
+                last_result:res["status"],
+                id_fields:res["id_fields"]
+            };
+            
+            
+            
+            return out;
+        }
+
+        impAPI.getDeployReport = function(env,id) {
+            return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true&log_filter=deploy",
+                {headers:{'X-Impera-tid':env}}).then(
+                function(data){
+                    var resources = []
+                    data.data.resources.forEach(function(res){
+                        
+                        if(res.actions && res.actions.length>0){
+                            resources.push(formatReport(res))
+                        }
+
+                        
+                    })
+                    return {resources:resources,unknowns:data.data.unknowns};               
+                });
+                
+          };
+
+		
+//dryrun
         impAPI.dryrun = function(env, cmversion) {
 		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Impera-tid':env}}).then(
 		        function(data){
@@ -323,8 +364,12 @@ imperApi.service('imperaService',
 		}
 
 // compile 
-         impAPI.compile = function(env) {
+        impAPI.compile = function(env) {
 			return $http.get(impURL + 'notify/'+ env + '?update=0');
+		};
+		
+		 impAPI.updateCompile = function(env) {
+			return $http.get(impURL + 'notify/'+ env );
 		};
 
          impAPI.isCompiling = function(env) {
@@ -343,8 +388,6 @@ imperApi.service('imperaService',
                     return data.data.reports
                 });
 		};
-
-
 
 
 		return impAPI;

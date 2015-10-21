@@ -91,6 +91,13 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
             $rootScope.$broadcast('refresh')  
         })
     }
+    
+    $scope.updateCompile = function(env){
+        imperaService.updateCompile(env).then(function(){
+            $scope.cstate=true; 
+            $rootScope.$broadcast('refresh')  
+        })
+    }
 
     var getCompileState = function(){
         if($scope.state.env){
