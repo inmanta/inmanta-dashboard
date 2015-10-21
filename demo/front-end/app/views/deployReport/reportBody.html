@@ -39,21 +39,3 @@
         </table>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <h1> Unknown Parameters </h1> 
-        </div>
-        <div class="col-md-12" style="min-height:150px" ng-hide="unkowns.data.length != 0 || !unkowns.settings().$loading"> <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> 
-        </div>
-        <div class="col-md-12">
-            <table ng-table="unkowns" ng-hide="unkowns.data.length == 0 && unkowns.settings().$loading" class="table table-lined" show-filter="true">
-                <tr ng-repeat="unk in $data">
-                    <td data-title="'Source'" sortable="'source'" filter="{ 'source':'text'}">{{unk.source}}</td>
-                    <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{unk.resource_id}}</td>
-                    <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}">{{unk.name}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>

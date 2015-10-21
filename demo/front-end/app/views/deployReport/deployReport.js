@@ -44,21 +44,6 @@ resv.controller('deployReportController', ['$scope', 'imperaService', "$statePar
 
         });
         
-        
-        $scope.unkowns = new BackhaulTable($scope,{
-            page: 1, // show first page
-            count: 50 // count per page,
-        }, function(params){
-                  
-            return imperaService.getDeployReport($stateParams.env,$stateParams.version).then(function(d) {
-                return d.unknowns;
-            });
-           
-
-        });
-    
-       
-        
       
         imperaService.getEnvironment($stateParams.env).then(function(d) {
             $scope.env = d
