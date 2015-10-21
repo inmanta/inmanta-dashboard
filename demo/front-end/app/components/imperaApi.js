@@ -175,7 +175,7 @@ imperApi.service('imperaService',
                         "last_seen":ls,
                         "hostname":agent.node,
                         "interval":agent.interval,  
-                        "expired": ls.getTime()+(agent.interval*1000)<now
+                        "expired": ls.getTime()+(agent.interval*1000*2)<now
                         });
                     });
 				});
