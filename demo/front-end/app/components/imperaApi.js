@@ -261,7 +261,7 @@ imperApi.service('imperaService',
         function formatReport(res){
             var out = []
             
-            for(var act in res.actions){
+            res.actions.forEach(function(act){
                 if(act.data && Object.keys(act.data).length > 0){
                     out.push({
                         type:res["id_fields"]["entity_type"],
@@ -271,7 +271,7 @@ imperApi.service('imperaService',
                         action:act
                     })
                 }
-            }
+            })
             
             return out;
         }
@@ -284,7 +284,7 @@ imperApi.service('imperaService',
                     data.data.resources.forEach(function(res){
                         
                         if(res.actions && res.actions.length>0){
-                            resources + formatReport(res)
+                            resources = resources.concat(formatReport(res))
                         }
 
                         
