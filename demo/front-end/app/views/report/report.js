@@ -40,7 +40,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
                 out.resolve([])
                 return out.promise
            }else{          
-               return imperaService.getDryrun($stateParams.env,$stateParams.id).then(function(d) {
+               return imperaService.getDryrun($stateParams.env,$scope.state.id).then(function(d) {
                     $scope.dryrun=d
                     var out=[]
                     for(var k in d.resources){
@@ -62,6 +62,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
             }
         },true)
         
+        function loadList(){
         imperaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
             d.reverse()
             $scope.dryruns = d
@@ -70,10 +71,14 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
                 $scope.tableParams.refresh()
             }
         });
+        }
+        loadList();
+        $scope.$on('refresh',loadList)
 
         imperaService.getEnvironment($stateParams.env).then(function(d) {
             $scope.env = d
         });
+
 
         $scope.open = function(d) {
       
