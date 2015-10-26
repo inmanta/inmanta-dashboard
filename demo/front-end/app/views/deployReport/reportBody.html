@@ -30,8 +30,8 @@
                 <td data-title="'Level'" sortable="'action.level'">{{res.action.level}}</td>
                 <td data-title="'Status'" sortable="'action.level'">{{res.status}}</td>
                 <td data-title="'Data'">
-                    
-                    <div ng-repeat="(prop,ft) in res.action.data">
+                    <span ng-if="res.message" style="word-wrap: break-word;"> {{res.message}} </span>
+                    <div ng-if="res.action.data" ng-repeat="(prop,ft) in res.action.data">
                         <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}}</p>
                         <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft,res.id)">Diff</btn>
                     </div>

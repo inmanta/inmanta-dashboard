@@ -287,7 +287,8 @@ imperApi.service('imperaService',
                         attr_value:res["id_fields"]["attribute_value"],
                         id_fields:res["id_fields"],
                         action:act,
-                        status:res.status
+                        status:res.status,
+                        message:act.message.trim()
                     })
                 }else if(act.level != "INFO"){
                      out.push({
@@ -297,7 +298,8 @@ imperApi.service('imperaService',
                         attr_value:res["id_fields"]["attribute_value"],
                         id_fields:res["id_fields"],
                         action:act,
-                        status:res.status
+                        status:res.status,
+                        message:act.message.trim()
                     })
                 }
             })
