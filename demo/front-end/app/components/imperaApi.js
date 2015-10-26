@@ -47,6 +47,16 @@ imperApi.service('imperaService',
 		var impURL = imperaConfig.backend;
 		var envCache ={};
 		var projCache = {};
+		//dirty hack to work around https://github.com/angular/angular.js/issues/5028
+		var lastEnv = "";
+		
+		var checkEnv = function(env){
+		    if(env!=lastEnv){
+		        defaultCache.removeAll()
+		        lastEnv=env
+		    }
+		}
+		
 
         var defaultCache = $cacheFactory("http-service-cache")
         $http.defaults.cache = defaultCache
@@ -185,6 +195,7 @@ imperApi.service('imperaService',
 		
 //resources
 		impAPI.getVersions = function(env) {
+		    checkEnv(env)
 			return $http.get(impURL + 'cmversion',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     data.data.forEach(formateVersion)
@@ -196,6 +207,7 @@ imperApi.service('imperaService',
 		};
 
 		impAPI.getVersionsPaged = function(env,from,count) {
+   		    checkEnv(env)
 			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Impera-tid":env}})
 				.then( 
                 function(data){
@@ -205,6 +217,7 @@ imperApi.service('imperaService',
 
 
 	    impAPI.getResources = function(env,cmversion) {
+		    checkEnv(env)
 			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     return data.data
@@ -213,6 +226,7 @@ imperApi.service('imperaService',
 		
 		
 		impAPI.getResourcesState  = function(env){
+		    checkEnv(env)
 		    return $http.get(impURL + 'environment/'+env+'?resources=1&versions=5').then( 
                 function(data){
                     return data.data.environment
@@ -220,6 +234,7 @@ imperApi.service('imperaService',
 		}
 		//resource has version in id!
 		impAPI.getResource = function(env,id) {
+		    checkEnv(env)
 			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=",{headers:{'X-Impera-tid':env}}).then( 
                 function(data){
                     return data.data.resource
@@ -227,6 +242,7 @@ imperApi.service('imperaService',
 		};
 //parameters
 		impAPI.getParameters = function(env) {
+		    checkEnv(env)
 			return $http.get(impURL + 'parameter',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     data.data.parameters.forEach(formatParameter);
@@ -237,6 +253,7 @@ imperApi.service('imperaService',
 
 
         impAPI.getParameter = function(env,name,resource) {
+            checkEnv(env)
 			return $http.get(impURL + 'parameter/'+ window.encodeURIComponent(name) + "?resource_id="+window.encodeURIComponent(resource),{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     formatParameter(data.data.parameter);
@@ -278,6 +295,7 @@ imperApi.service('imperaService',
         }
 
         impAPI.getDeployReport = function(env,version) {
+            checkEnv(env)
             return $http.get(impURL + 'cmversion/'+ window.encodeURIComponent(version)+"?include_logs=true&log_filter=deploy",
                 {headers:{'X-Impera-tid':env}}).then(
                 function(data){
@@ -314,6 +332,7 @@ function formatDryrun(d){
 }
 
         impAPI.dryrun = function(env, cmversion) {
+            checkEnv(env)
 		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Impera-tid':env}}).then(
 		        function(data){
 		            formatDryrun(data.data.dryrun);
@@ -322,6 +341,7 @@ function formatDryrun(d){
 		};
 
         impAPI.getDryruns = function(env, cmversion) {
+            checkEnv(env)
             if(cmversion){
                 return $http.get(impURL + 'dryrun?version='+cmversion,{headers:{'X-Impera-tid':env}}).then(
                     function(data){
@@ -339,6 +359,7 @@ function formatDryrun(d){
 		};
 		
 		impAPI.getDryrun = function(env, id) {
+	        checkEnv(env)
 		     return $http.get(impURL + 'dryrun/'+window.encodeURIComponent(id),{headers:{'X-Impera-tid':env}}).then(
                     function(data){
                         formatDryrun(data.data.dryrun)
@@ -348,6 +369,7 @@ function formatDryrun(d){
 
 //files
         impAPI.getFile = function(id) {
+        
 			return $http.get(impURL + 'file/'+ window.encodeURIComponent(id)).then( 
                 function(data){
                     return data.data
@@ -362,6 +384,7 @@ function formatDryrun(d){
 		};
 //logs
        impAPI.getLogForResource = function(env,id) {
+           checkEnv(env)
 			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true",{headers:{'X-Impera-tid':env}}).then( 
                 function(data){
                     return data.data
