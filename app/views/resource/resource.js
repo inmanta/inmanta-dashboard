@@ -122,14 +122,14 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
        var def = $q.defer()
        var names = [
             {
-                'id':  "AVAILABLE",
-                'title': "AVAILABLE"
+                'id':  "skipped",
+                'title': "skipped"
             },{
-                'id':  "DRYRUN",
-                'title': "DRYRUN"
+                'id':  "deployed",
+                'title': "deployed"
             },{
-                'id':  "DEPLOY",
-                'title': "DEPLOY"
+                'id':  "failed",
+                'title': "failed"
             }]
                   
 
@@ -138,29 +138,10 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
        return def;
         };
 
-      $scope.results = function() {
-       var def = $q.defer()
-       var names = [
-            {
-                'id':  "SUCCESS",
-                'title': "SUCCESS"
-            },{
-                'id':  "ERROR",
-                'title': "ERROR"
-            },{
-                'id':  "WAITING",
-                'title': "WAITING"
-            }]
-                  
-
-            
-       def.resolve(names);
-       return def;
-        };
 
       $scope.setsort = function(name){
-        if(name == "DONE"){ name = "SUCCESS"}
-        $scope.tableParams.filter()['result']=name
+        
+        $scope.tableParams.filter()['status']=name
       }
 
 
