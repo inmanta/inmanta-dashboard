@@ -49,10 +49,11 @@ resv.controller('deployReportController', ['$scope', 'imperaService', "$statePar
             $scope.env = d
         });
 
-        $scope.open = function(d) {
+        $scope.open = function(d,id) {
       
             dialogs.create('views/diffDetail/diffDetail.html', 'diffDetailCtrl', {
-                diff:d
+                diff:d,
+                id:id
             }, {})
        
 		

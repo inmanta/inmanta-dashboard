@@ -5,7 +5,7 @@ var rscdet = angular.module('ImperaApp.diffDetail', ['imperaApi','dialogs.main']
 rscdet.controller('diffDetailCtrl',['$scope','$modalInstance','data','imperaService',function($scope,$modalInstance,data,imperaService){
 	//-- Variables -----//
     $scope.content=""
-   
+    $scope.header=data.id
     imperaService.getDiff(data.diff[0],data.diff[1]).then(function(f){
         $scope.content = f.diff
     })

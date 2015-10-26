@@ -31,7 +31,7 @@
                     
                     <div ng-repeat="(prop,ft) in res.action.data">
                         <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}}</p>
-                        <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft)">Diff</btn>
+                        <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft,res.id)">Diff</btn>
                     </div>
                 </td>
             </tr>

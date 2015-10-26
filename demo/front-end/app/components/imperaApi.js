@@ -264,6 +264,7 @@ imperApi.service('imperaService',
             res.actions.forEach(function(act){
                 if(act.data && Object.keys(act.data).length > 0){
                     out.push({
+                        id:res.id,
                         type:res["id_fields"]["entity_type"],
                         attr:res["id_fields"]["attribute"],
                         attr_value:res["id_fields"]["attribute_value"],

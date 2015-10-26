@@ -37,7 +37,7 @@
              <td data-title="'Data'" sortable="'changessize'"  filter="{ 'changessize':'partials/emptyFilter.html'}"> 
                 <div ng-repeat="(prop,ft) in res.changes"> 
                     <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}} </p>
-                    <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft)"> Diff </btn>
+                    <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft,res.id)"> Diff </btn>
                 </div>
              </td>  
              <td> <button class="btn btn-link btn-xs" ng-click="details(res)" title="View details for this resource"> <span class="glyphicon glyphicon-zoom-in"> </span> </button> </td>  
