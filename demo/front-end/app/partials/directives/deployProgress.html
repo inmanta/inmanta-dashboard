@@ -21,10 +21,10 @@
 </div>
 
 <div ng-if="!name" class="row">
-     <div class="col-md-9">
+     <div class="col-md-8">
            <progress class="compact"><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)" value="bar.value" type="{{bar.type}}"><span ></span></bar></progress> 
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
        {{data.done}} / {{data.total}}
       </div>
 </div>
