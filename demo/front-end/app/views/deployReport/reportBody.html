@@ -8,6 +8,7 @@
 
         </ol>
     </div>
+
     <ng-include src="'views/resource/buttonBar.html'"></ng-include>
 </div>
 <div class="row">
@@ -27,6 +28,7 @@
                 <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td>
                 <td data-title="'Time'" sortable="'action.timestamp'">{{res.action.timestamp|date:'dd/MM/yyyy HH:mm'}}</td>
                 <td data-title="'Level'" sortable="'action.level'">{{res.action.level}}</td>
+                <td data-title="'Status'" sortable="'action.level'">{{res.status}}</td>
                 <td data-title="'Data'">
                     
                     <div ng-repeat="(prop,ft) in res.action.data">
