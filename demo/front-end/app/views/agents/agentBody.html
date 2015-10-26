@@ -1,9 +1,5 @@
 <div class="row">
-    <ol class="breadcrumb">
-        <li><a ui-sref="projects">Home</a></li>
-        <li class="active">Agents</a>
-        </li>
-    </ol>
+    <im-breadcrumb name="'Agents'">    </im-breadcrumb>
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="agent in $data" ng-class="{'warning':agent.expired}">

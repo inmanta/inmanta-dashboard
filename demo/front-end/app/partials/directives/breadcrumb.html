@@ -1,0 +1,9 @@
+<ol class="col-md-12 breadcrumb">
+    <li ng-repeat="item in breadcrumb" ng-class="{'active':item.last}">
+        <a ng-if="!item.id && item.sref" ui-sref="{{item.sref}}">{{item.name}}</a>
+        <span ng-if="!item.id && !item.sref">{{item.name}}</span>
+        <span ng-if="item.id && !item.last">{{item.name}}: <a ui-sref="{{item.sref}}"> {{item.id}}</a> </span>
+        <span ng-if="item.id && item.last">{{item.name}}: {{item.id}} </span>
+    </li>
+</ol>
+

@@ -1,10 +1,5 @@
 <div class="row">
-    <ol class="breadcrumb">
-        <li><a ui-sref="projects">Home</a></li>
-        <li><a ui-sref="envs({env:state.env})"> {{env.name}}</a></li>
-        <li><a ui-sref="resources({env:state.env,version:cmversion})">{{cmversion}}</a></li>
-        <li class="active"> {{state.id}} </li>
-    </ol>
+    <im-breadcrumb name="'Resource'" id="state.id"> </im-breadcrumb>
     <div class="col-md-5 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>

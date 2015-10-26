@@ -119,11 +119,7 @@ module.controller('XController', ['$scope','$rootScope', 'imperaService', '$stat
 
 ```
 <div class="row">
-    <ol class="breadcrumb col-md-12">
-        <li><a ui-sref="projects">Home</a></li>
-        <li class="active">Environment: {{env.name}}</a></li>
-    </ol>
-   
+    <im-breadcrumb name="'Resources Overview'">    </im-breadcrumb> 
 </div>
 <div class="row">
        <div class="col-md-12">
