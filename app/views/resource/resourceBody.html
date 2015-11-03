@@ -21,7 +21,7 @@
              <td data-title="'Agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
              <td data-title="'Value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}" class="col-md-2">{{res.id_fields.attribute_value}}</td> 
              <td data-title="'Deps'" sortable="'deporder'" class="col-md-2" style="max-width: 90px; word-wrap: break-word;"> <div ng-repeat="d in res.fields.requires track by $index"> <p ng-click="highlight(d)">{{d }}  </p>  </div></td>
-             <td data-title="'State'" sortable="'state'"  filter="{ 'status':'select'}" filter-data="states()" class="col-xs-1 "> {{res.status}} </td>    
+             <td data-title="'State'" sortable="'status'"  filter="{ 'status':'select'}" filter-data="states()" class="col-xs-1 "> {{res.status}} </td>    
              <td> <button class="btn btn-link btn-xs" ng-click="details(res)"> <span class="glyphicon glyphicon-zoom-in"></span> </button> </td>
            
              </tr>
