@@ -88,7 +88,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
 
         $scope.deporderInt = function(id) {
-            if ($scope.alldata[id].deporderv == null) {
+            if (!$scope.alldata[id]) {
                 var order = Math.max.apply(null, $scope.alldata[id].fields.requires.map($scope.deporderInt));
                 order = Math.max(order, 0) + 1;
                 $scope.alldata[id].deporderv = order;
