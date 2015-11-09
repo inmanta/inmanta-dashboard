@@ -243,7 +243,7 @@ imperApi.service('imperaService',
 //parameters
 		impAPI.getParameters = function(env) {
 		    checkEnv(env)
-			return $http.get(impURL + 'parameter',{headers:{"X-Impera-tid":env}}).then( 
+			return $http.post(impURL + 'parameter',{},{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
                     data.data.parameters.forEach(formatParameter);
                     data.data.now=formatDate(data.data.now)
