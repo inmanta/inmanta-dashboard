@@ -261,6 +261,102 @@ imperApi.service('imperaService',
                 });
 		};
 		
+// Forms
+
+        function formatForm(form){
+            return {
+                id:form.form_id, 
+                type:form.form_type
+            }
+                    
+        }
+        
+        function formatRecord(rec){
+            return {
+                changed:formatDate(rec.changed), 
+                id:rec.record_id
+            }
+                    
+        }
+        
+        impAPI.getForms = function(env) {
+            checkEnv(env)
+			return $http.get(impURL + 'form',{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    return data.data.forms.map(formatForm)
+                });
+		};	
+		
+		impAPI.getForm = function(env, id) {
+            checkEnv(env)
+			return $http.get(impURL + 'form/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    return data.data.form
+                });
+		};	
+		
+		impAPI.getRecords = function(env, id) {
+            checkEnv(env)
+			return $http.get(impURL + 'records?form_type='+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    return data.data.records.map(formatRecord)
+                });
+		};
+		
+		impAPI.getFullRecords = function(env, id) {
+            checkEnv(env)
+            var out = $q.defer()
+            
+            impAPI.getRecords(env,id).then(function (recs){
+                $q.all(
+                    recs.map(
+                        function(r){
+                            return impAPI.getRecord(env,r.id)
+                        }
+                    )
+                ).then(out.resolve)
+            })
+            
+            return out.promise
+			
+		};
+		
+		
+		impAPI.getRecord = function(env, id) {
+            checkEnv(env)
+			return $http.get(impURL + 'records/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    return data.data.record
+                });
+		};	
+		
+		impAPI.deleteRecord = function(env, id) {
+            
+			return $http.delete(impURL + 'records/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then(
+			    function(f){
+			        defaultCache.removeAll();
+			        return f;
+		        })
+		};	
+		
+		impAPI.createRecord = function(env, type, fields) {
+            
+			return $http.post(impURL + 'records', {form_type:type,form:fields},{headers:{"X-Impera-tid":env}}).then(
+			    function(f){
+			        defaultCache.removeAll();
+			        return f;
+		        })
+		};	
+		
+		impAPI.updateRecord = function(env, id, fields) {
+            
+			return $http.put(impURL + 'records', {id:id,form:fields},{headers:{"X-Impera-tid":env}}).then(
+			    function(f){
+			        defaultCache.removeAll();
+			        return f;
+		        })
+		};		
+	
 //deploy
 		impAPI.deploy = function(env, cmversion, push) {
 		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Impera-tid':env}}).then(

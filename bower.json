@@ -18,7 +18,8 @@
     "es6-collections": "~0.5.4",
     "angular-highlightjs": "~0.4.3",
     "highlightjs": "~8.7.0",
-    "angular-spinner": "~0.6.2"
+    "angular-spinner": "~0.6.2",
+    "angular-awesome-slider": "~2.4.3"
   },
   "resolutions": {
     "angular-bootstrap": "~0.13.1",

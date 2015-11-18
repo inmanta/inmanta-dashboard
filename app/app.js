@@ -8,6 +8,7 @@ var app = angular.module('ImperaApp', [
   'hljs',
   'dialogs.main',
   'angularSpinner',
+  'angularAwesomeSlider',
   'ImperaApp.directives',
   'ImperaApp.portalView',
   'ImperaApp.projectsView',
@@ -29,7 +30,8 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.controllers.projects',
   'ImperaApp.controllers.side',
   'ImperaApp.feedback',
-  'ImperaApp.compileReport'
+  'ImperaApp.compileReport',
+  'ImperaApp.formsView'
 ])
 
 app.config(function($urlRouterProvider) {
