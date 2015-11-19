@@ -3,51 +3,10 @@
 </div>
 <div class="row">
   
-
-
-    <div class="col-md-12">
-    <table class="table table-lined" ng-table="viewsTable">
-        <tr ng-repeat="form in $data" >
-            <td data-title="'Type'"  >{{form.type}}</td>
-            <td data-title="'Id'" > <a ng-click="selectForm(form)">{{form.id}}</a></td>
-        </tr>
-    </table>
-    </div>
     
-    <div class="col-md-12">
-    <h2 ng-if="selectedForm.options.title"> {{selectedForm.options.title}} </h2>
-    <h2 ng-if="!selectedForm.options.title"> {{selectedForm.form_type}} </h2>
-    <p> {{selectedForm.options.help}}</p>
-    <table class="table table-lined">
-        <tr>
-        <th ng-repeat="(name,type) in selectedForm.fields">
-                {{name}}
-        </th>
-        <th><button ng-show="selectedForm.options.record_count==0 || allRecords.length<selectedForm.options.record_count" ng-click="allRecords.push({fields:{},form_type:selectedForm.form_type})"> {{allRecords.length}}/{{selectedForm.options.record_count}} Add </button></th>
-        </tr>
-        <tr ng-repeat="record in allRecords" ng-init="edit=false">
-            <form name="form" novalidate>
-            <td ng-repeat="(name,type) in selectedForm.fields" ng-switch="edit">
-                <span ng-switch-default>{{record.fields[name]}} </span>
-                <div ng-switch-when="true"  ng-switch="selectedForm.field_options[name]['widget']"> 
-                    <select class="form-control" ng-switch-when="options" ng-model="record.fields[name]" required> 
-                        <option ng-repeat="item in selectedForm.field_options[name]['options'].split(',') track by item" >{{item}}</option> 
-                    </select> 
-                    <input  ng-switch-default type="{{getFormType(type)}}" name="{{name}}" ng-model="record.fields[name]" class="form-control" required/>
-                    <input  ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control" ng-init="options={}" slider options="{from:0,to:100,step:1}"  required/>
-                </div>
-            </td>
-            <td >
-                <button ng-hide="edit" ng-click="edit= true"> Edit</button>
-                <button ng-hide="edit" ng-click="delete(record)"> Delete</button>
-                <button ng-hide="!edit" ng-click="save(record); edit=false"> Save </button>
-               
-            </td>
-            </form>
-        </tr>
-    </table>
+    <div class="col-md-12" ng-repeat="form in forms">
+        <record-editor env="state.env" type="form.type"/>
     </div>
- 
   
     
 </div>

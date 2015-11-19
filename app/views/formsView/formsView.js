@@ -23,90 +23,107 @@ resv.config(function($stateProvider) {
         })
 });
 
+resv.directive('recordEditor', ['imperaService', function(imperaService) {
+    return {
+        restrict: 'E',
+        scope: {
+            env: '=',
+            type: '='
+        },
+        templateUrl: 'views/formsView/recordEditor.html',
+        link: function(scope, element) {
 
-resv.controller('formsController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTable",function($scope,$rootScope, imperaService, $stateParams, BackhaulTable) {
+            function load() {
+                if (scope.type != null) {
+                    imperaService.getFullRecords(scope.env, scope.type).then(
+                        function(form) {
+                            scope.allRecords = form
+                        }
+                    );
+
+                    imperaService.getForm(scope.env, scope.type).then(
+                        function(form) {
+                            scope.selectedForm = form
+                        }
+                    );
+                }
+            }
+
+            load();
+            scope.$watch("type", load)
+
+            scope.getOptionsFor = function(s) {
+                return s.split(',')
+            }
+
+            var types = {
+                "string": "text",
+                "number": "text"
+            }
+
+            scope.getFormType = function(modeltype) {
+                if (modeltype in types) {
+                    return types[modeltype];
+                }
+                return "text"
+            }
+
+            scope.getSliderOptions = function(opts) {
+                return {
+                    from: opts.min,
+                    to: opts.max,
+                    step: 1
+                };
+            }
+            
+            scope.save = function(rec){
+                if(!rec.record_id){
+                    imperaService.createRecord(scope.env,rec.form_type,rec.fields).then(function(){scope.refresh()});
+                }else{
+                    imperaService.updateRecord(scope.env,rec.record_id,rec.fields).then(function(){scope.refresh()});
+                }
+            }
+    
+            scope.delete = function(rec){
+                imperaService.deleteRecord(scope.env,rec.record_id).then(function(){scope.refresh()});
+            }
+    
+            scope.refresh = function(){
+                imperaService.getFullRecords(scope.env,scope.type).then(function(form){ 
+                    scope.allRecords = form
+                });
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
+}])
+resv.controller('formsController', ['$scope', 'imperaService', "$stateParams",function($scope, imperaService, $stateParams) {
 
     $scope.state = $stateParams
   
 
-    $scope.viewsTable = BackhaulTable($scope,{
-        page: 1, // show first page
-        count: 10, // count per page
-        sorting: {
-            'id_fields.entity_type': 'asc' // initial sorting
-        }
-    }, function(params) {
-           return imperaService.getForms($stateParams.env)
-            
-    });
+    
+    imperaService.getForms($stateParams.env).then(function(forms){
+        $scope.forms=forms
+    })
     
     $scope.selectForm = function(f){
        $scope.sfi = f.type;
-       imperaService.getForm($stateParams.env,f.type).then(function(form){ $scope.selectedForm = form});
-       imperaService.getRecords($stateParams.env,f.type).then(function(form){ $scope.records = form});
-       return imperaService.getFullRecords($stateParams.env,f.type).then(function(form){ $scope.allRecords = form});
-       
     }
     
-    $scope.getOptionsFor = function(s){
-       return s.split(',')
-    }
-    $scope.selectedForm = null;
-    $scope.record = {};
-    
-    $scope.doStuff = function() {
-      console.log($scope.form.userForm.xxxx);
-    }
-    
-    var types = {
-        "string":"text",
-        "number":"text"
-    }
-    
-    $scope.getFormType = function(modeltype){
-        if(modeltype in types){
-            return types[modeltype];
-        }
-        return "text"
-    }
-    
-    function fillForm(values){
-        angular.forEach(values,function(v,k){
-            $scope.record[k] = v;
-        })
-    }
-    
-    $scope.save = function(rec){
-       if(!rec.record_id){
-           imperaService.createRecord($stateParams.env,rec.form_type,rec.fields).then(function(){$scope.refresh()});
-       }else{
-           imperaService.updateRecord($stateParams.env,rec.record_id,rec.fields).then(function(){$scope.refresh()});
-       }
-    }
-    
-    $scope.delete = function(rec){
-       imperaService.deleteRecord($stateParams.env,rec.record_id).then(function(){$scope.refresh()});
-    }
-    
-    $scope.refresh = function(){
-        imperaService.getFullRecords($stateParams.env,$scope.sfi).then(function(form){ 
-            $scope.allRecords = form
-           
-        });
-    }
-    $scope.selectRecord = function(r){
-       imperaService.getRecord($stateParams.env,r.id).then(function(form){ 
-            $scope.selectedRecord = form
-            fillForm(form.fields)
-        });
-      
-    }
-    
-    $scope.getSliderOptions = function(opts){
-        return {from:opts.min,
-                to:opts.max,
-                step:1};
-    }
     
    
    

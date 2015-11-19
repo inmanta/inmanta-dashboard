@@ -350,7 +350,7 @@ imperApi.service('imperaService',
 		
 		impAPI.updateRecord = function(env, id, fields) {
             
-			return $http.put(impURL + 'records', {id:id,form:fields},{headers:{"X-Impera-tid":env}}).then(
+			return $http.put(impURL + 'records/'+window.encodeURIComponent(id), {form:fields},{headers:{"X-Impera-tid":env}}).then(
 			    function(f){
 			        defaultCache.removeAll();
 			        return f;
