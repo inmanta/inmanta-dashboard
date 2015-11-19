@@ -9,6 +9,7 @@ var app = angular.module('ImperaApp', [
   'dialogs.main',
   'angularSpinner',
   'angularAwesomeSlider',
+  'ch.filters',
   'ImperaApp.directives',
   'ImperaApp.portalView',
   'ImperaApp.projectsView',

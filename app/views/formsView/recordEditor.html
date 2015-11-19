@@ -1,10 +1,10 @@
 <h2 ng-if="selectedForm.options.title"> {{selectedForm.options.title}} </h2>
 <h2 ng-if="!selectedForm.options.title"> {{selectedForm.form_type}} </h2>
 <p> {{selectedForm.options.help}}</p>
-<table class="table table-lined">
+<table class="table table-lined ng-table"  >
     <tr>
-        <th ng-repeat="(name,type) in selectedForm.fields">
-            {{name}}
+        <th ng-repeat="(name,type) in selectedForm.fields" style="text-transform: capitalize;">
+           {{name  | replace:'_':' '}}
         </th>
         <th>
             <button ng-show="selectedForm.options.record_count==0 || allRecords.length<selectedForm.options.record_count" ng-click="allRecords.push({fields:{},form_type:selectedForm.form_type})">
@@ -21,14 +21,19 @@
                     </select>
                     <input ng-switch-default type="{{getFormType(type)}}" name="{{name}}" ng-model="record.fields[name]" class="form-control"
                     required/>
-                    <input ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control" ng-init="options={}"
-                    slider options="{from:0,to:100,step:1}" required/>
+                    <input ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control"  ng-init="options={}" slider options="{from:0,to:100,step:1}" required/>
                 </div>
             </td>
             <td>
-                <button ng-hide="edit" ng-click="edit= true"> Edit</button>
-                <button ng-hide="edit" ng-click="delete(record)"> Delete</button>
-                <button ng-hide="!edit" ng-click="save(record); edit=false"> Save </button>
+                <button class="btn btn-link btn-xs" ng-hide="edit" ng-click="edit= true" title="Edit" > 
+                    <span class="glyphicon glyphicon-edit"/>
+                </button>
+                <button class="btn btn-link btn-xs" ng-hide="edit" ng-click="delete(record)" title="Delete">
+                     <span class="glyphicon glyphicon-trash"/>
+                 </button>
+                <button class="btn btn-link btn-xs" ng-hide="!edit" ng-click="save(record); edit=false" title="Save"> 
+                     <span class="glyphicon glyphicon-save"/>
+                </button>
 
             </td>
         </form>
