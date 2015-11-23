@@ -43,7 +43,7 @@ var types = {
 }
 
 var colors = {
-    "SUCCESS": "#5cb85c",
+    "deployed": "#5cb85c",
     "ERROR": "#d9534f",
     "WAITING": "#5bc0de"
 }
@@ -128,7 +128,7 @@ function getColorCode(type) {
                             icon: getIconCode(n.id_fields.entity_type),
                             agent: n.id_fields.agent_name,
                             source: n,
-                            color: getColorCode(n.result)
+                            color: getColorCode(n.status)
                         }
                         nodes.push(node)
                         idx[n.id] = node

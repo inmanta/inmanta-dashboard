@@ -60,12 +60,24 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
                 "string": "text",
                 "number": "text"
             }
+            
+            var defaultValues = {
+                "string": "",
+                "number": 0
+            }
 
             scope.getFormType = function(modeltype) {
                 if (modeltype in types) {
                     return types[modeltype];
                 }
                 return "text"
+            }
+            
+            var defaultFor = function(modeltype) {
+                if (modeltype in defaultValues) {
+                    return defaultValues[modeltype];
+                }
+                return ""
             }
 
             scope.getSliderOptions = function(opts) {
@@ -94,6 +106,12 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
                 });
             }
             
+            scope.newrecord = function(selectedForm){
+                var field = {}
+                angular.forEach(selectedForm.fields,function(v,k){field[k]=defaultFor(v)})
+                
+                return {fields:field,form_type:selectedForm.form_type,edit:true}
+            }
             
             
             
