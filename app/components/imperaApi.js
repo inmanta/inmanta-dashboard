@@ -485,6 +485,7 @@ function formatDryrun(d){
         
 			return $http.get(impURL + 'file/'+ window.encodeURIComponent(id)).then( 
                 function(data){
+                    data.data.content = window.atob(data.data.content)
                     return data.data
                 });
 		};
