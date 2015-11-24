@@ -356,7 +356,55 @@ imperApi.service('imperaService',
 			        return f;
 		        })
 		};		
-	
+//snapshots
+function formatSnapshot(d){
+    d["started"] = formatDate(d["started"]); 
+    d["finished"] = formatDate(d["finished"]); 
+}
+
+        impAPI.getSnapshots = function(env){
+            checkEnv(env)
+			return $http.get(impURL + 'snapshot',{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    data.data.snapshots.forEach(formatSnapshot)
+                    return data.data.snapshots
+            });
+        }
+        
+        impAPI.getSnapshot = function(env,id){
+            checkEnv(env)
+			return $http.get(impURL + 'snapshot/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    formatSnapshot(data.data.snapshot)
+                    return data.data.snapshot
+            })
+        }
+        
+        impAPI.deleteSnapshot = function(env,id){
+            checkEnv(env)
+			return $http.delete(impURL + 'snapshot/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}})
+        }
+        
+        impAPI.createSnapshot = function(env,name){
+            checkEnv(env)
+			return $http.post(impURL + 'snapshot', {name:name},{headers:{"X-Impera-tid":env}})
+        }
+        
+        impAPI.getAllSnapshots = function(env){
+            var out = $q.defer()
+            
+            impAPI.getSnapshots(env).then(function (recs){
+                $q.all(
+                    recs.map(
+                        function(r){
+                            return impAPI.getSnapshot(env,r.id)
+                        }
+                    )
+                ).then(out.resolve)
+            })
+            
+            return out.promise
+        }		
 //deploy
 		impAPI.deploy = function(env, cmversion, push) {
 		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Impera-tid':env}}).then(
@@ -488,6 +536,10 @@ function formatDryrun(d){
                     data.data.content = window.atob(data.data.content)
                     return data.data
                 });
+		};
+		
+    	impAPI.downloadFile = function(id) {
+			window.open(impURL + 'file/'+ window.encodeURIComponent(id))
 		};
 		
         impAPI.getDiff = function(h1,h2) {

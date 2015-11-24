@@ -1,0 +1,15 @@
+<div class="modal-header dialog-header-confirm">
+
+    <h4 class="modal-title"> <span class="{{icon}}"></span> {{header}}</h4></div>
+    <div class="modal-body">
+        <div class="input-group">
+            <input ng-model="result" type="text" class="form-control" placeholder="{{content}}"/> 
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()" ng-disabled="!result">Create</button>
+</div>
