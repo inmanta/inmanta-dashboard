@@ -390,6 +390,10 @@ function formatSnapshot(d){
 			return $http.post(impURL + 'snapshot', {name:name},{headers:{"X-Impera-tid":env}})
         }
         
+         impAPI.restoreSnapshot = function(env,id){
+			return $http.post(impURL + 'restore', {snapshot:id},{headers:{"X-Impera-tid":env}})
+        }
+        
         impAPI.getAllSnapshots = function(env){
             var out = $q.defer()
             

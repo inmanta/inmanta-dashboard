@@ -35,6 +35,10 @@ resv.controller('snapshotController', ['$scope', '$rootScope', 'imperaService', 
                  imperaService.deleteSnapshot($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
        }
 
+       $scope.restoreSnapshot =  function(env, id){
+                 imperaService.restoreSnapshot(env,id)
+       }
+
        $scope.createSnapshot = function(id){
                 // 
             dialogs.create('partials/input/inputDialog.html', 'inputDialogCtrl', {

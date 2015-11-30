@@ -25,6 +25,9 @@
                 <button class="btn btn-default btn-xs" ng-click="deleteSnapshot(sp.id)">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
+                <button class="btn btn-default btn-xs" ng-click="restoreSnapshot(state.env,sp.id)">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+                </button>
              </td>  
         </tr>
     </table>
