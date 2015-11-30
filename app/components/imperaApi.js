@@ -408,6 +408,10 @@ function formatSnapshot(d){
             })
             
             return out.promise
+        }
+        
+        impAPI.getRestores = function(env){
+            return $http.get(impURL + 'restore',{headers:{"X-Impera-tid":env}})
         }		
 //deploy
 		impAPI.deploy = function(env, cmversion, push) {
