@@ -5,7 +5,7 @@
   
     
     <div class="col-md-12" ng-repeat="form in forms track by form.id">
-        <record-editor env="state.env" type="form.type"/>
+        <record-editor env="state.env" type="form.type" highlight="unknowns.indexOf(form.type)>=0"/>
     </div>
   
     

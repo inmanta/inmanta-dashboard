@@ -38,9 +38,6 @@ function formateVersion(d){
 }
 
 
-
-
-
 imperApi.service('imperaService',
 	function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope,alertService) {
 		var impAPI = {};
@@ -198,7 +195,7 @@ imperApi.service('imperaService',
 		    checkEnv(env)
 			return $http.get(impURL + 'cmversion',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
-                    data.data.forEach(formateVersion)
+                    data.data.versions.forEach(formateVersion)
                     return data.data;});
 		};
 	
@@ -240,6 +237,18 @@ imperApi.service('imperaService',
                     return data.data.resource
                 });
 		};
+		
+		
+		impAPI.getUnkownsForEnv = function(env){
+		    return impAPI.getVersions(env).then(function(f){
+		        if(!f.versions || f.versions.length == 0){
+		            return []
+	            }
+		        return impAPI.getResources(env,f.versions[0].version).then(function(f){
+		            return f.unknowns
+		        })
+		    })
+		}
 //parameters
 		impAPI.getParameters = function(env) {
 		    checkEnv(env)
