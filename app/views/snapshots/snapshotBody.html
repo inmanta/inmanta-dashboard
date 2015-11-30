@@ -16,7 +16,7 @@
         <tr ng-repeat="sp in $data">
             <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}"> <a ui-sref="snapshot({env:state.env,id:sp.id})" > <span ng-if="sp.name"> {{sp.name}} </span> <span ng-if="!sp.name"> No Name </span> </a></td>
             <td data-title="'Started'" sortable="'started'" filter="{ 'started':'text'}"> {{sp.started |date:'dd/MM/yyyy HH:mm'}}</td>
-              <td data-title="'Duration (s)'" > {{sp.finished - sp.started}}</td>
+              <td data-title="'Duration (s)'" > {{ (sp.finished - sp.started)/1000 | number : 1}}</td>
             <td data-title="'Size (kb)'" sortable="'total_size'" filter="{ 'total_size':'text'}"> {{sp.total_size/1024 | number : 1}}</td>
             <td data-title="'Model'" sortable="'model'" filter="{ 'model':'text'}"> <a ui-sref="resources({env:state.env,version:sp.model})"> {{sp.model}}</a></td>
             
