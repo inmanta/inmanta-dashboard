@@ -1,0 +1,35 @@
+<div class="row">   
+     <div class="col-md-12">
+         <div class="page-header">
+            <h1> Restores </h1>
+         </div>
+      </div>  	
+      <div class="col-md-12 page-button-band ">
+        
+		
+	  </div>	
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+    <table class="table table-lined" ng-table="tableParams" show-filter="false">
+        <tr ng-repeat="sp in $data">
+            <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}"> <a ui-sref="snapshot({env:state.env,id:sp.id})" > <span ng-if="sp.name"> {{sp.name}} </span> <span ng-if="!sp.name"> No Name </span> </a></td>
+            <td data-title="'Started'" sortable="'started'" filter="{ 'started':'text'}"> {{sp.started |date:'dd/MM/yyyy HH:mm'}}</td>
+              <td data-title="'Duration (s)'" > <span ng-hide="!sp.finished">{{ (sp.finished - sp.started)/1000 | number : 1}}</span></td>
+            <td data-title="'Size (kb)'" sortable="'total_size'" filter="{ 'total_size':'text'}"> {{sp.total_size/1024 | number : 1}}</td>
+            <td data-title="'Model'" sortable="'model'" filter="{ 'model':'text'}"> <a ui-sref="resources({env:state.env,version:sp.model})"> {{sp.model}}</a></td>
+            
+            
+             <td>
+                <button class="btn btn-default btn-xs" ng-click="deleteSnapshot(sp.id)" title="Delete">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+                <button class="btn btn-default btn-xs" ng-click="restoreSnapshot(state.env,sp.id)" title="Restore in place">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+                </button>
+             </td>  
+        </tr>
+    </table>
+    </div>
+</div>
