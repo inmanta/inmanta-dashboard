@@ -26,7 +26,10 @@ resv.controller('snapshotController', ['$scope', '$rootScope', 'imperaService', 
        $scope.state = $stateParams
        $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
-            count: 10
+            count: 10,
+            sorting: {
+                'started': 'desc' // initial sorting
+            }
         }, function(params){
                     return  imperaService.getSnapshots($stateParams.env)
         });
