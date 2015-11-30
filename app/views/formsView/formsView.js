@@ -51,6 +51,7 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
 
             load();
             scope.$watch("type", load)
+            scope.$on("refresh", scope.refresh)
 
             scope.getOptionsFor = function(s) {
                 return s.split(',')
@@ -133,10 +134,15 @@ resv.controller('formsController', ['$scope', 'imperaService', "$stateParams",fu
     $scope.state = $stateParams
   
 
+    function load(){
+        imperaService.getForms($stateParams.env).then(function(forms){
+            $scope.forms=forms
+        })
+    }
     
-    imperaService.getForms($stateParams.env).then(function(forms){
-        $scope.forms=forms
-    })
+    load()
+    
+    $scope.$on('refresh',load)
     
     $scope.selectForm = function(f){
        $scope.sfi = f.type;

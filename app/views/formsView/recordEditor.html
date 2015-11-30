@@ -12,11 +12,12 @@
             {{allRecords.length}}/{{selectedForm.options.record_count}} Add </button>
         </th>
     </tr>
-    <tr ng-repeat="record in allRecords" ng-init="edit=record.edit">
+    <tr ng-repeat="record in allRecords track by record.record_id" ng-init="edit=record.edit">
+        
         <form name="form" novalidate>
             <td ng-repeat="(name,type) in selectedForm.fields" ng-switch="edit">
                       
-                <span ng-switch-default>{{record.fields[name]}} </span>
+                <span ng-switch-default>{{record.fields[name]}}</span>
                 <div ng-switch-when="true" ng-switch="selectedForm.field_options[name]['widget']">
                     <select class="form-control" ng-switch-when="options" ng-model="record.fields[name]" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required>
                         <option ng-repeat="item in selectedForm.field_options[name]['options'].split(',') track by item">{{item}}</option>
