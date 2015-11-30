@@ -34,7 +34,8 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.compileReport',
   'ImperaApp.formsView',
   'ImperaApp.snapshotView',
-  'ImperaApp.snapshotDetailView'
+  'ImperaApp.snapshotDetailView',
+  'ImperaApp.restoreView'
 ])
 
 app.config(function($urlRouterProvider) {
