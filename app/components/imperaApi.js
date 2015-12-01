@@ -114,7 +114,9 @@ imperApi.service('imperaService',
 	    }
 	
         impAPI.addProject = function(name) {
-			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data.project;});
+			return $http.put(impURL + 'project',{'name':name}).then(function(data){ 
+			    defaultCache.removeAll()
+			    return data.data.project;});
 		};
 
         impAPI.removeProject = function(id) {
