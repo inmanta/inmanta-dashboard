@@ -83,6 +83,9 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
             },{
                 'id':  "plugin",
                 'title': "plugin"
+            },{
+                'id':  "report",
+                'title': "report"
             }]
                   
 

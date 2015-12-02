@@ -250,6 +250,15 @@ imperApi.service('imperaService',
                     return data.data
                 });
 		};
+		
+	    impAPI.getReportParameters = function(env) {
+		    checkEnv(env)
+			return impAPI.getParameters(env).then(function(f){
+			    return f.parameters.filter(function(v){
+			        return v.metadata.type == "report"    
+		        })
+		    });
+		};
 
 
         impAPI.getParameter = function(env,name,resource) {

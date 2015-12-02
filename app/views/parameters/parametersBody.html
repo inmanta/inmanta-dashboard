@@ -21,10 +21,8 @@
             <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
             <td data-title="'Updated'" sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'dd/MM/yyyy HH:mm'}}</td>
             <td data-title="'Source'" sortable="'source'" filter="{ 'source':'select'}" filter-data="names()"> {{param.source}}</td>
-            <td data-title="'Value'"  sortable="'expired'" filter="{ 'expired':'select'}" filter-data="tf()" ng-init="controlrecord=getRecord(param)">
-                <button ng-hide="controlrecord.show || param.expired" class="btn-default btn" ng-click="getValue(controlrecord)"> Show </button>
-                <div ng-hide="!controlrecord.show"> {{controlrecord.value}} </div>
-                <div ng-hide="! param.expired"> Expired </div>
+            <td data-title="'Value'"  sortable="'value'" filter="{ 'value':'text'}" >
+                {{param.value}}
             </td>
         </tr>
     </table>

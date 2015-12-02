@@ -1,75 +1,28 @@
 'use strict';
 
+var module = angular.module('ImperaApp.portalView', ['ui.router', 'imperaApi'])
 
+module.config(function($stateProvider) {
+    $stateProvider
+        .state('portal', {
+            url: "/environment/:env/portal",
+            views: {
+                "body": {
+                    templateUrl: "views/portal/portalBody.html",
+                    controller: "PortalController"
+                },
+                "side": {
+                    templateUrl: "views/env/envSide.html"
+                }
+            }
 
-var portalview = angular.module('ImperaApp.portalView', ['ui.router','imperaApi','dialogs.main'])
+        })
+});
 
-portalview.config(function($stateProvider) {
- $stateProvider
-    .state('portal', {
-      url: "/portal",
-      views:{
-        "body":{
-            templateUrl: "views/portal/portalBody.html",
-            controller:"portalController"
-        },
-        "side":{
-            templateUrl: "views/portal/portalSide.html"
-          
-        }
-      }
-      
-    })
-})
-portalview.controller('portalController', ['$scope', 'imperaService','dialogs', function($scope, imperaService,dialogs) {
- 
-  $scope.projects = null;
-  $scope.envs = null;
-  $scope.lines = [];
-  var projectIndex = {};
-  var envIndex = {};
-
-  function fill(){
-    var lines = $scope.envs.map(function(line){
-        var out = angular.copy(line);
-        out.projectname = projectIndex[line["project"]].name;
-        return out;
-    })
-    $scope.lines = lines
-  }
-
-  imperaService.getProjects().then(function(data) {
-    $scope.projects = data;
-    projectIndex = {};
-
-    angular.forEach(data,function(d) {this[d.id]= d;},projectIndex);
-
-    if($scope.envs != null){
-        fill();
-    }
-  });
-
-  function loadEnvs(){
-   imperaService.getEnvironments().then(function(data) {
-    $scope.envs = data ;
-    envIndex={};
-    angular.forEach(data,function(d) {this[d.id]= d;},envIndex);
-    if($scope.projects != null){
-        fill();
-    }
-   });
-  }
-
-  loadEnvs();
-
-  $scope.$on("refresh",loadEnvs);
-
-
-  $scope.deleteEnv = function(envID){
-	var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the environment " + envIndex[envID].name);
-	dlg.result.then(function(btn){
-		imperaService.removeEnvironment(envID).then( loadEnvs);
-	});        
-
-  }
-}]);
+module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '$stateParams',function($scope,$rootScope, imperaService, $stateParams) {
+    $scope.state = $stateParams
+    
+    imperaService.getReportParameters($stateParams.env).then(function(d) {
+        $scope.report = d
+    });
+}])

@@ -1,37 +1,25 @@
 <div class="row">
-    <table class="table table-lined">
-        <tr>
-            <th>Env</th>
-            <th>Project</th>
-            <th>State</th>
-            <th>Remove</th>
-            <th></th>
-        </tr>
-        <tr class="emptyline" ng-repeat-start="line in lines"> </tr>
-        <tr>
-            <td><a ui-sref="envs({env:line.id})">{{line.name}}</a></td>
-            <td>{{line.projectname}}</td>
-            <td>Active</td>
-            <td>
-                <button class="btn btn-default btn-xs" ng-click="deleteEnv(line.id)">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
-            </td>
-            <td>
-                <button class="btn btn-default btn-xs" ng-init="navCollapsedone = true" ng-click="navCollapsedone = !navCollapsedone">
-                    <span class="glyphicon glyphicon-eye-open"></span>
-                </button>
-            </td>
-        </tr>
-        <tr  ng-repeat-end>
-            <td colspan="5" class="hiddenRow">
-                <div collapse="navCollapsedone" class="accordian-body collapse detail">
-                    <p><strong>repo:</strong> {{line.repo_url}} </p>
-                    <p><strong> branch:</strong> {{line.repo_branch}} </p>
-                       
-                  
-                </div>
-            </td>
-        </tr>
-    </table>
+    <im-breadcrumb name="'Portal'">    </im-breadcrumb> 
+</div>
+
+
+<div class="row" ng-show="report.length>0">
+       <div class="col-md-12">
+            <h1> Exported Resources </h1>
+       </div>
+
+
+    <div class="col-md-12" >
+     <dl class="dl-horizontal">
+        <dt ng-repeat-start="line in report"> {{line.name}} </dt>
+        <dd ng-repeat-end ng-switch="line.value.indexof('http')<0">
+            <span ng-switch-default>
+             {{line.value}} 
+            </span>
+            <a href="{{line.value}}" ng-switch-when="false">
+              {{line.value}} 
+            </a>
+         </dd>
+     </dl>
+    </div>
 </div>
