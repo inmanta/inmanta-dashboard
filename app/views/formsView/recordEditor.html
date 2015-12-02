@@ -8,7 +8,9 @@
            {{name  | replace:'_':' '}} 
         </th>
         <th>
-            <button ng-show="selectedForm.options.record_count==0 || allRecords.length<selectedForm.options.record_count" ng-click="allRecords.push(newrecord(selectedForm)); ">
+            <button ng-if="!selectedForm.options.record_count" ng-click="allRecords.push(newrecord(selectedForm)); ">
+            {{allRecords.length}} Add </button>
+            <button ng-show="allRecords.length<selectedForm.options.record_count" ng-click="allRecords.push(newrecord(selectedForm)); ">
             {{allRecords.length}}/{{selectedForm.options.record_count}} Add </button>
         </th>
     </tr>
