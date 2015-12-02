@@ -1,7 +1,30 @@
 <div class="row">
     <im-breadcrumb name="'Portal'">    </im-breadcrumb> 
 </div>
+<div class="row">
+    <div class="col-md-12 detail">
+           <p><strong>Repo:</strong> {{env.repo_url}} </p>
+           <p><strong>Branch:</strong> {{env.repo_branch}} </p>
+    </div>	
+</div>
 
+<div class="row" ng-show="unknowns.length>0">
+       <div class="col-md-12">
+            <h1> Input Required </h1>
+       </div>
+
+
+
+    <div class="col-md-12" >
+            <ul class="list-unstyled">
+                 <li  ng-repeat="unknown in unknowns " >
+                 <a ui-sref="forms({env:state.env,form:unknown.metadata.form,'#':unknown.metadata.form})"> {{unknown.metadata.form}}</a>
+                 </li>
+            </ul>
+               
+
+    </div>
+</div>
 
 <div class="row" ng-show="report.length>0">
        <div class="col-md-12">

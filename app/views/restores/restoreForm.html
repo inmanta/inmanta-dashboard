@@ -7,7 +7,7 @@
         <!-- Environment -->
         <div class="form-group">
             <label>Target Environment</label>
-            <select ng-model="env" name="env" ng-options="env.name for env in envs track by env.id" required> </select>
+            <select ng-model="env" name="env" ng-options="env.project_full.name +'.'+env.name for env in envs track by env.id" required> </select>
             <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">Environment Required.</p>
         </div>
 
@@ -17,7 +17,7 @@
            
             <select ng-model="snapshot" name="snapshot" ng-options="sn.name for sn in snapshots track by sn.id" required/>  </select>
         </div>
-
+  
     </div>  
     <div class="modal-footer">
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>

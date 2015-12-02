@@ -156,6 +156,21 @@ imperApi.service('imperaService',
 		    });
 		    
 		}
+		
+		impAPI.getEnvironmentsWithProject = function() {
+		    
+		    return $q.all({projects:impAPI.getProjects(),envs:impAPI.getEnvironments()}).then(
+                function(d){
+                    var projects = d.projects;
+                    var proI = {};
+                    projects.forEach(function(d){proI[d.id] = d})
+                    var envs = angular.copy(d.envs)
+                    envs.forEach(function(d){d['project_full']=proI[d.project]})
+                    return envs;
+                }
+            )
+		    
+		}
 
         impAPI.getEnvironment = function(id){
             if( envCache[id]){

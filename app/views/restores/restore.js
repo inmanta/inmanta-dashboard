@@ -24,9 +24,11 @@ resv.config(function($stateProvider) {
 resv.controller('restoreDialogCtrl',['$scope','$modalInstance','data','$stateParams','imperaService',
         function($scope,$modalInstance,data,$stateParams,imperaService) {
 	//-- Variables -----//
-   imperaService.getEnvironments().then(function(f){
+   imperaService.getEnvironmentsWithProject().then(function(f){
         $scope.envs = f
    });
+   
+   
    imperaService.getSnapshots($stateParams.env).then(function(f){
         $scope.snapshots = f
    });

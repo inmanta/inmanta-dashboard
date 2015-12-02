@@ -12,7 +12,8 @@ module.config(function($stateProvider) {
                     controller: "PortalController"
                 },
                 "side": {
-                    templateUrl: "views/env/envSide.html"
+                    templateUrl: "views/env/envSide.html",
+                    controller: "sideController"
                 }
             }
 
@@ -22,7 +23,28 @@ module.config(function($stateProvider) {
 module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '$stateParams',function($scope,$rootScope, imperaService, $stateParams) {
     $scope.state = $stateParams
     
+    imperaService.getEnvironment($stateParams.env).then(function(d) {
+        $scope.env = d
+    });
+    
     imperaService.getReportParameters($stateParams.env).then(function(d) {
         $scope.report = d
     });
+    
+      
+    var alertForUnknown = function(){
+   
+        imperaService.getUnkownsForEnv($stateParams.env).then(function(unknowns){
+            var unknowns = unknowns.filter(function(unknown){return unknown.source=='form'})
+            var out = {}
+            unknowns.forEach(function (unknown){out[unknown.metadata.form]=unknown})
+            $scope.unknowns = Object.keys(out).map(function(key){
+                return out[key]
+            })
+        })
+    
+    }  
+  
+    $scope.$on('refresh',alertForUnknown)
+    alertForUnknown()
 }])
