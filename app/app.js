@@ -34,7 +34,8 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.compileReport',
   'ImperaApp.formsView',
   'ImperaApp.snapshotView',
-  'ImperaApp.snapshotDetailView'
+  'ImperaApp.snapshotDetailView',
+  'ImperaApp.restoreView'
 ])
 
 app.config(function($urlRouterProvider) {
@@ -85,12 +86,14 @@ app.config(function($httpProvider){
   });
 })
 
-app.controller("alertCtrl",["$scope",function($scope){
+app.controller("alertCtrl",["$scope","imperaService",function($scope,imperaService){
   $scope.alerts = []
+  $scope.env = null
 
   $scope.$on("$stateChangeStart",function(event, toState, toParams, fromState, fromParams){
         $scope.alerts.length = 0
-        
+        $scope.env = toParams['env']
+        alertForUnknown()
   })
 
   $scope.$on("alert-update",function(event,args){
@@ -101,5 +104,17 @@ app.controller("alertCtrl",["$scope",function($scope){
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
   };
+
+  
+  //found no better place to park it,....
+  function alertForUnknown(){
+    if($scope.env){
+        imperaService.getUnkownsForEnv($scope.env).then(function(unknowns){
+            $scope.unknowns = unknowns.filter(function(unknown){return unknown.source=='form'})
+        })
+    }
+  }  
+  
+  $scope.$on('refresh',alertForUnknown)
  
 }])

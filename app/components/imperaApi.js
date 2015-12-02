@@ -38,9 +38,6 @@ function formateVersion(d){
 }
 
 
-
-
-
 imperApi.service('imperaService',
 	function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope,alertService) {
 		var impAPI = {};
@@ -117,7 +114,9 @@ imperApi.service('imperaService',
 	    }
 	
         impAPI.addProject = function(name) {
-			return $http.put(impURL + 'project',{'name':name}).then(function(data){ return data.data.project;});
+			return $http.put(impURL + 'project',{'name':name}).then(function(data){ 
+			    defaultCache.removeAll()
+			    return data.data.project;});
 		};
 
         impAPI.removeProject = function(id) {
@@ -198,7 +197,7 @@ imperApi.service('imperaService',
 		    checkEnv(env)
 			return $http.get(impURL + 'cmversion',{headers:{"X-Impera-tid":env}}).then( 
                 function(data){
-                    data.data.forEach(formateVersion)
+                    data.data.versions.forEach(formateVersion)
                     return data.data;});
 		};
 	
@@ -240,6 +239,18 @@ imperApi.service('imperaService',
                     return data.data.resource
                 });
 		};
+		
+		
+		impAPI.getUnkownsForEnv = function(env){
+		    return impAPI.getVersions(env).then(function(f){
+		        if(!f.versions || f.versions.length == 0){
+		            return []
+	            }
+		        return impAPI.getResources(env,f.versions[0].version).then(function(f){
+		            return f.unknowns
+		        })
+		    })
+		}
 //parameters
 		impAPI.getParameters = function(env) {
 		    checkEnv(env)
@@ -418,10 +429,47 @@ function formatSnapshot(d){
             
             return out.promise
         }
-        
+
+function formatRestore(d){
+    d["started"] = formatDate(d["started"]); 
+    d["finished"] = formatDate(d["finished"]); 
+}
         impAPI.getRestores = function(env){
-            return $http.get(impURL + 'restore',{headers:{"X-Impera-tid":env}})
-        }		
+            return $http.get(impURL + 'restore',{headers:{"X-Impera-tid":env}}).then( 
+                function(data){
+                    data.data.forEach(formatRestore)
+                    return data.data
+                });
+        }	
+
+        impAPI.getEnrichedRestores = function(env){
+            var out = $q.defer()
+            
+            impAPI.getRestores(env).then(function (rest){
+                $q.all(
+                    rest.map(
+                        function(r){
+                            return impAPI.getSnapshot(env,r.snapshot).then(function(f){
+                                r['snapshot_full']=f
+                                r['snapshot_id'] = f.name
+                                return r
+                            },function(){
+                                r['snapshot_id'] = r.id;
+                                return r
+                            })
+                        }
+                    )
+                ).then(out.resolve)
+            })
+            
+            return out.promise 
+        }
+
+        impAPI.deleteRestore = function(env,id){
+            return $http.delete(impURL + 'restore/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}})
+        }	
+
+
 //deploy
 		impAPI.deploy = function(env, cmversion, push) {
 		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Impera-tid':env}}).then(

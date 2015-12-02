@@ -61,6 +61,8 @@
         <div class="col-md-10 main" ng-controller="alertCtrl">
             <alert ng-repeat="alert in alerts" type="{{alert.type}}"
             close="closeAlert($index)">{{alert.msg}}</alert>
+            <alert ng-repeat="unknown in unknowns" type="warning"
+            close="closeAlert($index)">Model incomplete, fill in form: <a ui-sref="forms({env:env,form:unknown.metadata.form,'#':unknown.metadata.form})"> {{unknown.metadata.form}}</a></alert>
             <div ui-view="body"></div>
         </div>
     </div>
@@ -122,5 +124,6 @@
   <script src="views/formsView/formsView.js"></script>
   <script src="views/snapshots/snapshots.js"></script>
   <script src="views/snapshotDetail/snapshotDetail.js"></script>
+  <script src="views/restores/restore.js"></script>
   </body>
 </html>

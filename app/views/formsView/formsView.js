@@ -7,7 +7,7 @@ var resv = angular.module('ImperaApp.formsView', ['ui.router', 'imperaApi', 'ngT
 resv.config(function($stateProvider) {
     $stateProvider
         .state('forms', {
-            url: "/environment/:env/forms",
+            url: "/environment/:env/forms?form",
             views: {
                 "body": {
                     templateUrl: "views/formsView/formsViewBody.html",
@@ -28,7 +28,8 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
         restrict: 'E',
         scope: {
             env: '=',
-            type: '='
+            type: '=',
+            highlight: '=?'
         },
         templateUrl: 'views/formsView/recordEditor.html',
         link: function(scope, element) {
@@ -52,7 +53,7 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             load();
             scope.$watch("type", load)
             scope.$on("refresh", scope.refresh)
-
+            
             scope.getOptionsFor = function(s) {
                 return s.split(',')
             }
@@ -137,6 +138,12 @@ resv.controller('formsController', ['$scope', 'imperaService', "$stateParams",fu
     function load(){
         imperaService.getForms($stateParams.env).then(function(forms){
             $scope.forms=forms
+        })
+
+        imperaService.getUnkownsForEnv($stateParams.env).then(function(unknowns){
+            $scope.unknowns=unknowns.filter(function(unknown){return unknown.source=='form'}).map(function(unknown){
+                return unknown.metadata.form
+            })
         })
     }
     

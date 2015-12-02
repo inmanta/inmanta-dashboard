@@ -21,6 +21,29 @@ resv.config(function($stateProvider) {
         })
 });
 
+resv.controller('restoreDialogCtrl',['$scope','$modalInstance','data','$stateParams','imperaService',
+        function($scope,$modalInstance,data,$stateParams,imperaService) {
+	//-- Variables -----//
+   imperaService.getEnvironments().then(function(f){
+        $scope.envs = f
+   });
+   imperaService.getSnapshots($stateParams.env).then(function(f){
+        $scope.snapshots = f
+   });
+
+	//-- Methods -----//
+	
+	$scope.done = function() {
+	    imperaService.restoreSnapshot($scope.env.id,$scope.snapshot.id).then(function(d){$modalInstance.close(d);});
+	    
+	}
+	
+	$scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}]);
+
+
 resv.controller('restoreController', ['$scope', '$rootScope', 'imperaService', "$stateParams", "BackhaulTable","dialogs",
     function($scope, $rootScope, imperaService, $stateParams, BackhaulTable,dialogs ) {
        $scope.state = $stateParams
@@ -31,9 +54,18 @@ resv.controller('restoreController', ['$scope', '$rootScope', 'imperaService', "
                 'started': 'desc' // initial sorting
             }
         }, function(params){
-                    return  imperaService.getRestores($stateParams.env)
+                    return  imperaService.getEnrichedRestores($stateParams.env)
         });
         
+       $scope.deleteRestore = function(id){
+                 imperaService.deleteRestore($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
+       }
+
+       $scope.startRestore = function(id){
+            dialogs.create('views/restores/restoreForm.html', 'restoreDialogCtrl', {
+              
+            }, {}).result.then(function(){$rootScope.$broadcast('refresh');})
+       }
       
     }
 

@@ -1,6 +1,9 @@
+<a id={{selectedForm.form_type}}></a>
 <h2 ng-if="selectedForm.options.title"> {{selectedForm.options.title}} </h2>
 <h2 ng-if="!selectedForm.options.title"> {{selectedForm.form_type}} </h2>
-<p> {{selectedForm.options.help}}</p>
+<p class="bg-warning" ng-if="highlight"> This form must be filled in to compile the model</p>
+
+<p> {{selectedForm.options.help}}</p> 
 
 <table class="table table-lined ng-table"  >
     <tr>
