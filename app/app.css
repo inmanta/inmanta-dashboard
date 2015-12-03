@@ -10,7 +10,8 @@ a {
 }
 
 .detail {
- margin:15px;
+ padding-left:30px;
+ padding-right:30px;
 }
 
 .table > tbody > tr > td.row {
@@ -124,6 +125,10 @@ body { padding-top: 50px;}
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.table-nonfluid {
+   width: auto !important;
 }
 
 .table-lined {

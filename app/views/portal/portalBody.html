@@ -2,23 +2,30 @@
     <im-breadcrumb name="'Portal'">    </im-breadcrumb> 
 </div>
 <div class="row">
-    <div class="col-md-12 detail">
+    <div class="col-md-6 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
     </div>	
-</div>
 
+
+    <div class="col-md-6 page-button-band ">
+            <button ui-sref="compileReport({env:state.env})" class="btn"> Compile Reports </button> 
+	        <button ng-hide="cstate" class="btn" ng-click="updateCompile(state.env)" > Update & Recompile </button>
+	        <button ng-hide="cstate" class="btn" ng-click="compile(state.env)" > Recompile </button>
+	        <button ng-hide="!cstate" class="btn">Compiling <i class="fa fa-cog fa-spin"></i></button>       
+		    <button type="button" class="btn" ui-sref="editEnv({env:state.env})">Edit</button>
+    </div>	
+
+</div>
 <div class="row" ng-show="unknowns.length>0">
        <div class="col-md-12">
-            <h1> Input Required </h1>
-       </div>
-
-
-
-    <div class="col-md-12" >
-            <ul class="list-unstyled">
-                 <li  ng-repeat="unknown in unknowns " >
+            <h2> Required Input </h2>
+            <p class="detail">  To complete the deployment, user input is required. Below is a list of forms that require input.  </p>
+       
+            <ul class="list-unstyled detail">
+                 <li  ng-repeat="unknown in unknowns track by unknown.metadata.form " >
                  <a ui-sref="forms({env:state.env,form:unknown.metadata.form,'#':unknown.metadata.form})"> {{unknown.metadata.form}}</a>
+                  <!--<record-editor env="state.env" type="unknown.metadata.form" /> -->
                  </li>
             </ul>
                
@@ -28,21 +35,86 @@
 
 <div class="row" ng-show="report.length>0">
        <div class="col-md-12">
-            <h1> Exported Resources </h1>
+            <h2> Application Overview </h2>
        </div>
 
 
     <div class="col-md-12" >
-     <dl class="dl-horizontal">
-        <dt ng-repeat-start="line in report"> {{line.name}} </dt>
-        <dd ng-repeat-end ng-switch="line.value.indexof('http')<0">
+     <table class="table table-nonfluid">
+        <tr ng-repeat="line in report  | orderBy : 'name' ">
+        <td> <strong>{{line.name}} </strong></td>
+        <td ng-repeat-end ng-switch="line.value.indexof('http')<0">
             <span ng-switch-default>
              {{line.value}} 
             </span>
             <a target="_new" href="{{line.value}}" ng-switch-when="false">
               {{line.value}} 
             </a>
-         </dd>
-     </dl>
+         </td>
+         </tr>
+     </table>
     </div>
+</div>
+    
+<div class="row">
+       <div class="col-md-12">
+            <h2> Deployment Overview</h2>
+       </div>
+       
+       <div class="col-md-5 " ng-show="lastVersion">
+        <h3> Lastest Deployed Version</h3>
+            <p>
+                <strong> Version <a ui-sref="resources({env:state.env,version:lastVersion.version})" >{{lastVersion.version}} </a> is currently deployed</strong>   
+                
+                <button class="btn btn-link btn-xs" ng-disabled="true"  title="Perform dry run">
+                    <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
+                </button>  
+                
+                <button class="btn btn-link btn-xs" ui-sref="report({env:state.env,version:lastVersion.version})" title="Dry run report">
+                    <span class="glyphicon glyphicon-list-alt"> </span>
+                </button> 
+           
+                <button class="btn btn-link btn-xs"  ng-disabled="true"  title="Release version" >
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </button>    
+         
+                <button class="btn btn-link btn-xs" ui-sref="deployReport({env:state.env,version:lastVersion.version})" title="Deploy report">
+                    <span class="glyphicon glyphicon-tasks"> </span>
+                </button> 
+            </p>
+             <deploy-progress data="lastVersion"> </deploy-progress> 
+             <p> </p>
+            <p>  <Strong>Built on:</Strong> {{newVersion.date |date:'dd/MM/yyyy HH:mm'}} </p>
+           
+            
+            
+       </div>
+       
+       <div class="col-md-5 " ng-show="newVersion">
+        <h3> Newest Version</h3>
+            <p>
+                <strong> Version <a ui-sref="resources({env:state.env,version:newVersion.version})" > {{newVersion.version}} </a> is ready to deploy </strong>   
+                
+                <button class="btn btn-link btn-xs" ng-click="startDryRun(newVersion)"  title="Perform dry run">
+                    <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
+                </button>  
+                
+                <button class="btn btn-link btn-xs" ui-sref="report({env:state.env,version:newVersion.version})" title="Dry run report">
+                    <span class="glyphicon glyphicon-list-alt"> </span>
+                </button> 
+           
+                <button class="btn btn-link btn-xs" ng-click="deploy(newVersion)" ng-disabled="newVersion.released " title="Release version" >
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </button>    
+         
+                <button class="btn btn-link btn-xs" ui-sref="deployReport({env:state.env,version:newVersion.version})" title="Deploy report">
+                    <span class="glyphicon glyphicon-tasks"> </span>
+                </button> 
+            </p>
+            <deploy-progress data="newVersion"> </deploy-progress>
+            <p class="detail">  <Strong>Built on:</Strong> {{newVersion.date |date:'dd/MM/yyyy HH:mm'}} </p>       
+       </div>
+       
+       
+       
 </div>

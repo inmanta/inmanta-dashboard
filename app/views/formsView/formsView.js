@@ -65,7 +65,8 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             
             var defaultValues = {
                 "string": "",
-                "number": 0
+                "number": 0,
+                "slider": 0
             }
 
             scope.getFormType = function(modeltype) {
@@ -110,7 +111,9 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             
             scope.newrecord = function(selectedForm){
                 var field = {}
-                angular.forEach(selectedForm.fields,function(v,k){field[k]=defaultFor(v)})
+                angular.forEach(selectedForm.fields,function(v,k){
+                    field[k]=defaultFor(v)
+                })
                 
                 return {fields:field,form_type:selectedForm.form_type,edit:true}
             }
