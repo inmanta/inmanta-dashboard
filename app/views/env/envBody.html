@@ -7,13 +7,8 @@
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
     </div>	
 
-    <div class="col-md-12 page-button-band ">
-            <button ui-sref="compileReport({env:state.env})" class="btn"> Compile Reports </button> 
-	        <button ng-hide="cstate" class="btn" ng-click="updateCompile(state.env)" > Update & Recompile </button>
-	        <button ng-hide="cstate" class="btn" ng-click="compile(state.env)" > Recompile </button>
-	        <button ng-hide="!cstate" class="btn">Compiling <i class="fa fa-cog fa-spin"></i></button>       
-		    <button type="button" class="btn" ui-sref="editEnv({env:state.env})">Edit</button>
-	</div>	
+  
+    <ng-include src="'views/env/buttonband.html'" ></ng-include>
 
 
     <div class="col-md-12">

@@ -20,7 +20,7 @@ module.config(function($stateProvider) {
         })
 });
 
-module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '$stateParams',function($scope,$rootScope, imperaService, $stateParams) {
+module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '$stateParams','$state','dialogs', function($scope,$rootScope, imperaService, $stateParams, $state, dialogs) {
     $scope.state = $stateParams
     
     imperaService.getEnvironment($stateParams.env).then(function(d) {
@@ -105,9 +105,7 @@ module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '
     $scope.$on('refresh',getVersions)
     getVersions()
     
-    //some code duplication here, should factor out
-    
-    $scope.startDryRun = function(res) {
+     $scope.startDryRun = function(res) {
             var resVersion = res.version 
             imperaService.dryrun($stateParams.env,resVersion).then(function(d){
                 $rootScope.$broadcast('refresh')
@@ -118,27 +116,5 @@ module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '
         var resVersion = res.version 
         imperaService.deploy($stateParams.env,resVersion,true).then(function(d){$rootScope.$broadcast('refresh')});          
     }
-    
-     $scope.compile = function(env){
-        imperaService.compile(env).then(function(){
-            $scope.cstate=true; 
-            $rootScope.$broadcast('refresh')  
-        })
-    }
-    
-    $scope.updateCompile = function(env){
-        imperaService.updateCompile(env).then(function(){
-            $scope.cstate=true; 
-            $rootScope.$broadcast('refresh')  
-        })
-    }
-
-    var getCompileState = function(){
-        if($scope.state.env){
-            imperaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
-        }
-    }
-
-    getCompileState()
-    $scope.$on("refresh",getCompileState)
+   
 }])

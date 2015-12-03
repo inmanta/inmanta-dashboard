@@ -127,6 +127,12 @@ imperApi.service('imperaService',
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data.environment;});
 		};
 		
+		impAPI.clone = function(envid, name ) {
+    		return impAPI.getEnvironment(envid).then(function(env){
+    		    return impAPI.addEnvironment(env.project,name,env.repo_url,env.repo_branch);
+    		})
+		}
+		
 		impAPI.editEnvironment = function(env) {
 		    return $http.post(impURL + 'environment/'+env.id,{'id':env.id,'name':env.name,'repository':env.repo_url,'branch':env.repo_branch}).then(function(data){ 
 		        envCache[env.id]=data.data.environment; 

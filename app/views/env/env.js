@@ -23,6 +23,46 @@ resv.config(function($stateProvider) {
         })
 });
 
+resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService', '$stateParams','$state','dialogs', function($scope,$rootScope, imperaService, $stateParams, $state, dialogs) {
+    $scope.state = $stateParams
+    
+     $scope.compile = function(env){
+        imperaService.compile(env).then(function(){
+            $scope.cstate=true; 
+            $rootScope.$broadcast('refresh')  
+        })
+    }
+    
+     $scope.clone = function(env){
+         dialogs.create('partials/input/inputDialog.html', 'inputDialogCtrl', {
+                header: "Clone name",
+                content:"Name for the clone"
+            }, {}).result.then(function(name){
+                imperaService.clone(env,name).then(
+                    function(d){
+                        $rootScope.$broadcast('refresh'); 
+                        $state.go("envs",{ env:d.id })
+                    })
+            })
+     }
+    
+    $scope.updateCompile = function(env){
+        imperaService.updateCompile(env).then(function(){
+            $scope.cstate=true; 
+            $rootScope.$broadcast('refresh')  
+        })
+    }
+
+    var getCompileState = function(){
+        if($scope.state.env){
+            imperaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
+        }
+    }
+
+    getCompileState()
+    $scope.$on("refresh",getCompileState)
+    
+}]);
 
 resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged) {
 
@@ -81,30 +121,4 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
         return res.result
     }
 
-    
-    
-    //For compile
-    
-    $scope.compile = function(env){
-        imperaService.compile(env).then(function(){
-            $scope.cstate=true; 
-            $rootScope.$broadcast('refresh')  
-        })
-    }
-    
-    $scope.updateCompile = function(env){
-        imperaService.updateCompile(env).then(function(){
-            $scope.cstate=true; 
-            $rootScope.$broadcast('refresh')  
-        })
-    }
-
-    var getCompileState = function(){
-        if($scope.state.env){
-            imperaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
-        }
-    }
-
-    getCompileState()
-    $scope.$on("refresh",getCompileState)
 }]);
