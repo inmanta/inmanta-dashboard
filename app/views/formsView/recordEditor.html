@@ -20,7 +20,7 @@
     <tr ng-repeat="record in allRecords track by record.record_id" ng-init="edit=record.edit">
         
         <form name="form" novalidate>
-            <td ng-repeat="(name,type) in selectedForm.fields" ng-switch="edit">
+            <td ng-repeat="(name,type) in selectedForm.fields" ng-switch="edit" ng-init="options=getSliderOptions(selectedForm.field_options[name])">
                       
                 <span ng-switch-default>{{record.fields[name]}}</span>
                 <div ng-switch-when="true" ng-switch="selectedForm.field_options[name]['widget']">
@@ -28,7 +28,7 @@
                         <option ng-repeat="item in selectedForm.field_options[name]['options'].split(',') track by item">{{item}}</option>
                     </select>
                     <input ng-switch-default type="{{getFormType(type)}}" name="{{name}}" ng-model="record.fields[name]" class="form-control" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required/>
-                    <input ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control" slider options="{from:0,to:100,step:1}"  popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="focus" required/>
+                    <input ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control" slider options="options"  popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="focus" required/>
                 </div>
             </td>
             <td>

@@ -84,9 +84,17 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             }
 
             scope.getSliderOptions = function(opts) {
+                var minv = parseInt(opts.min)
+                if(!minv){
+                    minv = 0
+                }
+                var maxv = parseInt(opts.max)
+                if(!maxv){
+                    maxv = 100
+                }
                 return {
-                    from: opts.min,
-                    to: opts.max,
+                    from: minv,
+                    to: maxv,
                     step: 1
                 };
             }
