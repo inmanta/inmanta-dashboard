@@ -122,6 +122,10 @@ imperApi.service('imperaService',
         impAPI.removeProject = function(id) {
 			return $http.delete(impURL + 'project/'+id);
 		};
+
+        impAPI.decommission = function(id) {
+			return $http.post(impURL + 'decommission/'+id);
+		};
 //environment
         impAPI.addEnvironment = function(projectid, name, repo_url, repo_branch) {
 			return $http.put(impURL + 'environment',{'project_id':projectid,'name':name,'repository':repo_url,'branch':repo_branch}).then(function(data){ return data.data.environment;});

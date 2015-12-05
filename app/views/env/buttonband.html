@@ -1,4 +1,5 @@
 <div class="col-md-12 page-button-band " ng-controller="envFunctionController">
+    <button type="button" class="btn" ng-click="decommission(state.env)">Decomission</button>
     <button type="button" class="btn" ng-click="clone(state.env)">Clone</button>
     <button ui-sref="compileReport({env:state.env})" class="btn"> Compile Reports </button> 
     <button ng-hide="cstate" class="btn" ng-click="updateCompile(state.env)" > Update & Recompile </button>

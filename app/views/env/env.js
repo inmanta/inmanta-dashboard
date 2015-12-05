@@ -33,6 +33,17 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
         })
     }
     
+    $scope.decommission = function(env){
+       var dlg = dialogs.confirm("Confirm delete","Do you really want to decomission the environment " + env.name + " this can NOT BE UNDONE! ");
+		dlg.result.then(function(btn){
+			 imperaService.decommission(env).then(
+                    function(d){
+                        $rootScope.$broadcast('refresh'); 
+                    })
+		})
+    }
+
+
      $scope.clone = function(env){
          dialogs.create('partials/input/inputDialog.html', 'inputDialogCtrl', {
                 header: "Clone name",
