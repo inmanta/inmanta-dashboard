@@ -385,8 +385,9 @@ imperApi.service('imperaService',
 		};	
 		
 		impAPI.createRecord = function(env, type, fields) {
-            
-			return $http.post(impURL + 'records', {form_type:type,form:fields},{headers:{"X-Impera-tid":env}}).then(
+            var newf = {}
+            angular.forEach(function(v,k){newf[k]=String(v)})
+			return $http.post(impURL + 'records', {form_type:type,form:newf},{headers:{"X-Impera-tid":env}}).then(
 			    function(f){
 			        defaultCache.removeAll();
 			        return f;
@@ -394,8 +395,9 @@ imperApi.service('imperaService',
 		};	
 		
 		impAPI.updateRecord = function(env, id, fields) {
-            
-			return $http.put(impURL + 'records/'+window.encodeURIComponent(id), {form:fields},{headers:{"X-Impera-tid":env}}).then(
+            var newf = {}
+            angular.forEach(function(v,k){newf[k]=String(v)})
+			return $http.put(impURL + 'records/'+window.encodeURIComponent(id), {form:newf},{headers:{"X-Impera-tid":env}}).then(
 			    function(f){
 			        defaultCache.removeAll();
 			        return f;

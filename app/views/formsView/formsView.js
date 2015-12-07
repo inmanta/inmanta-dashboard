@@ -76,7 +76,14 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
                 return "text"
             }
             
-            var defaultFor = function(modeltype) {
+            var defaultFor = function(modeltype,selectedForm,name) {
+                if (modeltype == "number" && selectedForm.field_options[name] && selectedForm.field_options[name]["min"]){
+                    var m = selectedForm.field_options[name].min
+                    if(m>0){
+                        return m;
+                    }
+                    return 0;
+                }
                 if (modeltype in defaultValues) {
                     return defaultValues[modeltype];
                 }
@@ -120,7 +127,7 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             scope.newrecord = function(selectedForm){
                 var field = {}
                 angular.forEach(selectedForm.fields,function(v,k){
-                    field[k]=defaultFor(v)
+                    field[k]=defaultFor(v,selectedForm,k)
                 })
                 
                 return {fields:field,form_type:selectedForm.form_type,edit:true}
