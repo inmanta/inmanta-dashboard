@@ -66,7 +66,8 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             var defaultValues = {
                 "string": "",
                 "number": 0,
-                "slider": 0
+                "slider": 0,
+                "bool": false
             }
 
             scope.getFormType = function(modeltype) {
@@ -91,6 +92,9 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
             }
 
             scope.getSliderOptions = function(opts) {
+                if(!opts){
+                    return {};
+                }
                 var minv = parseInt(opts.min)
                 if(!minv){
                     minv = 0

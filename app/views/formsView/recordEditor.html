@@ -24,10 +24,20 @@
                       
                 <span ng-switch-default>{{record.fields[name]}}</span>
                 <div ng-switch-when="true" ng-switch="selectedForm.field_options[name]['widget']">
+                    <!-- Default, on type-->
+                    <input ng-switch-default type="{{getFormType(type)}}" name="{{name}}" ng-model="record.fields[name]" class="form-control"       popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required/>
+                    
+                    <!-- Option -->
                     <select class="form-control" ng-switch-when="options" ng-model="record.fields[name]" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required>
                         <option ng-repeat="item in selectedForm.field_options[name]['options'].split(',') track by item">{{item}}</option>
                     </select>
-                    <input ng-switch-default type="{{getFormType(type)}}" name="{{name}}" ng-model="record.fields[name]" class="form-control" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required/>
+                    
+                    <!-- Checkbox -->
+                    <div ng-switch-when="checkbox" class="checkbox-inline">
+                        <input type="checkbox" name="{{name}}" ng-model="record.fields[name]" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="focus" required/>
+                    </div>
+                    
+                    <!-- Slider -->
                     <input ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control" slider options="options"  popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="focus" required/>
                 </div>
             </td>
