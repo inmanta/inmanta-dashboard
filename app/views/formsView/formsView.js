@@ -23,7 +23,7 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.directive('recordEditor', ['imperaService', function(imperaService) {
+resv.directive('recordEditor', ['imperaService', 'dialogs', function(imperaService, dialogs) {
     return {
         restrict: 'E',
         scope: {
@@ -60,7 +60,8 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
 
             var types = {
                 "string": "text",
-                "number": "text"
+                "number": "text",
+                "bool": "checkbox"
             }
             
             var defaultValues = {
@@ -91,32 +92,9 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
                 return ""
             }
 
-            scope.getSliderOptions = function(opts) {
-                if(!opts){
-                    return {};
-                }
-                var minv = parseInt(opts.min)
-                if(!minv){
-                    minv = 0
-                }
-                var maxv = parseInt(opts.max)
-                if(!maxv){
-                    maxv = 100
-                }
-                return {
-                    from: minv,
-                    to: maxv,
-                    step: 1
-                };
-            }
+           
             
-            scope.save = function(rec){
-                if(!rec.record_id){
-                    imperaService.createRecord(scope.env,rec.form_type,rec.fields).then(function(){scope.refresh()});
-                }else{
-                    imperaService.updateRecord(scope.env,rec.record_id,rec.fields).then(function(){scope.refresh()});
-                }
-            }
+          
     
             scope.delete = function(rec){
                 imperaService.deleteRecord(scope.env,rec.record_id).then(function(){scope.refresh()});
@@ -128,17 +106,24 @@ resv.directive('recordEditor', ['imperaService', function(imperaService) {
                 });
             }
             
-            scope.newrecord = function(selectedForm){
+            scope.addNew = function(selectedForm){
                 var field = {}
                 angular.forEach(selectedForm.fields,function(v,k){
                     field[k]=defaultFor(v,selectedForm,k)
                 })
                 
-                return {fields:field,form_type:selectedForm.form_type,edit:true}
+                var record = {fields:field,form_type:selectedForm.form_type,edit:true}
+                scope.edit(selectedForm,record)
             }
             
             
+            scope.edit = function(form, record){
+                 dialogs.create('views/formsView/formDialog.html', 'formDialogController', {
+                        type:form,
+                        record:record
+                }, {}).result.then(function(){scope.refresh()})
             
+            }
             
             
             
@@ -178,6 +163,115 @@ resv.controller('formsController', ['$scope', 'imperaService', "$stateParams",fu
     }
     
     
+   
+   
+}]);
+
+resv.controller('formDialogController', ['$scope', 'imperaService', "$stateParams",'$modalInstance','data',function($scope, imperaService, $stateParams,$modalInstance,data) {
+
+    $scope.state = $stateParams
+    
+    $scope.record = data.record;
+    $scope.form = data.type;
+    
+   
+    
+    
+    var types = {
+        "string": "text",
+        "number": "text",
+        "bool": "checkbox"
+    }
+    
+    
+    var createOptions = function(name,type,options){
+        var out = {
+            widget:getWidget(type,options)
+            };
+        if(options){
+           if(options['help']){
+                out['help']=options['help']
+           }
+           
+           if(out.widget == "options"){
+                 out['options'] = options['options'].split(',')          
+           }
+           
+           if(out.widget == "slider"){
+                 out['options'] = getSliderOptions(options)
+           }
+        }
+        
+        return out;
+    }
+    
+     var getSliderOptions = function(opts) {
+        if(!opts){
+            return {};
+        }
+        var minv = parseInt(opts.min)
+        if(!minv){
+            minv = 0
+        }
+        var maxv = parseInt(opts.max)
+        if(!maxv){
+            maxv = 100
+        }
+        return {
+            from: minv,
+            to: maxv,
+            step: 1
+        };
+    }
+    
+    var getWidget = function(type,options){
+        if(options){
+            if(options['widget']){
+                return options['widget'];
+            }
+        }
+        
+        if (type in types) {
+            return types[type];
+        }
+        return "text"
+    }
+    
+    
+    $scope.fieldList = []
+    angular.forEach(data.type.fields,function(v,k){
+            $scope.fieldList.push({
+                key:k,
+                value:v,
+                options: createOptions(k,v,data.type.field_options[k])
+                
+            })
+    })
+    $scope.fieldList.sort(function(a, b) {
+          return a.key > b.key;
+    });
+    
+    var save = function(rec){
+            if(!rec.record_id){
+                return imperaService.createRecord($stateParams.env,rec.form_type,rec.fields);
+            }else{
+                return imperaService.updateRecord($stateParams.env,rec.record_id,rec.fields);
+            }
+    }
+
+    $scope.submit = function(){
+        save($scope.record).then(function(f){
+    		$modalInstance.close(f);
+    		$scope.$destroy();        
+        })
+	};
+	
+	$scope.close = function(){
+		$modalInstance.close();
+		$scope.$destroy();
+	};
+    
+   
    
    
 }]);

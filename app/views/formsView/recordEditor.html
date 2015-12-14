@@ -11,47 +11,25 @@
            {{name  | replace:'_':' '}} 
         </th>
         <th>
-            <button ng-if="!selectedForm.options.record_count" ng-click="allRecords.push(newrecord(selectedForm)); ">
+            <button ng-if="!selectedForm.options.record_count" ng-click="addNew(selectedForm)">
             {{allRecords.length}} Add </button>
-            <button ng-show="allRecords.length<selectedForm.options.record_count" ng-click="allRecords.push(newrecord(selectedForm)); ">
+            <button ng-show="allRecords.length<selectedForm.options.record_count" ng-click="addNew(selectedForm)">
             {{allRecords.length}}/{{selectedForm.options.record_count}} Add </button>
         </th>
     </tr>
-    <tr ng-repeat="record in allRecords track by record.record_id" ng-init="edit=record.edit">
+    <tr ng-repeat="record in allRecords track by record.record_id">
         
         <form name="form" novalidate>
-            <td ng-repeat="(name,type) in selectedForm.fields" ng-switch="edit" ng-init="options=getSliderOptions(selectedForm.field_options[name])">
-                      
-                <span ng-switch-default>{{record.fields[name]}}</span>
-                <div ng-switch-when="true" ng-switch="selectedForm.field_options[name]['widget']">
-                    <!-- Default, on type-->
-                    <input ng-switch-default type="{{getFormType(type)}}" name="{{name}}" ng-model="record.fields[name]" class="form-control"       popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required/>
-                    
-                    <!-- Option -->
-                    <select class="form-control" ng-switch-when="options" ng-model="record.fields[name]" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="mouseenter" required>
-                        <option ng-repeat="item in selectedForm.field_options[name]['options'].split(',') track by item">{{item}}</option>
-                    </select>
-                    
-                    <!-- Checkbox -->
-                    <div ng-switch-when="checkbox" class="checkbox-inline">
-                        <input type="checkbox" name="{{name}}" ng-model="record.fields[name]" popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="focus" required/>
-                    </div>
-                    
-                    <!-- Slider -->
-                    <input ng-switch-when="slider" type="text" name="{{name}}" ng-model="record.fields[name]" class="form-control" slider options="options"  popover="{{selectedForm.field_options[name]['help']}}"  popover-trigger="focus" required/>
-                </div>
+            <td ng-repeat="(name,type) in selectedForm.fields">         
+                <span>{{record.fields[name]}}</span>  
             </td>
             <td>
-                <button class="btn btn-link btn-xs" ng-hide="edit" ng-click="edit= true" title="Edit" > 
+                <button class="btn btn-link btn-xs" ng-click="edit(selectedForm,record)" title="Edit" > 
                     <span class="glyphicon glyphicon-edit"/>
                 </button>
-                <button class="btn btn-link btn-xs" ng-hide="edit" ng-click="delete(record)" title="Delete">
+                <button class="btn btn-link btn-xs" ng-click="delete(record)" title="Delete">
                      <span class="glyphicon glyphicon-trash"/>
                  </button>
-                <button class="btn btn-link btn-xs" ng-hide="!edit" ng-click="save(record); edit=false" title="Save"> 
-                     <span class="glyphicon glyphicon-save"/>
-                </button>
-
             </td>
         </form>
     </tr>
