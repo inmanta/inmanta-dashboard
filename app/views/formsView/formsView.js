@@ -23,7 +23,7 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.directive('recordEditor', ['imperaService', 'dialogs', function(imperaService, dialogs) {
+resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable', function(imperaService, dialogs,BackhaulTable) {
     return {
         restrict: 'E',
         scope: {
@@ -34,25 +34,44 @@ resv.directive('recordEditor', ['imperaService', 'dialogs', function(imperaServi
         templateUrl: 'views/formsView/recordEditor.html',
         link: function(scope, element) {
 
+            scope.cols = []
             function load() {
                 if (scope.type != null) {
-                    imperaService.getFullRecords(scope.env, scope.type).then(
-                        function(form) {
-                            scope.allRecords = form
+                
+                    scope.tableParams = new BackhaulTable(scope,{
+                            page: 1, // show first page
+                            count: 50 // count per page
+                    }, function(params){
+                            return imperaService.getFullRecords(scope.env, scope.type)
                         }
-                    );
-
+                    )
+                    
                     imperaService.getForm(scope.env, scope.type).then(
                         function(form) {
                             scope.selectedForm = form
+                            scope.cols.length = 0
+                            angular.forEach(form.fields,function(v,name){
+                                    var filter = {};
+                                    filter[name] = 'text';
+                                    scope.cols.push({
+                                        title: name,
+                                        sortable: name,
+                                        filter: filter,
+                                        show: true,
+                                        field: name
+                                    }) 
+                                }
+                            )
+                            scope.cols.sort()               
                         }
-                    );
+                    )
+   
                 }
             }
 
             load();
             scope.$watch("type", load)
-            scope.$on("refresh", scope.refresh)
+           
             
             scope.getOptionsFor = function(s) {
                 return s.split(',')
@@ -100,12 +119,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs', function(imperaServi
                 imperaService.deleteRecord(scope.env,rec.record_id).then(function(){scope.refresh()});
             }
     
-            scope.refresh = function(){
-                imperaService.getFullRecords(scope.env,scope.type).then(function(form){ 
-                    scope.allRecords = form
-                });
-            }
-            
+           
             scope.addNew = function(selectedForm){
                 var field = {}
                 angular.forEach(selectedForm.fields,function(v,k){
@@ -200,6 +214,7 @@ resv.controller('formDialogController', ['$scope', 'imperaService', "$stateParam
            if(out.widget == "slider"){
                  out['options'] = getSliderOptions(options)
            }
+            
         }
         
         return out;
@@ -240,6 +255,7 @@ resv.controller('formDialogController', ['$scope', 'imperaService', "$stateParam
     
     $scope.fieldList = []
     angular.forEach(data.type.fields,function(v,k){
+            
             $scope.fieldList.push({
                 key:k,
                 value:v,

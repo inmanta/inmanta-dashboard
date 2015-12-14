@@ -4,33 +4,10 @@
 <p class="bg-warning" ng-if="highlight"> This form must be filled in to compile the model</p>
 
 <p> {{selectedForm.options.help}}</p> 
-
-<table class="table table-lined ng-table"  >
-    <tr>
-        <th ng-repeat="(name,type) in selectedForm.fields" style="text-transform: capitalize;" >
-           {{name  | replace:'_':' '}} 
-        </th>
-        <th>
-            <button ng-if="!selectedForm.options.record_count" ng-click="addNew(selectedForm)">
-            {{allRecords.length}} Add </button>
-            <button ng-show="allRecords.length<selectedForm.options.record_count" ng-click="addNew(selectedForm)">
-            {{allRecords.length}}/{{selectedForm.options.record_count}} Add </button>
-        </th>
-    </tr>
-    <tr ng-repeat="record in allRecords track by record.record_id">
-        
-        <form name="form" novalidate>
-            <td ng-repeat="(name,type) in selectedForm.fields">         
-                <span>{{record.fields[name]}}</span>  
-            </td>
-            <td>
-                <button class="btn btn-link btn-xs" ng-click="edit(selectedForm,record)" title="Edit" > 
-                    <span class="glyphicon glyphicon-edit"/>
-                </button>
-                <button class="btn btn-link btn-xs" ng-click="delete(record)" title="Delete">
-                     <span class="glyphicon glyphicon-trash"/>
-                 </button>
-            </td>
-        </form>
+{{cols}}
+<button ng-click="tableParams.reload()"> rel </button>
+<table  ng-table-dynamic="tableParams with cols" class="table table-lined"  >
+    <tr ng-repeat="record in $data track by record.record_id">
+        <td ng-repeat="col in $columns track by col.field">{{record.fields[cols[$index].field]}}</td>
     </tr>
 </table>

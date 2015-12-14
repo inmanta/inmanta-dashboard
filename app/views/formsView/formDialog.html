@@ -10,7 +10,7 @@
         <p> {{form.options.help}}</p> 
         <!-- NAME -->
         <div ng-repeat="type in fieldList track by type.key" ng-switch="type.options.widget">
-        
+            
             <!-- Default, on type-->
             <div ng-switch-default class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
@@ -28,15 +28,15 @@
             <!-- Checkbox -->
             <div ng-switch-when="checkbox" class="checkbox">
                 <label style="text-transform: capitalize;">
-                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]" required/>  
+                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]"/>  
                     {{type.key  | replace:'_':' '}}   
                 </label>
-                <p class="help-block">{{type.options.help}}</p>
+                <p class="help-block">{{type.options.help}}  </p>
             </div>
             <!-- Slider -->
             <div ng-switch-when="slider"  class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                <input type="text" name="{{name}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required/>
+                <input type="text" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required/>
                 <p class="help-block">{{type.options.help}}</p>
             </div>
         </div>
