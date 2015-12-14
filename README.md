@@ -1,14 +1,18 @@
-Prerequisites
-----------------
- 1. angular
- 2. bootstrap
+Prerequisites (stuff you should learn first)
+-----------------------------------------------
+ 1. angular https://docs.angularjs.org/tutorial
+ 2. bootstrap http://getbootstrap.com/getting-started/
  3. ui-bootstrap (angular binding for bootstrap) https://angular-ui.github.io/bootstrap/
  4. ui-router (framework for navigation) https://github.com/angular-ui/ui-router
  
-Additional Components used
----------------------------
+Additional Components used (stuff you may encounter)
+------------------------------------------------------
 
  1. ng-table (responsive tables) http://ng-table.com/#/
+ 2. angular-dialog-service https://github.com/m-e-conroy/angular-dialog-service
+ 3. angular-highlightjs (syntax high-lighting)  https://github.com/pc035860/angular-highlightjs
+ 4. angular-spinner (spinner widget) https://github.com/urish/angular-spinner
+ 5. angular-awesome-slider (slider widget) https://github.com/darul75/angular-awesome-slider
 
 Starting
 ---------
@@ -46,7 +50,7 @@ File Structure
 Overview: internals
 ----------------------------
 
-1. All communications with the server go via the impera service (imperaApi.imperaService). 
+1. All communications with the server go via the impera service (imperaApi.imperaService or app/components/imperaApi.js). 
  * This services makes sure data is properly parsed (dates as date objects,....) 
  * All methods of the service return a promise
  * All calls are cached
@@ -79,6 +83,7 @@ To create module X
 3. create a html file for the body (app/views/X)
 4. create a html file for the sidebar or reuse an existing side bar (app/views/XSide.html)
 5. Create the header in the javascript file and define the route
+
 ```
 'use strict';
 
@@ -108,6 +113,7 @@ module.controller('XController', ['$scope','$rootScope', 'imperaService', '$stat
     });
 }])
 ```
+
 6. include the javascript file in index.html
 7. add a dependency to the module (ImperaApp.XView) in app.js
 8. in the body, the expected html structure is 
