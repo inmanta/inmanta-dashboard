@@ -150,7 +150,9 @@ body { padding-top: 50px;}
   border: 1px solid #ddd;
 }
 
-
+.ng-table th {
+    text-transform: capitalize;
+}
 
 /*graph*/
 

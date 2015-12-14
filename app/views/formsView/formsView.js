@@ -51,18 +51,26 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable', func
                             scope.selectedForm = form
                             scope.cols.length = 0
                             angular.forEach(form.fields,function(v,name){
+                                    var field = "fields."+name
                                     var filter = {};
-                                    filter[name] = 'text';
+                                    filter[field] = 'text';
                                     scope.cols.push({
-                                        title: name,
-                                        sortable: name,
+                                        title: name.replace('_',' '),
+                                        sortable: field,
                                         filter: filter,
                                         show: true,
                                         field: name
                                     }) 
                                 }
                             )
-                            scope.cols.sort()               
+                            scope.cols.sort(function(a, b) {
+                                 return a.field > b.field;
+                            });           
+                            scope.cols.push({
+                                        title: "",
+                                        show: true 
+                                    }) 
+                                  
                         }
                     )
    

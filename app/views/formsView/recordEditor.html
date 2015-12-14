@@ -4,10 +4,21 @@
 <p class="bg-warning" ng-if="highlight"> This form must be filled in to compile the model</p>
 
 <p> {{selectedForm.options.help}}</p> 
-{{cols}}
-<button ng-click="tableParams.reload()"> rel </button>
-<table  ng-table-dynamic="tableParams with cols" class="table table-lined"  >
+
+<table  ng-table-dynamic="tableParams with cols" class="table table-lined" show-filter="true" >
     <tr ng-repeat="record in $data track by record.record_id">
-        <td ng-repeat="col in $columns track by col.field">{{record.fields[cols[$index].field]}}</td>
+        
+        <td ng-repeat="col in $columns track by col.field"  ng-if="col.field">{{record.fields[col.field]}}</td>
+        <!-- small bug in ng-table dynamic: if no ng-if is present, filled with $columns[$index].show(this) -->
+        <td ng-if="true">
+            
+            <button class="btn btn-link btn-xs" ng-click="edit(selectedForm,record)" title="Edit" > 
+                <span class="glyphicon glyphicon-edit"/>
+            </button>
+            <button class="btn btn-link btn-xs" ng-click="delete(record)" title="Delete">
+                <span class="glyphicon glyphicon-trash"/>
+            </button>
+        </td>
+        
     </tr>
 </table>
