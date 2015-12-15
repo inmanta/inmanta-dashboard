@@ -1,24 +1,34 @@
-<a id={{selectedForm.form_type}}></a>
-<h2 ng-if="selectedForm.options.title"> {{selectedForm.options.title}} </h2>
-<h2 ng-if="!selectedForm.options.title"> {{selectedForm.form_type}} </h2>
-<p class="bg-warning" ng-if="highlight"> This form must be filled in to compile the model</p>
+<div class="row">
+    <div class="col-md-12 page-header">
+        <a id={{selectedForm.form_type}}></a>
+        <h2 ng-if="selectedForm.options.title"> {{selectedForm.options.title}} </h2>
+        <h2 ng-if="!selectedForm.options.title"> {{selectedForm.form_type}} </h2>
+        <p class="bg-warning" ng-if="highlight">This form must be filled in to compile the model</p>
 
-<p> {{selectedForm.options.help}}</p> 
+        <p>{{selectedForm.options.help}}</p>
+    </div>
+    <div class="col-md-12 page-button-band">
+        <button class="btn btn-primary" ng-if="!selectedForm.options.record_count" ng-click="addNew(selectedForm)">{{allRecords.length}} Add</button>
+        <button class="btn btn-primary" ng-show="allRecords.length<selectedForm.options.record_count" ng-click="addNew(selectedForm)">{{allRecords.length}}/{{selectedForm.options.record_count}} Add</button>
+    </div>
 
-<table  ng-table-dynamic="tableParams with cols" class="table table-lined" show-filter="true" >
-    <tr ng-repeat="record in $data track by record.record_id">
-        
-        <td ng-repeat="col in $columns track by col.field"  ng-if="col.field">{{record.fields[col.field]}}</td>
-        <!-- small bug in ng-table dynamic: if no ng-if is present, filled with $columns[$index].show(this) -->
-        <td ng-if="true">
-            
-            <button class="btn btn-link btn-xs" ng-click="edit(selectedForm,record)" title="Edit" > 
-                <span class="glyphicon glyphicon-edit"/>
-            </button>
-            <button class="btn btn-link btn-xs" ng-click="delete(record)" title="Delete">
-                <span class="glyphicon glyphicon-trash"/>
-            </button>
-        </td>
-        
-    </tr>
-</table>
+    <div class="col-md-12">
+        <table ng-table-dynamic="tableParams with cols" class="table table-lined" show-filter="true">
+            <tr ng-repeat="record in $data track by record.record_id">
+
+                <td ng-repeat="col in $columns track by col.field" ng-if="col.field">{{record.fields[col.field]}}</td>
+                <!-- small bug in ng-table dynamic: if no ng-if is present, filled with $columns[$index].show(this) -->
+                <td ng-if="true">
+
+                    <button class="btn btn-link btn-xs" ng-click="edit(selectedForm,record)" title="Edit">
+                        <span class="glyphicon glyphicon-edit" />
+                    </button>
+                    <button class="btn btn-link btn-xs" ng-click="delete(record)" title="Delete">
+                        <span class="glyphicon glyphicon-trash" />
+                    </button>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</div>
