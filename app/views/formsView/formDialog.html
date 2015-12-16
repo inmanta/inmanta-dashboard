@@ -28,7 +28,7 @@
             <!-- Checkbox -->
             <div ng-switch-when="checkbox" class="checkbox">
                 <label style="text-transform: capitalize;">
-                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]"/>  
+                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]" ng-true-value="true" ng-false-value="false" />  
                     {{type.key  | replace:'_':' '}}   
                 </label>
                 <p class="help-block">{{type.options.help}}  </p>

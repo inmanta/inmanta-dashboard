@@ -23,7 +23,7 @@ resv.config(function($stateProvider) {
         })
 });
 
-resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable', function(imperaService, dialogs,BackhaulTable) {
+resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$rootScope', function(imperaService, dialogs,BackhaulTable,$rootScope) {
     return {
         restrict: 'E',
         scope: {
@@ -124,7 +124,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable', func
           
     
             scope.delete = function(rec){
-                imperaService.deleteRecord(scope.env,rec.record_id).then(function(){scope.refresh()});
+                imperaService.deleteRecord(scope.env,rec.record_id).then(function(){$rootScope.$broadcast('refresh')});
             }
     
            
@@ -143,7 +143,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable', func
                  dialogs.create('views/formsView/formDialog.html', 'formDialogController', {
                         type:form,
                         record:record
-                }, {}).result.then(function(){scope.refresh()})
+                }, {}).result.then(function(){$rootScope.$broadcast('refresh')})
             
             }
             
