@@ -119,8 +119,8 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
         }
        $scope.states = function() {
-       var def = $q.defer()
-       var names = [
+        var def = $q.defer()
+        var names = [
             {
                 'id':  "skipped",
                 'title': "skipped"
@@ -137,9 +137,9 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
                   
 
             
-       def.resolve(names);
-       return def;
-        };
+        def.resolve(names);
+        return def;
+      };
 
 
       $scope.setsort = function(name){

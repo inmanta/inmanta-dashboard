@@ -42,7 +42,11 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
                             page: 1, // show first page
                             count: 50 // count per page
                     }, function(params){
-                            return imperaService.getFullRecords(scope.env, scope.type)
+                            return imperaService.getFullRecords(scope.env, scope.type).then(function(f){
+                                scope.allRecords = f;
+                                return f;
+                            })
+                            
                         }
                     )
                     
