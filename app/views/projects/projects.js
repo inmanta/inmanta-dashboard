@@ -22,8 +22,8 @@ resv.config(function($stateProvider) {
 
 
 
-resv.controller('projectsviewController', ['$scope', 'imperaService', '$rootScope', "$stateParams", "BackhaulTable", "$q",
-    function($scope, imperaService,$rootScope, $stateParams, BackhaulTable,$q) {
+resv.controller('projectsviewController', ['$scope', 'imperaService', '$rootScope', "$stateParams", "BackhaulTable", "$q",'dialogs',
+    function($scope, imperaService,$rootScope, $stateParams, BackhaulTable,$q, dialogs) {
         
         $scope.state = $stateParams
 
@@ -40,7 +40,11 @@ resv.controller('projectsviewController', ['$scope', 'imperaService', '$rootScop
         
         
         $scope.deleteProject = function(project){
-            imperaService.removeProject(project.id).then( function(){$rootScope.$broadcast('refresh');});
+            var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the project " + project.name);
+		    dlg.result.then(function(btn){
+			    imperaService.removeProject(project.id).then( function(){$rootScope.$broadcast('refresh');});
+		    })
+            
         }
 
     }

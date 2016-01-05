@@ -60,7 +60,10 @@ resv.controller('restoreController', ['$scope', '$rootScope', 'imperaService', "
         });
         
        $scope.deleteRestore = function(id){
-                 imperaService.deleteRestore($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
+            var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the restore " + id);
+		    dlg.result.then(function(btn){
+                imperaService.deleteRestore($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
+	        })  
        }
 
        $scope.startRestore = function(id){

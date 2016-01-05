@@ -75,7 +75,7 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
     
 }]);
 
-resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged) {
+resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",'dialogs',function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged,dialogs) {
 
     $scope.state = $stateParams
   
@@ -118,7 +118,10 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
 
     $scope.deleteVersion = function(res) {
 	    var resVersion = res.version 
-	    imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
+	    var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the version " + resVersion);
+        dlg.result.then(function(btn){
+	        imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
+        })  
     }
     
     var getState = function(res){

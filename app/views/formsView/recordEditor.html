@@ -8,8 +8,8 @@
         <p>{{selectedForm.options.help}}</p>
     </div>
     <div class="col-md-12 page-button-band">
-        <button class="btn btn-primary" ng-if="!selectedForm.options.record_count" ng-click="addNew(selectedForm)">{{allRecords.length}} Add</button>
-        <button class="btn btn-primary" ng-show="allRecords.length<selectedForm.options.record_count" ng-click="addNew(selectedForm)">{{allRecords.length}}/{{selectedForm.options.record_count}} Add</button>
+        <button class="btn btn-default" ng-if="!selectedForm.options.record_count" ng-click="addNew(selectedForm)">{{allRecords.length}} Add</button>
+        <button class="btn btn-default" ng-show="allRecords.length<selectedForm.options.record_count" ng-click="addNew(selectedForm)">{{allRecords.length}}/{{selectedForm.options.record_count}} Add</button>
     </div>
 
     <div class="col-md-12">

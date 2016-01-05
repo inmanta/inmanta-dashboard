@@ -128,7 +128,11 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
           
     
             scope.delete = function(rec){
-                imperaService.deleteRecord(scope.env,rec.record_id).then(function(){$rootScope.$broadcast('refresh')});
+                var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the record " + rec);
+		        dlg.result.then(function(btn){
+			        imperaService.deleteRecord(scope.env,rec.record_id).then(function(){$rootScope.$broadcast('refresh')});
+		        })
+                
             }
     
            

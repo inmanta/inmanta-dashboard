@@ -63,9 +63,6 @@ body { padding-top: 50px;}
 
 .page-button-band > a > button,
 .page-button-band > button {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
     margin-left: 20px;
     float: right !important;
 }
@@ -176,20 +173,6 @@ line.link {
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px;
-}
-
-.btn-primary {
-    background: #006e7f;
-    color: #ffffff;
-}
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: #80868d;
-}
- 
-.btn-primary:active, .btn-primary.active {
-    background: #006e7f;
-    box-shadow: none;
 }
 
 a,
