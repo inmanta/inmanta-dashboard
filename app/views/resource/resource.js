@@ -130,6 +130,9 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
             },{
                 'id':  "failed",
                 'title': "failed"
+            },{
+                'id':  "!*",
+                'title': "empty"
             }]
                   
 
