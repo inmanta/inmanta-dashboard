@@ -80,10 +80,9 @@ Common tasks: Adding a view
 To create module X
 1. create a X directory under views (app/views/X)
 2. create a javascript file with the same name as the directory (app/views/X/X.js)
-3. create a html file for the body (app/views/X)
+3. create a html file for the body (app/views/X/XBody.html)
 4. create a html file for the sidebar or reuse an existing side bar (app/views/XSide.html)
 5. Create the header in the javascript file and define the route
-
 ```
 'use strict';
 
@@ -113,7 +112,6 @@ module.controller('XController', ['$scope','$rootScope', 'imperaService', '$stat
     });
 }])
 ```
-
 6. include the javascript file in index.html
 7. add a dependency to the module (ImperaApp.XView) in app.js
 8. in the body, the expected html structure is 
