@@ -11,28 +11,28 @@
  An Environment is a dedicated set of virtual resources, associated to a particular project. In an environment, an instance of the project can be deployed and executed in an isolated way, e.g. for development, testing and/or production purposes.
  </p>
  
- <div class="form-group" ng-class="{ 'has-error' : userForm.project.$invalid && !userForm.project.$pristine }"">
+ <div class="form-group" ng-class="{ 'has-error' : userForm.project.$invalid && !userForm.project.$pristine }">
     <label for="inputProject" class="col-sm-2 control-label" >Project</label>
     <div class="col-sm-8">
       <select name="project" ng-options="item.name for item in projects track by item.id" ng-model="selectedProject" class="form-control" id="inputProject" required ></select> 
     </div>
  </div>
 
- <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }"">
+ <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
     <label for="inputName" class="col-sm-2 control-label" >Name</label>
     <div class="col-sm-8">
       <input type="text" name="name" ng-model="name" class="form-control" id="inputName" required ></input> 
     </div>
  </div>
 
- <div class="form-group" ng-class="{ 'has-error' : userForm.repo.$invalid && !userForm.repo.$pristine }"">
+ <div class="form-group" ng-class="{ 'has-error' : userForm.repo.$invalid && !userForm.repo.$pristine }">
     <label for="inputRepo" class="col-sm-2 control-label" >Repository</label>
     <div class="col-sm-8">
         <input type="text" name="repo" ng-model="repo" class="form-control" id="inputRepo" required ></input> 
     </div>
  </div>
 
-<div class="form-group" ng-class="{ 'has-error' : userForm.tag.$invalid && !userForm.tag.$pristine }"">
+<div class="form-group" ng-class="{ 'has-error' : userForm.tag.$invalid && !userForm.tag.$pristine }">
     <label for="inputTag" class="col-sm-2 control-label" >Branch:</label>
     <div class="col-sm-8">
         <input type="text" name="branch" ng-model="selectedTag" class="form-control" id="inputTag" required ></select> 

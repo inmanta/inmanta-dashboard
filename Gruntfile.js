@@ -29,7 +29,11 @@ module.exports = function(grunt) {
     watch:{
         scripts: {
             files: ['app/**/*.js','!app/*.min.js'],
-            tasks: ['package','uglify']
+            tasks: ['package']
+        },
+        htmls: {
+            files:  ['**/*.html'],
+            tasks: ['packhtml']
         }
     },
     
@@ -42,12 +46,24 @@ module.exports = function(grunt) {
             }]
         }      
     },
-    ngtemplates:  {
+    ngtemplates:  {     
         ImperaApp:        {
-                src: ['**/*.html','!index.html'],
+                src: ['**/*.html','!index.html','!bower_components/**/*.html'],
                 dest: 'build/templates.js',
                 cwd: 'app'
-        }
+        },
+        options :{
+            htmlmin: {
+                collapseBooleanAttributes:      true,
+                collapseWhitespace:             true,
+                removeAttributeQuotes:          true,
+                removeComments:                 true, // Only if you don't use comment directives! 
+                removeEmptyAttributes:          true,
+                removeRedundantAttributes:      true,
+                removeScriptTypeAttributes:     true,
+                removeStyleLinkTypeAttributes:  true
+            }
+            }
   }
   });
 
@@ -58,7 +74,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-angular-templates');
 
   // Default task(s).
-  grunt.registerTask('package', ['ngtemplates','concat','uglify']);
-  grunt.registerTask('default', ['package','watch']);
+  grunt.registerTask('packhtml', ['ngtemplates','package']);
+  grunt.registerTask('package', ['concat','uglify']);
+  grunt.registerTask('default', ['packhtml','watch']);
 
 };
