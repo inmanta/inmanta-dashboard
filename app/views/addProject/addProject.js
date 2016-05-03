@@ -2,7 +2,7 @@
 
 var resv = angular.module('ImperaApp.addProject', ['ui.router','imperaApi','ngTable'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
     .state('addProject', {
       url: "/addProject",
@@ -18,7 +18,7 @@ resv.config(function($stateProvider) {
       }
       
     })
-});
+}]);
 
 resv.controller('addProjectController', ['$scope', 'imperaService', '$state', function($scope, imperaService, $state) {
  

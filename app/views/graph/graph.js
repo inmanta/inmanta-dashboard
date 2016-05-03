@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.graphView', ['ui.router', 'imperaApi','dialogs.main','ImperaApp.resourceDetail'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('graph', {
             url: "/environment/:env/version/:version/graph",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 
 

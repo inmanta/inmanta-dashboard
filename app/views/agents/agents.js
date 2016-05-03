@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTable','impera.services.backhaul'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
     .state('agents', {
       url: "/agents?env",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
       }
       
     })
-});
+}]);
 
 resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$q","BackhaulTable",function($scope, imperaService,$stateParams,$q,BackhaulTable) {
  

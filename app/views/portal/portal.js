@@ -2,7 +2,7 @@
 
 var module = angular.module('ImperaApp.portalView', ['ui.router', 'imperaApi'])
 
-module.config(function($stateProvider) {
+module.config(['$stateProvider', function($stateProvider) {
     $stateProvider
         .state('portal', {
             url: "/environment/:env/portal",
@@ -18,7 +18,7 @@ module.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '$stateParams','$state','dialogs', function($scope,$rootScope, imperaService, $stateParams, $state, dialogs) {
     $scope.state = $stateParams

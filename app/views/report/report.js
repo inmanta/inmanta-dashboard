@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.reportView', ['ui.router', 'imperaApi', 'ngTable','dialogs.main','ImperaApp.diffDetail'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('report', {
             url: "/environment/:env/version/:version/report?id",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 
 

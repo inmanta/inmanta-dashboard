@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.compileReport', ['ui.router', 'imperaApi'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('compileReport', {
             url: "/environment/:env/compilereport",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 
 

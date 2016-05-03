@@ -2,7 +2,7 @@
 
 var resv = angular.module('ImperaApp.projectView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('project', {
             url: "/project/:project",
@@ -18,7 +18,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 
 

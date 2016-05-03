@@ -2,7 +2,7 @@
 
 var resv = angular.module('ImperaApp.addEnv', ['ui.router','imperaApi','ngTable'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
     .state('addEnv', {
       url: "/addEnvironment?project",
@@ -19,7 +19,7 @@ resv.config(function($stateProvider) {
       }
       
     })
-});
+}]);
 
 resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$stateParams','$rootScope', function($scope, imperaService, $state,$stateParams,$rootScope) {
  

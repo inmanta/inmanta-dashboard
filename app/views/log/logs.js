@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.logsView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('logs', {
             url: "/environment/:env/resource/:id?version",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable","$q", function($scope, imperaService, $stateParams, BackhaulTable, $q) {
     $stateParams.id = window.decodeURIComponent($stateParams.id)
