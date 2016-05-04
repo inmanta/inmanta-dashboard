@@ -19,6 +19,14 @@ Starting
 
 npm start
 
+Packaging
+---------
+
+npm install
+grunt dist
+
+
+distribution is placed in /dist
 
 File Structure
 --------------
