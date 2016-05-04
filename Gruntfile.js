@@ -64,12 +64,54 @@ module.exports = function(grunt) {
                 removeStyleLinkTypeAttributes:  true
             }
             }
+  },
+   copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'app',
+          dest: 'dist',
+          src: [
+            '*.{ico,png,txt}',
+            'index.html',
+            'img/*',
+            'app.min.js',
+            'config.js'
+          ]
+        },{
+          expand: true,
+          cwd: 'app/bower_components/bootstrap/fonts',
+          src: '*',
+          dest: 'dist/fonts'
+        }]
+      }
+      
+    },
+  useminPrepare: {
+    html: 'app/index.html',
+    options: {
+      root: 'app',
+      dest: 'dist'
+    }
+  },
+  usemin: {
+      html: 'dist/index.html',
+      options: {
+        root: 'app',
+        dest: 'dist'
+      }
   }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-angular-templates');
 
@@ -77,5 +119,16 @@ module.exports = function(grunt) {
   grunt.registerTask('packhtml', ['ngtemplates','package']);
   grunt.registerTask('package', ['concat','uglify']);
   grunt.registerTask('default', ['packhtml','watch']);
+  
+  grunt.registerTask('dist', [
+  'packhtml',
+  'useminPrepare',
+  'copy:dist',
+  'concat:generated',
+  'cssmin:generated',
+  'uglify:generated',
+//  'filerev',
+  'usemin'
+  ]);
 
 };
