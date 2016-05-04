@@ -18,6 +18,9 @@ Starting
 ---------
 
 npm start
+grunt watch
+
+grunt watch is necessary to package all source files
 
 Packaging
 ---------
