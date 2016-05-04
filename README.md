@@ -16,18 +16,18 @@ Additional Components used (stuff you may encounter)
 
 Starting
 ---------
-
+```
 npm start
 grunt watch
-
+```
 grunt watch is necessary to package all source files
 
 Packaging
 ---------
-
+```
 npm install
 grunt dist
-
+```
 
 distribution is placed in /dist
 
@@ -100,7 +100,7 @@ To create module X
 
 var module = angular.module('ImperaApp.XView', ['ui.router', 'imperaApi'])
 
-module.config(function($stateProvider) {
+module.config(['$stateProvider',function($stateProvider) {
     $stateProvider
         .state('xxxx', {
             url: "/environment/:env/xxxx",
@@ -115,7 +115,7 @@ module.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 module.controller('XController', ['$scope','$rootScope', 'imperaService', '$stateParams',function($scope,$rootScope, imperaService, $stateParams) {
     $scope.state = $stateParams
