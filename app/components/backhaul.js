@@ -11,7 +11,7 @@ var services = angular.module('impera.services.backhaul',['ngTable'])
 // new Backhaul($scope)
 
 services.service('Backhaul',
-	function($q) {
+	["$q", function($q) {
 
        var backHaul = function backHaul(scope) {
             var data;
@@ -81,15 +81,15 @@ services.service('Backhaul',
 
 
         return backHaul;
-    }
+    }]
 )
 
-services.service('BackhaulTable', function(Backhaul, ngTableParams, $filter) {
+services.service('BackhaulTable', ["Backhaul", "ngTableParams", "$filter", function(Backhaul, ngTableParams, $filter) {
 
     return function(scope, params, getDataSub) {
         var backhaul = new Backhaul(scope)
 
-        tableParams = new ngTableParams(params, {
+        var tableParams = new ngTableParams(params, {
             getData: function($defer, params) {
                 var filters = {};
                 angular.forEach(params.filter(), function(value, key) {
@@ -136,14 +136,14 @@ services.service('BackhaulTable', function(Backhaul, ngTableParams, $filter) {
       tableParams.refresh = backhaul.refresh
       return tableParams;
     }
-})
+}])
 
-services.service('BackhaulTablePaged', function(Backhaul, ngTableParams, $filter) {
+services.service('BackhaulTablePaged', ["Backhaul", "ngTableParams", "$filter", function(Backhaul, ngTableParams, $filter) {
 
     return function(scope, params, getDataSub, field) {
         var backhaul = new Backhaul(scope)
 
-        tableParams = new ngTableParams(params, {
+        var tableParams = new ngTableParams(params, {
             getData: function($defer, params) {
                 var filters = {};
                 angular.forEach(params.filter(), function(value, key) {
@@ -188,6 +188,6 @@ services.service('BackhaulTablePaged', function(Backhaul, ngTableParams, $filter
         });
       return tableParams;
     }
-})
+}])
 
 

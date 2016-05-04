@@ -18,7 +18,18 @@ Starting
 ---------
 
 npm start
+grunt watch
 
+grunt watch is necessary to package all source files
+
+Packaging
+---------
+
+npm install
+grunt dist
+
+
+distribution is placed in /dist
 
 File Structure
 --------------

@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.resourceView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail','ImperaApp.fileDetail','impera.services.backhaul'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('resources', {
             url: "/environment/:env/version/:version",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 resv.controller('resourceButtonController',['$scope','$rootScope', 'imperaService', "$stateParams",
     function($scope, $rootScope, imperaService, $stateParams) {

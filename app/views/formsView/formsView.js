@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.formsView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('forms', {
             url: "/environment/:env/forms?form",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$rootScope', function(imperaService, dialogs,BackhaulTable,$rootScope) {
     return {

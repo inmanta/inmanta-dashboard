@@ -2,7 +2,7 @@
 
 var resv = angular.module('ImperaApp.editEnv', ['ui.router','imperaApi','ngTable'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
     .state('editEnv', {
       url: "/editEnvironment/:env",
@@ -19,7 +19,7 @@ resv.config(function($stateProvider) {
       }
       
     })
-});
+}]);
 
 resv.controller('editEnvController', ['$scope', 'imperaService', '$stateParams', '$state', function($scope, imperaService, $stateParams, $state) {
  

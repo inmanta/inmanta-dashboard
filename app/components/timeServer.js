@@ -7,7 +7,7 @@ var services = angular.module('impera.services.time',[])
 //will cause "refresh" events to be broadcasted to all $scopes
 
 services.service('timeSrv',
-	function($rootScope,$timeout) {
+	["$rootScope", "$timeout", function($rootScope,$timeout) {
         var timeSrv = {};
         var refresh, refresh_timer, myinterval;
         
@@ -51,10 +51,10 @@ services.service('timeSrv',
 
 //from kibana
 
-         interval_regex = /(\d+(?:\.\d+)?)([Mwdhmsy])/;
+         var interval_regex = /(\d+(?:\.\d+)?)([Mwdhmsy])/;
 
   // histogram & trends
-  intervals_in_seconds = {
+  var intervals_in_seconds = {
     y: 31536000,
     M: 2592000,
     w: 604800,
@@ -88,5 +88,5 @@ services.service('timeSrv',
         return timeSrv;
 
      
-    }
+    }]
 )

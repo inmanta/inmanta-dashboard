@@ -2,7 +2,7 @@
 
 var resv = angular.module('ImperaApp.snapshotDetailView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul','ImperaApp.inputDialog'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('snapshot', {
             url: "/environment/:env/snapshot/:id",
@@ -19,7 +19,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 resv.controller('snapshotDetailController', ['$scope', '$rootScope', 'imperaService', "$stateParams", "BackhaulTable","dialogs",
     function($scope, $rootScope, imperaService, $stateParams, BackhaulTable,dialogs ) {

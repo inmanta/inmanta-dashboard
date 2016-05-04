@@ -39,7 +39,7 @@ function formateVersion(d){
 
 
 imperApi.service('imperaService',
-	function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope,alertService) {
+	["$http", "imperaConfig", "$q", "$cacheFactory", "$rootScope", "alertService", function Nodeservice($http,imperaConfig,$q,$cacheFactory,$rootScope,alertService) {
 		var impAPI = {};
 		var impURL = imperaConfig.backend;
 		var envCache ={};
@@ -685,7 +685,7 @@ function formatDryrun(d){
 
 
 		return impAPI;
-});
+}]);
 
 
 

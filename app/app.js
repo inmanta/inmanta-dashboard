@@ -38,9 +38,9 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.restoreView'
 ])
 
-app.config(function($urlRouterProvider) {
+app.config(["$urlRouterProvider", function($urlRouterProvider) {
   $urlRouterProvider.otherwise("/projects");   
-})
+}])
 
 app.controller("configCtrl",["$scope","imperaConfig", "dialogs", function($scope, imperaConfig, dialogs){
   $scope.config=imperaConfig
@@ -50,7 +50,7 @@ app.controller("configCtrl",["$scope","imperaConfig", "dialogs", function($scope
   }
 }])
 
-app.service("alertService",function alertService($rootScope){
+app.service("alertService",["$rootScope", function alertService($rootScope){
 	var alerts = [];
 	var alertService = {};
 	
@@ -67,10 +67,10 @@ app.service("alertService",function alertService($rootScope){
    
     
 	return alertService;
-})
+}])
 
-app.config(function($httpProvider){
-  $httpProvider.interceptors.push(function($q,alertService) {
+app.config(["$httpProvider", function($httpProvider){
+  $httpProvider.interceptors.push(["$q", "alertService", function($q,alertService) {
     return {
       'responseError': function(rejection) {
         // do something on error
@@ -83,8 +83,8 @@ app.config(function($httpProvider){
         }
     }
                                    
-  });
-})
+  }]);
+}])
 
 app.controller("alertCtrl",["$scope","imperaService",function($scope,imperaService){
   $scope.alerts = []

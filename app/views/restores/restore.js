@@ -2,7 +2,7 @@
 
 var resv = angular.module('ImperaApp.restoreView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul','ImperaApp.inputDialog'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('restores', {
             url: "/environment/:env/restore",
@@ -19,7 +19,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 resv.controller('restoreDialogCtrl',['$scope','$modalInstance','data','$stateParams','imperaService',
         function($scope,$modalInstance,data,$stateParams,imperaService) {

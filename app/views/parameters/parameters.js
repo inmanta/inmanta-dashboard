@@ -4,7 +4,7 @@
 
 var resv = angular.module('ImperaApp.parametersView', ['ui.router', 'imperaApi', 'ngTable'])
 
-resv.config(function($stateProvider) {
+resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
         .state('params', {
             url: "/parameters/:env",
@@ -21,7 +21,7 @@ resv.config(function($stateProvider) {
             }
 
         })
-});
+}]);
 
 resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable","$q", function($scope, imperaService, $stateParams, BackhaulTable, $q) {
 
