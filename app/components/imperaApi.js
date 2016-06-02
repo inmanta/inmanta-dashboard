@@ -220,19 +220,19 @@ imperApi.service('imperaService',
 //resources
 		impAPI.getVersions = function(env) {
 		    checkEnv(env)
-			return $http.get(impURL + 'cmversion',{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'cmversion',{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     data.data.versions.forEach(formateVersion)
                     return data.data;});
 		};
 	
 		impAPI.deleteVersion = function(env,cmversion) {
-			return $http.delete(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}})
+			return $http.delete(impURL + 'cmversion/'+cmversion,{headers:{"X-Inmanta-tid":env}})
 		};
 
 		impAPI.getVersionsPaged = function(env,from,count) {
    		    checkEnv(env)
-			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Impera-tid":env}})
+			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Inmanta-tid":env}})
 				.then( 
                 function(data){
                     data.data.versions.forEach(formateVersion)
@@ -242,7 +242,7 @@ imperApi.service('imperaService',
 
 	    impAPI.getResources = function(env,cmversion) {
 		    checkEnv(env)
-			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     return data.data
                 });
@@ -259,7 +259,7 @@ imperApi.service('imperaService',
 		//resource has version in id!
 		impAPI.getResource = function(env,id) {
 		    checkEnv(env)
-			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=",{headers:{'X-Impera-tid':env}}).then( 
+			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=",{headers:{'X-Inmanta-tid':env}}).then( 
                 function(data){
                     return data.data.resource
                 });
@@ -279,7 +279,7 @@ imperApi.service('imperaService',
 //parameters
 		impAPI.getParameters = function(env) {
 		    checkEnv(env)
-			return $http.post(impURL + 'parameter',{},{headers:{"X-Impera-tid":env}}).then( 
+			return $http.post(impURL + 'parameter',{},{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     data.data.parameters.forEach(formatParameter);
                     data.data.now=formatDate(data.data.now)
@@ -299,7 +299,7 @@ imperApi.service('imperaService',
 
         impAPI.getParameter = function(env,name,resource) {
             checkEnv(env)
-			return $http.get(impURL + 'parameter/'+ window.encodeURIComponent(name) + "?resource_id="+window.encodeURIComponent(resource),{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'parameter/'+ window.encodeURIComponent(name) + "?resource_id="+window.encodeURIComponent(resource),{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     formatParameter(data.data.parameter);
                     return data.data.parameter
@@ -326,7 +326,7 @@ imperApi.service('imperaService',
         
         impAPI.getForms = function(env) {
             checkEnv(env)
-			return $http.get(impURL + 'form',{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'form',{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     return data.data.forms.map(formatForm)
                 });
@@ -334,7 +334,7 @@ imperApi.service('imperaService',
 		
 		impAPI.getForm = function(env, id) {
             checkEnv(env)
-			return $http.get(impURL + 'form/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'form/'+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     return data.data.form
                 });
@@ -342,7 +342,7 @@ imperApi.service('imperaService',
 		
 		impAPI.getRecords = function(env, id) {
             checkEnv(env)
-			return $http.get(impURL + 'records?form_type='+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'records?form_type='+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     return data.data.records.map(formatRecord)
                 });
@@ -369,7 +369,7 @@ imperApi.service('imperaService',
 		
 		impAPI.getRecord = function(env, id) {
             checkEnv(env)
-			return $http.get(impURL + 'records/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'records/'+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     return data.data.record
                 });
@@ -377,7 +377,7 @@ imperApi.service('imperaService',
 		
 		impAPI.deleteRecord = function(env, id) {
             
-			return $http.delete(impURL + 'records/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then(
+			return $http.delete(impURL + 'records/'+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then(
 			    function(f){
 			        defaultCache.removeAll();
 			        return f;
@@ -387,7 +387,7 @@ imperApi.service('imperaService',
 		impAPI.createRecord = function(env, type, fields) {
             var newf = {}
             angular.forEach(fields,function(v,k){newf[k]=String(v)})
-			return $http.post(impURL + 'records', {form_type:type,form:newf},{headers:{"X-Impera-tid":env}}).then(
+			return $http.post(impURL + 'records', {form_type:type,form:newf},{headers:{"X-Inmanta-tid":env}}).then(
 			    function(f){
 			        defaultCache.removeAll();
 			        return f;
@@ -397,7 +397,7 @@ imperApi.service('imperaService',
 		impAPI.updateRecord = function(env, id, fields) {
             var newf = {}
             angular.forEach(fields,function(v,k){newf[k]=String(v)})
-			return $http.put(impURL + 'records/'+window.encodeURIComponent(id), {form:newf},{headers:{"X-Impera-tid":env}}).then(
+			return $http.put(impURL + 'records/'+window.encodeURIComponent(id), {form:newf},{headers:{"X-Inmanta-tid":env}}).then(
 			    function(f){
 			        defaultCache.removeAll();
 			        return f;
@@ -411,7 +411,7 @@ function formatSnapshot(d){
 
         impAPI.getSnapshots = function(env){
             checkEnv(env)
-			return $http.get(impURL + 'snapshot',{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'snapshot',{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     data.data.snapshots.forEach(formatSnapshot)
                     return data.data.snapshots
@@ -420,7 +420,7 @@ function formatSnapshot(d){
         
         impAPI.getSnapshot = function(env,id){
             checkEnv(env)
-			return $http.get(impURL + 'snapshot/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}}).then( 
+			return $http.get(impURL + 'snapshot/'+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     formatSnapshot(data.data.snapshot)
                     return data.data.snapshot
@@ -429,16 +429,16 @@ function formatSnapshot(d){
         
         impAPI.deleteSnapshot = function(env,id){
             checkEnv(env)
-			return $http.delete(impURL + 'snapshot/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}})
+			return $http.delete(impURL + 'snapshot/'+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}})
         }
         
         impAPI.createSnapshot = function(env,name){
             checkEnv(env)
-			return $http.post(impURL + 'snapshot', {name:name},{headers:{"X-Impera-tid":env}})
+			return $http.post(impURL + 'snapshot', {name:name},{headers:{"X-Inmanta-tid":env}})
         }
         
          impAPI.restoreSnapshot = function(env,id){
-			return $http.post(impURL + 'restore', {snapshot:id},{headers:{"X-Impera-tid":env}})
+			return $http.post(impURL + 'restore', {snapshot:id},{headers:{"X-Inmanta-tid":env}})
         }
         
         impAPI.getAllSnapshots = function(env){
@@ -462,7 +462,7 @@ function formatRestore(d){
     d["finished"] = formatDate(d["finished"]); 
 }
         impAPI.getRestores = function(env){
-            return $http.get(impURL + 'restore',{headers:{"X-Impera-tid":env}}).then( 
+            return $http.get(impURL + 'restore',{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     data.data.forEach(formatRestore)
                     return data.data
@@ -493,13 +493,13 @@ function formatRestore(d){
         }
 
         impAPI.deleteRestore = function(env,id){
-            return $http.delete(impURL + 'restore/'+window.encodeURIComponent(id),{headers:{"X-Impera-tid":env}})
+            return $http.delete(impURL + 'restore/'+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}})
         }	
 
 
 //deploy
 		impAPI.deploy = function(env, cmversion, push) {
-		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Impera-tid':env}}).then(
+		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Inmanta-tid':env}}).then(
 		        function(data){ 
 		            return data.data;
 		        });
@@ -548,7 +548,7 @@ function formatRestore(d){
         impAPI.getDeployReport = function(env,version) {
             checkEnv(env)
             return $http.get(impURL + 'cmversion/'+ window.encodeURIComponent(version)+"?include_logs=true&log_filter=deploy",
-                {headers:{'X-Impera-tid':env}}).then(
+                {headers:{'X-Inmanta-tid':env}}).then(
                 function(data){
                     var resources = []
                     data.data.resources.forEach(function(res){
@@ -586,7 +586,7 @@ function formatDryrun(d){
 
         impAPI.dryrun = function(env, cmversion) {
             checkEnv(env)
-		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Impera-tid':env}}).then(
+		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Inmanta-tid':env}}).then(
 		        function(data){
 		            formatDryrun(data.data.dryrun);
 		            return data.data.dryrun;
@@ -596,13 +596,13 @@ function formatDryrun(d){
         impAPI.getDryruns = function(env, cmversion) {
             checkEnv(env)
             if(cmversion){
-                return $http.get(impURL + 'dryrun?version='+cmversion,{headers:{'X-Impera-tid':env}}).then(
+                return $http.get(impURL + 'dryrun?version='+cmversion,{headers:{'X-Inmanta-tid':env}}).then(
                     function(data){
                         formatDryruns(data.data.dryruns)
                         return data.data.dryruns;
                     });
             }else{
-                return $http.get(impURL + 'dryrun',{headers:{'X-Impera-tid':env}}).then(
+                return $http.get(impURL + 'dryrun',{headers:{'X-Inmanta-tid':env}}).then(
                     function(data){ 
                         formatDryruns(data.data.dryruns)
                         return data.data.dryruns;
@@ -613,7 +613,7 @@ function formatDryrun(d){
 		
 		impAPI.getDryrun = function(env, id) {
 	        checkEnv(env)
-		     return $http.get(impURL + 'dryrun/'+window.encodeURIComponent(id),{headers:{'X-Impera-tid':env}}).then(
+		     return $http.get(impURL + 'dryrun/'+window.encodeURIComponent(id),{headers:{'X-Inmanta-tid':env}}).then(
                     function(data){
                         formatDryrun(data.data.dryrun)
                         return data.data.dryrun;
@@ -643,7 +643,7 @@ function formatDryrun(d){
 //logs
        impAPI.getLogForResource = function(env,id) {
            checkEnv(env)
-			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true",{headers:{'X-Impera-tid':env}}).then( 
+			return $http.get(impURL + 'resource/'+ window.encodeURIComponent(id)+"?logs=true",{headers:{'X-Inmanta-tid':env}}).then( 
                 function(data){
                     return data.data
                 });
