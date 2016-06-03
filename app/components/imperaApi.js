@@ -464,8 +464,8 @@ function formatRestore(d){
         impAPI.getRestores = function(env){
             return $http.get(impURL + 'restore',{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
-                    data.data.forEach(formatRestore)
-                    return data.data
+                    data.data.restores.forEach(formatRestore)
+                    return data.data.restores
                 });
         }	
 
