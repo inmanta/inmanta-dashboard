@@ -14,18 +14,6 @@ module.exports = function(grunt) {
 
         }
     },
-    uglify: {
-      options: {
-        sourceMap : true,
-        sourceMapIncludeSources : true,
-        sourceMapIn : './build/cat/app.js.map',
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        src: './build/cat/app.js',
-        dest: './app/app.min.js'
-      }
-    },
     watch:{
         scripts: {
             files: ['app/**/*.js','!app/*.min.js'],
@@ -76,7 +64,6 @@ module.exports = function(grunt) {
             '*.{ico,png,txt}',
             'index.html',
             'img/*',
-            'app.min.js',
             'config.js'
           ]
         },{
@@ -117,8 +104,8 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('packhtml', ['ngtemplates','package']);
-  grunt.registerTask('package', ['concat','uglify']);
-  grunt.registerTask('default', ['packhtml','watch']);
+  grunt.registerTask('package', ['concat']);
+  grunt.registerTask('default', ['packhtml','package','watch']);
   
   grunt.registerTask('dist', [
   'packhtml',

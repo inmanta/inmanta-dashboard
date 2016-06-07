@@ -14,8 +14,7 @@
         
         <div class="form-group">
             <label>Snapshot</label>
-           
-            <select ng-model="snapshot" name="snapshot" ng-options="sn.name for sn in snapshots track by sn.id" required/>  </select>
+            <select ng-model="snapshot" name="snapshot" ng-options="sn.name for sn in snapshots track by sn.id" required></select>
         </div>
   
     </div>  
@@ -24,4 +23,4 @@
         <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Send</button>
     </div>
 </form>
-
+     
