@@ -88,6 +88,15 @@ module.exports = function(grunt) {
         root: 'app',
         dest: 'dist'
       }
+  },
+  compress: {
+    main: {
+        options: {
+          archive: 'dist.tgz',
+          mode:'tgz'
+        },
+        src: ['dist/**']
+    }
   }
 
   });
@@ -101,6 +110,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Default task(s).
   grunt.registerTask('packhtml', ['ngtemplates','package']);
@@ -115,7 +125,8 @@ module.exports = function(grunt) {
   'cssmin:generated',
   'uglify:generated',
 //  'filerev',
-  'usemin'
+  'usemin',
+  'compress'
   ]);
 
 };
