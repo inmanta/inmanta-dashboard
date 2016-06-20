@@ -35,7 +35,8 @@ var app = angular.module('ImperaApp', [
   'ImperaApp.formsView',
   'ImperaApp.snapshotView',
   'ImperaApp.snapshotDetailView',
-  'ImperaApp.restoreView'
+  'ImperaApp.restoreView',
+  'inmanta.services.userservice'
 ])
 
 app.config(["$urlRouterProvider", function($urlRouterProvider) {
@@ -70,16 +71,20 @@ app.service("alertService",["$rootScope", function alertService($rootScope){
 }])
 
 app.config(["$httpProvider", function($httpProvider){
-  $httpProvider.interceptors.push(["$q", "alertService", function($q,alertService) {
+  $httpProvider.interceptors.push(["$q", "alertService", "userService", function($q, alertService, userService) {
     return {
       'responseError': function(rejection) {
-        // do something on error
-	var alert = rejection.data?rejection.data.message:rejection.statusText
-	if(!alert){
-		alert="Could not connect to server";
-	}
-        alertService.add("danger",alert)
-        return $q.reject(rejection);
+            if(rejection.status == 403){
+                userService.got_403(rejection)
+                return $q.reject(rejection);
+            }
+            
+	        var alert = rejection.data?rejection.data.message:rejection.statusText
+	        if(!alert){
+		        alert="Could not connect to server";
+	        }
+            alertService.add("danger",alert)
+            return $q.reject(rejection);
         }
     }
                                    

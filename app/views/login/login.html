@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h3>Login</h3>
+</div>
+<form name="form.userForm" ng-submit="login(user, pass)" novalidate>
+    <div class="modal-body">
+        <!-- NAME -->
+        <div class="form-group">
+            <label>User name</label>
+            <input type="text" name="name" class="form-control" ng-model="user" required>
+        </div>
+
+        <!-- USERNAME -->
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="pass" class="form-control" ng-model="pass" ng-minlength="3" required>
+        </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="form.userForm.$invalid">Send</button>
+    </div>
+</form>
