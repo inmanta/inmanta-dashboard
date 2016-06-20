@@ -14,11 +14,11 @@
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams">
         <tr ng-repeat="resource in $data track by resource.version" ng-init="extra = {}">
-            <td data-title="'Date'" sortable="'date'" >{{resource.date|date:'dd/MM/yyyy HH:mm'}}</td>
-            <td data-title="'Version'" sortable="'version'" ><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
+            <td data-title="'Date'" data-sortable="'date'" >{{resource.date|date:'dd/MM/yyyy HH:mm'}}</td>
+            <td data-title="'Version'" data-sortable="'version'" ><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
             
             
-            <td data-title="'Deploy State'" sortable="'state'">
+            <td data-title="'Deploy State'" data-sortable="'state'">
                 {{resource.state}}
             </td>
             <td data-title="'Deploy Progress'" >

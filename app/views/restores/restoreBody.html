@@ -14,10 +14,10 @@
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="false">
         <tr ng-repeat="sp in $data">
-            <td data-title="'Name'" sortable="'sp.snapshot_id'" filter="{ 'sp.snapshot_id':'text'}"> <a ui-sref="snapshot({env:state.env,id:sp.snapshot})"> {{sp.snapshot_id}} </a> </td>
-            <td data-title="'Started'" sortable="'started'" filter="{ 'started':'text'}"> {{sp.started |date:'dd/MM/yyyy HH:mm'}}</td>
+            <td data-title="'Name'" data-sortable="'sp.snapshot_id'" filter="{ 'sp.snapshot_id':'text'}"> <a ui-sref="snapshot({env:state.env,id:sp.snapshot})"> {{sp.snapshot_id}} </a> </td>
+            <td data-title="'Started'" data-sortable="'started'" filter="{ 'started':'text'}"> {{sp.started |date:'dd/MM/yyyy HH:mm'}}</td>
             <td data-title="'Duration:s'" > <span ng-hide="!sp.finished">{{ (sp.finished - sp.started)/1000 | number : 1}}</span></td>
-            <td data-title="'Size'" sortable="'resources_todo'" > {{sp.resources_todo}}</td>  
+            <td data-title="'Size'" data-sortable="'resources_todo'" > {{sp.resources_todo}}</td>  
             
              <td>
                 <button class="btn btn-default btn-xs" ng-click="deleteRestore(sp.id)" title="Delete">

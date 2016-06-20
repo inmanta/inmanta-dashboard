@@ -27,17 +27,17 @@
            <table class="table table-lined" ng-table="tableParams" show-filter="true">  
             
             <tr ng-repeat="res in $data track by res.id" > 
-             <td style="width:3em;" sortable="'deployed_version'"> <span ng-if="res.deployed_version==res.latest_version" class="glyphicon glyphicon-ok" title="Up to date"></span> </td>
+             <td style="width:3em;" data-sortable="'deployed_version'"> <span ng-if="res.deployed_version==res.latest_version" class="glyphicon glyphicon-ok" title="Up to date"></span> </td>
             
-             <td data-title="'Type'" sortable="'id_fields.type'" filter="{ 'id_fields.type':'text'}">{{res.id_fields.type}}</td> 
-             <td data-title="'Agent'" sortable="'id_fields.agent'" filter="{ 'id_fields.agent':'text'}">{{res.id_fields.agent}}</td> 
-             <td data-title="'Value'" sortable="'id_fields.value'" filter="{ 'id_fields.value':'text'}" class="col-md-2">{{res.id_fields.value}}</td> 
-             <td data-title="'Deployed version'" sortable="'deployed_version'" filter="{ 'deployed_version':'text'}" >
+             <td data-title="'Type'" data-sortable="'id_fields.type'" filter="{ 'id_fields.type':'text'}">{{res.id_fields.type}}</td> 
+             <td data-title="'Agent'" data-sortable="'id_fields.agent'" filter="{ 'id_fields.agent':'text'}">{{res.id_fields.agent}}</td> 
+             <td data-title="'Value'" data-sortable="'id_fields.value'" filter="{ 'id_fields.value':'text'}" class="col-md-2">{{res.id_fields.value}}</td> 
+             <td data-title="'Deployed version'" data-sortable="'deployed_version'" filter="{ 'deployed_version':'text'}" >
                 <a ui-sref="resources({env:state.env,version:res.deployed_version})">{{res.deployed_version | nozero}}</a></td> 
-             <td data-title="'Latest version'" sortable="'latest_version'" filter="{ 'latest_version':'text'}" >
+             <td data-title="'Latest version'" data-sortable="'latest_version'" filter="{ 'latest_version':'text'}" >
                 <a ui-sref="resources({env:state.env,version:res.latest_version})">{{res.latest_version | nozero}}</a>
              </td> 
-              <td data-title="'Last Deploy'" sortable="'last_deploy'" >
+              <td data-title="'Last Deploy'" data-sortable="'last_deploy'" >
                 {{res.last_deploy |date:'dd/MM/yyyy HH:mm'}}
              </td> 
              <td> <button class="btn btn-link btn-xs" ng-click="details(res)" style="color: #333333" title="View details for this resource"> <span class="glyphicon glyphicon-zoom-in"> </span> </button> </td>

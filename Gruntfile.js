@@ -10,14 +10,14 @@ module.exports = function(grunt) {
         js: {
             src: ['app/app.js','app/components/**/*.js','app/partials/**/*.js','app/views/**/*.js','build/templates.js'],
             //dest: './build/cat/app.js'
-            dest: './build/cat/app.js'
+            dest: './app/app.all.js'
 
         }
     },
     watch:{
         scripts: {
             files: ['app/**/*.js','!app/*.min.js'],
-            tasks: ['package']
+            tasks: ['packjs']
         },
         htmls: {
             files:  ['**/*.html'],
@@ -97,6 +97,19 @@ module.exports = function(grunt) {
         },
         src: ['dist/**']
     }
+  },
+  easy_rpm: {
+    options: {
+       name: "inmanta-dashboard",
+       version: "1.0.1",
+       release: 1,
+       buildArch: "noarch"
+    },
+    release: {
+     files: [
+        {src: "**", dest: "/usr/share/inmanta/dashboard", cwd: "dist"} 
+      ]
+    }
   }
 
   });
@@ -111,11 +124,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks("grunt-easy-rpm");
 
   // Default task(s).
-  grunt.registerTask('packhtml', ['ngtemplates','package']);
-  grunt.registerTask('package', ['concat']);
-  grunt.registerTask('default', ['packhtml','package','watch']);
+  grunt.registerTask('packhtml', ['ngtemplates','packjs']);
+  grunt.registerTask('packjs', ['concat']);
+  grunt.registerTask('default', ['packhtml','watch']);
+  grunt.registerTask('rpm', ['dist','easy_rpm:release']);
   
   grunt.registerTask('dist', [
   'packhtml',

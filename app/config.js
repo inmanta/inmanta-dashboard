@@ -6,5 +6,5 @@ angular.module('imperaApi.config',[])
 //  'backend': 'http://134.58.46.90:8888/'
 //    'backend':'http://verdana.cs.kuleuven.be:8888/'
 //    'backend':'http://'+window.location.hostname+':8888/'
-//        'backend':'http://134.58.44.57:8080/'
+//        'backend':'http://172.17.3.66:8888/'
 })

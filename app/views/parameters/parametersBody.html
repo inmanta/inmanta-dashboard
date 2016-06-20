@@ -17,11 +17,11 @@
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="param in $data" ng-class="{'warning':param.expired}" >
-            <td data-title="'Name'" sortable="'name'" filter="{ 'name':'text'}" >{{param.name}}</td>
-            <td data-title="'Resource'" sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
-            <td data-title="'Updated'" sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'dd/MM/yyyy HH:mm'}}</td>
-            <td data-title="'Source'" sortable="'source'" filter="{ 'source':'select'}" filter-data="names()"> {{param.source}}</td>
-            <td data-title="'Value'"  sortable="'value'" filter="{ 'value':'text'}" >
+            <td data-title="'Name'" data-sortable="'name'" filter="{ 'name':'text'}" >{{param.name}}</td>
+            <td data-title="'Resource'" data-sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
+            <td data-title="'Updated'" data-sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'dd/MM/yyyy HH:mm'}}</td>
+            <td data-title="'Source'" data-sortable="'source'" filter="{ 'source':'select'}" filter-data="names()"> {{param.source}}</td>
+            <td data-title="'Value'"  data-sortable="'value'" filter="{ 'value':'text'}" >
                 {{param.value}}
             </td>
         </tr>

@@ -84,13 +84,13 @@ services.service('Backhaul',
     }]
 )
 
-services.service('BackhaulTable', ["Backhaul", "ngTableParams", "$filter", function(Backhaul, ngTableParams, $filter) {
+services.service('BackhaulTable', ["Backhaul", "NgTableParams", "$filter", function(Backhaul, ngTableParams, $filter) {
 
     return function(scope, params, getDataSub) {
         var backhaul = new Backhaul(scope)
 
         var tableParams = new ngTableParams(params, {
-            getData: function($defer, params) {
+            getData: function(params) {
                 var filters = {};
                 angular.forEach(params.filter(), function(value, key) {
                     var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
@@ -110,7 +110,7 @@ services.service('BackhaulTable', ["Backhaul", "ngTableParams", "$filter", funct
                     filters[father][son] = value;
                 });
 
-                backhaul.get(
+                return backhaul.get(
                         function() {
                             params.reload()
                         },
@@ -127,7 +127,7 @@ services.service('BackhaulTable', ["Backhaul", "ngTableParams", "$filter", funct
                             orderedData;
 
                         params.total(orderedData.length);
-                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        return (orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
                     });
 
@@ -138,13 +138,13 @@ services.service('BackhaulTable', ["Backhaul", "ngTableParams", "$filter", funct
     }
 }])
 
-services.service('BackhaulTablePaged', ["Backhaul", "ngTableParams", "$filter", function(Backhaul, ngTableParams, $filter) {
+services.service('BackhaulTablePaged', ["Backhaul", "NgTableParams", "$filter", function(Backhaul, ngTableParams, $filter) {
 
     return function(scope, params, getDataSub, field) {
         var backhaul = new Backhaul(scope)
 
         var tableParams = new ngTableParams(params, {
-            getData: function($defer, params) {
+            getData: function(params) {
                 var filters = {};
                 angular.forEach(params.filter(), function(value, key) {
                     var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
@@ -162,7 +162,7 @@ services.service('BackhaulTablePaged', ["Backhaul", "ngTableParams", "$filter", 
                     filters[father][son] = value;
                 });
 
-                backhaul.get(
+                return backhaul.get(
                         function() {
                             params.reload()
                         },
@@ -180,7 +180,7 @@ services.service('BackhaulTablePaged', ["Backhaul", "ngTableParams", "$filter", 
                             orderedData;
 
                         params.total(info.count);
-                        $defer.resolve(orderedData);
+                        return orderedData;
 
                     });
 

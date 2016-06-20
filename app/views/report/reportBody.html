@@ -23,11 +23,11 @@
             
             <tr ng-repeat="res in $data"  > 
 
-             <td data-title="'type'" sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}">{{res.id_fields.entity_type}}</td> 
-             <td data-title="'agent'" sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
-             <td data-title="'value'" sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
+             <td data-title="'type'" data-sortable="'id_fields.entity_type'" filter="{ 'id_fields.entity_type':'text'}">{{res.id_fields.entity_type}}</td> 
+             <td data-title="'agent'" data-sortable="'id_fields.agent_name'" filter="{ 'id_fields.agent_name':'text'}">{{res.id_fields.agent_name}}</td> 
+             <td data-title="'value'" data-sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td> 
             
-             <td data-title="'Data'" sortable="'changessize'"  filter="{ 'changessize':'partials/emptyFilter.html'}"> 
+             <td data-title="'Data'" data-sortable="'changessize'"  filter="{ 'changessize':'partials/emptyFilter.html'}"> 
                 <div ng-repeat="(prop,ft) in res.changes"> 
                     <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}} </p>
                     <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft,res.id)"> Diff </btn>
