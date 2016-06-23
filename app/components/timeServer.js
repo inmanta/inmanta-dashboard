@@ -47,8 +47,15 @@ services.service('timeSrv',
         timeSrv.cancel_refresh = function () {
            $timeout.cancel(refresh_timer);
         };
+        
+        timeSrv.pause = function(){
+            timeSrv.cancel_refresh()
+        }
 
 
+        timeSrv.resume = function(){
+            timeSrv.start_refresh(refresh)
+        }
 //from kibana
 
          var interval_regex = /(\d+(?:\.\d+)?)([Mwdhmsy])/;
