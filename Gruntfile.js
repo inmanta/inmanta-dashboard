@@ -1,5 +1,17 @@
 module.exports = function(grunt) {
 
+/*
+    build concept:
+        - for developement, the application itself is packed
+          --> ngtemplates packs all angular templates into one JS file (build/templates.js)
+          --> concat packs all application specific javascript (including build/templates.js) into (app/app.all.js)
+        - for dist
+          --> usemin is used to pack everything (see index.html)
+
+
+   --> we do this two phase thing, so we don't have to list all js files in the index.html
+*/
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -71,6 +83,11 @@ module.exports = function(grunt) {
           cwd: 'app/bower_components/bootstrap/fonts',
           src: '*',
           dest: 'dist/fonts'
+        },{
+          expand: true,
+          cwd: 'app/bower_components/font-awesome/fonts',
+          src: '*',
+          dest: 'dist/fonts'
         }]
       }
       
@@ -127,6 +144,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-easy-rpm");
 
   // Default task(s).
+  
   grunt.registerTask('packhtml', ['ngtemplates','packjs']);
   grunt.registerTask('packjs', ['concat']);
   grunt.registerTask('default', ['packhtml','watch']);

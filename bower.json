@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "~1.4.0",
+    "angular": "~1.4.12",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "bootstrap": "~3.3.5",
@@ -20,7 +20,8 @@
     "highlightjs": "~8.7.0",
     "angular-spinner": "~0.6.2",
     "angular-awesome-slider": "~2.4.3",
-    "angularjs-filters": "~0.0.2"
+    "angularjs-filters": "~0.0.2",
+    "font-awesome": "^4.6.3"
   },
   "resolutions": {
     "angular-bootstrap": "~0.13.1",

@@ -31,6 +31,8 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
 
         $scope.state = $stateParams
         
+        $scope.data = {"dryrun":{}}
+        
         $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
             count: 50 // count per page,
@@ -41,7 +43,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
                 return out.promise
            }else{          
                return imperaService.getDryrun($stateParams.env,$scope.state.id).then(function(d) {
-                    $scope.dryrun=d
+                    $scope.mydryrun=d
                     var out=[]
                     for(var k in d.resources){
                         var res = angular.copy(d.resources[k])
@@ -55,9 +57,9 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
 
         });
     
-        $scope.$watch("dryrun.id",function(){
-            if($scope.dryrun.id){
-                $scope.state.id = $scope.dryrun.id
+        $scope.$watch("data.dryrun.id",function(){
+            if($scope.data.dryrun.id){
+                $scope.state.id = $scope.data.dryrun.id
                 $scope.tableParams.refresh()
             }
         },true)
@@ -68,6 +70,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
             $scope.dryruns = d
             if(!$scope.state.id && d.length>0){
                 $scope.state.id = d[0].id
+                $scope.data.dryrun.id = d[0].id
                 $scope.tableParams.refresh()
             }
         });
