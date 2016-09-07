@@ -291,7 +291,7 @@ imperApi.service('imperaService',
 		    checkEnv(env)
 			return impAPI.getParameters(env).then(function(f){
 			    return f.parameters.filter(function(v){
-			        return v.metadata.type == "report"    
+			        return v.metadata && v.metadata.type == "report"    
 		        })
 		    });
 		};
@@ -316,12 +316,9 @@ imperApi.service('imperaService',
                     
         }
         
-        function formatRecord(rec){
-            return {
-                changed:formatDate(rec.changed), 
-                id:rec.record_id
-            }
-                    
+        function formatFullRecord(rec){
+            rec.changed = formatDate(rec.changed)
+            return rec                    
         }
         
         impAPI.getForms = function(env) {
@@ -340,29 +337,12 @@ imperApi.service('imperaService',
                 });
 		};	
 		
-		impAPI.getRecords = function(env, id) {
-            checkEnv(env)
-			return $http.get(impURL + 'records?form_type='+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then( 
-                function(data){
-                    return data.data.records.map(formatRecord)
-                });
-		};
-		
 		impAPI.getFullRecords = function(env, id) {
             checkEnv(env)
-            var out = $q.defer()
-            
-            impAPI.getRecords(env,id).then(function (recs){
-                $q.all(
-                    recs.map(
-                        function(r){
-                            return impAPI.getRecord(env,r.id)
-                        }
-                    )
-                ).then(out.resolve)
-            })
-            
-            return out.promise
+           return $http.get(impURL + 'records?include_record=true&form_type='+window.encodeURIComponent(id),{headers:{"X-Inmanta-tid":env}}).then( 
+                function(data){
+                    return data.data.records.map(formatFullRecord)
+                });
 			
 		};
 		
