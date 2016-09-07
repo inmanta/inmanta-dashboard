@@ -14,13 +14,13 @@
             <!-- Default, on type-->
             <div ng-switch-default class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                <input type="text" name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required/>    
+                <input type="text" name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"/>    
                 <p class="help-block">{{type.options.help}}</p>
             </div>
             <!-- Option -->
             <div ng-switch-when="options"  class="form-group">
                  <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                 <select class="form-control" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" required>
+                 <select class="form-control" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}">
                         <option ng-repeat="item in type.options.options track by item">{{item}}</option>
                  </select>
                  <p class="help-block">{{type.options.help}}</p>
@@ -28,7 +28,7 @@
             <!-- Checkbox -->
             <div ng-switch-when="checkbox" class="checkbox">
                 <label style="text-transform: capitalize;">
-                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]" ng-true-value="true" ng-false-value="false" />  
+                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]" ng-true-value="true" ng-false-value="false" tabindex="{{$index+1}}"/>  
                     {{type.key  | replace:'_':' '}}   
                 </label>
                 <p class="help-block">{{type.options.help}}  </p>
@@ -36,13 +36,13 @@
             <!-- Slider -->
             <div ng-switch-when="slider"  class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                <input type="text" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required/>
+                <input type="text" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required tabindex="{{$index+1}}"/>
                 <p class="help-block">{{type.options.help}}</p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="close()">Cancel</button>
-        <button type="submit" class="btn btn-primary" ng-disabled="form.userForm.$invalid">Save</button>
+        <button class="btn btn-primary" ng-click="close()" tabindex="10001">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="form.userForm.$invalid" tabindex="10000">Save</button>
     </div>
 </form>
