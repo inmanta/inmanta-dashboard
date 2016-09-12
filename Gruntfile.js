@@ -88,6 +88,11 @@ module.exports = function(grunt) {
           cwd: 'app/bower_components/font-awesome/fonts',
           src: '*',
           dest: 'dist/fonts'
+        },{
+          expand: true,
+          cwd: 'app/bower_components/angular-awesome-slider/src/img',
+          src: '*',
+          dest: 'dist/img'
         }]
       }
       
