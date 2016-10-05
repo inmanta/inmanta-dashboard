@@ -2,7 +2,7 @@
     
     <ul class="nav navbar-nav">
          <li >
-            <a ng-click="timeSrv.refresh()"><span class="glyphicon glyphicon-refresh"></i></a>
+            <a ng-click="timeSrv.refresh()"><span class="glyphicon glyphicon-refresh"></span></a>
          </li>
          <li dropdown  >
               <a dropdown-toggle>
@@ -11,7 +11,7 @@
 					<span ng-show="refresh" class="text-warning">refreshed every {{refresh}} </span>
 			   </a>
              <ul class="dropdown-menu">
-                <li ng-repeat="interval in refresh_intervals" ng-class={"active":interval==refresh}><a ng-click="setRefresh(interval)">{{interval}}</a></li>
+                <li ng-repeat="interval in refresh_intervals" ng-class="{'active':interval==refresh}"><a ng-click="setRefresh(interval)">{{interval}}</a></li>
                
               </ul>
          </li>
