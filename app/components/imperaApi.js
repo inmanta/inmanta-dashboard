@@ -196,20 +196,22 @@ imperApi.service('imperaService',
 
 //agent
         impAPI.getAgents = function(){
-            return $http.get(impURL + 'agent').then(function(data){ 
+            return $http.get(impURL + 'agentproc').then(function(data){ 
                 var out = []
-				var now = new Date(data.data.servertime).getTime()
-                
-                data.data.nodes.forEach( function(machine){
-                    machine.agents.forEach( function(agent){
-		       		   var ls=formatDate(agent.last_seen)
+                data.data.processes.forEach( function(proc){
+                    var fs = formatDate(proc.first_seen)
+                    var ls = formatDate(proc.last_seen)
+                    var expired = formatDate(proc.expired)
+                    proc.endpoints.forEach( function(agent){
+                   
                        out.push({
                         "name":agent.name,
-                        "environment":agent.environment,
+                        "id":agent.id,
+                        "environment":proc.environment,
+                        "hostname":proc.hostname,
+                        "first_seen":fs,  
                         "last_seen":ls,
-                        "hostname":agent.node,
-                        "interval":agent.interval,  
-                        "expired": ls.getTime()+(agent.interval*1000*2)<now
+                        "expired":expired
                         });
                     });
 				});
