@@ -1,0 +1,15 @@
+<div class="modal-header dialog-header-confirm">
+    <button type="button" class="close" ng-click="close()">&times;</button>
+    <h4 class="modal-title"> <span class="{{icon}}"></span> {{header}}</h4></div>
+<div class="modal-body">
+    <div><strong> ID: </strong> {{id}} </div>
+    <div ng-repeat="(k,v) in data" class="abrev">
+        <strong > {{k}}: </strong> <pre > {{v | json}} </pre>
+    </div>
+
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+</div>

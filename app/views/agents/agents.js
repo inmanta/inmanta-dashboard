@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTable','impera.services.backhaul'])
+var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTable','impera.services.backhaul','ImperaApp.agentProcDetail','dialogs.main'])
 
 resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
@@ -23,13 +23,19 @@ resv.config(["$stateProvider", function($stateProvider) {
     })
 }]);
 
-resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$q","BackhaulTable",function($scope, imperaService,$stateParams,$q,BackhaulTable) {
+resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$q","BackhaulTable", "dialogs", function($scope, imperaService,$stateParams,$q,BackhaulTable, dialogs) {
  
  $scope.state = $stateParams
  
  $scope.getEnv = function(id){
     var out = [];
-    imperaService.getEnvironment(id).then(function(d){out[0]=d;});
+    imperaService.getEnvironment(id).then(
+        function(d){
+            out[0]=d;
+        },
+        function(response){
+            out[0]={name:id, id:id, project:""};
+        });
     
     return out;
  }
@@ -37,8 +43,8 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
 
  $scope.tableParams = new BackhaulTable($scope,{
         page: 1,            // show first page
-        count: 1000          // count per page
-       
+        count: 1000,          // count per page
+        filter: { expired: "!" } 
     }, function(params) {
              return imperaService.getAgents().then(function(data) {
                     $scope.alldata = {}
@@ -80,6 +86,15 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
                          if(waiters == 0){
                             def.resolve(names);
                          }           
+                    },function(e){
+                        names.push({
+                            'id':  id,
+                            'title': id
+                            });
+                         waiters = waiters -1;
+                         if(waiters == 0){
+                            def.resolve(names);
+                         }           
                     });
                    
                 
@@ -89,4 +104,18 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
             
             return def;
         };
+        
+  $scope.details = function(proc){
+    imperaService.getAgentprocDetais(proc.id).then(function(d){
+        
+                dialogs.create('views/agentprocDetail/agentprocDetail.html', 'agentProcDetailCtrl', {
+                    data: d,
+                    env:$stateParams.env,
+                    id:proc.id,
+                    hostname: proc.hostname
+                }, {})
+
+            
+    })
+  }
 }]);

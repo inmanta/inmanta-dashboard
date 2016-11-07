@@ -1,15 +1,18 @@
 <div class="row">
     <im-breadcrumb name="'Agents'">    </im-breadcrumb>
     <div class="col-md-12">
+    <H1> Agent Processes </H1>
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tr ng-repeat="agent in $data" ng-class="{'warning':agent.expired}">
             <td data-title="'Hostname'" data-sortable="'hostname'" filter="{ 'hostname':'text'}">{{agent.hostname}}</td>
             <!-- this pattern is requirted because templates no longer support deffered values, we just return a list, that is filled when data is ready-->
             <td data-title="'Environment'" data-sortable="'environment'" filter="{ 'environment':'select'}" filter-data="names()" ng-init="env=getEnv(agent.environment)"><a ui-sref="envs({env:agent.environment})">{{env[0].name}}</a></td>
-            <td data-title="'Name'" data-sortable="'name'" filter="{ 'name':'text'}">{{agent.name}}</td>
+            <td data-title="'Endpoints'"><p ng-repeat="ep in agent.endpoints"> {{ep.name}} </p></td>
             <td data-title="'First seen'" data-sortable="'first_seen'" filter="{ 'first_seen':'text'}">{{agent.last_seen|date:'dd/MM/yyyy HH:mm'}}</td>
             <td data-title="'Last seen'" data-sortable="'last_seen'" filter="{ 'last_seen':'text'}">{{agent.first_seen|date:'dd/MM/yyyy HH:mm'}}</td>
             <td data-title="'Expired'" data-sortable="'expired'" filter="{ 'expired':'text'}">{{agent.expired|date:'dd/MM/yyyy HH:mm'}}</td>
+            <td> <button class="btn btn-link btn-xs" ng-click="details(agent)" ng-hide="agent.expired"> <span class="glyphicon glyphicon-zoom-in"></span> </button> </td>
+           
         </tr>
     </table>
     </div>
