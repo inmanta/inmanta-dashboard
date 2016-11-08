@@ -195,7 +195,7 @@ imperApi.service('imperaService',
         }
 
 //agent
-        impAPI.getAgents = function(){
+        impAPI.getAgentProcs = function(){
             return $http.get(impURL + 'agentproc').then(function(data){ 
 
                 data.data.processes.forEach( function(proc){
@@ -207,12 +207,36 @@ imperApi.service('imperaService',
             });
         }
         
+        impAPI.getAgentProcess = function(env, id){
+            return $http.get(impURL + 'agentproc?environment='+env).then(
+              function(data){ 
+                var out = null
+                data.data.processes.forEach( function(proc){
+                    proc.endpoints.forEach(function(ep){
+                        if(ep.id == id)
+                            {out = proc}
+                        });
+                    });
+                return out
+            });
+        }
+        
          impAPI.getAgentprocDetais = function(procid){
             return $http.get(impURL + 'agentproc/'+procid).then(function(data){ 
                 return data.data
             });
         }
 		
+		
+		 impAPI.getAgents = function(env){
+            return $http.get(impURL + 'agent', {headers:{"X-Inmanta-tid":env}}).then(function(data){ 
+
+                data.data.agents.forEach( function(agent){
+                    agent.last_failover = formatDate(agent.last_failover)
+                    });
+                return data.data.agents
+            });
+        }
 //resources
 		impAPI.getVersions = function(env) {
 		    checkEnv(env)

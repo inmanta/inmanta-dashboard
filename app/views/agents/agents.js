@@ -26,6 +26,7 @@ resv.config(["$stateProvider", function($stateProvider) {
 resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$q","BackhaulTable", "dialogs", function($scope, imperaService,$stateParams,$q,BackhaulTable, dialogs) {
  
  $scope.state = $stateParams
+ $scope.highlight = "xx"
  
  $scope.getEnv = function(id){
     var out = [];
@@ -39,14 +40,32 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
     
     return out;
  }
+ 
+ 
+ $scope.hl = function(id){
+    $scope.highlight = id
+ }
+ 
+ $scope.getProcess  = function(env, id){
+    var out = [];
+    if( id ){
+        imperaService.getAgentProcess(env, id).then(
+            function(d){
+                out[0]=d;
+            }
+        );
+    }
+    return out;
+ }
+ 
  $scope.envs = $q.defer()
 
  $scope.tableParams = new BackhaulTable($scope,{
         page: 1,            // show first page
-        count: 1000,          // count per page
+        count: 25,          // count per page
         filter: { expired: "!" } 
     }, function(params) {
-             return imperaService.getAgents().then(function(data) {
+             return imperaService.getAgentProcs().then(function(data) {
                     $scope.alldata = {}
                     var envs = [];
 
@@ -63,10 +82,22 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
     });
 
  if($stateParams["env"]){
-	
+	    $scope.env = $stateParams["env"]
+	    imperaService.getEnvironment($stateParams["env"]).then(function(d){$scope.env = d.name})
 		$scope.tableParams.filter()['environment']=$stateParams["env"]
+		
+		$scope.tableParams2 = new BackhaulTable($scope,{
+        page: 1,            // show first page
+        count: 10          // count per page
+       
+        }, function(params) {
+             return imperaService.getAgents($stateParams["env"])
+        });
 	
+ }else{
+    $scope.env = null
  }
+ 
  $scope.resources = null
  $scope.names = function() {
             var def = $q.defer(),

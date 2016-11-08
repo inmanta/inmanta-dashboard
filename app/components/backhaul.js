@@ -93,6 +93,11 @@ services.service('BackhaulTable', ["Backhaul", "NgTableParams", "$filter", funct
             getData: function(params) {
                 var filters = {};
                 angular.forEach(params.filter(), function(value, key) {
+                    if(value == "")
+                    {
+                          return
+                    }
+                
                     var splitedKey = key.match(/^([a-zA-Z+_]+)\.([a-zA-Z_]+)$/);
 
                     if (!splitedKey) {
@@ -119,7 +124,7 @@ services.service('BackhaulTable', ["Backhaul", "NgTableParams", "$filter", funct
                         var len = data.length
                         var orderedData = params.filter() ?
                             $filter('filter')(data, filters) :
-                            data;
+                            data;                  
 
                         // use build-in angular filter
                         orderedData = params.sorting() ?
