@@ -1,5 +1,5 @@
 <div class="col-md-12 page-button-band " ng-controller="envFunctionController">
-    <button type="button" class="btn btn-default" ng-click="decommission(state.env)" title='Create a version of the model that deletes all machines' >Decomission</button>
+    <button type="button" class="btn btn-default" ng-click="decommission(state.env)" title='Create a version of the model that deletes all machines' >Decommission</button>
     <button type="button" class="btn btn-default" ng-click="clone(state.env)" title='Create a new project from the same repo and branch as this one'>Clone</button>
     <button ui-sref="compileReport({env:state.env})" class="btn btn-default" title='View the reports on all compilation attempts for this repo'> Compile Reports </button> 
     <button ng-hide="cstate" class="btn btn-default" ng-click="updateCompile(state.env)" title='Update the project and all modules to the latest version and recompile' > Update & Recompile </button>
