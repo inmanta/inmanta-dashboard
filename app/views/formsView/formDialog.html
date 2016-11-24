@@ -39,6 +39,13 @@
                 <input type="text" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required tabindex="{{$index+1}}"/>
                 <p class="help-block">{{type.options.help}}</p>
             </div>
+            <!-- Password -->
+            <div ng-switch-when="password"  class="form-group">
+               
+                <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
+                <input type="password" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required tabindex="{{$index+1}}"/>
+                <p class="help-block">{{type.options.help}}</p>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
