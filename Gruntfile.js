@@ -123,8 +123,8 @@ module.exports = function(grunt) {
   easy_rpm: {
     options: {
        name: "inmanta-dashboard",
-       version: "2016.4",
-       release: 2,
+       version: "2016.5",
+       release: "1.dev0",
        buildArch: "noarch"
     },
     release: {
