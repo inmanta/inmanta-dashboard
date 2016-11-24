@@ -58,12 +58,19 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
                                     var field = "fields."+name
                                     var filter = {};
                                     filter[field] = 'text';
+                                    
+                                    var password = false
+                                    if((name in form.field_options) && ("widget" in form.field_options[name]) && (form.field_options[name]["widget"] == "password")){
+                                        password = true
+                                    }
+                                    
                                     scope.cols.push({
                                         title: name.replace('_',' '),
                                         sortable: field,
                                         filter: filter,
                                         show: true,
-                                        field: name
+                                        field: name,
+                                        password: password
                                     }) 
                                 }
                             )
@@ -92,7 +99,8 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
             var types = {
                 "string": "text",
                 "number": "text",
-                "bool": "checkbox"
+                "bool": "checkbox",
+                "password":"password"
             }
             
             var defaultValues = {
