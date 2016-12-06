@@ -124,7 +124,7 @@ module.exports = function(grunt) {
     options: {
        name: "inmanta-dashboard",
        version: "2016.5",
-       release: "0.dev1",
+       release: "1",
        buildArch: "noarch"
     },
     release: {
