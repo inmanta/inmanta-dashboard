@@ -26,12 +26,12 @@
 <div class="col-md-12">
            <table class="table table-lined" ng-table="tableParams" show-filter="true">  
             
-            <tr ng-repeat="res in $data track by res.id" > 
+            <tr ng-repeat="res in $data track by res.resource_id" > 
              <td style="width:3em;" data-sortable="'deployed_version'"> <span ng-if="res.deployed_version==res.latest_version" class="glyphicon glyphicon-ok" title="Up to date"></span> </td>
             
-             <td data-title="'Type'" data-sortable="'id_fields.type'" filter="{ 'id_fields.type':'text'}">{{res.id_fields.type}}</td> 
-             <td data-title="'Agent'" data-sortable="'id_fields.agent'" filter="{ 'id_fields.agent':'text'}">{{res.id_fields.agent}}</td> 
-             <td data-title="'Value'" data-sortable="'id_fields.value'" filter="{ 'id_fields.value':'text'}" class="col-md-2">{{res.id_fields.value}}</td> 
+             <td data-title="'Type'" data-sortable="'resource_type'" filter="{ 'resource_type':'text'}">{{res.resource_type}}</td> 
+             <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}">{{res.agent}}</td> 
+             <td data-title="'Value'" data-sortable="'id_attribute_value'" filter="{ 'id_attribute_value':'text'}" class="col-md-2">{{res.id_attribute_value}}</td> 
              <td data-title="'Deployed version'" data-sortable="'deployed_version'" filter="{ 'deployed_version':'text'}" >
                 <a ui-sref="resources({env:state.env,version:res.deployed_version})">{{res.deployed_version | nozero}}</a></td> 
              <td data-title="'Latest version'" data-sortable="'latest_version'" filter="{ 'latest_version':'text'}" >

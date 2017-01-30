@@ -385,6 +385,7 @@ imperApi.service('imperaService',
 		};	
 		
 		impAPI.createRecord = function(env, type, fields) {
+            console.log("createRecord")
             var newf = {}
             angular.forEach(fields,function(v,k){newf[k]=String(v)})
 			return $http.post(impURL + 'records', {form_type:type,form:newf},{headers:{"X-Inmanta-tid":env}}).then(
@@ -518,10 +519,9 @@ function formatRestore(d){
                 if(act.data && Object.keys(act.data).length > 0){
                     out.push({
                         id:res.id,
-                        type:res["id_fields"]["entity_type"],
-                        attr:res["id_fields"]["attribute"],
-                        attr_value:res["id_fields"]["attribute_value"],
-                        id_fields:res["id_fields"],
+                        type:res["entity_type"],
+                        attr:res["attribute"],
+                        attr_value:res["attribute_value"],
                         action:act,
                         status:res.status,
                         message:act.message.trim()
@@ -529,10 +529,9 @@ function formatRestore(d){
                 }else if(act.level != "INFO"){
                      out.push({
                         id:res.id,
-                        type:res["id_fields"]["entity_type"],
-                        attr:res["id_fields"]["attribute"],
-                        attr_value:res["id_fields"]["attribute_value"],
-                        id_fields:res["id_fields"],
+                        type:res["entity_type"],
+                        attr:res["attribute"],
+                        attr_value:res["attribute_value"],
                         action:act,
                         status:res.status,
                         message:act.message.trim()

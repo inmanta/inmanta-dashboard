@@ -23,7 +23,7 @@ imperApi.directive("deployProgress", function() {
         var status = version.status
         var total = version.total
         for (var res in status) {
-            var state = status[res]
+            var state = status[res].status
             if (state in prog) {
                 prog[state]++
             } else {
@@ -126,4 +126,3 @@ imperApi.directive("imBreadcrumb", ['$stateParams','imperaService',function($sta
         }
     };
 }])
-

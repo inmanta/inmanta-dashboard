@@ -1,1 +1,1 @@
-angular.module('imperaApi.config',[]).constant('imperaConfig', {'backend':window.location.origin+'/'})
+angular.module('imperaApi.config',[]).constant('imperaConfig', {'backend': "http://" + window.location.hostname+':8888/'})

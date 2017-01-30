@@ -131,19 +131,16 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
                 return ""
             }
 
-           
-            
-          
     
             scope.delete = function(rec){
                 var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the record " + rec);
 		        dlg.result.then(function(btn){
-			        imperaService.deleteRecord(scope.env,rec.record_id).then(function(){$rootScope.$broadcast('refresh')});
+			        imperaService.deleteRecord(scope.env,rec.id).then(function(){$rootScope.$broadcast('refresh')});
 		        })
                 
             }
     
-           
+
             scope.addNew = function(selectedForm){
                 var field = {}
                 angular.forEach(selectedForm.fields,function(v,k){
@@ -161,17 +158,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
                         record:record
                 }, {}).result.then(function(){$rootScope.$broadcast('refresh')})
             
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            }  
         }
     }
 }])
@@ -292,10 +279,10 @@ resv.controller('formDialogController', ['$scope', 'imperaService', "$stateParam
     });
     
     var save = function(rec){
-            if(!rec.record_id){
+            if(!rec.id){
                 return imperaService.createRecord($stateParams.env,rec.form_type,rec.fields);
             }else{
-                return imperaService.updateRecord($stateParams.env,rec.record_id,rec.fields);
+                return imperaService.updateRecord($stateParams.env,rec.id,rec.fields);
             }
     }
 

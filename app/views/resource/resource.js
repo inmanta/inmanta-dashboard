@@ -55,7 +55,6 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
         $scope.deploy = function() {
             imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
-          
         }
       
 
@@ -63,15 +62,16 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
             page: 1, // show first page
             count: 10, // count per page
             sorting: {
-                'id_fields.entity_type': 'asc' // initial sorting
+                'entity_type': 'asc' // initial sorting
             }
         }, function(params){
                     return imperaService.getResources($stateParams.env, $stateParams.version).then(function(info) {
 
                     $scope.status = info.model
-                    
+ 
 
                     var data = info.resources
+
                     $scope.alldata = {}
                     angular.forEach(data, function(item) {
                         $scope.alldata[item.id] = item
@@ -79,7 +79,6 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
                     angular.forEach(data, function(item) {
                         $scope.deporder(item)
                     })
-                    
                     return data;
 
                 })
@@ -89,7 +88,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
         $scope.deporderInt = function(id) {
             if (!$scope.alldata[id]) {
-                var order = Math.max.apply(null, $scope.alldata[id].fields.requires.map($scope.deporderInt));
+                var order = Math.max.apply(null, $scope.alldata[id].attributes.requires.map($scope.deporderInt));
                 order = Math.max(order, 0) + 1;
                 $scope.alldata[id].deporderv = order;
                 return order;
