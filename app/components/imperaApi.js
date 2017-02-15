@@ -385,7 +385,6 @@ imperApi.service('imperaService',
 		};	
 		
 		impAPI.createRecord = function(env, type, fields) {
-            console.log("createRecord")
             var newf = {}
             angular.forEach(fields,function(v,k){newf[k]=String(v)})
 			return $http.post(impURL + 'records', {form_type:type,form:newf},{headers:{"X-Inmanta-tid":env}}).then(
