@@ -65,7 +65,6 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
                         }
                     })
                     
-                    
                     return data;
 
                 })
@@ -74,7 +73,7 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
 
 
         $scope.details = function(item) {
-            imperaService.getResource($stateParams.env,item.id+",v="+item.latest_version).then(function(d){
+            imperaService.getResource($stateParams.env,item.resource_id+",v="+item.latest_version).then(function(d){
                 dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
                     resource: d,
                     env:$stateParams.env
@@ -85,7 +84,7 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
         }
 
         $scope.open = function(item) {
-            imperaService.getResource($stateParams.env,item.id+",v="+item.latest_version).then(function(d){
+            imperaService.getResource($stateParams.env,item.resource_id+",v="+item.latest_version).then(function(d){
                 dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
                     resource: d,
                     env:$stateParams.env

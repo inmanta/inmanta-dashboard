@@ -5,7 +5,7 @@
     <div><strong> ID: </strong> {{data.id}} </div>
     <div><strong> State: </strong> {{data.state}} </div>
     <div ng-repeat="detail in keys" class="abrev" ng-init="hide = (detail.indexOf('password')>=0)">
-        <strong> {{detail}}: </strong> <span ng-hide="hide"> {{data.fields[detail]}} </span> 
+        <strong> {{detail}}: </strong> <span ng-hide="hide"> {{data.attributes[detail]}} </span> 
         <button ng-hide="!hide" ng-click="hide=false" class="btn btn-xs btn-link"> *** </button> 
     </div>
 

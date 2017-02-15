@@ -9,7 +9,7 @@ rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',"dialog
     $scope.env=data.env
    
 
-    $scope.keys = Object.keys(data.resource.fields)
+    $scope.keys = Object.keys(data.resource.attributes)
     $scope.data = data.resource
 
 	$scope.icon = 'glyphicon glyphicon-info-sign';
