@@ -23,69 +23,60 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable","$q", function($scope, imperaService, $stateParams, BackhaulTable, $q) {
+resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q", function ($scope, imperaService, $stateParams, BackhaulTable, $q) {
     $stateParams.id = window.decodeURIComponent($stateParams.id)
     $scope.state = $stateParams
-    $scope.cmversion= $stateParams.id.substring($stateParams.id.lastIndexOf("=")+1)
-    $stateParams.version=$scope.cmversion
+    $scope.version = $stateParams.id.substring($stateParams.id.lastIndexOf("=") + 1)
+    $stateParams.version = $scope.version
 
-    $scope.tableParams = new BackhaulTable($scope,{
+    $scope.tableParams = new BackhaulTable($scope, {
         page: 1, // show first page
         count: 10, // count per page
         sorting: {
             'timestamp': 'desc' // initial sorting
         }
-    },function(prms){
-            return imperaService.getLogForResource($stateParams.env,$stateParams.id).then(function(info) {
-                var data = info.logs
-                $scope.resource = info.resource
-                               
-                return data;
-
-            });
-
+    }, function (prms) {
+        return imperaService.getLogForResource($stateParams.env, $stateParams.id).then(function (info) {
+            var data = info.logs;
+            $scope.resource = info.resource;
+            return data;
+        });
     });
-   
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+
+    imperaService.getEnvironment($stateParams.env).then(function (d) {
         $scope.env = d
     });
 
-  
-
-     $scope.names = function() {
-       var def = $q.defer()
-       var names = [
+    $scope.names = function () {
+        var def = $q.defer()
+        var names = [
             {
-                'id':  "fact",
+                'id': "fact",
                 'title': "fact"
-            },{
-                'id':  "user",
+            }, {
+                'id': "user",
                 'title': "user"
-            },{
-                'id':  "plugin",
+            }, {
+                'id': "plugin",
                 'title': "plugin"
             }]
-                  
 
-            
-       def.resolve(names);
-       return def;
-        };
+        def.resolve(names);
+        return def;
+    };
 
-      $scope.tf = function() {
-       var def = $q.defer()
-       var names = [
+    $scope.tf = function () {
+        var def = $q.defer()
+        var names = [
             {
-                'id':  "true",
+                'id': "true",
                 'title': "expired"
-            },{
-                'id':  "false",
+            }, {
+                'id': "false",
                 'title': "not expired"
             }]
-                  
 
-            
-       def.resolve(names);
-       return def;
-        };
+        def.resolve(names);
+        return def;
+    };
 }]);

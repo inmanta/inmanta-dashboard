@@ -240,19 +240,19 @@ imperApi.service('imperaService',
 //resources
 		impAPI.getVersions = function(env) {
 		    checkEnv(env)
-			return $http.get(impURL + 'cmversion',{headers:{"X-Inmanta-tid":env}}).then( 
+			return $http.get(impURL + 'version',{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     data.data.versions.forEach(formateVersion)
                     return data.data;});
 		};
 	
-		impAPI.deleteVersion = function(env,cmversion) {
-			return $http.delete(impURL + 'cmversion/'+cmversion,{headers:{"X-Inmanta-tid":env}})
+		impAPI.deleteVersion = function(env,version) {
+			return $http.delete(impURL + 'version/'+version,{headers:{"X-Inmanta-tid":env}})
 		};
 
 		impAPI.getVersionsPaged = function(env,from,count) {
    		    checkEnv(env)
-			return $http.get(impURL + 'cmversion?start='+from+'&limit='+count,{headers:{"X-Inmanta-tid":env}})
+			return $http.get(impURL + 'version?start='+from+'&limit='+count,{headers:{"X-Inmanta-tid":env}})
 				.then( 
                 function(data){
                     data.data.versions.forEach(formateVersion)
@@ -260,9 +260,9 @@ imperApi.service('imperaService',
 		};
 
 
-	    impAPI.getResources = function(env,cmversion) {
+	    impAPI.getResources = function(env,version) {
 		    checkEnv(env)
-			return $http.get(impURL + 'cmversion/'+cmversion,{headers:{"X-Inmanta-tid":env}}).then( 
+			return $http.get(impURL + 'version/'+version,{headers:{"X-Inmanta-tid":env}}).then( 
                 function(data){
                     return data.data
                 });
@@ -498,8 +498,8 @@ function formatRestore(d){
 
 
 //deploy
-		impAPI.deploy = function(env, cmversion, push) {
-		    return $http.post(impURL + 'cmversion/'+cmversion,{'push':push},{headers:{'X-Inmanta-tid':env}}).then(
+		impAPI.deploy = function(env, version, push) {
+		    return $http.post(impURL + 'version/'+version,{'push':push},{headers:{'X-Inmanta-tid':env}}).then(
 		        function(data){ 
 		            return data.data;
 		        });
@@ -545,7 +545,7 @@ function formatRestore(d){
 
         impAPI.getDeployReport = function(env,version) {
             checkEnv(env)
-            return $http.get(impURL + 'cmversion/'+ window.encodeURIComponent(version)+"?include_logs=true&log_filter=deploy",
+            return $http.get(impURL + 'version/'+ window.encodeURIComponent(version)+"?include_logs=true&log_filter=deploy",
                 {headers:{'X-Inmanta-tid':env}}).then(
                 function(data){
                     var resources = []
@@ -582,19 +582,19 @@ function formatDryrun(d){
     
 }
 
-        impAPI.dryrun = function(env, cmversion) {
+        impAPI.dryrun = function(env, version) {
             checkEnv(env)
-		    return $http.post(impURL + 'dryrun/'+cmversion,{},{headers:{'X-Inmanta-tid':env}}).then(
+		    return $http.post(impURL + 'dryrun/'+version,{},{headers:{'X-Inmanta-tid':env}}).then(
 		        function(data){
 		            formatDryrun(data.data.dryrun);
 		            return data.data.dryrun;
 	            });
 		};
 
-        impAPI.getDryruns = function(env, cmversion) {
+        impAPI.getDryruns = function(env, version) {
             checkEnv(env)
-            if(cmversion){
-                return $http.get(impURL + 'dryrun?version='+cmversion,{headers:{'X-Inmanta-tid':env}}).then(
+            if(version){
+                return $http.get(impURL + 'dryrun?version='+version,{headers:{'X-Inmanta-tid':env}}).then(
                     function(data){
                         formatDryruns(data.data.dryruns)
                         return data.data.dryruns;
