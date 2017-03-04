@@ -16,7 +16,7 @@
 <div class="row">
    <div class="col-md-5 detail" ng-if="mydryrun.date">
       <p><strong>Started:</strong> {{mydryrun.date|date:'dd/MM/yyyy HH:mm'}} </p>
-      <p><strong>Progress:</strong> {{mydryrun.total - dryrun.todo}}/{{mydryrun.total}} </p>
+      <p><strong>Progress:</strong> {{mydryrun.total - mydryrun.todo}}/{{mydryrun.total}} </p>
    </div>
    <div class="col-md-12" ng-hide="!mydryrun.date" >
       <div class="col-md-12" style="min-height:150px" ng-hide="tableParams.data.length != 0 || !tableParams.settings().$loading"  > <span us-spinner="{radius:30, width:8, length: 16}" style="text-align: center; padding-top: 25px;"></span> </div>
@@ -27,7 +27,7 @@
             <td data-title="'value'" data-sortable="'id_fields.attribute_value'" filter="{ 'id_fields.attribute_value':'text'}">{{res.id_fields.attribute_value}}</td>
             <td data-title="'Data'" data-sortable="'changessize'"  filter="{ 'changessize':'partials/emptyFilter.html'}">
                <div ng-repeat="(prop,ft) in res.changes">
-                  <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft[0]}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft[1]}} </p>
+                  <p ng-if="prop!='hash'"> <strong>{{prop}}: </strong> {{ft.current}} <span class="glyphicon glyphicon-arrow-right"> </span> {{ft.desired}} </p>
                   <button ng-if="prop=='hash'" class="btn btn-xs btn-default" ng-click="open(ft,res.id)"> Diff </btn>
                </div>
             </td>
