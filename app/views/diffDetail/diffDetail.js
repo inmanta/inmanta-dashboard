@@ -6,15 +6,11 @@ rscdet.controller('diffDetailCtrl',['$scope','$modalInstance','data','imperaServ
 	//-- Variables -----//
     $scope.content=""
     $scope.header=data.id
-    imperaService.getDiff(data.diff[0],data.diff[1]).then(function(f){
+    imperaService.getDiff(data.diff.current,data.diff.desired).then(function(f){
         $scope.content = f.diff
     })
-    
-
 
    	$scope.icon = 'glyphicon glyphicon-info-sign';
-
-    
 
 	//-- Methods -----//
 	
