@@ -6,7 +6,7 @@ rscdet.controller('fileDetailCtrl',['$scope','$modalInstance','data','imperaServ
 	//-- Variables -----//
 
 	$scope.header = "Details for " + data.resource.id ;
-    $scope.id = data.resource.fields.hash;
+    $scope.id = data.resource.attributes.hash;
    	$scope.icon = 'glyphicon glyphicon-info-sign';
     $scope.content=""
     imperaService.getFile($scope.id).then(function(f){

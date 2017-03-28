@@ -16,6 +16,6 @@
 
     <a ui-sref="logs({env:env,id:data.id})"> <button type="button" class="btn btn-default"  ng-click="close()">View Log</button></a>
 
-    <button type="button" class="btn btn-default" ng-if="data.fields.hash" ng-click="open()">Open File</button>
+    <button type="button" class="btn btn-default" ng-if="data.attributes.hash" ng-click="open()">Open File</button>
     <button type="button" class="btn btn-default" ng-click="close()">Close</button>
 </div>
