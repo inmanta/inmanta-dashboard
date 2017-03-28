@@ -14,7 +14,9 @@ imperApi.directive("deployProgress", function() {
     var types = {
         'deployed': 'success',
         'skipped': 'info',
-        'failed': 'danger'
+        'failed': 'danger',
+        'unavailble': 'danger',
+        'cancelled': 'info'
     }
 
     var getProgress = function(version) {

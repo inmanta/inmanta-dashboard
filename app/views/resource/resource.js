@@ -121,6 +121,12 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
         var def = $q.defer()
         var names = [
             {
+                'id': "unavailable",
+                'title': "unavailable"
+            },{
+                'id': "available",
+                'title': "available"
+            },{
                 'id':  "skipped",
                 'title': "skipped"
             },{
