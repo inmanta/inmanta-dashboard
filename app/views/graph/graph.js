@@ -120,20 +120,20 @@ function getColorCode(type) {
                     json.resources.forEach(function(n) {
                         var node = {
                             name: n.id,
-                            req: n.fields.requires,
+                            req: n.attributes.requires,
                             parents: [],
                             children: [],
                             id: idcounter++,
-                            sname: n.id_fields.attribute_value.substring(0, 25),
-                            icon: getIconCode(n.id_fields.entity_type),
-                            agent: n.id_fields.agent_name,
+                            sname: n.id_attribute_value.substring(0, 25),
+                            icon: getIconCode(n.entity_type),
+                            agent: n.agent_name,
                             source: n,
                             color: getColorCode(n.status)
                         }
                         nodes.push(node)
                         idx[n.id] = node
-                        if (n.id_fields.entity_type == "vm::Host") {
-                            midx[n.id_fields.attribute_value] = node
+                        if (n.entity_type == "vm::Host") {
+                            midx[n.id_attribute_value] = node
                         }
                     });
 
