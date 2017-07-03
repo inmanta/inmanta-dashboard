@@ -499,71 +499,16 @@ function formatRestore(d){
 
 //deploy
 		impAPI.deploy = function(env, version, push) {
-		    return $http.post(impURL + 'version/'+version,{'push':push},{headers:{'X-Inmanta-tid':env}}).then(
+		    return $http.post(impURL + 'version/' + version, {'push':push}, {headers: {'X-Inmanta-tid': env}}).then(
 		        function(data){ 
 		            return data.data;
 		        });
 		};
 		
-		
-		function formatAction(action){
+		function formatAction(action) {
              action["timestamp"] = formatDate(action["timestamp"]);
             return action
         }
-
-        function formatActionReport(res){
-            var out = []
-            
-            res.actions.forEach(function(act){
-                if(act.data && Object.keys(act.data).length > 0){
-                    out.push({
-                        id:res.id,
-                        type:res["entity_type"],
-                        attr:res["attribute"],
-                        attr_value:res["attribute_value"],
-                        action:act,
-                        status:res.status,
-                        message:act.message.trim()
-                    })
-                }else if(act.level != "INFO"){
-                     out.push({
-                        id:res.id,
-                        type:res["entity_type"],
-                        attr:res["attribute"],
-                        attr_value:res["attribute_value"],
-                        action:act,
-                        status:res.status,
-                        message:act.message.trim()
-                    })
-                }
-            })
-            
-            return out;
-        }
-        
-        
-
-        impAPI.getDeployReport = function(env,version) {
-            checkEnv(env)
-            return $http.get(impURL + 'version/'+ window.encodeURIComponent(version)+"?include_logs=true&log_filter=deploy",
-                {headers:{'X-Inmanta-tid':env}}).then(
-                function(data){
-                    var resources = []
-                    data.data.resources.forEach(function(res){
-                      
-                        if(res.actions && res.actions.length>0){
-                            resources = resources.concat(formatActionReport(res))
-                        } 
-                        
-                        
-                        
-                        
-                    })
-                    return {resources:resources,unknowns:data.data.unknowns};               
-                });
-                
-          };
-
 		
 //dryrun
 function formatDryrunShort(d){
@@ -681,11 +626,6 @@ function formatDryrun(d){
                 });
 		};
 
-
 		return impAPI;
-}]);
-
-
-
-
-
+    }
+]);

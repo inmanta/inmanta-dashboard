@@ -15,7 +15,7 @@ imperApi.directive("deployProgress", function() {
         'deployed': 'success',
         'skipped': 'info',
         'failed': 'danger',
-        'unavailble': 'danger',
+        'unavailable': 'danger',
         'cancelled': 'info'
     }
 

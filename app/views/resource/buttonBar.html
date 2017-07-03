@@ -6,9 +6,6 @@
     <button class="btn btn-default" ng-click="dryrun()"  title="Perform dry run" tooltip='Start a new dryrun'>
                <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Perform dry run
     </button>  
-    <button ui-sref-active="hidden" class="btn btn-default" ui-sref="deployReport({env:state.env,version:state.version})" title='Get a report of the deploy process'>
-               <span class="glyphicon glyphicon-tasks"> </span> Deploy report
-    </button>   
     <button class="btn btn-default" ng-click="deploy()" ng-disabled="resource.released " title='Start deploying this version' >
             <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Deploy
     </button>      
