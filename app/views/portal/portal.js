@@ -27,7 +27,6 @@ module.controller('PortalController', ['$scope', '$rootScope', 'inmantaService',
         $scope.env = d;
     });
 
-
     var getReport = function () {
         inmantaService.getReportParameters($stateParams.env).then(function (d) {
             $scope.report = d;

@@ -23,7 +23,7 @@
                 <td class="col-md-3" data-title="'Status'" data-sortable="'status'" filter="{ 'status':'text'}" >{{log.status}}</td>
             </tr>
             <tr ng-repeat="line in log.messages" class="accordian-body collapse" collapse="!log.open">
-                <td></td>
+                <td><button class="btn btn-link btn-xs" ng-click="details(line)"> <span class="glyphicon glyphicon-zoom-in"></span></button></td>
                 <td>{{ line.timestamp | date:'dd/MM/yyyy HH:mm:ss.sss' }}</td>
                 <td>{{ line.level }}</td>
                 <td colspan="2">{{ line.msg }}</td>

@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('InmantaApp.logsView', ['ui.router', 'inmantaApi', 'ngTable', 'inmanta.services.backhaul']);
+var resv = angular.module('InmantaApp.logsView', ['ui.router', 'inmantaApi', 'ngTable', 'inmanta.services.backhaul', 'dialogs.main']);
 
 resv.config(["$stateProvider", function ($stateProvider) {
     $stateProvider.state('logs', {
@@ -19,7 +19,8 @@ resv.config(["$stateProvider", function ($stateProvider) {
     });
 }]);
 
-resv.controller('logController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "$q", function ($scope, inmantaService, $stateParams, BackhaulTable, $q) {
+resv.controller('logController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs",
+                function ($scope, inmantaService, $stateParams, BackhaulTable, dialogs) {
     $stateParams.id = window.decodeURIComponent($stateParams.id);
     $scope.state = $stateParams;
     $scope.version = $stateParams.id.substring($stateParams.id.lastIndexOf("=") + 1);
@@ -54,4 +55,21 @@ resv.controller('logController', ['$scope', 'inmantaService', "$stateParams", "B
     inmantaService.getEnvironment($stateParams.env).then(function (d) {
         $scope.env = d;
     });
+
+    $scope.details = function (item) {
+        dialogs.create('views/log/logDetail.html', 'msgDetailCtrl', {
+            message: item,
+            env: $stateParams.env
+        }, {});
+    };
 }]);
+
+resv.controller('msgDetailCtrl', ['$scope', '$modalInstance', 'data', "dialogs", function ($scope, $modalInstance, data, dialogs) {
+    //-- Variables -----//
+    $scope.header = " Log message details";
+    $scope.env = data.env;
+    $scope.kwargs = Object.keys(data.message.kwargs);
+    $scope.message = data.message;
+
+    $scope.icon = 'glyphicon glyphicon-info-sign';
+}]); // end WaitDialogCtrl
