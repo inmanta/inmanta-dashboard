@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.agentsView', ['ui.router','imperaApi','ngTable','impera.services.backhaul','ImperaApp.agentProcDetail','dialogs.main'])
+var resv = angular.module('InmantaApp.agentsView', ['ui.router','inmantaApi','ngTable','inmanta.services.backhaul','InmantaApp.agentProcDetail','dialogs.main'])
 
 resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
@@ -23,14 +23,14 @@ resv.config(["$stateProvider", function($stateProvider) {
     })
 }]);
 
-resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$q","BackhaulTable", "dialogs", function($scope, imperaService,$stateParams,$q,BackhaulTable, dialogs) {
+resv.controller('agentController', ['$scope', 'inmantaService', "$stateParams","$q","BackhaulTable", "dialogs", function($scope, inmantaService,$stateParams,$q,BackhaulTable, dialogs) {
  
  $scope.state = $stateParams
  $scope.highlight = "xx"
  
  $scope.getEnv = function(id){
     var out = [];
-    imperaService.getEnvironment(id).then(
+    inmantaService.getEnvironment(id).then(
         function(d){
             out[0]=d;
         },
@@ -49,7 +49,7 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
  $scope.getProcess  = function(env, id){
     var out = [];
     if( id ){
-        imperaService.getAgentProcess(env, id).then(
+        inmantaService.getAgentProcess(env, id).then(
             function(d){
                 out[0]=d;
             }
@@ -65,7 +65,7 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
         count: 25,          // count per page
         filter: { expired: "!" } 
     }, function(params) {
-             return imperaService.getAgentProcs().then(function(data) {
+             return inmantaService.getAgentProcs().then(function(data) {
                     $scope.alldata = {}
                     var envs = [];
 
@@ -83,7 +83,7 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
 
  if($stateParams["env"]){
 	    $scope.env = $stateParams["env"]
-	    imperaService.getEnvironment($stateParams["env"]).then(function(d){$scope.env = d.name})
+	    inmantaService.getEnvironment($stateParams["env"]).then(function(d){$scope.env = d.name})
 		$scope.tableParams.filter()['environment']=$stateParams["env"]
 		
 		$scope.tableParams2 = new BackhaulTable($scope,{
@@ -91,7 +91,7 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
         count: 10          // count per page
        
         }, function(params) {
-             return imperaService.getAgents($stateParams["env"])
+             return inmantaService.getAgents($stateParams["env"])
         });
 	
  }else{
@@ -107,7 +107,7 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
             $scope.envs.promise.then(function(envs){
                 angular.forEach(envs, function(id){
                waiters = waiters+1;
-               imperaService.getEnvironment(id)
+               inmantaService.getEnvironment(id)
                     .then(function(d){
                          names.push({
                             'id':  id,
@@ -137,7 +137,7 @@ resv.controller('agentController', ['$scope', 'imperaService', "$stateParams","$
         };
         
   $scope.details = function(proc){
-    imperaService.getAgentprocDetais(proc.id).then(function(d){
+    inmantaService.getAgentprocDetais(proc.id).then(function(d){
         
                 dialogs.create('views/agentprocDetail/agentprocDetail.html', 'agentProcDetailCtrl', {
                     data: d,

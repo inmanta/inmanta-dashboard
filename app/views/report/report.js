@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.reportView', ['ui.router', 'imperaApi', 'ngTable','dialogs.main','ImperaApp.diffDetail'])
+var resv = angular.module('InmantaApp.reportView', ['ui.router', 'inmantaApi', 'ngTable','dialogs.main','InmantaApp.diffDetail'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -25,8 +25,8 @@ resv.config(["$stateProvider", function($stateProvider) {
 
 
 
-resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","dialogs","BackhaulTable","$q","$rootScope",
-    function($scope, imperaService, $stateParams,dialogs,BackhaulTable, $q, $rootScope) {
+resv.controller('reportController', ['$scope', 'inmantaService', "$stateParams","dialogs","BackhaulTable","$q","$rootScope",
+    function($scope, inmantaService, $stateParams,dialogs,BackhaulTable, $q, $rootScope) {
         
 
         $scope.state = $stateParams
@@ -42,7 +42,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
                 out.resolve([])
                 return out.promise
            }else{          
-               return imperaService.getDryrun($stateParams.env,$scope.state.id).then(function(d) {
+               return inmantaService.getDryrun($stateParams.env,$scope.state.id).then(function(d) {
                     $scope.mydryrun=d
                     var out=[]
                     for(var k in d.resources){
@@ -65,7 +65,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
         },true)
         
         function loadList(){
-        imperaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
+        inmantaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
             d.reverse()
             $scope.dryruns = d
             if(!$scope.state.id && d.length>0){
@@ -78,7 +78,7 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
         loadList();
         $scope.$on('refresh',loadList)
 
-        imperaService.getEnvironment($stateParams.env).then(function(d) {
+        inmantaService.getEnvironment($stateParams.env).then(function(d) {
             $scope.env = d
         });
 
@@ -95,12 +95,12 @@ resv.controller('reportController', ['$scope', 'imperaService', "$stateParams","
         }
 
         $scope.dryrun = function() {
-             imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
+             inmantaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
             
         }
         
         $scope.details = function(item) {
-            imperaService.getResource($stateParams.env,item.id).then(function(d){
+            inmantaService.getResource($stateParams.env,item.id).then(function(d){
                 dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
                     resource: d,
                     env:$stateParams.env

@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.projectView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
+var resv = angular.module('InmantaApp.projectView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -22,8 +22,8 @@ resv.config(["$stateProvider", function($stateProvider) {
 
 
 
-resv.controller('projectviewController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q",'dialogs','$rootScope',
-    function($scope, imperaService, $stateParams, BackhaulTable,$q,dialogs,$rootScope) {
+resv.controller('projectviewController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "$q",'dialogs','$rootScope',
+    function($scope, inmantaService, $stateParams, BackhaulTable,$q,dialogs,$rootScope) {
         
         $scope.state = $stateParams
 
@@ -34,14 +34,14 @@ resv.controller('projectviewController', ['$scope', 'imperaService', "$statePara
                 'name': 'asc' // initial sorting
             }
         }, function(params){
-                    return imperaService.getEnvironmentsByProject($stateParams.project)
+                    return inmantaService.getEnvironmentsByProject($stateParams.project)
            }
         );
 
 	$scope.deleteEnv = function(env){
 		var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the environment " + env.name);
 		dlg.result.then(function(btn){
-			imperaService.removeEnvironment(env.id).then( function(){$rootScope.$broadcast('refresh');});
+			inmantaService.removeEnvironment(env.id).then( function(){$rootScope.$broadcast('refresh');});
 		})
 	}  	
 

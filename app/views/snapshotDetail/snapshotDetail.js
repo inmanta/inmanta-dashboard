@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.snapshotDetailView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul','ImperaApp.inputDialog'])
+var resv = angular.module('InmantaApp.snapshotDetailView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul','InmantaApp.inputDialog'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -21,14 +21,14 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('snapshotDetailController', ['$scope', '$rootScope', 'imperaService', "$stateParams", "BackhaulTable","dialogs",
-    function($scope, $rootScope, imperaService, $stateParams, BackhaulTable,dialogs ) {
+resv.controller('snapshotDetailController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable","dialogs",
+    function($scope, $rootScope, inmantaService, $stateParams, BackhaulTable,dialogs ) {
        $scope.state = $stateParams
        $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
             count: 10
         }, function(params){
-                    return imperaService.getSnapshot($stateParams.env,$stateParams.id).then(function (sn){
+                    return inmantaService.getSnapshot($stateParams.env,$stateParams.id).then(function (sn){
                         $scope.sn = sn
                         return sn.resources
                     })
@@ -36,7 +36,7 @@ resv.controller('snapshotDetailController', ['$scope', '$rootScope', 'imperaServ
         
       
        $scope.download = function(hash){
-            imperaService.downloadFile(hash);
+            inmantaService.downloadFile(hash);
        }
     }
 

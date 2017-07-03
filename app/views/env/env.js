@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.envView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
+var resv = angular.module('InmantaApp.envView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -23,11 +23,11 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService', '$stateParams','$state','dialogs', function($scope,$rootScope, imperaService, $stateParams, $state, dialogs) {
+resv.controller('envFunctionController', ['$scope','$rootScope', 'inmantaService', '$stateParams','$state','dialogs', function($scope,$rootScope, inmantaService, $stateParams, $state, dialogs) {
     $scope.state = $stateParams
     
      $scope.compile = function(env){
-        imperaService.compile(env).then(function(){
+        inmantaService.compile(env).then(function(){
             $scope.cstate=true; 
             $rootScope.$broadcast('refresh')  
         })
@@ -36,7 +36,7 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
     $scope.decommission = function(env){
        var dlg = dialogs.confirm("Confirm delete","Do you really want to decomission the environment " + env.name + " this can NOT BE UNDONE! ");
 		dlg.result.then(function(btn){
-			 imperaService.decommission(env).then(
+			 inmantaService.decommission(env).then(
                     function(d){
                         $rootScope.$broadcast('refresh'); 
                     })
@@ -49,7 +49,7 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
                 header: "Clone name",
                 content:"Name for the clone"
             }, {}).result.then(function(name){
-                imperaService.clone(env,name).then(
+                inmantaService.clone(env,name).then(
                     function(d){
                         $rootScope.$broadcast('refresh'); 
                         $state.go("envs",{ env:d.id })
@@ -58,7 +58,7 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
      }
     
     $scope.updateCompile = function(env){
-        imperaService.updateCompile(env).then(function(){
+        inmantaService.updateCompile(env).then(function(){
             $scope.cstate=true; 
             $rootScope.$broadcast('refresh')  
         })
@@ -66,7 +66,7 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
 
     var getCompileState = function(){
         if($scope.state.env){
-            imperaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
+            inmantaService.isCompiling($scope.state.env).then(function(data){$scope.cstate=data;  })
         }
     }
 
@@ -75,7 +75,7 @@ resv.controller('envFunctionController', ['$scope','$rootScope', 'imperaService'
     
 }]);
 
-resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTablePaged",'dialogs',function($scope,$rootScope, imperaService, $stateParams, BackhaulTablePaged,dialogs) {
+resv.controller('envController', ['$scope','$rootScope', 'inmantaService', "$stateParams", "BackhaulTablePaged",'dialogs',function($scope,$rootScope, inmantaService, $stateParams, BackhaulTablePaged,dialogs) {
 
     $scope.state = $stateParams
   
@@ -88,7 +88,7 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
         }
     }, function(start,extent) {
     
-           return imperaService.getVersionsPaged($stateParams.env, start, extent).then(
+           return inmantaService.getVersionsPaged($stateParams.env, start, extent).then(
             function(d){
                 
                 d.versions.forEach(function (d){d.state=getState(d)})
@@ -98,21 +98,21 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
     }, "versions");
     
     $scope.resources = null
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+    inmantaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
     
    
     $scope.startDryRun = function(res) {
             var resVersion = res.version 
-            imperaService.dryrun($stateParams.env,resVersion).then(function(d){
+            inmantaService.dryrun($stateParams.env,resVersion).then(function(d){
                 $rootScope.$broadcast('refresh')
             });     
     }
 
     $scope.deploy = function(res) {
         var resVersion = res.version 
-        imperaService.deploy($stateParams.env,resVersion,true).then(function(d){$rootScope.$broadcast('refresh')});          
+        inmantaService.deploy($stateParams.env,resVersion,true).then(function(d){$rootScope.$broadcast('refresh')});          
     }
   
 
@@ -120,7 +120,7 @@ resv.controller('envController', ['$scope','$rootScope', 'imperaService', "$stat
 	    var resVersion = res.version 
 	    var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the version " + resVersion);
         dlg.result.then(function(btn){
-	        imperaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
+	        inmantaService.deleteVersion($stateParams.env,resVersion).then(function(d){$rootScope.$broadcast('refresh')});
         })  
     }
     

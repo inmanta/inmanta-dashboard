@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.compileReport', ['ui.router', 'imperaApi'])
+var resv = angular.module('InmantaApp.compileReport', ['ui.router', 'inmantaApi'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -25,17 +25,17 @@ resv.config(["$stateProvider", function($stateProvider) {
 
 
 
-resv.controller('compileReportController', ['$scope', 'imperaService', "$stateParams",
-    function($scope, imperaService, $stateParams) {
+resv.controller('compileReportController', ['$scope', 'inmantaService', "$stateParams",
+    function($scope, inmantaService, $stateParams) {
         
         $scope.state = $stateParams
         
-        imperaService.getEnvironment($stateParams.env).then(function(d) {
+        inmantaService.getEnvironment($stateParams.env).then(function(d) {
             $scope.env = d
         });
         
         function load(){
-            imperaService.getCompileReports($stateParams.env).then(function(d) {
+            inmantaService.getCompileReports($stateParams.env).then(function(d) {
                 $scope.compiles = d
                 //d.forEach(function(d){d.reports.forEach(function(f){f.open=f.errstream.length != 0})})
                 d.forEach(function(d){d.reports.forEach(function(f){

@@ -1,1 +1,1 @@
-angular.module('imperaApi.config',[]).constant('imperaConfig', {'backend': window.location.origin+'/' })
+angular.module('inmantaApi.config',[]).constant('inmantaConfig', {'backend': window.location.origin+'/'})

@@ -1,16 +1,16 @@
 'use strict';
 
-var rscdet = angular.module('ImperaApp.feedback', ['imperaApi','dialogs.main'])
+var rscdet = angular.module('InmantaApp.feedback', ['inmantaApi','dialogs.main'])
 
-rscdet.controller('feedbackCtrl',['$scope','$modalInstance','data','imperaService',
-        function($scope,$modalInstance,data,imperaService) {
+rscdet.controller('feedbackCtrl',['$scope','$modalInstance','data','inmantaService',
+        function($scope,$modalInstance,data,inmantaService) {
 	//-- Variables -----//
     
 
 	//-- Methods -----//
 	
 	$scope.submitFeedback = function(feedback) {
-	    imperaService.sendFeedback(feedback).then(function(d){$modalInstance.close('closed');});
+	    inmantaService.sendFeedback(feedback).then(function(d){$modalInstance.close('closed');});
 	    
 	}
 	

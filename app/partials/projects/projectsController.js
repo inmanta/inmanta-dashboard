@@ -1,11 +1,11 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.controllers.projects', ['imperaApi'])
+var resv = angular.module('InmantaApp.controllers.projects', ['inmantaApi'])
 
-resv.controller('projectsController',['$scope','imperaService',function($scope,imperaService){
+resv.controller('projectsController',['$scope','inmantaService',function($scope,inmantaService){
 
    function load(){
-       imperaService.getProjectsAndEnvironments().then(function(d){$scope.projects=d})
+       inmantaService.getProjectsAndEnvironments().then(function(d){$scope.projects=d})
    }
    
    load()
@@ -26,13 +26,13 @@ resv.controller('projectsController',['$scope','imperaService',function($scope,i
 
 
    function setEnv(envid){
-       imperaService.getEnvironment(envid).then(function(d){
+       inmantaService.getEnvironment(envid).then(function(d){
             $scope.currentEnv = d
             setProject(d.project)})
    }
 
    function setProject(pid){
-       imperaService.getProject(pid).then(function(d){$scope.currentProject = d})
+       inmantaService.getProject(pid).then(function(d){$scope.currentProject = d})
    }
 
 }])

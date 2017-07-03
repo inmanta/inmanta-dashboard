@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.addProject', ['ui.router','imperaApi','ngTable'])
+var resv = angular.module('InmantaApp.addProject', ['ui.router','inmantaApi','ngTable'])
 
 resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
@@ -20,7 +20,7 @@ resv.config(["$stateProvider", function($stateProvider) {
     })
 }]);
 
-resv.controller('addProjectController', ['$scope', 'imperaService', '$state', function($scope, imperaService, $state) {
+resv.controller('addProjectController', ['$scope', 'inmantaService', '$state', function($scope, inmantaService, $state) {
  
     $scope.name = null;
 
@@ -28,14 +28,14 @@ resv.controller('addProjectController', ['$scope', 'imperaService', '$state', fu
     $scope.ready = function(){
         return $scope.selectedProject;
     }
-    imperaService.getProjects().then(function(data) {
+    inmantaService.getProjects().then(function(data) {
         $scope.projects = data;
         
     });
 
     $scope.addProject = function(name){
         //console.log(project,name,repo,tag)
-        imperaService.addProject(name).then(function(d){$state.go("addEnv",{project:d.id})})
+        inmantaService.addProject(name).then(function(d){$state.go("addEnv",{project:d.id})})
     }
 
     

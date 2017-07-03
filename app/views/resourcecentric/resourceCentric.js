@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.resourceCentricView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail','ImperaApp.fileDetail','impera.services.backhaul'])
+var resv = angular.module('InmantaApp.resourceCentricView', ['ui.router', 'inmantaApi', 'ngTable', 'dialogs.main', 'InmantaApp.resourceDetail','InmantaApp.fileDetail','inmanta.services.backhaul'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -25,20 +25,20 @@ resv.config(["$stateProvider", function($stateProvider) {
 
 
 
-resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
-    function($scope, $rootScope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
+resv.controller('resourceCentricController', ['$scope','$rootScope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs","$q",
+    function($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs,$q) {
         
         $scope.state = $stateParams
 
        $scope.startDryRun = function() {
-            imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){
+            inmantaService.dryrun($stateParams.env,$stateParams.version).then(function(d){
                 $scope.dryrunid=d.id
                 $rootScope.$broadcast('refresh')
             });     
         }
         
         $scope.deploy = function() {
-            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
+            inmantaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
           
         }
 
@@ -47,7 +47,7 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
             count: 50 // count per page
            
         }, function(params){
-                    return imperaService.getResourcesState($stateParams.env).then(function(info) {
+                    return inmantaService.getResourcesState($stateParams.env).then(function(info) {
                     $scope.env = info
                     $scope.versions = info.versions
                     
@@ -73,7 +73,7 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
 
 
         $scope.details = function(item) {
-            imperaService.getResource($stateParams.env,item.resource_id+",v="+item.latest_version).then(function(d){
+            inmantaService.getResource($stateParams.env,item.resource_id+",v="+item.latest_version).then(function(d){
                 dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
                     resource: d,
                     env:$stateParams.env
@@ -84,7 +84,7 @@ resv.controller('resourceCentricController', ['$scope','$rootScope', 'imperaServ
         }
 
         $scope.open = function(item) {
-            imperaService.getResource($stateParams.env,item.resource_id+",v="+item.latest_version).then(function(d){
+            inmantaService.getResource($stateParams.env,item.resource_id+",v="+item.latest_version).then(function(d){
                 dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
                     resource: d,
                     env:$stateParams.env

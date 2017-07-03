@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.snapshotView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul','ImperaApp.inputDialog'])
+var resv = angular.module('InmantaApp.snapshotView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul','InmantaApp.inputDialog'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -21,8 +21,8 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('snapshotController', ['$scope', '$rootScope', 'imperaService', "$stateParams", "BackhaulTable","dialogs",
-    function($scope, $rootScope, imperaService, $stateParams, BackhaulTable,dialogs ) {
+resv.controller('snapshotController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable","dialogs",
+    function($scope, $rootScope, inmantaService, $stateParams, BackhaulTable,dialogs ) {
        $scope.state = $stateParams
        $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
@@ -31,15 +31,15 @@ resv.controller('snapshotController', ['$scope', '$rootScope', 'imperaService', 
                 'started': 'desc' // initial sorting
             }
         }, function(params){
-                    return  imperaService.getSnapshots($stateParams.env)
+                    return  inmantaService.getSnapshots($stateParams.env)
         });
         
        $scope.deleteSnapshot = function(id){
-                 imperaService.deleteSnapshot($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
+                 inmantaService.deleteSnapshot($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
        }
 
        $scope.restoreSnapshot =  function(env, id){
-                 imperaService.restoreSnapshot(env,id)
+                 inmantaService.restoreSnapshot(env,id)
        }
 
        $scope.createSnapshot = function(id){
@@ -48,7 +48,7 @@ resv.controller('snapshotController', ['$scope', '$rootScope', 'imperaService', 
                 header: "Snapshot name",
                 content:"Name for the snapshot"
             }, {}).result.then(function(name){
-                imperaService.createSnapshot($stateParams.env,name).then( function(){$rootScope.$broadcast('refresh');});
+                inmantaService.createSnapshot($stateParams.env,name).then( function(){$rootScope.$broadcast('refresh');});
             })
        }
     }

@@ -10,13 +10,13 @@
     <div class="col-md-12">
         <table class="table table-lined" ng-table="tableParams" show-filter="true">
             <tr ng-repeat="res in $data track by res.id" ng-class="{'bg-info':res.id==toHighlight}">
-                <td data-title="'Type'" data-sortable="'resource_type'" filter="{ 'resource_type':'text'}"><a ui-sref="logs({env:state.env,id:res.id, version:state.version})">{{res.resource_type}}</a></td>
+                <td data-title="'Type'" data-sortable="'resource_type'" filter="{'resource_type':'text'}"><a ui-sref="logs({env:state.env, id:res.id, version:state.version})">{{res.resource_type}}</a></td>
                 <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}">{{res.agent}}</td>
                 <td data-title="'Value'" data-sortable="'id_attribute_value'" filter="{ 'id_attribute_value':'text'}" class="col-md-2">{{res.id_attribute_value}}</td>
                 <td data-title="'Deps'" data-sortable="'deporder'" class="col-md-2" style="max-width: 90px; word-wrap: break-word;">
                     <div ng-repeat="d in res.attributes.requires track by $index"><p ng-click="highlight(d)">{{ d }}</p></div>
                 </td>
-                <td data-title="'State'" data-sortable="'status'" filter="{ 'status':'select'}" filter-data="states()" class="col-xs-1 ">{{res.status}}</td>
+                <td data-title="'State'" data-sortable="'status'" filter="{'status':'select'}" filter-data="states()" class="col-xs-1 ">{{res.status}}</td>
                 <td>
                     <button class="btn btn-link btn-xs" ng-click="details(res)"> <span class="glyphicon glyphicon-zoom-in"></span></button>
                     <button class="btn btn-link btn-xs" ui-sref="logs({env:env.id, id:res.resource_version_id})" title="Resource logs">

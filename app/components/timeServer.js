@@ -1,4 +1,4 @@
-var services = angular.module('impera.services.time',[])
+var services = angular.module('inmanta.services.time',[])
 
 
 //based on kibana

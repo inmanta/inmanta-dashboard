@@ -1,6 +1,6 @@
 'use strict';
 
-var rscdet = angular.module('ImperaApp.agentProcDetail', ['imperaApi','dialogs.main'])
+var rscdet = angular.module('InmantaApp.agentProcDetail', ['inmantaApi','dialogs.main'])
 
 rscdet.controller('agentProcDetailCtrl',['$scope','$modalInstance','data',"dialogs",function($scope,$modalInstance,data,dialogs){
 	//-- Variables -----//

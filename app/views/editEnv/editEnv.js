@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.editEnv', ['ui.router','imperaApi','ngTable'])
+var resv = angular.module('InmantaApp.editEnv', ['ui.router','inmantaApi','ngTable'])
 
 resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
@@ -21,15 +21,15 @@ resv.config(["$stateProvider", function($stateProvider) {
     })
 }]);
 
-resv.controller('editEnvController', ['$scope', 'imperaService', '$stateParams', '$state', function($scope, imperaService, $stateParams, $state) {
+resv.controller('editEnvController', ['$scope', 'inmantaService', '$stateParams', '$state', function($scope, inmantaService, $stateParams, $state) {
  
     $scope.state = $stateParams
  
     
     
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+    inmantaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
-        imperaService.getProject(d.project).then(function(p){
+        inmantaService.getProject(d.project).then(function(p){
             $scope.selectedProject = p;
         })
         $scope.name = d.name
@@ -41,6 +41,6 @@ resv.controller('editEnvController', ['$scope', 'imperaService', '$stateParams',
         $scope.env.name = env_name;
         $scope.env.repo_branch = branch;
         $scope.env.repo_url = repo_url
-        imperaService.editEnvironment($scope.env).then(function(d){$state.go("envs",{ env:d.id })});
+        inmantaService.editEnvironment($scope.env).then(function(d){$state.go("envs",{ env:d.id })});
     }
 }]);

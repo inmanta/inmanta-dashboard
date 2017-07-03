@@ -1,6 +1,6 @@
-var imperApi = angular.module('ImperaApp.directives', [])
+var inmantaApi = angular.module('InmantaApp.directives', [])
 
-imperApi.filter('nozero', function() {
+inmantaApi.filter('nozero', function() {
     return function(input) {
         if (input == 0) {
             return ""
@@ -9,7 +9,7 @@ imperApi.filter('nozero', function() {
     };
 })
 
-imperApi.directive("deployProgress", function() {
+inmantaApi.directive("deployProgress", function() {
     var typesSeq = ['failed', 'skipped', 'deployed']
     var types = {
         'deployed': 'success',
@@ -87,7 +87,7 @@ imperApi.directive("deployProgress", function() {
 })
 
 
-imperApi.directive("imBreadcrumb", ['$stateParams','imperaService',function($stateParams,imperaService) { 
+inmantaApi.directive("imBreadcrumb", ['$stateParams','inmantaService',function($stateParams,inmantaService) {
     return {
         restrict: 'E',
         templateUrl: 'partials/directives/breadcrumb.html',
@@ -112,7 +112,7 @@ imperApi.directive("imBreadcrumb", ['$stateParams','imperaService',function($sta
             addItem("Home",null,"projects")
             if($stateParams.env){
                  var envi = addItem("Environment","","envs({env:'"+$stateParams.env+"'})")
-                 imperaService.getEnvironment($stateParams.env).then(function(d){
+                 inmantaService.getEnvironment($stateParams.env).then(function(d){
                      envi.id = d.name
                  })
             }

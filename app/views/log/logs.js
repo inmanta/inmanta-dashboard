@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.logsView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
+var resv = angular.module('InmantaApp.logsView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -23,7 +23,7 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable", "$q", function ($scope, imperaService, $stateParams, BackhaulTable, $q) {
+resv.controller('logController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "$q", function ($scope, inmantaService, $stateParams, BackhaulTable, $q) {
     $stateParams.id = window.decodeURIComponent($stateParams.id)
     $scope.state = $stateParams
     $scope.version = $stateParams.id.substring($stateParams.id.lastIndexOf("=") + 1)
@@ -36,14 +36,14 @@ resv.controller('logController', ['$scope', 'imperaService', "$stateParams", "Ba
             'timestamp': 'desc' // initial sorting
         }
     }, function (prms) {
-        return imperaService.getLogForResource($stateParams.env, $stateParams.id).then(function (info) {
+        return inmantaService.getLogForResource($stateParams.env, $stateParams.id).then(function (info) {
             var data = info.logs;
             $scope.resource = info.resource;
             return data;
         });
     });
 
-    imperaService.getEnvironment($stateParams.env).then(function (d) {
+    inmantaService.getEnvironment($stateParams.env).then(function (d) {
         $scope.env = d
     });
 

@@ -1,11 +1,11 @@
 
-var imperApi = angular.module('inmanta.services.userservice',['imperaApi.config','dialogs.main','ImperaApp.login','impera.services.time'])
+var inmantaApi = angular.module('inmanta.services.userservice',['inmantaApi.config','dialogs.main', 'InmantaApp.login','inmanta.services.time'])
 
-imperApi.service('userService',
-	["imperaConfig", "$q", "$rootScope", "$injector", "timeSrv", function(imperaConfig,$q,$rootScope, $injector, timeSrv) {
+inmantaApi.service('userService',
+	["inmantaConfig", "$q", "$rootScope", "$injector", "timeSrv", function(inmantaConfig,$q,$rootScope, $injector, timeSrv) {
 
     var api = {}	
-    var impURL = imperaConfig.backend;
+    var impURL = inmantaConfig.backend;
     var stored_token = ""
     var running = false
 

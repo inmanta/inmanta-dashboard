@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.resourceView', ['ui.router', 'imperaApi', 'ngTable', 'dialogs.main', 'ImperaApp.resourceDetail','ImperaApp.fileDetail','impera.services.backhaul'])
+var resv = angular.module('InmantaApp.resourceView', ['ui.router', 'inmantaApi', 'ngTable', 'dialogs.main', 'InmantaApp.resourceDetail','InmantaApp.fileDetail','inmanta.services.backhaul'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -23,25 +23,25 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('resourceButtonController',['$scope','$rootScope', 'imperaService', "$stateParams",
-    function($scope, $rootScope, imperaService, $stateParams) {
+resv.controller('resourceButtonController',['$scope','$rootScope', 'inmantaService', "$stateParams",
+    function($scope, $rootScope, inmantaService, $stateParams) {
          $scope.dryrun = function() {
-            imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){
+            inmantaService.dryrun($stateParams.env,$stateParams.version).then(function(d){
                 $scope.dryrunid=d.id
                 $rootScope.$broadcast('refresh')
             });     
         }
         
         $scope.deploy = function() {
-            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
+            inmantaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
           
         }
     }
 ])
     
 
-resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "$stateParams", "BackhaulTable", "dialogs","$q",
-    function($scope, $rootScope, imperaService, $stateParams, BackhaulTable, dialogs,$q) {
+resv.controller('resourceController', ['$scope','$rootScope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs","$q",
+    function($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs,$q) {
         
         $scope.state = $stateParams
         $scope.toHighlight = null
@@ -54,7 +54,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
 
         $scope.deploy = function() {
-            imperaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
+            inmantaService.deploy($stateParams.env,$stateParams.version,true).then(function(d){$rootScope.$broadcast('refresh')});
         }
       
 
@@ -65,7 +65,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
                 'entity_type': 'asc' // initial sorting
             }
         }, function(params){
-                    return imperaService.getResources($stateParams.env, $stateParams.version).then(function(info) {
+                    return inmantaService.getResources($stateParams.env, $stateParams.version).then(function(info) {
 
                     $scope.status = info.model
  
@@ -154,7 +154,7 @@ resv.controller('resourceController', ['$scope','$rootScope', 'imperaService', "
 
 
         $scope.resources = null
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+    inmantaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
 

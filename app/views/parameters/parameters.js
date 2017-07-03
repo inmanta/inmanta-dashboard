@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.parametersView', ['ui.router', 'imperaApi', 'ngTable'])
+var resv = angular.module('InmantaApp.parametersView', ['ui.router', 'inmantaApi', 'ngTable'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -23,7 +23,7 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", "BackhaulTable","$q", function($scope, imperaService, $stateParams, BackhaulTable, $q) {
+resv.controller('paramsController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable","$q", function($scope, inmantaService, $stateParams, BackhaulTable, $q) {
 
     $scope.state = $stateParams
 
@@ -34,7 +34,7 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
             'id_fields.entity_type': 'asc' // initial sorting
         }
     }, function(params){
-           return imperaService.getParameters($stateParams.env).then(function(info) {
+           return inmantaService.getParameters($stateParams.env).then(function(info) {
                 var data = info.parameters
                 $scope.expire = info.expire
                 var timeInMs = Date.now();
@@ -52,7 +52,7 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
 
     });
     $scope.resources = null
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+    inmantaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
 
@@ -64,7 +64,7 @@ resv.controller('paramsController', ['$scope', 'imperaService', "$stateParams", 
     }
 
     $scope.getValue = function(param){
-       imperaService.getParameter($scope.state.env,param.in.name,param.in.resource_id).then(function(d){
+       inmantaService.getParameter($scope.state.env,param.in.name,param.in.resource_id).then(function(d){
            param.out = d;
            param.value = d.value;
            param.show = true

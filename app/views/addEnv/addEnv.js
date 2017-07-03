@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.addEnv', ['ui.router','imperaApi','ngTable'])
+var resv = angular.module('InmantaApp.addEnv', ['ui.router','inmantaApi','ngTable'])
 
 resv.config(["$stateProvider", function($stateProvider) {
  $stateProvider
@@ -21,7 +21,7 @@ resv.config(["$stateProvider", function($stateProvider) {
     })
 }]);
 
-resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$stateParams','$rootScope', function($scope, imperaService, $state,$stateParams,$rootScope) {
+resv.controller('addEnvController', ['$scope', 'inmantaService', '$state','$stateParams','$rootScope', function($scope, inmantaService, $state,$stateParams,$rootScope) {
  
     $scope.name = null;
 
@@ -30,7 +30,7 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$state
     $scope.ready = function(){
         return $scope.selectedProject;
     }
-    imperaService.getProjects().then(function(data) {
+    inmantaService.getProjects().then(function(data) {
         $scope.projects = data;
         if($stateParams["project"]){
             
@@ -41,7 +41,7 @@ resv.controller('addEnvController', ['$scope', 'imperaService', '$state','$state
     
     $scope.addEnv = function(project,name,repo,tag){
         //console.log(project,name,repo,tag)
-        imperaService.addEnvironment(project,name,repo,tag).then(function(d){$rootScope.$broadcast('refresh'); $state.go("envs",{ env:d.id })})
+        inmantaService.addEnvironment(project,name,repo,tag).then(function(d){$rootScope.$broadcast('refresh'); $state.go("envs",{ env:d.id })})
     }
 
     

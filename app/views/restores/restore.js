@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.restoreView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul','ImperaApp.inputDialog'])
+var resv = angular.module('InmantaApp.restoreView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul','InmantaApp.inputDialog'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -21,22 +21,22 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.controller('restoreDialogCtrl',['$scope','$modalInstance','data','$stateParams','imperaService',
-        function($scope,$modalInstance,data,$stateParams,imperaService) {
+resv.controller('restoreDialogCtrl',['$scope','$modalInstance','data','$stateParams','inmantaService',
+        function($scope,$modalInstance,data,$stateParams,inmantaService) {
 	//-- Variables -----//
-   imperaService.getEnvironmentsWithProject().then(function(f){
+   inmantaService.getEnvironmentsWithProject().then(function(f){
         $scope.envs = f
    });
    
    
-   imperaService.getSnapshots($stateParams.env).then(function(f){
+   inmantaService.getSnapshots($stateParams.env).then(function(f){
         $scope.snapshots = f
    });
 
 	//-- Methods -----//
 	
 	$scope.done = function() {
-	    imperaService.restoreSnapshot($scope.env.id,$scope.snapshot.id).then(function(d){$modalInstance.close(d);});
+	    inmantaService.restoreSnapshot($scope.env.id,$scope.snapshot.id).then(function(d){$modalInstance.close(d);});
 	    
 	}
 	
@@ -46,8 +46,8 @@ resv.controller('restoreDialogCtrl',['$scope','$modalInstance','data','$statePar
 }]);
 
 
-resv.controller('restoreController', ['$scope', '$rootScope', 'imperaService', "$stateParams", "BackhaulTable","dialogs",
-    function($scope, $rootScope, imperaService, $stateParams, BackhaulTable,dialogs ) {
+resv.controller('restoreController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable","dialogs",
+    function($scope, $rootScope, inmantaService, $stateParams, BackhaulTable,dialogs ) {
        $scope.state = $stateParams
        $scope.tableParams = new BackhaulTable($scope,{
             page: 1, // show first page
@@ -56,13 +56,13 @@ resv.controller('restoreController', ['$scope', '$rootScope', 'imperaService', "
                 'started': 'desc' // initial sorting
             }
         }, function(params){
-                    return  imperaService.getEnrichedRestores($stateParams.env)
+                    return  inmantaService.getEnrichedRestores($stateParams.env)
         });
         
        $scope.deleteRestore = function(id){
             var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the restore " + id);
 		    dlg.result.then(function(btn){
-                imperaService.deleteRestore($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
+                inmantaService.deleteRestore($stateParams.env,id).then( function(){$rootScope.$broadcast('refresh');});
 	        })  
        }
 

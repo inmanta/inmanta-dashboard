@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         }      
     },
     ngtemplates:  {     
-        ImperaApp:        {
+        InmantaApp:        {
                 src: ['**/*.html','!index.html','!bower_components/**/*.html'],
                 dest: 'build/templates.js',
                 cwd: 'app'

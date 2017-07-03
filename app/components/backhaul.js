@@ -1,4 +1,4 @@
-var services = angular.module('impera.services.backhaul',['ngTable'])
+var services = angular.module('inmanta.services.backhaul',['ngTable'])
 
 
 //tricky little service to cause data to be reloaded upon a refresh event

@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.formsView', ['ui.router', 'imperaApi', 'ngTable','impera.services.backhaul'])
+var resv = angular.module('InmantaApp.formsView', ['ui.router', 'inmantaApi', 'ngTable','inmanta.services.backhaul'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -23,7 +23,7 @@ resv.config(["$stateProvider", function($stateProvider) {
         })
 }]);
 
-resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$rootScope', function(imperaService, dialogs,BackhaulTable,$rootScope) {
+resv.directive('recordEditor', ['inmantaService', 'dialogs','BackhaulTable','$rootScope', function(inmantaService, dialogs,BackhaulTable,$rootScope) {
     return {
         restrict: 'E',
         scope: {
@@ -42,7 +42,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
                             page: 1, // show first page
                             count: 50 // count per page
                     }, function(params){
-                            return imperaService.getFullRecords(scope.env, scope.type).then(function(f){
+                            return inmantaService.getFullRecords(scope.env, scope.type).then(function(f){
                                 scope.allRecords = f;
                                 return f;
                             })
@@ -50,7 +50,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
                         }
                     )
                     
-                    imperaService.getForm(scope.env, scope.type).then(
+                    inmantaService.getForm(scope.env, scope.type).then(
                         function(form) {
                             scope.selectedForm = form
                             scope.cols.length = 0
@@ -135,7 +135,7 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
             scope.delete = function(rec){
                 var dlg = dialogs.confirm("Confirm delete","Do you really want to delete the record " + rec);
 		        dlg.result.then(function(btn){
-			        imperaService.deleteRecord(scope.env,rec.id).then(function(){$rootScope.$broadcast('refresh')});
+			        inmantaService.deleteRecord(scope.env,rec.id).then(function(){$rootScope.$broadcast('refresh')});
 		        })
                 
             }
@@ -162,17 +162,17 @@ resv.directive('recordEditor', ['imperaService', 'dialogs','BackhaulTable','$roo
         }
     }
 }])
-resv.controller('formsController', ['$scope', 'imperaService', "$stateParams",function($scope, imperaService, $stateParams) {
+resv.controller('formsController', ['$scope', 'inmantaService', "$stateParams",function($scope, inmantaService, $stateParams) {
 
     $scope.state = $stateParams
   
 
     function load(){
-        imperaService.getForms($stateParams.env).then(function(forms){
+        inmantaService.getForms($stateParams.env).then(function(forms){
             $scope.forms=forms
         })
 
-        imperaService.getUnkownsForEnv($stateParams.env).then(function(unknowns){
+        inmantaService.getUnkownsForEnv($stateParams.env).then(function(unknowns){
             $scope.unknowns=unknowns.filter(function(unknown){return unknown.source=='form'}).map(function(unknown){
                 return unknown.metadata.form
             })
@@ -192,7 +192,7 @@ resv.controller('formsController', ['$scope', 'imperaService', "$stateParams",fu
    
 }]);
 
-resv.controller('formDialogController', ['$scope', 'imperaService', "$stateParams",'$modalInstance','data',function($scope, imperaService, $stateParams,$modalInstance,data) {
+resv.controller('formDialogController', ['$scope', 'inmantaService', "$stateParams",'$modalInstance','data',function($scope, inmantaService, $stateParams,$modalInstance,data) {
 
     $scope.state = $stateParams
     
@@ -280,9 +280,9 @@ resv.controller('formDialogController', ['$scope', 'imperaService', "$stateParam
     
     var save = function(rec){
             if(!rec.id){
-                return imperaService.createRecord($stateParams.env,rec.form_type,rec.fields);
+                return inmantaService.createRecord($stateParams.env,rec.form_type,rec.fields);
             }else{
-                return imperaService.updateRecord($stateParams.env,rec.id,rec.fields);
+                return inmantaService.updateRecord($stateParams.env,rec.id,rec.fields);
             }
     }
 

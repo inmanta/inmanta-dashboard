@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module('ImperaApp.portalView', ['ui.router', 'imperaApi'])
+var module = angular.module('InmantaApp.portalView', ['ui.router', 'inmantaApi'])
 
 module.config(['$stateProvider', function($stateProvider) {
     $stateProvider
@@ -20,16 +20,16 @@ module.config(['$stateProvider', function($stateProvider) {
         })
 }]);
 
-module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '$stateParams','$state','dialogs', function($scope,$rootScope, imperaService, $stateParams, $state, dialogs) {
+module.controller('PortalController', ['$scope','$rootScope', 'inmantaService', '$stateParams','$state','dialogs', function($scope,$rootScope, inmantaService, $stateParams, $state, dialogs) {
     $scope.state = $stateParams
     
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+    inmantaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
     
     
     var getReport = function(){
-        imperaService.getReportParameters($stateParams.env).then(function(d) {
+        inmantaService.getReportParameters($stateParams.env).then(function(d) {
             $scope.report = d
         });
     }
@@ -40,7 +40,7 @@ module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '
     
     var alertForUnknown = function(){
    
-        imperaService.getUnkownsForEnv($stateParams.env).then(function(unknowns){
+        inmantaService.getUnkownsForEnv($stateParams.env).then(function(unknowns){
             var unknowns = unknowns.filter(function(unknown){return unknown.source=='form'})
             var out = {}
             unknowns.forEach(function (unknown){out[unknown.metadata.form]=unknown})
@@ -56,7 +56,7 @@ module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '
     
     
     var getVersionsHelper = function(range){
-        imperaService.getVersionsPaged($stateParams.env, 0, range).then(
+        inmantaService.getVersionsPaged($stateParams.env, 0, range).then(
             function(d){
                 var total = d.count
 
@@ -107,14 +107,14 @@ module.controller('PortalController', ['$scope','$rootScope', 'imperaService', '
     
      $scope.startDryRun = function(res) {
             var resVersion = res.version 
-            imperaService.dryrun($stateParams.env,resVersion).then(function(d){
+            inmantaService.dryrun($stateParams.env,resVersion).then(function(d){
                 $rootScope.$broadcast('refresh')
             });     
     }
 
     $scope.deploy = function(res) {
         var resVersion = res.version 
-        imperaService.deploy($stateParams.env,resVersion,true).then(function(d){$rootScope.$broadcast('refresh')});          
+        inmantaService.deploy($stateParams.env,resVersion,true).then(function(d){$rootScope.$broadcast('refresh')});          
     }
    
 }])

@@ -1,8 +1,8 @@
 'use strict';
 
-var rscdet = angular.module('ImperaApp.inputDialog', ['imperaApi','dialogs.main'])
+var rscdet = angular.module('InmantaApp.inputDialog', ['inmantaApi','dialogs.main'])
 
-rscdet.controller('inputDialogCtrl',['$scope','$modalInstance','data','imperaService',function($scope,$modalInstance,data,imperaService){
+rscdet.controller('inputDialogCtrl',['$scope','$modalInstance','data','inmantaService',function($scope,$modalInstance,data,inmantaService){
 	//-- Variables -----//
 
 	$scope.header = data.header ;

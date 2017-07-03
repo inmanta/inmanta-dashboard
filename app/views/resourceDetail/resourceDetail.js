@@ -1,6 +1,6 @@
 'use strict';
 
-var rscdet = angular.module('ImperaApp.resourceDetail', ['imperaApi','dialogs.main'])
+var rscdet = angular.module('InmantaApp.resourceDetail', ['inmantaApi','dialogs.main'])
 
 rscdet.controller('resourceDetailCtrl',['$scope','$modalInstance','data',"dialogs",function($scope,$modalInstance,data,dialogs){
 	//-- Variables -----//

@@ -1,6 +1,6 @@
 'use strict';
 
-var resv = angular.module('ImperaApp.controllers.refresh', ['impera.services.time'])
+var resv = angular.module('InmantaApp.controllers.refresh', ['inmanta.services.time'])
 
 resv.controller('refreshController',['$scope','timeSrv',function($scope,timeSrv){
      $scope.timeSrv = timeSrv

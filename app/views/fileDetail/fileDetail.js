@@ -1,15 +1,15 @@
 'use strict';
 
-var rscdet = angular.module('ImperaApp.fileDetail', ['imperaApi','dialogs.main'])
+var rscdet = angular.module('InmantaApp.fileDetail', ['inmantaApi','dialogs.main'])
 
-rscdet.controller('fileDetailCtrl',['$scope','$modalInstance','data','imperaService',function($scope,$modalInstance,data,imperaService){
+rscdet.controller('fileDetailCtrl',['$scope','$modalInstance','data','inmantaService',function($scope,$modalInstance,data,inmantaService){
 	//-- Variables -----//
 
 	$scope.header = "Details for " + data.resource.id ;
     $scope.id = data.resource.attributes.hash;
    	$scope.icon = 'glyphicon glyphicon-info-sign';
     $scope.content=""
-    imperaService.getFile($scope.id).then(function(f){
+    inmantaService.getFile($scope.id).then(function(f){
         $scope.content = f.content
     })
     

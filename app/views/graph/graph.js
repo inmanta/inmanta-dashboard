@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('ImperaApp.graphView', ['ui.router', 'imperaApi','dialogs.main','ImperaApp.resourceDetail'])
+var resv = angular.module('InmantaApp.graphView', ['ui.router', 'inmantaApi','dialogs.main','InmantaApp.resourceDetail'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -25,11 +25,11 @@ resv.config(["$stateProvider", function($stateProvider) {
 
 
 
-resv.controller('graphController', ['$scope', 'imperaService', "$stateParams","dialogs",
-            function($scope, imperaService, $stateParams,dialogs) {
+resv.controller('graphController', ['$scope', 'inmantaService', "$stateParams","dialogs",
+            function($scope, inmantaService, $stateParams,dialogs) {
 		
 $scope.dryrun = function() {
-             imperaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
+             inmantaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
             
         }
 
@@ -64,7 +64,7 @@ function getColorCode(type) {
         
 
         $scope.resources = null
-    imperaService.getEnvironment($stateParams.env).then(function(d) {
+    inmantaService.getEnvironment($stateParams.env).then(function(d) {
         $scope.env = d
     });
 
@@ -108,7 +108,7 @@ function getColorCode(type) {
         zoom.translate([0,-(height-window.innerHeight)*0.5])
         zoom.event(d3.select("#chart"))
 
-                imperaService.getResources($stateParams.env, $stateParams.version).then(function(json) {
+                inmantaService.getResources($stateParams.env, $stateParams.version).then(function(json) {
                     var idcounter = 0;
                     var idx = {}
                     var midx = {}
