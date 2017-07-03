@@ -1,6 +1,8 @@
 <div class="modal-header dialog-header-confirm">
     <button type="button" class="close" ng-click="close()">&times;</button>
-    <h4 class="modal-title"><span class="{{icon}}"></span> {{header}}</h4></div>
+    <h4 class="modal-title"><span class="{{icon}}"></span> {{header}}</h4>
+</div>
+
 <div class="modal-body">
     <div><strong> ID: </strong> {{data.id}} </div>
     <div><strong> State: </strong> {{data.state}} </div>
@@ -8,12 +10,9 @@
         <strong> {{detail}}: </strong> <span ng-hide="hide"> {{data.attributes[detail]}} </span> 
         <button ng-hide="!hide" ng-click="hide=false" class="btn btn-xs btn-link"> *** </button> 
     </div>
-
 </div>
 
-
 <div class="modal-footer">
-
     <a ui-sref="logs({env:env,id:data.id})"> <button type="button" class="btn btn-default"  ng-click="close()">View Log</button></a>
 
     <button type="button" class="btn btn-default" ng-if="data.attributes.hash" ng-click="open()">Open File</button>
