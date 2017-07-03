@@ -13,11 +13,14 @@
     <table class="table table-lined" ng-table="tableParams" show-filter="true">
         <tbody ng-repeat="log in $data">
             <tr>
-                <td> <i ng-click="log.open=!log.open" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': log.open, 'glyphicon-chevron-right': !log.open}"></i></td>
-                <td data-title="'Action'" data-sortable="'action'" filter="{ 'action':'text'}" >{{log.action}}</td>
-                <td data-title="'Started'" data-sortable="'started'" filter="{ 'started':'text'}">{{log.started|date:'dd/MM/yyyy HH:mm:ss.sss'}}</td>
-                <td data-title="'Finished'" data-sortable="'finished'" filter="{ 'finished':'text'}">{{log.finished|date:'dd/MM/yyyy HH:mm:ss.sss'}}</td>
-                <td data-title="'Status'" data-sortable="'status'" filter="{ 'status':'text'}" >{{log.status}}</td>
+                <td class="col-md-1">
+                    <span ng-click="log.open=!log.open" class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': log.open, 'glyphicon-chevron-right': !log.open}"></span>
+                    <span class="pull-right badge">+{{log.messages.length}} </span>
+                </td>
+                <td class="col-md-2" data-title="'Action'" data-sortable="'action'" filter="{ 'action':'text'}" >{{log.action}}</td>
+                <td class="col-md-3" data-title="'Started'" data-sortable="'started'" filter="{ 'started':'text'}">{{log.started|date:'dd/MM/yyyy HH:mm:ss.sss'}}</td>
+                <td class="col-md-3" data-title="'Finished'" data-sortable="'finished'" filter="{ 'finished':'text'}">{{log.finished|date:'dd/MM/yyyy HH:mm:ss.sss'}}</td>
+                <td class="col-md-3" data-title="'Status'" data-sortable="'status'" filter="{ 'status':'text'}" >{{log.status}}</td>
             </tr>
             <tr ng-repeat="line in log.messages" class="accordian-body collapse" collapse="!log.open">
                 <td></td>

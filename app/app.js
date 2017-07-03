@@ -40,7 +40,7 @@ var app = angular.module('InmantaApp', [
 
 app.config(["$urlRouterProvider", function ($urlRouterProvider) {
     $urlRouterProvider.otherwise("/projects");
-}])
+}]);
 
 app.controller("configCtrl", ["$scope", "inmantaConfig", "dialogs", function ($scope, inmantaConfig, dialogs) {
     $scope.config = inmantaConfig;
@@ -62,7 +62,7 @@ app.service("alertService", ["$rootScope", function alertService($rootScope) {
             alerts.push({ type: type, msg: data, times: 1 })
         }
         $rootScope.$broadcast("alert-update", alerts)
-    }
+    };
     return alertService;
 }]);
 
@@ -71,15 +71,15 @@ app.config(["$httpProvider", function ($httpProvider) {
         return {
             'responseError': function (rejection) {
                 if (rejection.status == 403) {
-                    userService.got_403(rejection)
+                    userService.got_403(rejection);
                     return $q.reject(rejection);
                 }
 
-                var alert = rejection.data ? rejection.data.message : rejection.statusText
+                var alert = rejection.data ? rejection.data.message : rejection.statusText;
                 if (!alert) {
                     alert = "Could not connect to server";
                 }
-                alertService.add("danger", alert)
+                alertService.add("danger", alert);
                 return $q.reject(rejection);
             }
         }
@@ -87,12 +87,12 @@ app.config(["$httpProvider", function ($httpProvider) {
 }]);
 
 app.controller("alertCtrl", ["$scope", "inmantaService", function ($scope, inmantaService) {
-    $scope.alerts = []
-    $scope.env = null
+    $scope.alerts = [];
+    $scope.env = null;
 
     $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        $scope.alerts.length = 0
-        $scope.env = toParams['env']
+        $scope.alerts.length = 0;
+        $scope.env = toParams['env'];
 
     })
 
