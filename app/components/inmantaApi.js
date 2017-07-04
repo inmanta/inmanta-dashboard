@@ -39,7 +39,7 @@ function formateVersion(d) {
 
 
 inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFactory", "$rootScope", "alertService", function Nodeservice($http, inmantaConfig, $q, $cacheFactory, $rootScope, alertService) {
-    var impAPI = {};
+    var inmantaAPI = {};
     var impURL = inmantaConfig.backend;
     var envCache = {};
     var projCache = {};
@@ -78,15 +78,15 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     }
 
     //project
-    impAPI.getProjects = function () {
+    inmantaAPI.getProjects = function () {
         return $http.get(impURL + 'project').then(function (data) {
             data.data.projects.forEach(function (d) { projCache[d.id] = d })
             return data.data.projects;
         });
     };
 
-    impAPI.getProjectsAndEnvironments = function () {
-        return $q.all({ projects: impAPI.getProjects(), envs: impAPI.getEnvironments() }).then(
+    inmantaAPI.getProjectsAndEnvironments = function () {
+        return $q.all({ projects: inmantaAPI.getProjects(), envs: inmantaAPI.getEnvironments() }).then(
             function (d) {
                 var projects = angular.copy(d.projects);
                 var proI = {};
@@ -97,13 +97,13 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         );
     };
 
-    impAPI.getProject = function (project_id) {
+    inmantaAPI.getProject = function (project_id) {
         if (projCache[project_id]) {
             var out = $q.defer();
             out.resolve(projCache[project_id]);
             return out.promise;
         } else {
-            //                return impAPI.getProjects().then(function(){return projCache[project_id];});
+            //                return inmantaAPI.getProjects().then(function(){return projCache[project_id];});
             return $http.get(impURL + 'project/' + project_id).then(function (data) {
                 projCache[data.data.project.id] = data.data.project;
                 return data.data.project;
@@ -111,52 +111,52 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         }
     };
 
-    impAPI.addProject = function (name) {
+    inmantaAPI.addProject = function (name) {
         return $http.put(impURL + 'project', { 'name': name }).then(function (data) {
             defaultCache.removeAll();
             return data.data.project;
         });
     };
 
-    impAPI.removeProject = function (id) {
+    inmantaAPI.removeProject = function (id) {
         return $http.delete(impURL + 'project/' + id);
     };
 
-    impAPI.decommission = function (id) {
+    inmantaAPI.decommission = function (id) {
         return $http.post(impURL + 'decommission/' + id);
     };
 
     //environment
-    impAPI.addEnvironment = function (projectid, name, repo_url, repo_branch) {
+    inmantaAPI.addEnvironment = function (projectid, name, repo_url, repo_branch) {
         return $http.put(impURL + 'environment', { 'project_id': projectid, 'name': name, 'repository': repo_url, 'branch': repo_branch }).then(function (data) { return data.data.environment; });
     };
 
-    impAPI.clone = function (envid, name) {
-        return impAPI.getEnvironment(envid).then(function (env) {
-            return impAPI.addEnvironment(env.project, name, env.repo_url, env.repo_branch);
+    inmantaAPI.clone = function (envid, name) {
+        return inmantaAPI.getEnvironment(envid).then(function (env) {
+            return inmantaAPI.addEnvironment(env.project, name, env.repo_url, env.repo_branch);
         })
     }
 
-    impAPI.editEnvironment = function (env) {
+    inmantaAPI.editEnvironment = function (env) {
         return $http.post(impURL + 'environment/' + env.id, { 'id': env.id, 'name': env.name, 'repository': env.repo_url, 'branch': env.repo_branch }).then(function (data) {
             envCache[env.id] = data.data.environment;
             return data.data.environment;
         });
     }
 
-    impAPI.removeEnvironment = function (envid) {
+    inmantaAPI.removeEnvironment = function (envid) {
         return $http.delete(impURL + 'environment/' + envid);
     };
 
-    impAPI.getEnvironments = function () {
+    inmantaAPI.getEnvironments = function () {
         return $http.get(impURL + 'environment').then(function (data) {
             data.data.environments.forEach(function (d) { envCache[d.id] = d })
             return data.data.environments;
         });
     };
 
-    impAPI.getEnvironmentsByProject = function (project_id) {
-        return impAPI.getEnvironments().then(function (data) {
+    inmantaAPI.getEnvironmentsByProject = function (project_id) {
+        return inmantaAPI.getEnvironments().then(function (data) {
             var out = [];
             data.forEach(function (env) {
                 if (env.project == project_id) {
@@ -168,8 +168,8 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
 
     }
 
-    impAPI.getEnvironmentsWithProject = function () {
-        return $q.all({ projects: impAPI.getProjects(), envs: impAPI.getEnvironments() }).then(
+    inmantaAPI.getEnvironmentsWithProject = function () {
+        return $q.all({ projects: inmantaAPI.getProjects(), envs: inmantaAPI.getEnvironments() }).then(
             function (d) {
                 var projects = d.projects;
                 var proI = {};
@@ -181,7 +181,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         )
     }
 
-    impAPI.getEnvironment = function (id) {
+    inmantaAPI.getEnvironment = function (id) {
         if (envCache[id]) {
             var out = $q.defer()
             out.resolve(envCache[id])
@@ -195,7 +195,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     }
 
     //agent
-    impAPI.getAgentProcs = function () {
+    inmantaAPI.getAgentProcs = function () {
         return $http.get(impURL + 'agentproc').then(function (data) {
 
             data.data.processes.forEach(function (proc) {
@@ -207,7 +207,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         });
     }
 
-    impAPI.getAgentProcess = function (env, id) {
+    inmantaAPI.getAgentProcess = function (env, id) {
         return $http.get(impURL + 'agentproc?environment=' + env).then(
             function (data) {
                 var out = null
@@ -221,13 +221,13 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     }
 
-    impAPI.getAgentprocDetais = function (procid) {
+    inmantaAPI.getAgentprocDetais = function (procid) {
         return $http.get(impURL + 'agentproc/' + procid).then(function (data) {
             return data.data
         });
     };
 
-    impAPI.getAgents = function (env) {
+    inmantaAPI.getAgents = function (env) {
         return $http.get(impURL + 'agent', { headers: { "X-Inmanta-tid": env } }).then(function (data) {
 
             data.data.agents.forEach(function (agent) {
@@ -238,7 +238,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
     //resources
-    impAPI.getVersions = function (env) {
+    inmantaAPI.getVersions = function (env) {
         checkEnv(env)
         return $http.get(impURL + 'version', { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -247,11 +247,11 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    impAPI.deleteVersion = function (env, version) {
+    inmantaAPI.deleteVersion = function (env, version) {
         return $http.delete(impURL + 'version/' + version, { headers: { "X-Inmanta-tid": env } })
     };
 
-    impAPI.getVersionsPaged = function (env, from, count) {
+    inmantaAPI.getVersionsPaged = function (env, from, count) {
         checkEnv(env)
         return $http.get(impURL + 'version?start=' + from + '&limit=' + count, { headers: { "X-Inmanta-tid": env } })
             .then(
@@ -262,7 +262,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
 
-    impAPI.getResources = function (env, version) {
+    inmantaAPI.getResources = function (env, version) {
         checkEnv(env)
         return $http.get(impURL + 'version/' + version, { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -271,7 +271,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
 
-    impAPI.getResourcesState = function (env) {
+    inmantaAPI.getResourcesState = function (env) {
         checkEnv(env)
         return $http.get(impURL + 'environment/' + env + '?resources=1&versions=5').then(
             function (data) {
@@ -279,7 +279,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     }
     //resource has version in id!
-    impAPI.getResource = function (env, id) {
+    inmantaAPI.getResource = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'resource/' + window.encodeURIComponent(id) + "?logs=", { headers: { 'X-Inmanta-tid': env } }).then(
             function (data) {
@@ -288,18 +288,18 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
 
-    impAPI.getUnkownsForEnv = function (env) {
-        return impAPI.getVersions(env).then(function (f) {
+    inmantaAPI.getUnkownsForEnv = function (env) {
+        return inmantaAPI.getVersions(env).then(function (f) {
             if (!f.versions || f.versions.length == 0) {
                 return []
             }
-            return impAPI.getResources(env, f.versions[0].version).then(function (f) {
+            return inmantaAPI.getResources(env, f.versions[0].version).then(function (f) {
                 return f.unknowns
             })
         })
     }
     //parameters
-    impAPI.getParameters = function (env) {
+    inmantaAPI.getParameters = function (env) {
         checkEnv(env)
         return $http.post(impURL + 'parameter', {}, { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -309,9 +309,9 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    impAPI.getReportParameters = function (env) {
+    inmantaAPI.getReportParameters = function (env) {
         checkEnv(env)
-        return impAPI.getParameters(env).then(function (f) {
+        return inmantaAPI.getParameters(env).then(function (f) {
             return f.parameters.filter(function (v) {
                 return v.metadata && v.metadata.type == "report"
             })
@@ -319,7 +319,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
 
-    impAPI.getParameter = function (env, name, resource) {
+    inmantaAPI.getParameter = function (env, name, resource) {
         checkEnv(env)
         return $http.get(impURL + 'parameter/' + window.encodeURIComponent(name) + "?resource_id=" + window.encodeURIComponent(resource), { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -343,7 +343,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         return rec
     }
 
-    impAPI.getForms = function (env) {
+    inmantaAPI.getForms = function (env) {
         checkEnv(env)
         return $http.get(impURL + 'form', { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -351,7 +351,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    impAPI.getForm = function (env, id) {
+    inmantaAPI.getForm = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'form/' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -359,7 +359,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    impAPI.getFullRecords = function (env, id) {
+    inmantaAPI.getFullRecords = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'records?include_record=true&form_type=' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -369,7 +369,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
 
-    impAPI.getRecord = function (env, id) {
+    inmantaAPI.getRecord = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'records/' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -377,7 +377,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    impAPI.deleteRecord = function (env, id) {
+    inmantaAPI.deleteRecord = function (env, id) {
 
         return $http.delete(impURL + 'records/' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } }).then(
             function (f) {
@@ -386,7 +386,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             })
     };
 
-    impAPI.createRecord = function (env, type, fields) {
+    inmantaAPI.createRecord = function (env, type, fields) {
         var newf = {}
         angular.forEach(fields, function (v, k) { newf[k] = String(v) })
         return $http.post(impURL + 'records', { form_type: type, form: newf }, { headers: { "X-Inmanta-tid": env } }).then(
@@ -396,7 +396,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             })
     };
 
-    impAPI.updateRecord = function (env, id, fields) {
+    inmantaAPI.updateRecord = function (env, id, fields) {
         var newf = {}
         angular.forEach(fields, function (v, k) { newf[k] = String(v) })
         return $http.put(impURL + 'records/' + window.encodeURIComponent(id), { form: newf }, { headers: { "X-Inmanta-tid": env } }).then(
@@ -411,7 +411,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         d["finished"] = formatDate(d["finished"]);
     }
 
-    impAPI.getSnapshots = function (env) {
+    inmantaAPI.getSnapshots = function (env) {
         checkEnv(env)
         return $http.get(impURL + 'snapshot', { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -420,7 +420,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     }
 
-    impAPI.getSnapshot = function (env, id) {
+    inmantaAPI.getSnapshot = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'snapshot/' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
@@ -429,28 +429,28 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             })
     }
 
-    impAPI.deleteSnapshot = function (env, id) {
+    inmantaAPI.deleteSnapshot = function (env, id) {
         checkEnv(env)
         return $http.delete(impURL + 'snapshot/' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } })
     }
 
-    impAPI.createSnapshot = function (env, name) {
+    inmantaAPI.createSnapshot = function (env, name) {
         checkEnv(env)
         return $http.post(impURL + 'snapshot', { name: name }, { headers: { "X-Inmanta-tid": env } })
     }
 
-    impAPI.restoreSnapshot = function (env, id) {
+    inmantaAPI.restoreSnapshot = function (env, id) {
         return $http.post(impURL + 'restore', { snapshot: id }, { headers: { "X-Inmanta-tid": env } })
     }
 
-    impAPI.getAllSnapshots = function (env) {
+    inmantaAPI.getAllSnapshots = function (env) {
         var out = $q.defer()
 
-        impAPI.getSnapshots(env).then(function (recs) {
+        inmantaAPI.getSnapshots(env).then(function (recs) {
             $q.all(
                 recs.map(
                     function (r) {
-                        return impAPI.getSnapshot(env, r.id)
+                        return inmantaAPI.getSnapshot(env, r.id)
                     }
                 )
             ).then(out.resolve)
@@ -463,7 +463,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         d["started"] = formatDate(d["started"]);
         d["finished"] = formatDate(d["finished"]);
     }
-    impAPI.getRestores = function (env) {
+    inmantaAPI.getRestores = function (env) {
         return $http.get(impURL + 'restore', { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
                 data.data.restores.forEach(formatRestore)
@@ -471,14 +471,14 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     }
 
-    impAPI.getEnrichedRestores = function (env) {
+    inmantaAPI.getEnrichedRestores = function (env) {
         var out = $q.defer()
 
-        impAPI.getRestores(env).then(function (rest) {
+        inmantaAPI.getRestores(env).then(function (rest) {
             $q.all(
                 rest.map(
                     function (r) {
-                        return impAPI.getSnapshot(env, r.snapshot).then(function (f) {
+                        return inmantaAPI.getSnapshot(env, r.snapshot).then(function (f) {
                             r['snapshot_full'] = f
                             r['snapshot_id'] = f.name
                             return r
@@ -494,13 +494,13 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         return out.promise
     }
 
-    impAPI.deleteRestore = function (env, id) {
+    inmantaAPI.deleteRestore = function (env, id) {
         return $http.delete(impURL + 'restore/' + window.encodeURIComponent(id), { headers: { "X-Inmanta-tid": env } })
     }
 
 
     //deploy
-    impAPI.deploy = function (env, version, push) {
+    inmantaAPI.deploy = function (env, version, push) {
         return $http.post(impURL + 'version/' + version, { 'push': push }, { headers: { 'X-Inmanta-tid': env } }).then(
             function (data) {
                 return data.data;
@@ -529,7 +529,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
 
     }
 
-    impAPI.dryrun = function (env, version) {
+    inmantaAPI.dryrun = function (env, version) {
         checkEnv(env)
         return $http.post(impURL + 'dryrun/' + version, {}, { headers: { 'X-Inmanta-tid': env } }).then(
             function (data) {
@@ -538,7 +538,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    impAPI.getDryruns = function (env, version) {
+    inmantaAPI.getDryruns = function (env, version) {
         checkEnv(env)
         if (version) {
             return $http.get(impURL + 'dryrun?version=' + version, { headers: { 'X-Inmanta-tid': env } }).then(
@@ -556,7 +556,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
 
     };
 
-    impAPI.getDryrun = function (env, id) {
+    inmantaAPI.getDryrun = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'dryrun/' + window.encodeURIComponent(id), { headers: { 'X-Inmanta-tid': env } }).then(
             function (data) {
@@ -566,35 +566,35 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     }
 
     //files
-    impAPI.getFile = function (id) {
+    inmantaAPI.getFile = function (id) {
 
         return $http.get(impURL + 'file/' + window.encodeURIComponent(id)).then(
             function (data) {
                 data.data.content = window.atob(data.data.content)
-                return data.data
+                return data.data;
             });
     };
 
-    impAPI.downloadFile = function (id) {
+    inmantaAPI.downloadFile = function (id) {
         window.open(impURL + 'file/' + window.encodeURIComponent(id))
     };
 
-    impAPI.getDiff = function (h1, h2) {
+    inmantaAPI.getDiff = function (h1, h2) {
         return $http.post(impURL + 'filediff', { a: h1, b: h2 }).then(
             function (data) {
-                return data.data
+                return data.data;
             });
     };
     //logs
-    impAPI.getLogForResource = function (env, id) {
+    inmantaAPI.getLogForResource = function (env, id) {
         checkEnv(env)
         return $http.get(impURL + 'resource/' + window.encodeURIComponent(id) + "?logs=true", { headers: { 'X-Inmanta-tid': env } }).then(
             function (data) {
-                return data.data
+                return data.data;
             });
     };
 
-    impAPI.sendFeedback = function (feedback) {
+    inmantaAPI.sendFeedback = function (feedback) {
         // return TODO
         // DUMMY CODE
         var out = $q.defer();
@@ -603,31 +603,53 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
     // compile 
-    impAPI.compile = function (env) {
+    inmantaAPI.compile = function (env) {
         return $http.get(impURL + 'notify/' + env + '?update=0');
     };
 
-    impAPI.updateCompile = function (env) {
+    inmantaAPI.updateCompile = function (env) {
         return $http.get(impURL + 'notify/' + env);
     };
 
-    impAPI.isCompiling = function (env) {
+    inmantaAPI.isCompiling = function (env) {
         return $http.head(impURL + 'notify/' + env).then(function (d) {
             if (d.status == 200) {
-                return true
+                return true;
             } else {
-                return false
+                return false;
             }
         });
     };
 
-    impAPI.getCompileReports = function (env) {
+    inmantaAPI.getCompileReports = function (env) {
         return $http.get(impURL + 'compilereport?environment=' + env).then(function (data) {
             formatCompileReports(data.data);
-            return data.data.reports
+            return data.data.reports;
         });
     };
 
-    return impAPI;
+    // settings
+    inmantaAPI.getSettings = function (env) {
+        return $http.get(impURL + 'environment_settings', {headers: { 'X-Inmanta-tid': env }}).then(
+            function (data) {
+                return data.data;
+            });    
+    };
+
+    inmantaAPI.setSetting = function (env, key, value) {
+        return $http.post(impURL + 'environment_settings/' + key, {"value": value}, {headers: { 'X-Inmanta-tid': env }}).then(
+            function (data) {
+                return data.data;
+            });    
+    };
+
+    inmantaAPI.deleteSetting = function (env, key) {
+        return $http.delete(impURL + 'environment_settings/' + key, {headers: { 'X-Inmanta-tid': env }}).then(
+            function (data) {
+                return data.data;
+            });
+    };
+
+    return inmantaAPI;
 }
 ]);

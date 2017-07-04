@@ -29,12 +29,12 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.controllers.refresh',
     'InmantaApp.controllers.projects',
     'InmantaApp.controllers.side',
-    'InmantaApp.feedback',
     'InmantaApp.compileReport',
     'InmantaApp.formsView',
     'InmantaApp.snapshotView',
     'InmantaApp.snapshotDetailView',
     'InmantaApp.restoreView',
+    'InmantaApp.settings',
     'inmanta.services.userservice'
 ]);
 
@@ -44,10 +44,6 @@ app.config(["$urlRouterProvider", function ($urlRouterProvider) {
 
 app.controller("configCtrl", ["$scope", "inmantaConfig", "dialogs", function ($scope, inmantaConfig, dialogs) {
     $scope.config = inmantaConfig;
-
-    $scope.openFeedback = function (user_tenant_Id) {
-        dialogs.create('views/feedback/feedback.html', 'feedbackCtrl', { user: user_tenant_Id }, {});
-    }
 }]);
 
 app.service("alertService", ["$rootScope", function alertService($rootScope) {

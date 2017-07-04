@@ -1,0 +1,20 @@
+<div class="row">
+    <im-breadcrumb name="'Settings'"></im-breadcrumb>
+
+    <div class="col-md-12" nf-if="env">
+        <h1>Settings for environment {{env}}</h1>
+        <table class="table table-lined" ng-table="tableParams" show-filter="true">
+            <tr ng-repeat="setting in $data">
+                <td data-title="'Key'" data-sortable="'key'" filter="{ 'key':'text'}">{{setting.key}}</td>
+                <td data-title="'Value'" data-sortable="'value'" filter="{ 'value':'text'}" ng-if="setting.value !== undefined">{{setting.value}}</td>
+                <td data-title="'Value'" data-sortable="'value'" filter="{ 'value':'text'}" ng-if="setting.value === unfdefined"><span style="color: #bbb">default value: {{setting.default}}</span></td>
+                <td>
+                    <button class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="left" title="{{ setting.help }}"><span class="glyphicon glyphicon-info-sign"></span></button>
+                    <button class="btn btn-default btn-xs" ng-click="edit(env, setting)"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button class="btn btn-danger btn-xs" ng-click="delete(env, setting)" data-toggle="tooltip" 
+                            title="Delete current value, when a default value is available the server will set this value."><span class="glyphicon glyphicon-trash"></span></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

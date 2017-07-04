@@ -1,30 +1,22 @@
 <div class="row">
     <div class="col-md-2 sidebar">
         <ul class="nav nav-pills nav-stacked" ng-if="state.env">
-            <li ui-sref-active="active"> <a ui-sref="portal({env:state.env})"> Portal </a> 
-            </li>
-    	    <li ui-sref-active="active" ng-class="{'active':state.version}"> <a ui-sref="envs({env:state.env})"> Versions </a> 
-            </li>            
-            <li ui-sref-active="active"> <a ui-sref="resourceCentric({env:state.env})"> Resources </a> 
-            </li>
-            <li ui-sref-active="active"> <a ui-sref="params({env:state.env})">Parameters</a> 
-            </li>
-            <li ui-sref-active="active"> <a ui-sref="forms({env:state.env})">Forms</a> 
-            </li>
-            <li ui-sref-active="active"> <a ui-sref="agents({env:state.env})">Agents</a> 
-            </li>
-            <li ui-sref-active="active"> <a ui-sref="snapshots({env:state.env})">Snapshots</a> 
-            </li>
-            <li ui-sref-active="active"> <a ui-sref="restores({env:state.env})">Restore</a> 
-            </li>
-           
-            
+            <li ui-sref-active="active"> <a ui-sref="portal({env:state.env})"> Portal </a></li>
+            <li ui-sref-active="active" ng-class="{'active':state.version}"> <a ui-sref="envs({env:state.env})"> Versions </a></li>
+            <li ui-sref-active="active"> <a ui-sref="resourceCentric({env:state.env})"> Resources </a></li>
+            <li ui-sref-active="active"> <a ui-sref="params({env:state.env})">Parameters</a></li>
+            <li ui-sref-active="active"> <a ui-sref="forms({env:state.env})">Forms</a></li>
+            <li ui-sref-active="active"> <a ui-sref="agents({env:state.env})">Agents</a></li>
+            <li ui-sref-active="active"> <a ui-sref="snapshots({env:state.env})">Snapshots</a></li>
+            <li ui-sref-active="active"> <a ui-sref="restores({env:state.env})">Restore</a></li>
+            <li ui-sref-active="active"> <a ui-sref="settings({env:state.env})">Settings</a></li>
         </ul>
-    
-            <div class="row" style="position:absolute; bottom:55px;" ng-controller="configCtrl">
-                <div class="col-xs-3">
-                    <button type="button" class="btn btn-default" ng-click="openFeedback(null)" data-toggle="tooltip" data-placement="top" title="Give feedback"><span class="glyphicon glyphicon-thumbs-up"></span> / <span class="glyphicon glyphicon-thumbs-down"></span></button>
-                </div>
-                <div class="col-xs-9"> <h5 class="text-right">{{config.backend}}</h5> </div>
-       </div>
-</div>
+        <div class="row" style="position:absolute; bottom:55px;" ng-controller="configCtrl">
+            <div class="col-xs-3">
+                <a class="btn btn-default" href="https://github.com/inmanta/inmanta/issues/new" data-toggle="tooltip" data-placement="top" title="Give feedback in Github" target="_blank"><span class="glyphicon glyphicon-share"></span></a>
+            </div>
+            <div class="col-xs-9">
+                <h5 class="text-right">{{config.backend}}</h5>
+            </div>
+        </div>
+    </div>

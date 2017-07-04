@@ -1,30 +1,27 @@
 <div class="row">
-    <im-breadcrumb>    </im-breadcrumb>
+    <im-breadcrumb> </im-breadcrumb>
 </div>
 <div class="row">
     <div class="col-md-5 detail">
-           <p><strong>Repo:</strong> {{env.repo_url}} </p>
-           <p><strong>Branch:</strong> {{env.repo_branch}} </p>
-       
-           
+        <p><strong>Repo:</strong> {{env.repo_url}} </p>
+        <p><strong>Branch:</strong> {{env.repo_branch}} </p>
     </div>
+
     <div class="col-md-5 detail">
-           <p><strong>Expire (s):</strong> {{expire}} </p>   
-           <p><strong>Server Time:</strong> {{servertime|date:'dd/MM/yyyy HH:mm'}} </p>   
-           <p><strong>Drift (ms):</strong> {{drift}} </p>   
+        <p><strong>Expire (s):</strong> {{expire}} </p>
+        <p><strong>Server Time:</strong> {{servertime|date:'dd/MM/yyyy HH:mm'}} </p>
+        <p><strong>Drift (ms):</strong> {{drift}} </p>
     </div>
-    
+
     <div class="col-md-12">
-    <table class="table table-lined" ng-table="tableParams" show-filter="true">
-        <tr ng-repeat="param in $data" ng-class="{'warning':param.expired}" >
-            <td data-title="'Name'" data-sortable="'name'" filter="{ 'name':'text'}" >{{param.name}}</td>
-            <td data-title="'Resource'" data-sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
-            <td data-title="'Updated'" data-sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'dd/MM/yyyy HH:mm'}}</td>
-            <td data-title="'Source'" data-sortable="'source'" filter="{ 'source':'select'}" filter-data="names()"> {{param.source}}</td>
-            <td data-title="'Value'"  data-sortable="'value'" filter="{ 'value':'text'}" >
-                {{param.value}}
-            </td>
-        </tr>
-    </table>
+        <table class="table table-lined" ng-table="tableParams" show-filter="true">
+            <tr ng-repeat="param in $data" ng-class="{'warning':param.expired}">
+                <td data-title="'Name'" data-sortable="'name'" filter="{ 'name':'text'}">{{param.name}}</td>
+                <td data-title="'Resource'" data-sortable="'resource_id'" filter="{ 'resource_id':'text'}">{{param["resource_id"]}}</td>
+                <td data-title="'Updated'" data-sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'dd/MM/yyyy HH:mm'}}</td>
+                <td data-title="'Source'" data-sortable="'source'" filter="{ 'source':'select'}" filter-data="names()">{{param.source}}</td>
+                <td data-title="'Value'" data-sortable="'value'" filter="{ 'value':'text'}">{{param.value}}</td>
+            </tr>
+        </table>
     </div>
 </div>

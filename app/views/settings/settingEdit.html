@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()">&times;</button>
+    <h4 class="modal-title"><span class="{{icon}}"></span> Edit {{ setting.key }}</h4>
+</div>
+
+<form name="userForm" ng-submit="submit()" novalidate>
+    <div class="modal-body">
+        <!-- NAME -->
+        <div ng-switch="setting.type">
+            
+            <!-- Default, on type-->
+            <div ng-switch-default class="form-group">
+                <label>{{setting.key}}</label>
+                <input type="text" name="{{type.key}}" ng-model="setting.value" class="form-control" required />    
+                <p class="help-block">{{type.options.help}}</p>
+            </div>
+
+            <!-- Checkbox -->
+            <div ng-switch-when="bool" class="checkbox">
+                <label>
+                    <input type="checkbox" name="{{setting.key}}"  ng-model="setting.value" ng-true-value="true" ng-false-value="false"/>  
+                    {{setting.key}} <span ng-if="setting.is_default" class="label label-info">default value</span>
+                </label>
+            </div>
+        </div>
+        <p>{{setting.help}} (default value <i>{{setting.default}}</i>)</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()" tabindex="10001">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" tabindex="10000">Save</button>
+    </div>
+</form>
