@@ -17,7 +17,7 @@ Additional Components used (stuff you may encounter)
 Starting
 ---------
 ```
-npm start
+yarn start
 grunt watch
 ```
 grunt watch is necessary to package all source files
@@ -25,7 +25,7 @@ grunt watch is necessary to package all source files
 Packaging
 ---------
 ```
-npm install
+yarn install
 grunt dist
 ```
 
