@@ -185,7 +185,6 @@ resv.controller('formDialogController', ['$scope', 'inmantaService', "$statePara
     $scope.state = $stateParams;
     $scope.record = data.record;
     $scope.form = data.type;
-
     var types = {
         "string": "text",
         "number": "text",

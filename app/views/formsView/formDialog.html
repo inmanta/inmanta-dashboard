@@ -14,7 +14,8 @@
             <!-- Default, on type-->
             <div ng-switch-default class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                <input type="text" name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"/>    
+                <input type="text" name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"
+                       placeholder="{{ form.defaults[type.key]}}" />
                 <p class="help-block">{{type.options.help}}</p>
             </div>
             <!-- Option -->
