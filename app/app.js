@@ -34,8 +34,7 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.snapshotView',
     'InmantaApp.snapshotDetailView',
     'InmantaApp.restoreView',
-    'InmantaApp.settings',
-    'inmanta.services.userservice'
+    'InmantaApp.settings'
 ]);
 
 app.config(["$urlRouterProvider", function ($urlRouterProvider) {
@@ -63,17 +62,23 @@ app.service("alertService", ["$rootScope", function alertService($rootScope) {
 }]);
 
 app.config(["$httpProvider", function ($httpProvider) {
-    $httpProvider.interceptors.push(["$q", "alertService", "userService", function ($q, alertService, userService) {
+    $httpProvider.interceptors.push(["$q", "authService", "alertService", function ($q, authService, alertService) {
         return {
-            'responseError': function (rejection) {
-                if (rejection.status == 403) {
-                    userService.got_403(rejection);
-                    return $q.reject(rejection);
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if (authService.keycloak.token) {
+                    config.headers.Authorization = 'Bearer ' + authService.keycloak.token;
                 }
-
-                var alert = rejection.data ? rejection.data.message : rejection.statusText;
-                if (!alert) {
-                    alert = "Could not connect to server";
+                return config;
+            },
+            'responseError': function (rejection) {
+                if (rejection.status === 401 || rejection.status === 403) {
+                    alert = "Authentication is required by the server, please log-in";
+                } else {
+                    var alert = rejection.data ? rejection.data.message : rejection.statusText;
+                    if (!alert) {
+                        alert = "Could not connect to server";
+                    }
                 }
                 alertService.add("danger", alert);
                 return $q.reject(rejection);
@@ -89,7 +94,6 @@ app.controller("alertCtrl", ["$scope", "inmantaService", function ($scope, inman
     $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         $scope.alerts.length = 0;
         $scope.env = toParams['env'];
-
     })
 
     $scope.$on("alert-update", function (event, args) {

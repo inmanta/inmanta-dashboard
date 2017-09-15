@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="InmantaApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="InmantaApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="InmantaApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="InmantaApp" class="no-js"> <!--<![endif]-->
-<html lang="en">
+<html lang="en" ng-app="InmantaApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,10 +42,9 @@
         
         <div id="navbar" class="navbar-collapse bs-js-navbar-collapse" collapse="navCollapsed">
           <ng-include ng-controller="projectsController" src="'partials/projects/projects.html'"> </ng-include>
-          <ul class="nav navbar-nav navbar-right" >
-             <ng-include ng-controller="refreshController"src="'partials/refresh/refresh.html'"> </ng-include> 
-          </ul>
-          
+          <div class="nav navbar-nav navbar-right" >
+             <ng-include ng-controller="refreshController"src="'partials/refresh/refresh.html'"> </ng-include>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
@@ -80,6 +75,7 @@
   <script src="bower_components/angular-spinner/angular-spinner.js"></script>
   <script src="bower_components/angular-awesome-slider/dist/angular-awesome-slider.js"></script>
   <script src="bower_components/angularjs-filters/filters.js"></script>
+  <script src="bower_components/keycloak/dist/keycloak.js"></script>
   <!-- endbuild -->
   <!-- build:js js/app.js -->
   <script src="app.all.js"> </script>

@@ -1,10 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name impWebApp.Nodeservice
- * @description # Nodeservice Service in the impWebApp.
- */
 var inmantaApi = angular.module('inmantaApi', ['inmantaApi.config']);
 
 function formatDate(d) {
@@ -36,6 +31,32 @@ function formatCompileReports(d) {
 function formateVersion(d) {
     d["date"] = formatDate(d["date"]);
 }
+
+inmantaApi.service('authService', ["inmantaConfig", function Nodeservice() {
+    var api = {};
+
+    // keycloak
+    api.keycloak = Keycloak({"realm": "inmanta", "url": "http://localhost:8080/auth", "clientId": "https://localhost:8888/"});
+    api.keycloak.init({flow: 'implicit'});
+    api.logout = api.keycloak.logout;
+    api.login = api.keycloak.login;
+    api.authn = false;
+
+    try {
+        if (api.keycloak.isTokenExpired()) {
+            api.authn = false;
+        } else {
+            api.authn = true;
+        }
+    } catch (error) {
+        api.authn = false;
+    }
+    api.keycloak.loadUserInfo().success(function (userInfo) {
+        api.username = userInfo.preferred_username;
+        api.userinfo = userInfo;
+    });
+    return api;
+}]);
 
 
 inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFactory", "$rootScope", "alertService", function Nodeservice($http, inmantaConfig, $q, $cacheFactory, $rootScope, alertService) {
