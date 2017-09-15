@@ -32,29 +32,34 @@ function formateVersion(d) {
     d["date"] = formatDate(d["date"]);
 }
 
-inmantaApi.service('authService', ["inmantaConfig", function Nodeservice() {
+inmantaApi.service('authService', ["inmantaConfig", function Nodeservice(inmantaConfig) {
     var api = {};
 
-    // keycloak
-    api.keycloak = Keycloak({"realm": "inmanta", "url": "http://localhost:8080/auth", "clientId": "https://localhost:8888/"});
-    api.keycloak.init({flow: 'implicit'});
-    api.logout = api.keycloak.logout;
-    api.login = api.keycloak.login;
-    api.authn = false;
-
-    try {
-        if (api.keycloak.isTokenExpired()) {
-            api.authn = false;
-        } else {
-            api.authn = true;
-        }
-    } catch (error) {
+    if (inmantaConfig.auth && inmantaConfig.auth.realm) {
+        // keycloak
+        api.keycloak = Keycloak(inmantaConfig.auth);
+        api.keycloak.init({flow: 'implicit'});
+        api.logout = api.keycloak.logout;
+        api.login = api.keycloak.login;
         api.authn = false;
+
+        try {
+            if (api.keycloak.isTokenExpired()) {
+                api.authn = false;
+            } else {
+                api.authn = true;
+            }
+        } catch (error) {
+            api.authn = false;
+        }
+        api.keycloak.loadUserInfo().success(function (userInfo) {
+            api.username = userInfo.preferred_username;
+            api.userinfo = userInfo;
+        });
+        api.enabled = true;
+    } else{
+        api.enabled = false;
     }
-    api.keycloak.loadUserInfo().success(function (userInfo) {
-        api.username = userInfo.preferred_username;
-        api.userinfo = userInfo;
-    });
     return api;
 }]);
 

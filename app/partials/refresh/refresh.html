@@ -15,12 +15,12 @@
 
             </ul>
         </li>
-        <li ng-show="auth.authn">
+        <li ng-if="auth.enabled && auth.authn">
             <a class="btn btn-sm" ng-click="auth.logout()">
                 <span class="glyphicon glyphicon-log-out"></span> Log out ({{ auth.username }})
             </a>
         </li>
-        <li ng-show="!auth.authn">
+        <li ng-if="auth.enabled && !auth.authn">
             <a class="btn btn-sm" ng-click="auth.login()">
                 <span class="glyphicon glyphicon-log-in"></span> Log in
             </a>

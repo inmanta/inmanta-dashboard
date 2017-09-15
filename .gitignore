@@ -7,3 +7,7 @@ tmp
 .idea
 dist
 build
+.tmp
+app/app.all.js
+app/app.all.js.map
+dist.tgz

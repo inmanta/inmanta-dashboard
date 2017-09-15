@@ -66,14 +66,18 @@ app.config(["$httpProvider", function ($httpProvider) {
         return {
             'request': function (config) {
                 config.headers = config.headers || {};
-                if (authService.keycloak.token) {
+                if (authService.enabled && authService.keycloak.token) {
                     config.headers.Authorization = 'Bearer ' + authService.keycloak.token;
                 }
                 return config;
             },
             'responseError': function (rejection) {
                 if (rejection.status === 401 || rejection.status === 403) {
-                    alert = "Authentication is required by the server, please log-in";
+                    if (authService.enabled) {
+                        alert = "Authentication is required by the server, please log-in";
+                    } else {
+                        alert = "Authentication is required by the server, but disabled in dashboard. Check server config.";
+                    }
                 } else {
                     var alert = rejection.data ? rejection.data.message : rejection.statusText;
                     if (!alert) {
