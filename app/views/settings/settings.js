@@ -18,9 +18,10 @@ resv.config(["$stateProvider", function ($stateProvider) {
     });
 }]);
 
-resv.controller('settingsController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs",
-        function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs) {
+resv.controller('settingsController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs", "authService",
+        function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs, authService) {
     $scope.state = $stateParams;
+    $scope.auth = authService;
 
     $scope.tableParams = new BackhaulTable($scope, {
         page: 1, // show first page
@@ -55,6 +56,27 @@ resv.controller('settingsController', ['$scope', '$rootScope', 'inmantaService',
         inmantaService.deleteSetting(env_id, setting.key).then(function (f) {
             $rootScope.$broadcast('refresh');
         });
+    };
+
+    $scope.generate = function (env_id, token) {
+        var client_types = [];
+        if (token && token.api) {
+            client_types.push("api");
+        }
+        if (token && token.compiler) {
+            client_types.push("compiler");
+        }
+        if (token && token.agent) {
+            client_types.push("agent");
+        }
+
+        if (client_types.length == 0) {
+            $scope.generated_token = "";
+        } else {
+            inmantaService.createToken(env_id, client_types).then(function (result) {
+                $scope.generated_token = result["token"];
+            });
+        }
     };
 }]);
 

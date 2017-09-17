@@ -1,8 +1,9 @@
 <div class="row">
     <im-breadcrumb name="'Settings'"></im-breadcrumb>
 
+    <h1>Settings for environment {{env}}</h1>
     <div class="col-md-12" nf-if="env">
-        <h1>Settings for environment {{env}}</h1>
+        <h2>Environment configuration</h2>
         <table class="table table-lined" ng-table="tableParams" show-filter="true">
             <tr ng-repeat="setting in $data">
                 <td data-title="'Key'" data-sortable="'key'" filter="{ 'key':'text'}">{{setting.key}}</td>
@@ -16,5 +17,25 @@
                 </td>
             </tr>
         </table>
+    </div>
+
+    <div class="col-md-12" nf-if="auth.enabled">
+        <h2>Authentication tokens</h2>
+        <p>Generate authentication tokens for authorizing agents, compiler or api for this specific environment.</p>
+        <form class="form-inline">
+            <div class="form-group" style="margin-right: 2em">
+                <label class="checkbox-inline"><input class="form-check-input" ng-model="token.api" type="checkbox" id="api"> api </label>
+            </div>
+            <div class="form-group" style="margin-right: 2em">
+                <label class="checkbox-inline"><input class="form-check-input" ng-model="token.compiler" type="checkbox" id="compiler"> compiler </label>
+            </div>
+            <div class="form-group" style="margin-right: 2em">
+                <label class="checkbox-inline"><input class="form-check-input" ng-model="token.agent" type="checkbox" id="agent"> agent </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" ng-click="generate(env, token)">Generate</button>
+        </form>
+
+        <p><pre><code>{{ generated_token }}</code></pre></p>
     </div>
 </div>

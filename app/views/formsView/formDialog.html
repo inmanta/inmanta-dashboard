@@ -3,8 +3,6 @@
     <h3 ng-if="!form.options.title"> {{form.form_type}} </h3>
 </div>
 
-
-
 <form name="form.userForm" ng-submit="submit()" novalidate>
     <div class="modal-body">
         <p> {{form.options.help}}</p> 
@@ -42,7 +40,6 @@
             </div>
             <!-- Password -->
             <div ng-switch-when="password"  class="form-group">
-               
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
                 <input type="password" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required tabindex="{{$index+1}}"/>
                 <p class="help-block">{{type.options.help}}</p>

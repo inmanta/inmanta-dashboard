@@ -1,16 +1,16 @@
-var inmantaApi = angular.module('InmantaApp.directives', [])
+var inmantaApi = angular.module('InmantaApp.directives', []);
 
 inmantaApi.filter('nozero', function() {
     return function(input) {
         if (input == 0) {
-            return ""
+            return "";
         }
         return input;
     };
-})
+});
 
 inmantaApi.directive("deployProgress", function() {
-    var typesSeq = ['failed', 'skipped', 'deployed']
+    var typesSeq = ['failed', 'skipped', 'deployed'];
     var types = {
         'deployed': 'success',
         'skipped': 'info',
@@ -20,42 +20,39 @@ inmantaApi.directive("deployProgress", function() {
     }
 
     var getProgress = function(version) {
-        var prog = {}
-        var bars = []
-        var status = version.status
-        var total = version.total
+        var prog = {};
+        var bars = [];
+        var status = version.status;
+        var total = version.total;
         for (var res in status) {
-            var state = status[res].status
+            var state = status[res].status;
             if (state in prog) {
-                prog[state]++
+                prog[state]++;
             } else {
-                prog[state] = 1
+                prog[state] = 1;
             }
         }
 
         typesSeq.forEach(function(key) {
-            var value = prog[key]
+            var value = prog[key];
             if (value) {
-
                 bars.push({
                     "name": key,
                     "value": value * 100 / total,
                     "label": value,
                     "type": types[key]
-                })
+                });
             }
-
-        })
+        });
 
         var progress = {
             'total': version.total,
             'bars': bars,
             'done': version.done
-        }
+        };
 
-        return progress
+        return progress;
     }
-
 
     return {
         restrict: 'E',
@@ -81,13 +78,11 @@ inmantaApi.directive("deployProgress", function() {
                     scope.data = getProgress(newValue)
                 }
             }, true)
-
         }
     };
-})
+});
 
-
-inmantaApi.directive("imBreadcrumb", ['$stateParams','inmantaService',function($stateParams,inmantaService) {
+inmantaApi.directive("imBreadcrumb", ['$stateParams', 'inmantaService', function($stateParams, inmantaService) {
     return {
         restrict: 'E',
         templateUrl: 'partials/directives/breadcrumb.html',
@@ -96,35 +91,35 @@ inmantaApi.directive("imBreadcrumb", ['$stateParams','inmantaService',function($
             id: '=?id'
         },
         link: function(scope, element, attrs) {
-            scope.breadcrumb=[]
-            
+            scope.breadcrumb = [];
+
             function addItem(name, id, sref){
                 var out = {
-                    name:name,
-                    id:id,
-                    sref:sref,
-                    last:false
-                }
-                scope.breadcrumb.push(out)
-                return out
+                    name: name,
+                    id: id,
+                    sref: sref,
+                    last: false
+                };
+                scope.breadcrumb.push(out);
+                return out;
             }
-            
-            addItem("Home",null,"projects")
-            if($stateParams.env){
-                 var envi = addItem("Environment","","envs({env:'"+$stateParams.env+"'})")
-                 inmantaService.getEnvironment($stateParams.env).then(function(d){
-                     envi.id = d.name
+
+            addItem("Home", null, "projects");
+            if ($stateParams.env) {
+                 var envi = addItem("Environment", "", "envs({env:'" + $stateParams.env + "'})");
+                 inmantaService.getEnvironment($stateParams.env).then(function(d) {
+                     envi.id = d.name;
                  })
             }
-            
-            if($stateParams.version){
-                 addItem("Version",$stateParams.version,"resources({env:'"+$stateParams.env+"',version:'"+$stateParams.version+"'})")
-            }  
-            
-            if(attrs["name"]){
-                 addItem(scope.name,scope.id,null)
-            }        
-            scope.breadcrumb[scope.breadcrumb.length-1].last=true;
+
+            if ($stateParams.version) {
+                addItem("Version", $stateParams.version, "resources({env:'" + $stateParams.env + "',version:'" + $stateParams.version + "'})");
+            }
+
+            if (attrs["name"]) {
+                addItem(scope.name, scope.id, null);
+            }
+            scope.breadcrumb[scope.breadcrumb.length - 1].last = true;
         }
     };
 }])

@@ -129,7 +129,6 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             out.resolve(projCache[project_id]);
             return out.promise;
         } else {
-            //                return inmantaAPI.getProjects().then(function(){return projCache[project_id];});
             return $http.get(impURL + 'project/' + project_id).then(function (data) {
                 projCache[data.data.project.id] = data.data.project;
                 return data.data.project;
@@ -671,6 +670,13 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
 
     inmantaAPI.deleteSetting = function (env, key) {
         return $http.delete(impURL + 'environment_settings/' + key, {headers: { 'X-Inmanta-tid': env }}).then(
+            function (data) {
+                return data.data;
+            });
+    };
+
+    inmantaAPI.createToken = function (env, client_types) {
+        return $http.post(impURL + 'environment_auth', {"client_types": client_types}, {headers: { 'X-Inmanta-tid': env }}).then(
             function (data) {
                 return data.data;
             });
