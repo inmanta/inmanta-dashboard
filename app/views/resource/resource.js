@@ -125,6 +125,9 @@ resv.controller('resourceController', ['$scope', '$rootScope', 'inmantaService',
                     'id': "failed",
                     'title': "failed"
                 }, {
+                    'id': "unknown",
+                    'title': "unknown"
+                }, {
                     'id': "!*",
                     'title': "empty"
                 }];

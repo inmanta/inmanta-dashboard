@@ -1,3 +1,5 @@
+'use strict';
+
 var inmantaApi = angular.module('InmantaApp.directives', []);
 
 inmantaApi.filter('nozero', function() {
@@ -10,13 +12,14 @@ inmantaApi.filter('nozero', function() {
 });
 
 inmantaApi.directive("deployProgress", function() {
-    var typesSeq = ['failed', 'skipped', 'deployed'];
+    var typesSeq = ['failed',  'unknown', 'skipped', 'deployed', 'unavailable', 'cancelled',];
     var types = {
         'deployed': 'success',
         'skipped': 'info',
         'failed': 'danger',
-        'unavailable': 'danger',
-        'cancelled': 'info'
+        'unavailable': 'warning',
+        'cancelled': 'info',
+        'unknown': 'warning'
     }
 
     var getProgress = function(version) {
