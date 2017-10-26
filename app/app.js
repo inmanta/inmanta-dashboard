@@ -50,13 +50,13 @@ app.service("alertService", ["$rootScope", function alertService($rootScope) {
     var alertService = {};
 
     alertService.add = function (type, data) {
-        var last = alerts[alerts.length - 1]
+        var last = alerts[alerts.length - 1];
         if (last && last.msg == data) {
             last.times = last.times + 1;
         } else {
-            alerts.push({ type: type, msg: data, times: 1 })
+            alerts.push({ type: type, msg: data, times: 1 });
         }
-        $rootScope.$broadcast("alert-update", alerts)
+        $rootScope.$broadcast("alert-update", alerts);
     };
     return alertService;
 }]);
@@ -75,6 +75,10 @@ app.config(["$httpProvider", function ($httpProvider) {
                 if (rejection.status === 401 || rejection.status === 403) {
                     if (authService.enabled) {
                         alert = "Authentication is required by the server, please log-in";
+                        authService.keycloak.clearToken();
+                        authService.authn = false;
+                        authService.username = null;
+                        authService.userinfo = null;
                     } else {
                         alert = "Authentication is required by the server, but disabled in dashboard. Check server config.";
                     }

@@ -46,6 +46,8 @@ inmantaApi.service('authService', ["inmantaConfig", function Nodeservice(inmanta
         try {
             if (api.keycloak.isTokenExpired()) {
                 api.authn = false;
+                api.username = null;
+                api.userinfo = null;
             } else {
                 api.authn = true;
             }
