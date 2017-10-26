@@ -2,7 +2,7 @@
     <im-breadcrumb></im-breadcrumb>
 </div>
 
-<deploy-progress data="status" name="'Deploy'" action="setsort" emptyname="'Deploy'" emptyaction="deploy" > 
+<deploy-progress data="status" name="'Deploy state'" action="setsort" emptyname="'Deploy'" emptyaction="deploy" > 
 </deploy-progress> 
 
 <div class="row">
@@ -16,15 +16,15 @@
                 <td data-title="'Deps'" data-sortable="'deporder'" class="col-md-2" style="max-width: 90px; word-wrap: break-word;">
                     <div ng-repeat="d in res.attributes.requires track by $index"><p ng-click="highlight(d)">{{ d }}</p></div>
                 </td>
-                <td data-title="'State'" data-sortable="'status'" filter="{'status':'select'}" filter-data="states()" class="col-xs-1 ">{{res.status}}</td>
+                <td data-title="'Deploy state'" data-sortable="'status'" filter="{'status':'select'}" filter-data="states()" class="col-xs-1 ">{{res.status}}</td>
                 <td>
                     <button class="btn btn-link btn-xs" ng-click="details(res)"> <span class="glyphicon glyphicon-zoom-in"></span></button>
                     <button class="btn btn-link btn-xs" ui-sref="logs({env:env.id, id:res.resource_version_id})" title="Resource logs">
                         <span class="glyphicon glyphicon-list-alt"></span>
                     </button>
-                </button> 
+                </button>
                 </td>
             </tr>
         </table>
-    </div>           
+    </div>
 </div>
