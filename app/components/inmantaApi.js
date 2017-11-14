@@ -330,7 +330,10 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         })
     }
     //parameters
-    inmantaAPI.getParameters = function (env, query={}) {
+    inmantaAPI.getParameters = function (env, query) {
+        if (query === undefined) {
+            query = {};
+        }
         checkEnv(env)
         return $http.post(impURL + 'parameter', query, { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
