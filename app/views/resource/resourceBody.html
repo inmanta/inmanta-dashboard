@@ -1,9 +1,9 @@
-<div class="row">    
+<div class="row">
     <im-breadcrumb></im-breadcrumb>
 </div>
 
-<deploy-progress data="status" name="'Deploy state'" action="setsort" emptyname="'Deploy'" emptyaction="deploy" > 
-</deploy-progress> 
+<deploy-progress data="status" name="'Deploy state'" action="setsort" emptyname="'Deploy'" emptyaction="deploy" >
+</deploy-progress>
 
 <div class="row">
     <ng-include src="'views/resource/buttonBar.html'" ></ng-include>
@@ -22,7 +22,6 @@
                     <button class="btn btn-link btn-xs" ui-sref="logs({env:env.id, id:res.resource_version_id})" title="Resource logs">
                         <span class="glyphicon glyphicon-list-alt"></span>
                     </button>
-                </button>
                 </td>
             </tr>
         </table>

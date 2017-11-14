@@ -38,6 +38,16 @@ resv.controller('envFunctionController', ['$scope', '$rootScope', 'inmantaServic
         });
     };
 
+    $scope.clearEnv = function (env) {
+        var dlg = dialogs.confirm("Confirm clear", "Do you really want to clear the entire environment " + env.name + " this can NOT BE UNDONE! ");
+        dlg.result.then(function (btn) {
+            inmantaService.clearEnv(env).then(
+                function (d) {
+                    $rootScope.$broadcast('refresh');
+                });
+        });
+    };
+
     $scope.clone = function (env) {
         dialogs.create('partials/input/inputDialog.html', 'inputDialogCtrl', {
             header: "Clone name",

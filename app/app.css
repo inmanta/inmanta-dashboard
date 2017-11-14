@@ -56,29 +56,32 @@ body { padding-top: 50px;}
 /* Page buildup Styles */
 
 .page-header {
-    border-bottom-style: none;
-    margin-bottom: 0px;
+  border-bottom-style: none;
+  margin-bottom: 0px;
 }
 
 .page-button-band {
-     margin: 0px 0 15px;
+  margin: 0px 0 15px;
 }
 
-
-.page-button-band > a > button,
-.page-button-band > button {
-    margin-left: 20px;
-    float: right !important;
+.page-button-band .btn-default {
+  margin-left: 5px;
 }
+
+.btn-first {
+  border-top-left-radius: 4px !important;;
+  border-bottom-left-radius: 4px !important;;
+}
+
 
 .progress.compact {
     margin: 0;
 }
 
-
 .main {
   padding: 20px;
 }
+
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
@@ -149,6 +152,16 @@ body { padding-top: 50px;}
 .table-lined > tbody > tr,
 .table-lined > tfoot > tr {
   border: 1px solid #ddd;
+}
+
+.table-fixed {
+  table-layout:fixed;
+}
+
+.table-fixed td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ng-table th {

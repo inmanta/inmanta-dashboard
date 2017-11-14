@@ -20,7 +20,8 @@ resv.config(["$stateProvider", function ($stateProvider) {
     });
 }]);
 
-resv.controller('paramsController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "$q", function ($scope, inmantaService, $stateParams, BackhaulTable, $q) {
+resv.controller('paramsController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs", "$q",
+        function ($scope, inmantaService, $stateParams, BackhaulTable, dialogs, $q) {
     $scope.state = $stateParams;
 
     $scope.tableParams = new BackhaulTable($scope, {
@@ -102,4 +103,29 @@ resv.controller('paramsController', ['$scope', 'inmantaService', "$stateParams",
         def.resolve(names);
         return def;
     };
+
+    $scope.details = function (param) {
+        dialogs.create('views/parameters/details.html', 'detailsController', {
+            param: param
+        }, {});
+    };
+
+    $scope.remove = function (param) {
+        console.log(param);
+        inmantaService.deleteParameter($scope.state.env, param.name).then(function (d) {
+        });
+    };
 }]);
+
+resv.controller('detailsController', ['$scope', '$modalInstance', 'data', 'inmantaService', function ($scope, $modalInstance, data, inmantaService) {
+    //-- Variables -----//
+    $scope.header = "Details for " + data.param.name;
+    $scope.icon = 'glyphicon glyphicon-info-sign';
+    $scope.param = data.param;
+
+    //-- Methods -----//
+    $scope.close = function () {
+        $modalInstance.close();
+        $scope.$destroy();
+    }; // end close
+}]); // end WaitDialogCtrl

@@ -1,9 +1,37 @@
-<div class="col-md-12 page-button-band " ng-controller="envFunctionController">
-    <button type="button" class="btn btn-default" ng-click="decommission(state.env)" title='Create a version of the model that deletes all machines' >Decommission</button>
-    <button type="button" class="btn btn-default" ng-click="clone(state.env)" title='Create a new project from the same repo and branch as this one'>Clone</button>
-    <button ui-sref="compileReport({env:state.env})" class="btn btn-default" title='View the reports on all compilation attempts for this repo'> Compile Reports </button> 
-    <button ng-hide="cstate" class="btn btn-default" ng-click="updateCompile(state.env)" title='Update the project and all modules to the latest version and recompile' > Update & Recompile </button>
-    <button ng-hide="cstate" class="btn btn-default" ng-click="compile(state.env)" title='Compile the model to create a new version' > Recompile </button>
-    <button ng-hide="!cstate" class="btn btn-default">Compiling <i class="fa fa-cog fa-spin"></i></button>       
-    <button type="button" class="btn btn-default" ui-sref="editEnv({env:state.env})" title='Edit this environment' >Edit</button>
+<div class="col-md-12 page-button-band" ng-controller="envFunctionController">
+    <div class="pull-right">
+        <div class="btn-group btn-default" role="group">
+            <button type="button" class="btn btn-default" ng-hide="!cstate">Compiling&nbsp;<i class="fa fa-cog fa-spin"></i></button>
+            <button type="button" class="btn btn-default btn-first" ng-hide="cstate"
+                ng-click="compile(state.env)" title="Compile the model to create a new version">Recompile</span></button>
+
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+
+            <ul class="dropdown-menu">
+                <li><a ng-hide="cstate" ng-click="updateCompile(state.env)"
+                        title="Update the project and all modules to the latest version and recompile">Update project &amp; recompile</a></li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn btn-default" ui-sref="compileReport({env:state.env})"
+            title='View the reports on all compilation attempts for this repo'>Compile Reports</button>
+
+        <div class="btn-group btn-default" role="group">
+            <button type="button" class="btn btn-default" ng-click="decommission(state.env)"
+                title="Push a model that purges all allocated resources (including virtual machines)">Decommission</span></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="editEnv({env:state.env})" title="Edit this environment">Edit</a></li>
+                <li><a ng-click="clone(state.env)" title="Create a new environment from the same repo and branch as this one">Clone</a></li>
+                <li><a ng-click="clearEnv(state.env)"
+                                title="Remove everything from this environment and reset it to its initial state">Clear</a></li>
+            </ul>
+        </div>
+    </div>
 </div>

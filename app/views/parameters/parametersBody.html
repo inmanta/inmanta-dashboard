@@ -21,6 +21,12 @@
                 <td data-title="'Updated'" data-sortable="'updated'" filter="{ 'updated':'text'}">{{param.updated|date:'dd/MM/yyyy HH:mm'}}</td>
                 <td data-title="'Source'" data-sortable="'source'" filter="{ 'source':'select'}" filter-data="names()">{{param.source}}</td>
                 <td data-title="'Value'" data-sortable="'value'" filter="{ 'value':'text'}">{{param.value}}</td>
+                <td>
+                    <button class="btn btn-primary btn-xs" ng-click="details(param)" title="Show more details"> <span class="glyphicon glyphicon-zoom-in"></span></button>
+                    <button class="btn btn-danger btn-xs" ng-click="remove(param)" title="Remove this parameter">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
             </tr>
         </table>
     </div>

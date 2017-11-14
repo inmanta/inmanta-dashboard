@@ -6,17 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Inmanta Portal</title>
-    <link rel="icon" 
-      type="image/png" 
+    <link rel="icon"
+      type="image/png"
       href="favicon.ico">
-    <!-- build:css css/app.css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.css">
-    <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/angular-awesome-slider/dist/css/angular-awesome-slider.min.css">
-    <link href="app.css" rel="stylesheet">
-    <!-- endbuild -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,7 +31,7 @@
           </button>
           <a class="navbar-brand" ui-sref="projects"><img alt="Inmanta" src="img/inmanta-logo-horizontal.png"  height="36"></a>
         </div>
-        
+
         <div id="navbar" class="navbar-collapse bs-js-navbar-collapse" collapse="navCollapsed">
           <ng-include ng-controller="projectsController" src="'partials/projects/projects.html'"> </ng-include>
           <div class="nav navbar-nav navbar-right" >
@@ -61,6 +53,8 @@
 </div>
 
   <!-- build:js js/libs.js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="bower_components/es6-collections/index.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
@@ -81,5 +75,14 @@
   <script src="app.all.js"> </script>
   <!-- endbuild -->
   <script src="config.js"></script>
+
+  <!-- build:css css/app.css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.css">
+  <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-awesome-slider/dist/css/angular-awesome-slider.min.css">
+  <link href="app.css" rel="stylesheet">
+  <!-- endbuild -->
   </body>
 </html>

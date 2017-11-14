@@ -34,7 +34,8 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.snapshotView',
     'InmantaApp.snapshotDetailView',
     'InmantaApp.restoreView',
-    'InmantaApp.settings'
+    'InmantaApp.settings',
+    'InmantaApp.fsm'
 ]);
 
 app.config(["$urlRouterProvider", function ($urlRouterProvider) {

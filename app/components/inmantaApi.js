@@ -153,6 +153,10 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         return $http.post(impURL + 'decommission/' + id);
     };
 
+    inmantaAPI.clearEnv = function (id) {
+        return $http.delete(impURL + 'decommission/' + id);
+    };
+
     //environment
     inmantaAPI.addEnvironment = function (projectid, name, repo_url, repo_branch) {
         return $http.put(impURL + 'environment', { 'project_id': projectid, 'name': name, 'repository': repo_url, 'branch': repo_branch }).then(function (data) { return data.data.environment; });
@@ -326,9 +330,9 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         })
     }
     //parameters
-    inmantaAPI.getParameters = function (env) {
+    inmantaAPI.getParameters = function (env, query={}) {
         checkEnv(env)
-        return $http.post(impURL + 'parameter', {}, { headers: { "X-Inmanta-tid": env } }).then(
+        return $http.post(impURL + 'parameter', query, { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
                 data.data.parameters.forEach(formatParameter);
                 data.data.now = formatDate(data.data.now)
@@ -345,13 +349,23 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         });
     };
 
-
     inmantaAPI.getParameter = function (env, name, resource) {
         checkEnv(env)
         return $http.get(impURL + 'parameter/' + window.encodeURIComponent(name) + "?resource_id=" + window.encodeURIComponent(resource), { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
                 formatParameter(data.data.parameter);
                 return data.data.parameter
+            });
+    };
+
+    inmantaAPI.deleteParameter = function(env, name) {
+        checkEnv(env)
+        return $http.delete(impURL + 'parameter/' + window.encodeURIComponent(name), { headers: { "X-Inmanta-tid": env } }).then(
+            function (data) {
+                console.log(data);
+            },
+            function (data) {
+                alert("The server does not support deleting parameters. Please upgrade.");
             });
     };
 
@@ -629,7 +643,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         return out.promise;
     };
 
-    // compile 
+    // compile
     inmantaAPI.compile = function (env) {
         return $http.get(impURL + 'notify/' + env + '?update=0');
     };
@@ -660,14 +674,14 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         return $http.get(impURL + 'environment_settings', {headers: { 'X-Inmanta-tid': env }}).then(
             function (data) {
                 return data.data;
-            });    
+            });
     };
 
     inmantaAPI.setSetting = function (env, key, value) {
         return $http.post(impURL + 'environment_settings/' + key, {"value": value}, {headers: { 'X-Inmanta-tid': env }}).then(
             function (data) {
                 return data.data;
-            });    
+            });
     };
 
     inmantaAPI.deleteSetting = function (env, key) {

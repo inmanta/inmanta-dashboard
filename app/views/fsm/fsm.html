@@ -1,0 +1,21 @@
+<div class="row">
+    <im-breadcrumb> </im-breadcrumb>
+</div>
+<div class="row">
+    <h1>Lifecycle states</h1>
+    <table class="table">
+        <tr ng-repeat="s in fsm  | orderBy : 'name' ">
+            <td><span class="">{{ s.name.replace('fsm_', '') }}</span></td>
+            <td><span class="label label-{{ s.metadata.states[s.value].label}}">{{ s.value }}</span></td>
+            <td>
+                <div class="input-group">
+                    <span class="input-group-addon" id="lbl">transition to</span>
+                    <select class="form-control" id="transition-to" aria-describedby="lbl">
+                        <option selected="selected"></option>
+                        <option ng-repeat="item in s.transfers[s.value] track by item">{{item}}</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

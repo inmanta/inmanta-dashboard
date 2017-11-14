@@ -1,0 +1,15 @@
+<div class="modal-header dialog-header-confirm">
+    <h4 class="modal-title"><span class="{{icon}}"></span> {{header}}</h4>
+</div>
+<div class="modal-body">
+    <div><strong> Name: </strong> {{param.name}} </div>
+    <div><strong> Resource: </strong> {{param.resource_id}} </div>
+    <div><strong> Updated: </strong> {{param.updated|date:'dd/MM/yyyy HH:mm'}} </div>
+    <div><strong> Source: </strong> {{param.source}} </div>
+    <div><strong> Value: </strong><pre><code>{{ param.value }}</code></pre></div>
+    <div><strong> Metadata: </strong><pre><code>{{param.metadata | json }}</code></pre></div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+</div>

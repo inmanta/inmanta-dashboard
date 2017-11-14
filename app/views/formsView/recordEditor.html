@@ -13,7 +13,7 @@
     </div>
 
     <div class="col-md-12">
-        <table ng-table-dynamic="tableParams with cols" class="table table-lined" show-filter="!selectedForm.options.record_count || selectedForm.options.record_count!=1">
+        <table ng-table-dynamic="tableParams with cols" class="table table-lined table-fixed" show-filter="!selectedForm.options.record_count || selectedForm.options.record_count!=1">
             <tr ng-repeat="record in $data track by record.id">
                 <td ng-repeat="col in $columns track by col.field" ng-if="col.field">
                     <span ng-if="!col.password">{{record.fields[col.field]}}</span>

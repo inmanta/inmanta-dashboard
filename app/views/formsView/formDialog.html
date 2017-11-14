@@ -5,10 +5,10 @@
 
 <form name="form.userForm" ng-submit="submit()" novalidate>
     <div class="modal-body">
-        <p> {{form.options.help}}</p> 
+        <p> {{form.options.help}}</p>
         <!-- NAME -->
         <div ng-repeat="type in fieldList track by type.key" ng-switch="type.options.widget">
-            
+
             <!-- Default, on type-->
             <div ng-switch-default class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
@@ -16,6 +16,13 @@
                        placeholder="{{ form.defaults[type.key]}}" />
                 <p class="help-block">{{type.options.help}}</p>
             </div>
+            <!-- Textarea -->
+            <div ng-switch-when="textarea" class="form-group">
+                    <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
+                    <textarea name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"
+                           placeholder="{{ form.defaults[type.key]}}" rows="6" />
+                    <p class="help-block">{{type.options.help}}</p>
+                </div>
             <!-- Option -->
             <div ng-switch-when="options"  class="form-group">
                  <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
@@ -27,8 +34,8 @@
             <!-- Checkbox -->
             <div ng-switch-when="checkbox" class="checkbox">
                 <label style="text-transform: capitalize;">
-                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]" ng-true-value="true" ng-false-value="false" tabindex="{{$index+1}}"/>  
-                    {{type.key  | replace:'_':' '}}   
+                    <input type="checkbox" name="{{type.key}}"  ng-model="record.fields[type.key]" ng-true-value="true" ng-false-value="false" tabindex="{{$index+1}}"/>
+                    {{type.key  | replace:'_':' '}}
                 </label>
                 <p class="help-block">{{type.options.help}}  </p>
             </div>
