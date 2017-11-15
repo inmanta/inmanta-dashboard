@@ -7,7 +7,7 @@
     <div class="modal-body">
         <p> {{form.options.help}}</p>
         <!-- NAME -->
-        <div ng-repeat="type in fieldList track by type.key" ng-switch="type.options.widget">
+        <div ng-repeat="type in fieldList track by type.key"><div ng-switch="type.options.widget">
 
             <!-- Default, on type-->
             <div ng-switch-default class="form-group">
@@ -16,13 +16,7 @@
                        placeholder="{{ form.defaults[type.key]}}" />
                 <p class="help-block">{{type.options.help}}</p>
             </div>
-            <!-- Textarea -->
-            <div ng-switch-when="textarea" class="form-group">
-                    <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                    <textarea name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"
-                           placeholder="{{ form.defaults[type.key]}}" rows="6" />
-                    <p class="help-block">{{type.options.help}}</p>
-                </div>
+
             <!-- Option -->
             <div ng-switch-when="options"  class="form-group">
                  <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
@@ -51,7 +45,14 @@
                 <input type="password" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required tabindex="{{$index+1}}"/>
                 <p class="help-block">{{type.options.help}}</p>
             </div>
-        </div>
+            <!-- Textarea -->
+            <div ng-switch-when="textarea" class="form-group">
+                <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
+                <textarea name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"
+                        placeholder="{{ form.defaults[type.key]}}" rows="6" />
+                <p class="help-block">{{type.options.help}}</p>
+            </div>
+        </div></div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="close()" tabindex="10001">Cancel</button>
