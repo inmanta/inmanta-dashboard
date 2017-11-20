@@ -42,14 +42,14 @@
             <!-- Password -->
             <div ng-switch-when="password"  class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
-                <input type="password" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" slider options="type.options.options" required tabindex="{{$index+1}}"/>
+                <input type="password" name="{{type.key}}"  ng-model="record.fields[type.key]" class="form-control" class="form-control" required tabindex="{{$index+1}}"/>
                 <p class="help-block">{{type.options.help}}</p>
             </div>
             <!-- Textarea -->
             <div ng-switch-when="textarea" class="form-group">
                 <label style="text-transform: capitalize;">{{type.key  | replace:'_':' '}} </label>
                 <textarea name="{{type.key}}" ng-model="record.fields[type.key]" class="form-control" required tabindex="{{$index+1}}"
-                        placeholder="{{ form.defaults[type.key]}}" rows="6" />
+                        placeholder="{{ form.defaults[type.key]}}" rows="6"></textarea>
                 <p class="help-block">{{type.options.help}}</p>
             </div>
         </div></div>
