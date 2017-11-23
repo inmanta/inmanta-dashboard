@@ -39,8 +39,11 @@ resv.controller('paramsController', ['$scope', 'inmantaService', "$stateParams",
             $scope.drift = info.now - timeInMs;
 
             data.forEach(function (d) {
-                d.expired = d.updated.getTime() + ($scope.expire * 1000) < $scope.servertime.getTime()
-
+                if (d.source === 'fact') {
+                    d.expired = d.updated.getTime() + ($scope.expire * 1000) < $scope.servertime.getTime();
+                } else {
+                    d.expired = false;
+                }
             });
             return data;
         });

@@ -38,7 +38,7 @@ resv.controller('fsmController', ['$scope', 'inmantaService', "$stateParams", "$
             });
             $scope.fsm = data;
         });
-    }
+    };
 
     $scope.$on('refresh', getFSM);
     getFSM();
