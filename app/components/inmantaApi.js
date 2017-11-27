@@ -292,7 +292,6 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-
     inmantaAPI.getResources = function (env, version) {
         checkEnv(env)
         return $http.get(impURL + 'version/' + version, { headers: { "X-Inmanta-tid": env } }).then(
@@ -300,7 +299,6 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
                 return data.data
             });
     };
-
 
     inmantaAPI.getResourcesState = function (env) {
         checkEnv(env)
@@ -312,12 +310,11 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     //resource has version in id!
     inmantaAPI.getResource = function (env, id) {
         checkEnv(env)
-        return $http.get(impURL + 'resource/' + window.encodeURIComponent(id) + "?logs=", { headers: { 'X-Inmanta-tid': env } }).then(
+        return $http.get(impURL + 'resource/' + window.encodeURIComponent(id) + "?logs=true", { headers: { 'X-Inmanta-tid': env } }).then(
             function (data) {
                 return data.data.resource
             });
     };
-
 
     inmantaAPI.getUnkownsForEnv = function (env) {
         return inmantaAPI.getVersions(env).then(function (f) {
