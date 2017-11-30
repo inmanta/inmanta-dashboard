@@ -26,8 +26,8 @@
                 <td data-title="'Agents'">
                     <p ng-repeat="ep in agent.endpoints"> {{ep.name}} </p>
                 </td>
-                <td data-title="'First seen'" data-sortable="'first_seen'" filter="{ 'first_seen':'text'}">{{agent.last_seen|date:'dd/MM/yyyy HH:mm'}}</td>
-                <td data-title="'Last seen'" data-sortable="'last_seen'" filter="{ 'last_seen':'text'}">{{agent.first_seen|date:'dd/MM/yyyy HH:mm'}}</td>
+                <td data-title="'First seen'" data-sortable="'first_seen'" filter="{ 'first_seen':'text'}">{{agent.first_seen|date:'dd/MM/yyyy HH:mm'}}</td>
+                <td data-title="'Last seen'" data-sortable="'last_seen'" filter="{ 'last_seen':'text'}">{{agent.last_seen|date:'dd/MM/yyyy HH:mm'}}</td>
                 <td data-title="'Expired'" data-sortable="'expired'" filter="{ 'expired':'text'}">{{agent.expired|date:'dd/MM/yyyy HH:mm'}}</td>
                 <td> <button class="btn btn-link btn-xs" ng-click="details(agent)" ng-hide="agent.expired"> <span class="glyphicon glyphicon-zoom-in"></span> </button>                    </td>
 
