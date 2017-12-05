@@ -644,7 +644,8 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
     // compile
-    inmantaAPI.compile = function (env, update=false) {
+    inmantaAPI.compile = function (env, update) {
+        update = (typeof update !== 'undefined') ?  update : false;
         var metadata = {
             "message": "Compile triggerd from the dashboard",
             "type": "dashboard"
