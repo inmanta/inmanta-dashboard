@@ -644,12 +644,16 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
     // compile
-    inmantaAPI.compile = function (env) {
-        return $http.get(impURL + 'notify/' + env + '?update=0');
+    inmantaAPI.compile = function (env, update=false) {
+        var metadata = {
+            "message": "Compile triggerd from the dashboard",
+            "type": "dashboard"
+        };
+        return $http.post(impURL + 'notify/' + env, {update: update, metadata: metadata});
     };
 
     inmantaAPI.updateCompile = function (env) {
-        return $http.get(impURL + 'notify/' + env);
+        return inmantaAPI.compile(env, true);
     };
 
     inmantaAPI.isCompiling = function (env) {
