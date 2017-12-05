@@ -81,25 +81,10 @@ resv.controller('envFunctionController', ['$scope', '$rootScope', 'inmantaServic
 resv.controller('envController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTablePaged", 'dialogs', function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTablePaged, dialogs) {
     $scope.state = $stateParams;
 
-    $scope.tableParams = BackhaulTablePaged($scope, {
-        page: 1, // show first page
-        count: 10, // count per page
-        sorting: {
-            'id_fields.entity_type': 'asc' // initial sorting
-        }
-    }, function (start, extent) {
-        return inmantaService.getVersionsPaged($stateParams.env, start, extent).then(
-            function (d) {
-                d.versions.forEach(function (d) { d.state = getState(d); });
-                return d;
-            });
-    }, "versions");
-
     $scope.resources = null;
     inmantaService.getEnvironment($stateParams.env).then(function (d) {
         $scope.env = d;
     });
-
 
     $scope.startDryRun = function (res) {
         var resVersion = res.version;
@@ -129,6 +114,30 @@ resv.controller('envController', ['$scope', '$rootScope', 'inmantaService', "$st
         if (res.deployed) {
             return "deployed";
         }
-        return res.result
-    }
+        return res.result;
+    };
+
+    var getTrigger = function (res) {
+        if (res.version_info.export_metadata && res.version_info.export_metadata.type) {
+            return {"type": res.version_info.export_metadata.type, "message": res.version_info.export_metadata.message}
+        }
+        return null;
+    };
+
+    $scope.tableParams = new BackhaulTablePaged($scope, {
+        page: 1, // show first page
+        count: 10, // count per page
+        sorting: {
+            'id_fields.entity_type': 'asc' // initial sorting
+        }
+    }, function (start, extent) {
+        return inmantaService.getVersionsPaged($stateParams.env, start, extent).then(
+            function (d) {
+                d.versions.forEach(function (d) {
+                    d.state = getState(d);
+                    d.trigger = getTrigger(d);
+                });
+                return d;
+            });
+    }, "versions");
 }]);

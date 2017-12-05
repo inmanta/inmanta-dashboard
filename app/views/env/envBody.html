@@ -5,45 +5,39 @@
     <div class="col-md-12 detail">
            <p><strong>Repo:</strong> {{env.repo_url}} </p>
            <p><strong>Branch:</strong> {{env.repo_branch}} </p>
-    </div>	
+    </div>
 
-  
     <ng-include src="'views/env/buttonband.html'" ></ng-include>
-
 
     <div class="col-md-12">
     <table class="table table-lined" ng-table="tableParams">
         <tr ng-repeat="resource in $data track by resource.version" ng-init="extra = {}">
             <td data-title="'Date'" data-sortable="'date'" >{{resource.date|date:'dd/MM/yyyy HH:mm'}}</td>
             <td data-title="'Version'" data-sortable="'version'" ><a ui-sref="resources({env:resource.environment,version:resource.version})">{{resource.version}}</a></td>
-            
-            
-            <td data-title="'Deploy State'" data-sortable="'state'">
-                {{resource.state}}
-            </td>
-            <td data-title="'Deploy Progress'" >
-               <deploy-progress data="resource"> </deploy-progress>
-              
+            <td data-title="'Deploy State'" data-sortable="'state'">{{resource.state}}</td>
+            <td data-title="'Deploy Progress'" ><deploy-progress data="resource"> </deploy-progress></td>
+            <td align="right">
+                <span ng-if="resource.trigger" class="label label-info" title="{{ resource.trigger.message}}">
+                    {{ resource.trigger.type }}
+                </span>
             </td>
             <td align="right">
                 <button class="btn btn-link btn-xs" ng-click="startDryRun(resource)"  title="Perform dry run">
                     <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
-                </button>  
-                
-                <button class="btn btn-link btn-xs" ui-sref="report({env:state.env,version:resource.version})" title="Dry run report">
+                </button>
+
+                <button class="btn btn-link btn-xs" ui-sref="report({env:state.env, version:resource.version})" title="Dry run report">
                     <span class="glyphicon glyphicon-list-alt"> </span>
-                </button> 
-                
-           
+                </button>
+
                 <button class="btn btn-link btn-xs" ng-click="deploy(resource)" ng-disabled="resource.released " title="Release version" >
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-                </button>    
-         
+                </button>
+
                 <button class="btn btn-link btn-xs" ng-click="deleteVersion(resource)" title="Remove version">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
-             </td>  
-            
+             </td>
         </tr>
     </table>
     </div>
