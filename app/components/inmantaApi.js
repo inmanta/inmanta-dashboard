@@ -12,20 +12,11 @@ function formatParameter(d) {
     d["updated"] = formatDate(d["updated"]);
 }
 
-function formatCompileSubReport(d) {
-    d["completed"] = formatDate(d["completed"]);
-    d["started"] = formatDate(d["started"]);
-}
-
-
-function formatCompileReport(d) {
-    d["completed"] = formatDate(d["completed"]);
-    d["started"] = formatDate(d["started"]);
-    d.reports.forEach(formatCompileSubReport);
-}
-
 function formatCompileReports(d) {
-    d.reports.forEach(formatCompileReport);
+    d.forEach(function (d) {
+        d["completed"] = formatDate(d["completed"]);
+        d["started"] = formatDate(d["started"]);
+    });
 }
 
 function formateVersion(d) {
@@ -668,15 +659,23 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
     inmantaAPI.getCompileReports = function (env) {
-        return $http.get(impURL + 'compilereport?environment=' + env).then(function (data) {
-            formatCompileReports(data.data);
+        return $http.get(impURL + 'compilereport', {headers: {'X-Inmanta-tid': env}}).then(function (data) {
+            formatCompileReports(data.data.reports);
             return data.data.reports;
+        });
+    };
+
+    inmantaAPI.getReport = function (compile_id) {
+        return $http.get(impURL + 'compilereport/' + compile_id).then(function (data) {
+            formatCompileReports([data.data.report]);
+            formatCompileReports(data.data.report.reports);
+            return data.data.report;
         });
     };
 
     // settings
     inmantaAPI.getSettings = function (env) {
-        return $http.get(impURL + 'environment_settings', {headers: { 'X-Inmanta-tid': env }}).then(
+        return $http.get(impURL + 'environment_settings', {headers: {'X-Inmanta-tid': env}}).then(
             function (data) {
                 return data.data;
             });

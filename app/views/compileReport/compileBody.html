@@ -1,15 +1,13 @@
 <div class="row">
-    <im-breadcrumb name="'Compile Report'">    </im-breadcrumb>
+    <im-breadcrumb name="'Compile Report'"></im-breadcrumb>
 </div>
 
 <div class="row">
-
     <div class="col-md-6">
-        <select class="form-control" ng-model="compile" ng-options="compile.started for compile in compiles track by compile.started"></select>
+        <select class="form-control" ng-model="compile" ng-options="compile.started for compile in compiles track by compile.started" ng-change="load_report()"></select>
     </div>
 </div>
 <div class="row">
-
     <div class="col-md-12 detail">
         <p><strong>Started:</strong> {{compile.started|date:'dd/MM/yyyy HH:mm'}}</p>
         <p><strong>Ended:</strong> {{compile.completed|date:'dd/MM/yyyy HH:mm'}}</p>
@@ -18,7 +16,6 @@
 </div>
 
 <div class="row">
-
     <div class="col-md-12">
         <table class="table table-lined">
             <tr>
@@ -29,8 +26,8 @@
                 <th>Duration (s)</th>
                 <th>Return code</th>
             </tr>
-            <tr ng-repeat-start="sub in compile.reports" ng-class="{'warning':sub.returncode!=0}">
-                <td> <i ng-click="sub.open=!sub.open" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': sub.open, 'glyphicon-chevron-right': !sub.open}"></i> 
+            <tr ng-repeat-start="sub in current_report.reports" ng-class="{'warning':sub.returncode!=0}">
+                <td> <i ng-click="sub.open=!sub.open" class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': sub.open, 'glyphicon-chevron-right': !sub.open}"></i>
                 </td>
                 <td>{{sub.name}}</td>
                 <td>{{sub.command}}</td>
@@ -41,16 +38,14 @@
             <tr ng-repeat-end  class="accordian-body collapse" collapse="!sub.open" ng-class="{'warning':sub.returncode!=0}">
                 <td colspan="6">
                     <div class="detail">
-                        <p><strong>Out stream:</strong>
-                            <div hljs source="sub.outstream">
-                            </div>
+                        <p>
+                            <strong>Out stream:</strong>
+                            <div hljs source="sub.outstream"></div>
                         </p>
-                        <p><strong>Error stream:</strong>
-                            <div hljs source="sub.errstream">
-                            </div>
+                        <p>
+                            <strong>Error stream:</strong>
+                            <div hljs source="sub.errstream"></div>
                         </p>
-
-
                     </div>
                 </td>
             </tr>
