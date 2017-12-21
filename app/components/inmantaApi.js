@@ -59,7 +59,7 @@ inmantaApi.service('authService', ["inmantaConfig", function Nodeservice(inmanta
 
 inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFactory", "$rootScope", "alertService", function Nodeservice($http, inmantaConfig, $q, $cacheFactory, $rootScope, alertService) {
     var inmantaAPI = {};
-    var impURL = inmantaConfig.backend;
+    var impURL = inmantaConfig.backend + "api/v1/";
     var envCache = {};
     var projCache = {};
     //dirty hack to work around https://github.com/angular/angular.js/issues/5028
