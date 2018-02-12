@@ -22,7 +22,7 @@
     "angular-awesome-slider": "~2.4.3",
     "angularjs-filters": "~0.0.2",
     "font-awesome": "^4.6.3",
-    "keycloak": "^3.2.1"
+    "keycloak": "~3.2.1"
   },
   "resolutions": {
     "angular-bootstrap": "~0.13.1",
