@@ -331,8 +331,8 @@ boom@2.x.x:
     hoek "2.x.x"
 
 bower@^1.3.1:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/bower/-/bower-1.8.0.tgz#55dbebef0ad9155382d9e9d3e497c1372345b44a"
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/bower/-/bower-1.8.4.tgz#e7876a076deb8137f7d06525dc5e8c66db82f28a"
 
 brace-expansion@^1.0.0, brace-expansion@^1.1.7:
   version "1.1.8"
