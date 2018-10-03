@@ -12,10 +12,11 @@ inmantaApi.filter('nozero', function() {
 });
 
 inmantaApi.directive("deployProgress", function() {
-    var typesSeq = ['failed',  'undefined', 'skipped', 'deployed', 'unavailable', 'cancelled',];
+    var typesSeq = ['failed',  'undefined', 'skipped', 'deployed', 'unavailable', 'cancelled', 'skipped_for_undefined'];
     var types = {
         'deployed': 'success',
         'skipped': 'info',
+        'skipped_for_undefined': 'info',
         'failed': 'danger',
         'unavailable': 'warning',
         'cancelled': 'info',
