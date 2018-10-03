@@ -16,6 +16,7 @@ inmantaApi.directive("deployProgress", function() {
     var types = {
         'deployed': 'success',
         'skipped': 'info',
+        'skipped_for_undefined': 'info',
         'failed': 'danger',
         'unavailable': 'warning',
         'cancelled': 'info',
