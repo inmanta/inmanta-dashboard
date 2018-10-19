@@ -2,20 +2,76 @@
     <im-breadcrumb> </im-breadcrumb>
 </div>
 <div class="row">
-    <h1>Lifecycle states</h1>
-    <table class="table">
+    <h1>Lifecycle Manager</h1>
+
+    <table class="table" ng-show="fsm">
         <tr ng-repeat="s in fsm  | orderBy : 'name' ">
             <td><span class="">{{ s.name.replace('fsm_', '') }}</span></td>
             <td><span class="label label-{{ s.metadata.states[s.value].label}}">{{ s.value }}</span></td>
-            <!--<td>
-                <div class="input-group">
-                    <span class="input-group-addon" id="lbl">transition to</span>
-                    <select class="form-control" id="transition-to" aria-describedby="lbl">
-                        <option selected="selected"></option>
-                        <option ng-repeat="item in s.transfers[s.value] track by item">{{item}}</option>
-                    </select>
-                </div>
-            </td>-->
         </tr>
     </table>
+
+    <div ng-show="service_types">
+        <h2>Service instances</h2>
+        <div ng-repeat="(stype, instances) in service_instances">
+            <h3>{{ stype }} instances</h3>
+            <table class="table table-lined" ng-table="instances" show-filter="true">
+                <!-- <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>State</th>
+                        <th>Version</th>
+                        <th>Attributes</th>
+                        <th></th>
+                    </tr>
+                </thead> -->
+                <tr ng-repeat="inst in $data track by inst.id">
+                    <td data-title="'ID Values'" data-sortable="'id_values'" filter="{ id_values: 'text'}"><span title="{{ inst.id }}">{{ inst.id_values.join(", ") }}</span><span ng-show="inst.deleted"
+                            class="label label-danger">deleted</span></td>
+                    <td data-title="'State'" data-sortable="'state'" filter="{ state: 'text' }">{{ inst.state }}</td>
+                    <td data-title="'Version'" data-sortable="'version'" filter="{ version: 'number'}">{{ inst.version }}</td>
+                    <td data-title="'Attributes'">
+                        <ul ng-repeat="(key, value) in inst.attributes">
+                            <li>{{ key }} : {{ value }}</span> <span class="label label-default">{{ a.modifier }}</span></li>
+                        </ul>
+                    </td>
+                    <td><button class="btn btn-link btn-xs" ng-click="events(stype, inst.id, inst.id_values)" style="color: #333333" title="View events">
+                        <span class="glyphicon glyphicon-zoom-in"> </span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 style="margin-top: 2.5em">
+            <a onclick="$('#servicetypes').collapse('toggle');"">Service types</a>
+        </h2>
+        <div id="servicetypes" aria-expanded="false" class="collapse" style="height: 0px">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Attributes</th>
+                        <th>Lifecycle stages</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="s in service_types  | orderBy : 'service_type' ">
+                    <td>{{ s.service_type }}</td>
+                    <td>
+                        <ul ng-repeat="a in s.attributes | orderBy : 'name' ">
+                            <li><span data-toggle="tooltip" data-placement="top" title="{{ a.description }}">{{ a.name }} :
+                                    {{ a.type }}</span> <span class="label label-default">{{ a.modifier }}</span></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul ng-repeat="a in s.lifecycle.states | orderBy : 'name' " class="list-inline inline">
+                            <li>{{ a.name }}
+                                <span ng-show="a.name == s.lifecycle.initial_state" class="label label-info">start</span>
+                                <span ng-show="a.attributes.deleted" class="label label-danger">end</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

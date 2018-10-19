@@ -65,6 +65,13 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     //dirty hack to work around https://github.com/angular/angular.js/issues/5028
     var lastEnv = "";
 
+    var lcmURL;
+    if (inmantaConfig.lcm) {
+        lcmURL = inmantaConfig.lcm + "api/";
+    } else {
+        lcmURL = null;
+    }
+
     var checkEnv = function (env) {
         if (env != lastEnv) {
             defaultCache.removeAll();
@@ -701,6 +708,30 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
                 return data.data;
             });
     };
+
+        inmantaAPI.getLCMServices = function (env) {
+            return $http.get(lcmURL + 'service_types', {headers: { 'X-Inmanta-tid': env }}).then(
+                function (data) {
+                    return data.data;
+                }
+            );
+        }
+
+        inmantaAPI.getLCMServiceInstances = function (env, service_type) {
+            return $http.get(lcmURL + 'services/' + service_type + "?model_state=inactive", {headers: { 'X-Inmanta-tid': env }}).then(
+                function (data) {
+                    return data.data;
+                }
+            );
+        }
+
+        inmantaAPI.getEvents = function (env, service_type, instance_id) {
+            return $http.get(lcmURL + 'services/' + service_type + "/" + instance_id + "/events", {headers: { 'X-Inmanta-tid': env }}).then(
+                function (data) {
+                    return data.data;
+                }
+            );
+    }
 
     return inmantaAPI;
 }

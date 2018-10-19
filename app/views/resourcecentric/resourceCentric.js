@@ -1,6 +1,7 @@
 'use strict';
 
-var resv = angular.module('InmantaApp.resourceCentricView', ['ui.router', 'inmantaApi', 'ngTable', 'dialogs.main', 'InmantaApp.resourceDetail', 'InmantaApp.fileDetail', 'inmanta.services.backhaul']);
+var resv = angular.module('InmantaApp.resourceCentricView', ['ui.router', 'inmantaApi', 'ngTable', 'dialogs.main',
+                          'InmantaApp.resourceDetail', 'InmantaApp.fileDetail', 'inmanta.services.backhaul']);
 
 resv.config(["$stateProvider", function ($stateProvider) {
     $stateProvider.state('resourceCentric', {
@@ -18,7 +19,8 @@ resv.config(["$stateProvider", function ($stateProvider) {
     });
 }]);
 
-resv.controller('resourceCentricController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs", "$q", function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs, $q) {
+resv.controller('resourceCentricController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs", "$q",
+                function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs, $q) {
     $scope.state = $stateParams;
 
     $scope.startDryRun = function () {

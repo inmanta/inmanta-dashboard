@@ -1,0 +1,19 @@
+<div class="modal-header dialog-header-confirm">
+    <button type="button" class="close" ng-click="close()">&times;</button>
+    <h4 class="modal-title"><span class="{{icon}}"></span> {{header}}</h4>
+</div>
+
+<div class="modal-body">
+    <div><strong> ID Values: </strong> {{data.id_values.join(" ")}} </div>
+    <dl ng-repeat="event in data.events">
+        <dd>
+            <div><strong>Type: </strong> {{ event.event_type }}</div>
+            <div><strong>Timestamp: </strong> {{event.timestamp * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}</div>
+            <div style="white-space: pre-wrap;"><strong>Message: </strong><br />{{ event.message }}</div>
+        </dd>
+    </dl>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+</div>
