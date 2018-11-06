@@ -36,9 +36,10 @@
      <table class="table table-nonfluid">
         <tr ng-repeat="line in report  | orderBy : 'name' ">
         <td> <strong>{{line.name}} </strong></td>
-        <td ng-repeat-end ng-switch="line.value.indexof('http')<0">
-            <span ng-switch-default>
-             {{line.value}} 
+        <td ng-repeat-end ng-switch="line.value.indexOf('http')<0">
+            <pre ng-switch-default ng-if="line.value.indexOf('\n')>=0">{{line.value}}</pre>
+            <span ng-switch-default ng-if="line.value.indexOf('\n')<0">
+                    {{line.value}} 
             </span>
             <a target="_new" href="{{line.value}}" ng-switch-when="false">
               {{line.value}} 
