@@ -731,7 +731,14 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
                     return data.data;
                 }
             );
-    }
+        }
+        inmantaAPI.getServiceResources = function (env, service_type, instance_id) {
+            return $http.get(lcmURL + 'services/' + service_type + "/" + instance_id + "/resources", {headers: { 'X-Inmanta-tid': env }}).then(
+                function (data) {
+                    return data.data;
+                }
+            );
+        }
 
     return inmantaAPI;
 }

@@ -16,15 +16,6 @@
         <div ng-repeat="(stype, instances) in service_instances">
             <h3>{{ stype }} instances</h3>
             <table class="table table-lined" ng-table="instances" show-filter="true">
-                <!-- <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>State</th>
-                        <th>Version</th>
-                        <th>Attributes</th>
-                        <th></th>
-                    </tr>
-                </thead> -->
                 <tr ng-repeat="inst in $data track by inst.id">
                     <td data-title="'ID Values'" data-sortable="'id_values'" filter="{ id_values: 'text'}"><span title="{{ inst.id }}">{{ inst.id_values.join(", ") }}</span><span ng-show="inst.deleted"
                             class="label label-danger">deleted</span></td>
@@ -35,10 +26,15 @@
                             <li>{{ key }} : {{ value }}</span> <span class="label label-default">{{ a.modifier }}</span></li>
                         </ul>
                     </td>
-                    <td><button class="btn btn-link btn-xs" ng-click="events(stype, inst.id, inst.id_values)" style="color: #333333" title="View events">
-                        <span class="glyphicon glyphicon-zoom-in"> </span></button></td>
-                    </tr>
-                </tbody>
+                    <td>
+                        <button class="btn btn-link btn-xs" ng-click="resources(stype, inst.id, inst.id_values)" style="color: #333333" title="View resources">
+                            <span class="glyphicon glyphicon-th"> </span>
+                        </button>
+                        <button class="btn btn-link btn-xs" ng-click="events(stype, inst.id, inst.id_values)" style="color: #333333" title="View events">
+                            <span class="glyphicon glyphicon-zoom-in"> </span>
+                        </button>
+                    </td>
+                </tr>
             </table>
         </div>
 

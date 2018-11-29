@@ -1,0 +1,29 @@
+<div class="modal-header dialog-header-confirm">
+    <button type="button" class="close" ng-click="close()">&times;</button>
+    <h4 class="modal-title"><span class="{{icon}}"></span> {{header}}</h4>
+</div>
+
+<div class="modal-body">
+    <div><strong> ID Values: </strong> {{data.id_values.join(" ")}} </div>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th>Resource id</th>
+                    <th>Resource state</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="s in service_types  | orderBy : 'service_type' ">
+            <tr ng-repeat="resource in data.resources | orderBy : 'id'">
+                <td>{{ resource.resource_id }}</td>
+                <td>
+                    <span ng-show="resource.resource_state == 'waiting'" class="label label-info">{{ resource.resource_state }}</span>
+                    <span ng-show="resource.resource_state == 'success'" class="label label-success">{{ resource.resource_state }}</span>
+                    <span ng-show="resource.resource_state == 'error'" class="label label-danger">{{ resource.resource_state }}</span>
+                </td>
+            </tr>
+        </table>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+</div>

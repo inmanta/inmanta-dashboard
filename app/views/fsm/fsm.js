@@ -18,6 +18,7 @@ resv.config(["$stateProvider", function ($stateProvider) {
     });
 }]);
 
+
 resv.controller('instanceEventCtrl', ['$scope', '$modalInstance', 'data', "dialogs", function ($scope, $modalInstance, data) {
     //-- Variables -----//
     $scope.header = "Events for " + data.service_type + " " + data.instance_id;
@@ -29,6 +30,20 @@ resv.controller('instanceEventCtrl', ['$scope', '$modalInstance', 'data', "dialo
         $scope.$destroy();
     }; // end close
 }]); // end WaitDialogCtrl
+
+
+resv.controller('instanceResourceCtrl', ['$scope', '$modalInstance', 'data', "dialogs", function ($scope, $modalInstance, data) {
+    //-- Variables -----//
+    $scope.header = "Resources for " + data.service_type + " " + data.instance_id;
+    $scope.data = data;
+    $scope.icon = 'glyphicon glyphicon-info-sign';
+    //-- Methods -----//
+    $scope.close = function () {
+        $modalInstance.close();
+        $scope.$destroy();
+    }; // end close
+}]); // end WaitDialogCtrl
+
 
 resv.controller('fsmController', ['$scope', 'inmantaService', "$stateParams", "$q", "BackhaulTable", "dialogs",
         function ($scope, inmantaService, $stateParams, $q, BackhaulTable, dialogs) {
@@ -95,6 +110,18 @@ resv.controller('fsmController', ['$scope', 'inmantaService', "$stateParams", "$
                 instance_id: id,
                 id_values: id_values,
                 events: d.data,
+                env: $stateParams.env
+            }, {});
+        });
+    };
+
+    $scope.resources = function (stype, id, id_values) {
+        inmantaService.getServiceResources($stateParams.env, stype, id).then(function (d) {
+            dialogs.create('views/fsm/instance_resources.html', 'instanceResourceCtrl', {
+                service_type: stype,
+                instance_id: id,
+                id_values: id_values,
+                resources: d.data,
                 env: $stateParams.env
             }, {});
         });
