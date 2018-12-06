@@ -709,6 +709,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
+    if (lcmURL) {
         inmantaAPI.getLCMServices = function (env) {
             return $http.get(lcmURL + 'service_types', {headers: { 'X-Inmanta-tid': env }}).then(
                 function (data) {
@@ -739,7 +740,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
                 }
             );
         }
-
+    }
     return inmantaAPI;
 }
 ]);
