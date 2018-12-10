@@ -31,9 +31,6 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.controllers.side',
     'InmantaApp.compileReport',
     'InmantaApp.formsView',
-    'InmantaApp.snapshotView',
-    'InmantaApp.snapshotDetailView',
-    'InmantaApp.restoreView',
     'InmantaApp.settings',
     'InmantaApp.fsm'
 ]);
