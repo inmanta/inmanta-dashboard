@@ -23,6 +23,11 @@ resv.directive("inmantaStatus", ["resourceStates", function (resourceStates) {
                 if (stateInfo.inprogress) {
                     scope.glyphClasses += " spinner-fade";
                 }
+
+                scope.status = scope.resource.status;
+                if (stateInfo.name) {
+                    scope.status = stateInfo.name;
+                }
             }
             scope.$watch("resource", update);
             update();

@@ -69,6 +69,7 @@ app.constant("resourceStates", {
     },
     skipped_for_undefined: {
         label: "info",
+        name: "skip undef",
         inprogress: false,
         filter: true,
         queue: false,

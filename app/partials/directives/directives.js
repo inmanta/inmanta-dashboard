@@ -11,23 +11,7 @@ inmantaApi.filter("nozero", function() {
     };
 });
 
-inmantaApi.directive("deployProgress", function() {
-    var typesSeq = ["failed",  "undefined", "skipped", "deployed", "unavailable", "cancelled", "skipped_for_undefined"];
-    var types = {
-        "deployed": "success",
-        "skipped": "info",
-        "skipped_for_undefined": "info",
-        "failed": "danger",
-        "unavailable": "warning",
-        "cancelled": "info",
-        "undefined": "warning",
-        "deploying": "success"
-    }
-
-    var stripped = {
-        "deploying": true,
-    }
-
+inmantaApi.directive("deployProgress", ["resourceStates", function(resourceStates) {
     var getProgress = function(version) {
         var prog = {};
         var bars = [];
@@ -42,15 +26,18 @@ inmantaApi.directive("deployProgress", function() {
             }
         }
 
-        typesSeq.forEach(function(key) {
+        angular.forEach(resourceStates, function(item, key) {
             var value = prog[key];
             if (value) {
+                var name = key;
+                if (item.name) {
+                    name = item.name;
+                }
                 bars.push({
-                    "name": key,
+                    "name": name,
                     "value": value * 100 / total,
                     "label": value,
-                    "type": types[key],
-                    "stripped": (stripped[key] ? true : false),
+                    "type": item.label,
                 });
             }
         });
@@ -90,7 +77,7 @@ inmantaApi.directive("deployProgress", function() {
             }, true)
         }
     };
-});
+}]);
 
 inmantaApi.directive("imBreadcrumb", ["$stateParams", "inmantaService", function($stateParams, inmantaService) {
     return {
