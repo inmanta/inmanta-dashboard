@@ -2,17 +2,8 @@ pipeline {
     agent any
 
     options{
-        checkoutToSubdirectory('pytest')
         disableConcurrentBuilds()
     }
-
-    triggers { 
-        upstream upstreamproject
-    }
-
-    environment {
-      INMANTA_TEST_ENV="${env.WORKSPACE}/env"
-    } 
 
     stages {
         stage('Test') {
