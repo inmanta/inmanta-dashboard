@@ -1,39 +1,14 @@
 "use strict";
 
-var resv = angular.module("InmantaApp.resourceView", ["ui.router", "inmantaApi", "ngTable", "dialogs.main", "InmantaApp.resourceDetail", "InmantaApp.fileDetail", "inmanta.services.backhaul"])
-
-resv.directive("inmantaStatus", ["resourceStates", function (resourceStates) {
-    return {
-        restrict: "E",
-        scope: {
-            resource: "=resource"
-        },
-        templateUrl: "views/resource/resourceStatus.html",
-        link: function (scope, element, attrs) {
-            var update = function() {
-                var stateInfo = resourceStates[scope.resource.status];
-                scope.textClass = "text-" + stateInfo.label;
-                scope.glyphClasses = "";
-                if (stateInfo.icon && !scope.resource.attributes.purged) {
-                    scope.glyphClasses += "glyphicon-" + stateInfo.icon;
-                }
-                if (scope.resource.attributes.purged) {
-                    scope.glyphClasses += "glyphicon-trash";
-                }
-                if (stateInfo.inprogress) {
-                    scope.glyphClasses += " spinner-fade";
-                }
-
-                scope.status = scope.resource.status;
-                if (stateInfo.name) {
-                    scope.status = stateInfo.name;
-                }
-            }
-            scope.$watch("resource", update);
-            update();
-        }
-    };
-}]);
+var resv = angular.module("InmantaApp.resourceView", [
+    "ui.router",
+    "inmantaApi",
+    "ngTable",
+    "dialogs.main",
+    "InmantaApp.resourceDetail",
+    "InmantaApp.fileDetail",
+    "inmanta.services.backhaul"
+]);
 
 resv.config(["$stateProvider", function ($stateProvider) {
     $stateProvider.state("resources", {
@@ -49,7 +24,70 @@ resv.config(["$stateProvider", function ($stateProvider) {
             }
         }
     });
+
+    $stateProvider.state("resourceDetail", {
+        url: "/environment/:env/version/:version/:resourceId",
+        views: {
+            "body": {
+                templateUrl: "views/resource/resourceDetail.html",
+                controller: "resourceDetailController"
+            },
+            "side": {
+                templateUrl: "views/env/envSide.html",
+                controller: "sideController"
+            }
+        }
+    });
 }]);
+
+resv.directive("inmantaStatus", ["resourceStates", function (resourceStates) {
+    return {
+        restrict: "E",
+        scope: {
+            resource: "=resource",
+            status: "=?status",
+        },
+        templateUrl: "views/resource/resourceStatus.html",
+        link: function (scope, element, attrs) {
+            var update = function() {
+                var status = scope.resource.status;
+                if (scope.status) {
+                    status = scope.status;
+                }
+
+                var stateInfo = resourceStates[status];
+                scope.textClass = "text-" + stateInfo.label;
+                scope.glyphClasses = "";
+                if (stateInfo.icon && !scope.resource.attributes.purged) {
+                    scope.glyphClasses += "glyphicon-" + stateInfo.icon;
+                }
+                if (scope.resource.attributes.purged) {
+                    scope.glyphClasses += "glyphicon-trash";
+                }
+                if (stateInfo.inprogress) {
+                    scope.glyphClasses += " spinner-fade";
+                }
+
+                scope.showstatus = status;
+                if (stateInfo.name) {
+                    scope.showstatus = stateInfo.name;
+                }
+            }
+            scope.$watch("resource", update);
+            update();
+        }
+    };
+}]);
+
+resv.directive("inmantaAttributeInput", function() {
+    return {
+        restrict: "E",
+        scope: {
+            attribute: "=attribute",
+        },
+        templateUrl: "views/resource/attribute-input.html",
+    }
+});
 
 resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaService", "$stateParams",
     function ($scope, $rootScope, inmantaService, $stateParams) {
@@ -65,6 +103,17 @@ resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaSer
         };
     }
 ]);
+
+function parseRequires(requires, parser) {
+    var requires_ids = [];
+    angular.forEach(requires, function(req) {
+        var id_dict = parser(req);
+        id_dict.id = req;
+        id_dict.resource_id = id_dict.entity_type + "[" + id_dict.agent_name + "," + id_dict.attribute + "=" + id_dict.attribute_value + "]";
+        requires_ids.push(id_dict);
+    });
+    return requires_ids;
+}
 
 resv.controller("resourceController",
              ["$scope", "$rootScope", "inmantaService", "$stateParams", "BackhaulTable", "dialogs", "resourceStates", "$q",
@@ -114,7 +163,7 @@ resv.controller("resourceController",
                         id_dict.id = req;
                         requires_ids.push(id_dict);
                     });
-                    item.requires_ids = requires_ids;
+                    item.requires_ids = parseRequires(item.attributes.requires, inmantaService.parseID);
                 });
                 return data;
             });
@@ -137,19 +186,19 @@ resv.controller("resourceController",
             return out;
         };
 
-        $scope.details = function (item) {
-            dialogs.create("views/resourceDetail/resourceDetail.html", "resourceDetailCtrl", {
-                resource: item,
-                env: $stateParams.env
-            }, {});
-        };
+        // $scope.details = function (item) {
+        //     dialogs.create("views/resourceDetail/resourceDetail.html", "resourceDetailCtrl", {
+        //         resource: item,
+        //         env: $stateParams.env
+        //     }, {});
+        // };
 
-        $scope.open = function (item) {
-            dialogs.create("views/fileDetail/fileDetail.html", "fileDetailCtrl", {
-                resource: item,
-                env: $stateParams.env
-            }, {});
-        };
+        // $scope.open = function (item) {
+        //     dialogs.create("views/fileDetail/fileDetail.html", "fileDetailCtrl", {
+        //         resource: item,
+        //         env: $stateParams.env
+        //     }, {});
+        // };
 
         $scope.states = function () {
             var def = $q.defer();
@@ -173,3 +222,70 @@ resv.controller("resourceController",
         });
     }
 ]);
+
+resv.controller('resourceDetailController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs",
+                function ($scope, inmantaService, $stateParams, BackhaulTable, dialogs) {
+    $stateParams.id = window.decodeURIComponent($stateParams.resourceId);
+    $scope.id = $stateParams.id;
+    $scope.version = $stateParams.version;
+    $stateParams.version = $scope.version;
+    $scope.env = $stateParams.env;
+
+    $scope.tableParams = new BackhaulTable($scope, {
+        page: 1, // show first page
+        count: 25, // count per page
+        sorting: {
+            'timestamp': 'desc' // initial sorting
+        }
+    }, function (prms) {
+        var state = {};
+        var x;
+        for (x in prms.data) {
+            var line = prms.data[x];
+            state[line.id] = line.open;
+        }
+        return inmantaService.getLogForResource($stateParams.env, $stateParams.id + ",v=" + $stateParams.version).then(function (info) {
+            var data = info.logs;
+            $scope.resource = info.resource;
+            $scope.attributes = [];
+            angular.forEach(info.resource.attributes, function(value, key) {
+                var element = {
+                    name: key,
+                    value: value,
+                    undefined: value == "<<undefined>>",
+                    multiline: value.length > 80 || (value.indexOf && value.indexOf("\n") >= 0),
+                };
+                element["type"] = "input";
+                if (key.indexOf("password") >= 0) {
+                    element.type = "password";
+                }
+                if (angular.isObject(value)) {
+                    element.value = JSON.stringify(value);
+                }
+                if (key != "version" && key != "requires") {
+                    $scope.attributes.push(element);
+                }
+            });
+
+            $scope.requires = parseRequires(info.resource.attributes.requires, inmantaService.parseID);
+            var i;
+            for (i in data) {
+                if (state[data[i].id]) {
+                    data[i].open = true;
+                }
+            }
+            return data;
+        });
+    });
+
+    inmantaService.getEnvironment($stateParams.env).then(function (d) {
+        $scope.env = d;
+    });
+
+    $scope.details = function (item) {
+        dialogs.create('views/log/logDetail.html', 'msgDetailCtrl', {
+            message: item,
+            env: $stateParams.env
+        }, {});
+    };
+}]);

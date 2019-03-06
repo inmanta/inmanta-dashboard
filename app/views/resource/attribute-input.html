@@ -1,0 +1,8 @@
+<div class="col-sm-2">
+    <strong>{{attribute.name}}</strong>
+</div>
+<div class="col-sm-10">
+    <span ng-if="attribute.undefined"><i class="glyphicon glyphicon-question-sign" style="width: 14px" ng-class="glyphClasses"></i> <span style="margin: 0 10px" class="ng-binding">undefined</span></span>
+    <input ng-if="!attribute.multiline && !attribute.undefined" disabled type="{{ attribute.type }}" class="form-control" ng-model="attribute.value"></input>
+    <textarea ng-if="attribute.multiline && !attribute.undefined" disabled rows="4" class="form-control" ng-model="attribute.value"></textarea>
+</div>

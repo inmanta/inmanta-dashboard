@@ -1,0 +1,54 @@
+<div class="row">
+    <im-breadcrumb name="'Resource'" id="id"> </im-breadcrumb>
+    <div class="col-md-12">
+        <h3>Resource desired state</h3>
+        <form class="form-horizontal">
+            <div ng-repeat="item in attributes | orderBy: 'name'" class="form-group">
+                    <inmanta-attribute-input attribute="item"></inmanta-attribute-input>
+                <!-- <pre class="pre-scrollable"><code>{{item.value}}</code></pre> -->
+            </div>
+            <div ng-if="requires.length > 0" class="form-group">
+                <div class="col-sm-2">
+                    <strong>requires</strong>
+                </div>
+                <div class="col-sm-10">
+                    <ul ng-repeat="dep in requires">
+                        <li><a ui-sref="resourceDetail({env:env.id, version:version, resourceId: dep.resource_id })">{{ dep.resource_id }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <h3>Action log</h3>
+        <table class="table table-lined" ng-table="tableParams" show-filter="true">
+            <tbody ng-repeat="log in $data">
+                <tr>
+                    <td class="col-md-1">
+                        <div ng-if="log.messages.length > 0">
+                            <span ng-click="log.open=!log.open" class="pull-left glyphicon"
+                                ng-class="{'glyphicon-chevron-down': log.open, 'glyphicon-chevron-right': !log.open}"></span>
+                            <span class="pull-right badge">+{{log.messages.length}} </span>
+                        </div>
+                    </td>
+                    <td class="col-md-2" data-title="'Action'" data-sortable="'action'" filter="{ 'action':'text'}">
+                        {{log.action}}</td>
+                    <td class="col-md-3" data-title="'Started'" data-sortable="'started'" filter="{ 'started':'text'}">
+                        {{log.started|date:'dd/MM/yyyy HH:mm:ss.sss'}}</td>
+                    <td class="col-md-3" data-title="'Finished'" data-sortable="'finished'"
+                        filter="{ 'finished':'text'}">{{log.finished|date:'dd/MM/yyyy HH:mm:ss.sss'}}</td>
+                    <td class="col-md-3" data-title="'Status'" data-sortable="'status'" filter="{ 'status':'text'}">
+                        <inmanta-status ng-if="log.action == 'deploy'" resource="resource" status="log.status"></inmanta-status>
+                    </td>
+                </tr>
+                <tr ng-repeat="line in log.messages" class="accordian-body collapse" collapse="!log.open">
+                    <td><button class="btn btn-link btn-xs" ng-click="details(line)"> <span
+                                class="glyphicon glyphicon-zoom-in"></span></button></td>
+                    <td>{{ line.timestamp | date:'dd/MM/yyyy HH:mm:ss.sss' }}</td>
+                    <td>{{ line.level }}</td>
+                    <td colspan="2">{{ line.msg }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
