@@ -65,9 +65,9 @@
   version "0.5.6"
   resolved "https://codeload.github.com/WebReflection/es6-collections/tar.gz/bb96f2e469d96e94024623e3760efd551c33d4d5"
 
-"@bower_components/font-awesome@FortAwesome/Font-Awesome", font-awesome@FortAwesome/Font-Awesome:
-  version "0.0.0"
-  resolved "https://codeload.github.com/FortAwesome/Font-Awesome/tar.gz/1cf1062e0cfda5e9b5b2cac7844721b345e1a9c5"
+"@bower_components/font-awesome@FortAwesome/Font-Awesome#^4.6.3", font-awesome@FortAwesome/Font-Awesome#^4.6.3:
+  version "4.7.0"
+  resolved "https://codeload.github.com/FortAwesome/Font-Awesome/tar.gz/a8386aae19e200ddb0f6845b5feeee5eb7013687"
 
 "@bower_components/highlightjs@components/highlightjs", highlightjs@components/highlightjs:
   version "9.12.0"
