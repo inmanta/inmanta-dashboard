@@ -1,7 +1,7 @@
 'use strict';
 
 var resv = angular.module('InmantaApp.resourceCentricView', ['ui.router', 'inmantaApi', 'ngTable', 'dialogs.main',
-                          'InmantaApp.resourceDetail', 'InmantaApp.fileDetail', 'inmanta.services.backhaul']);
+                           'InmantaApp.fileDetail', 'inmanta.services.backhaul']);
 
 resv.config(["$stateProvider", function ($stateProvider) {
     $stateProvider.state('resourceCentric', {

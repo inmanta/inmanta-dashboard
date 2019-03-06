@@ -5,7 +5,6 @@ var resv = angular.module("InmantaApp.resourceView", [
     "inmantaApi",
     "ngTable",
     "dialogs.main",
-    "InmantaApp.resourceDetail",
     "InmantaApp.fileDetail",
     "inmanta.services.backhaul"
 ]);
