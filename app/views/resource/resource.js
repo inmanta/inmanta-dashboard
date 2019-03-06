@@ -156,10 +156,9 @@ resv.controller("resourceController",
             var names = [];
             angular.forEach(resourceStates, function(item, key) {
                 if (item.filter) {
-                    names.push({"id": key, "title": key});
+                    names.push({"id": key, "title": (item.name) ? item.name : key});
                 }
             });
-
             def.resolve(names);
             return def;
         };

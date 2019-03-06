@@ -80,14 +80,14 @@ app.constant("resourceStates", {
         inprogress: false,
         filter: true,
         queue: false,
-        icon: "failed",
+        icon: "remove",
     },
     unavailable: {
         label: "warning",
         inprogress: false,
         filter: true,
         queue: false,
-        icon: "failed",
+        icon: "remove",
     },
     cancelled: {
         label: "info",
