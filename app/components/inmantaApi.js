@@ -103,6 +103,8 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         }
     }
 
+    inmantaAPI.parseID = parseID;
+
     //project
     inmantaAPI.getProjects = function () {
         return $http.get(impURL + 'project').then(function (data) {

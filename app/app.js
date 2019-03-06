@@ -39,6 +39,77 @@ app.config(["$urlRouterProvider", function ($urlRouterProvider) {
     $urlRouterProvider.otherwise("/projects");
 }]);
 
+/*
+ All resource states and information on how to represent them:
+    label: The type of bootstrap label to apply
+    inprogress: This is an inprogress state
+    filter: Expose this state in any filters
+    queue: The resource is queued to processing
+*/
+app.constant("resourceStates", {
+    available: {
+        label: "muted",
+        inprogress: false,
+        filter: false,
+        queue: true,
+    },
+    deployed: {
+        label: "success",
+        inprogress: false,
+        filter: true,
+        queue: false,
+        icon: "ok",
+    },
+    skipped: {
+        label: "info",
+        inprogress: false,
+        filter: true,
+        queue: false,
+        icon: "fast-forward",
+    },
+    skipped_for_undefined: {
+        label: "info",
+        inprogress: false,
+        filter: true,
+        queue: false,
+        icon: "fast-forward",
+    },
+    failed: {
+        label: "danger",
+        inprogress: false,
+        filter: true,
+        queue: false,
+        icon: "failed",
+    },
+    unavailable: {
+        label: "warning",
+        inprogress: false,
+        filter: true,
+        queue: false,
+        icon: "failed",
+    },
+    cancelled: {
+        label: "info",
+        inprogress: false,
+        filter: true,
+        queue: false,
+    },
+    undefined: {
+        label: "warning",
+        inprogress: false,
+        filter: true,
+        queue: false,
+        icon: "question-sign",
+    },
+    deploying: {
+        label: "success",
+        inprogress: true,
+        filter: true,
+        queue: false,
+        icon: "ok",
+    },
+});
+
 app.controller("configCtrl", ["$scope", "inmantaConfig", "dialogs", function ($scope, inmantaConfig, dialogs) {
     $scope.config = inmantaConfig;
 }]);

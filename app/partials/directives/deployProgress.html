@@ -5,7 +5,6 @@
 	    <div class="col-md-{{width}}">
            <progress><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)"  value="bar.value" type="{{bar.type}}"><span >{{bar.name}} {{bar.label}}</span></bar>
             <div ng-if="data.bars.length==0 && emptyaction" style="width: 100%; text-align: center; cursor:pointer;" ng-click="emptyaction()">
-                
                     <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{emptyname}}
              </div>
 
@@ -22,7 +21,7 @@
 
 <div ng-if="!name" class="row">
      <div class="col-md-8">
-           <progress class="compact"><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)" value="bar.value" type="{{bar.type}}"><span ></span></bar></progress> 
+           <progress class="compact"><bar ng-repeat="bar in data.bars" ng-click="action(bar.name)" value="bar.value" type="{{bar.type}}"><span ></span></bar></progress>
       </div>
       <div class="col-md-4">
        {{data.done}} / {{data.total}}

@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-var inmantaApi = angular.module('InmantaApp.directives', []);
+var inmantaApi = angular.module("InmantaApp.directives", []);
 
-inmantaApi.filter('nozero', function() {
+inmantaApi.filter("nozero", function() {
     return function(input) {
         if (input == 0) {
             return "";
@@ -12,15 +12,20 @@ inmantaApi.filter('nozero', function() {
 });
 
 inmantaApi.directive("deployProgress", function() {
-    var typesSeq = ['failed',  'undefined', 'skipped', 'deployed', 'unavailable', 'cancelled', 'skipped_for_undefined'];
+    var typesSeq = ["failed",  "undefined", "skipped", "deployed", "unavailable", "cancelled", "skipped_for_undefined"];
     var types = {
-        'deployed': 'success',
-        'skipped': 'info',
-        'skipped_for_undefined': 'info',
-        'failed': 'danger',
-        'unavailable': 'warning',
-        'cancelled': 'info',
-        'undefined': 'warning'
+        "deployed": "success",
+        "skipped": "info",
+        "skipped_for_undefined": "info",
+        "failed": "danger",
+        "unavailable": "warning",
+        "cancelled": "info",
+        "undefined": "warning",
+        "deploying": "success"
+    }
+
+    var stripped = {
+        "deploying": true,
     }
 
     var getProgress = function(version) {
@@ -44,30 +49,31 @@ inmantaApi.directive("deployProgress", function() {
                     "name": key,
                     "value": value * 100 / total,
                     "label": value,
-                    "type": types[key]
+                    "type": types[key],
+                    "stripped": (stripped[key] ? true : false),
                 });
             }
         });
 
         var progress = {
-            'total': version.total,
-            'bars': bars,
-            'done': version.done
+            "total": version.total,
+            "bars": bars,
+            "done": version.done
         };
 
         return progress;
     }
 
     return {
-        restrict: 'E',
-        templateUrl: 'partials/directives/deployProgress.html',
+        restrict: "E",
+        templateUrl: "partials/directives/deployProgress.html",
         transclude: true,
         scope: {
-            datain: '=data',
-            name: '=name',
-            action: '=',
-            emptyaction: '=?emptyaction',
-            emptyname: '=?emptyname'
+            datain: "=data",
+            name: "=name",
+            action: "=",
+            emptyaction: "=?emptyaction",
+            emptyname: "=?emptyname"
         },
         link: function(scope, element, attrs) {
             scope.width = 10;
@@ -77,7 +83,7 @@ inmantaApi.directive("deployProgress", function() {
 
             scope.remainder = 10 - scope.width;
             scope.data = null;
-            scope.$watch('datain', function(newValue, oldValue) {
+            scope.$watch("datain", function(newValue, oldValue) {
                 if (newValue) {
                     scope.data = getProgress(newValue)
                 }
@@ -86,13 +92,13 @@ inmantaApi.directive("deployProgress", function() {
     };
 });
 
-inmantaApi.directive("imBreadcrumb", ['$stateParams', 'inmantaService', function($stateParams, inmantaService) {
+inmantaApi.directive("imBreadcrumb", ["$stateParams", "inmantaService", function($stateParams, inmantaService) {
     return {
-        restrict: 'E',
-        templateUrl: 'partials/directives/breadcrumb.html',
+        restrict: "E",
+        templateUrl: "partials/directives/breadcrumb.html",
         scope: {
-            name: '=?name',
-            id: '=?id'
+            name: "=?name",
+            id: "=?id"
         },
         link: function(scope, element, attrs) {
             scope.breadcrumb = [];

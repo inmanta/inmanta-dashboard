@@ -3,9 +3,9 @@
 var services = angular.module('inmanta.services.backhaul', ['ngTable']);
 
 //tricky little service to cause data to be reloaded upon a refresh event
-// but with the additional advantage that the front-end is only refreshed if 
+// but with the additional advantage that the front-end is only refreshed if
 // 1- data has been received
-// 2- the data has changed 
+// 2- the data has changed
 
 // a back haul instance is constructed on the scope
 
@@ -38,7 +38,7 @@ services.service('Backhaul',
             //this function expects n arguments
             //get(rld,gb,[args])
             // rld: a function to be called when a reload of the font-end must be triggered
-            // gd: a function to the data, this function should return a promise 
+            // gd: a function to the data, this function should return a promise
             // all following arguments are passed to gd
 
             //rld and gd should be the same each time a backhaul instance is called
@@ -46,7 +46,7 @@ services.service('Backhaul',
             //when called a second time, with the same [args] cached data is returned
             //when called a second time, with different [args] it returns a promise for gd(*args)
 
-            // if a refresh event is seen after the first call, gd(*args) is called and when the received data is different from before, rld is called 
+            // if a refresh event is seen after the first call, gd(*args) is called and when the received data is different from before, rld is called
 
             this.get = function (rld, gd) {
                 if (first) {
