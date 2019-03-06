@@ -50,7 +50,7 @@ app.constant("resourceStates", {
     available: {
         label: "muted",
         inprogress: false,
-        filter: false,
+        filter: true,
         queue: true,
     },
     deployed: {
@@ -92,7 +92,7 @@ app.constant("resourceStates", {
     cancelled: {
         label: "info",
         inprogress: false,
-        filter: true,
+        filter: false,
         queue: false,
     },
     undefined: {
