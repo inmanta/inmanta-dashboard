@@ -85,6 +85,15 @@ resv.directive("inmantaAttributeInput", function() {
             attribute: "=attribute",
         },
         templateUrl: "views/resource/attribute-input.html",
+        link: function(scope, element, attrs) {
+            scope.textarea_id = "ta-" + scope.attribute.name;
+            scope.textarea_rows = 4;
+            var update = function() {
+            };
+
+            scope.$watch("attribute", update);
+            update();
+        }
     }
 });
 
