@@ -41,7 +41,7 @@
                         <inmanta-status ng-if="log.action == 'deploy'" resource="resource" status="log.status"></inmanta-status>
                     </td>
                 </tr>
-                <tr ng-repeat="line in log.messages" class="accordian-body collapse" collapse="!log.open">
+                <tr ng-repeat="line in log.messages" class="accordian-body collapse" uib-collapse="!log.open">
                     <td><button class="btn btn-link btn-xs" ng-click="details(line)"> <span
                                 class="glyphicon glyphicon-zoom-in"></span></button></td>
                     <td>{{ line.timestamp | date:'dd/MM/yyyy HH:mm:ss.sss' }}</td>

@@ -25,12 +25,12 @@
                     </td>
                     <td data-title="'Deploy state'" data-sortable="'status'" filter="{'status':'select'}" filter-data="states()" class="col-xs-1 "><inmanta-status resource="res"></inmanta-status></td>
                 </tr>
-                <tr class="accordian-body collapse" collapse="!res.deps_open">
+                <tr class="accordian-body collapse" uib-collapse="!res.deps_open">
                     <td></td>
                     <td colspan="2" style="padding-left: 5em"><strong>Dependency</strong></td>
                     <td colspan="3"><strong>Deploy State</strong></td>
                 </tr>
-                <tr ng-repeat="dep in res.requires_ids" class="accordian-body collapse" collapse="!res.deps_open">
+                <tr ng-repeat="dep in res.requires_ids" class="accordian-body collapse" uib-collapse="!res.deps_open">
                     <td></td>
                     <td colspan="2" style="padding-left: 5em">
                         <a ui-sref="resourceDetail({env:env.id, version:res.model, resourceId: dep.resource_id })">{{ dep.resource_id }}</a>
