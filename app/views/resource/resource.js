@@ -78,7 +78,7 @@ resv.directive("inmantaStatus", ["resourceStates", function (resourceStates) {
     };
 }]);
 
-resv.directive("inmantaAttributeInput", function() {
+resv.directive("inmantaAttributeInput", ["inmantaService", function(inmantaService) {
     return {
         restrict: "E",
         scope: {
@@ -93,9 +93,16 @@ resv.directive("inmantaAttributeInput", function() {
 
             scope.$watch("attribute", update);
             update();
+
+
+            scope.getFile = function(file_id) {
+                inmantaService.getFile(file_id).then(function (f) {
+                    scope.attribute.file_content = f.content;
+                });
+            }
         }
     }
-});
+}]);
 
 resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaService", "$stateParams",
     function ($scope, $rootScope, inmantaService, $stateParams) {
@@ -231,7 +238,7 @@ resv.controller("resourceController",
     }
 ]);
 
-resv.controller('resourceDetailController', ['$scope', 'inmantaService', "$stateParams", "BackhaulTable", "dialogs",
+resv.controller("resourceDetailController", ["$scope", "inmantaService", "$stateParams", "BackhaulTable", "dialogs",
                 function ($scope, inmantaService, $stateParams, BackhaulTable, dialogs) {
     $stateParams.id = window.decodeURIComponent($stateParams.resourceId);
     $scope.id = $stateParams.id;
@@ -243,7 +250,7 @@ resv.controller('resourceDetailController', ['$scope', 'inmantaService', "$state
         page: 1, // show first page
         count: 25, // count per page
         sorting: {
-            'timestamp': 'desc' // initial sorting
+            "timestamp": "desc" // initial sorting
         }
     }, function (prms) {
         var state = {};
@@ -254,28 +261,6 @@ resv.controller('resourceDetailController', ['$scope', 'inmantaService', "$state
         }
         return inmantaService.getLogForResource($stateParams.env, $stateParams.id + ",v=" + $stateParams.version).then(function (info) {
             var data = info.logs;
-            $scope.resource = info.resource;
-            $scope.attributes = [];
-            angular.forEach(info.resource.attributes, function(value, key) {
-                var element = {
-                    name: key,
-                    value: value,
-                    undefined: value == "<<undefined>>",
-                    multiline: value.length > 80 || (value.indexOf && value.indexOf("\n") >= 0),
-                };
-                element["type"] = "input";
-                if (key.indexOf("password") >= 0) {
-                    element.type = "password";
-                }
-                if (angular.isObject(value)) {
-                    element.value = JSON.stringify(value);
-                }
-                if (key != "version" && key != "requires") {
-                    $scope.attributes.push(element);
-                }
-            });
-
-            $scope.requires = parseRequires(info.resource.attributes.requires, inmantaService.parseID);
             var i;
             for (i in data) {
                 if (state[data[i].id]) {
@@ -286,14 +271,35 @@ resv.controller('resourceDetailController', ['$scope', 'inmantaService', "$state
         });
     });
 
+    // load the resource
+    inmantaService.getResource($stateParams.env, $stateParams.id + ",v=" + $stateParams.version).then(function (resource) {
+        $scope.resource = resource;
+        $scope.attributes = [];
+        angular.forEach(resource.attributes, function(value, key) {
+            var element = {
+                name: key,
+                value: value,
+                undefined: value == "<<undefined>>",
+                multiline: value.length > 80 || (value.indexOf && value.indexOf("\n") >= 0),
+                file: key == "hash",
+            };
+            element["type"] = "input";
+            if (key.indexOf("password") >= 0) {
+                element.type = "password";
+            }
+            if (angular.isObject(value)) {
+                element.value = JSON.stringify(value);
+                element.multiline = element.value.length > 80 || (element.value.indexOf && element.value.indexOf("\n") >= 0);
+            }
+            if (key != "version" && key != "requires") {
+                $scope.attributes.push(element);
+            }
+        });
+
+        $scope.requires = parseRequires(resource.attributes.requires, inmantaService.parseID);
+    });
+
     inmantaService.getEnvironment($stateParams.env).then(function (d) {
         $scope.env = d;
     });
-
-    $scope.details = function (item) {
-        dialogs.create('views/log/logDetail.html', 'msgDetailCtrl', {
-            message: item,
-            env: $stateParams.env
-        }, {});
-    };
 }]);

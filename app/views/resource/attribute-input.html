@@ -3,6 +3,8 @@
 </div>
 <div class="col-sm-10">
     <span ng-if="attribute.undefined"><i class="glyphicon glyphicon-question-sign" style="width: 14px" ng-class="glyphClasses"></i> <span style="margin: 0 10px" class="ng-binding">undefined</span></span>
-    <input ng-if="!attribute.multiline && !attribute.undefined" readonly type="{{ attribute.type }}" class="form-control" ng-model="attribute.value"></input>
-    <textarea ng-if="attribute.multiline && !attribute.undefined" readonly rows="{{ textarea_rows }}" class="form-control" ng- ng-model="attribute.value"></textarea>
+    <input ng-if="!attribute.multiline && !attribute.undefined && !attribute.file" readonly type="{{ attribute.type }}" class="form-control" ng-model="attribute.value"></input>
+    <textarea ng-if="attribute.multiline && !attribute.undefined" readonly rows="{{ textarea_rows }}" class="form-control" ng-model="attribute.value"></textarea>
+    <span ng-if="attribute.file"><code style="margin-right: 1em">{{ attribute.value }}</code> <button type="button" class="btn btn-default btn-xs" ng-click="getFile(attribute.value)">show file content</button></span>
+    <textarea ng-if="attribute.file_content" style="margin-top: 1em" readonly rows="{{ textarea_rows }}" class="form-control" ng-model="attribute.file_content"></textarea>
 </div>
