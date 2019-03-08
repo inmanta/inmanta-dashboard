@@ -16,7 +16,6 @@ module.config(['$stateProvider', function ($stateProvider) {
                     controller: "sideController"
                 }
             }
-
         });
 }]);
 
@@ -37,7 +36,6 @@ module.controller('PortalController', ['$scope', '$rootScope', 'inmantaService',
     getReport();
 
     var alertForUnknown = function () {
-
         inmantaService.getUnkownsForEnv($stateParams.env).then(function (unknowns) {
             var unknowns = unknowns.filter(function (unknown) { return unknown.source == 'form' });
             var out = {}

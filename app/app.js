@@ -24,7 +24,6 @@ var app = angular.module('InmantaApp', [
     'inmantaApi.config',
     'InmantaApp.agentsView',
     'InmantaApp.parametersView',
-    'InmantaApp.logsView',
     'InmantaApp.reportView',
     'InmantaApp.controllers.refresh',
     'InmantaApp.controllers.projects',

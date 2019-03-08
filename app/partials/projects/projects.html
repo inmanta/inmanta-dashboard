@@ -1,10 +1,10 @@
 <!--<div ng-controller="projectsController">-->
-    
+
 <ul class="nav navbar-nav" >
-    <li dropdown >
-      <a id="simple-dropdown" class="pull-right"   dropdown-toggle>
-       <small><span class="glyphicon glyphicon-th-list"></span></small>       
-       <span> {{currentProject.name}} {{currentEnv.name}} </span> 
+    <li uib-dropdown>
+      <a id="simple-dropdown" class="pull-right" uib-dropdown-toggle>
+       <small><span class="glyphicon glyphicon-th-list"></span></small>
+       <span> {{currentProject.name}} {{currentEnv.name}} </span>
        <span  class="caret"></span>
       </a>
       <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
@@ -12,11 +12,10 @@
               <a ui-sref="project({project:project.id})">{{project.name}}</a>
               <ul >
                 <li ng-repeat="env in project.envs"> <a ui-sref="portal({env:env.id})"> {{env.name}} </a> </li>
-              </ul>       
+              </ul>
         </li>
          <li role="separator" class="divider"></li>
         <li> <a ui-sref="projects()">all projects</a> </li>
       </ul>
     </li>
 </ul>
-

@@ -2,7 +2,7 @@
 
 
 
-var resv = angular.module('InmantaApp.graphView', ['ui.router', 'inmantaApi','dialogs.main','InmantaApp.resourceDetail'])
+var resv = angular.module('InmantaApp.graphView', ['ui.router', 'inmantaApi','dialogs.main'])
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider
@@ -27,10 +27,10 @@ resv.config(["$stateProvider", function($stateProvider) {
 
 resv.controller('graphController', ['$scope', 'inmantaService', "$stateParams","dialogs",
             function($scope, inmantaService, $stateParams,dialogs) {
-		
+
 $scope.dryrun = function() {
              inmantaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
-            
+
         }
 
 var types = {
@@ -61,7 +61,7 @@ function getColorCode(type) {
         return out;
     return "#337ab7";
 }
-        
+
 
         $scope.resources = null
     inmantaService.getEnvironment($stateParams.env).then(function(d) {
@@ -99,9 +99,9 @@ function getColorCode(type) {
                     .attr("width", "100%")
                     .attr("height", "2000px")
 		    .append("g")
-			    
+
 		 zoom(d3.select("#chart"))
-                 
+
                function zoom() {
 		  vis.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + 			")");
 	        }
@@ -254,7 +254,7 @@ function getColorCode(type) {
                     var alpha = e.alpha;
 
                     // max distance away from line
-                    // alpha always > 0.005 
+                    // alpha always > 0.005
                     // compensate to get lines
                     var freedom = Math.max((e.alpha - cutoff) * maxFreedom, 0);
 		    //console.log(e.alpha,freedom)
@@ -306,7 +306,7 @@ function getColorCode(type) {
                 // Assign one parent to each node
                 // Also assign each node a reasonable starting x/y position: we can do better than random placement since we're force-layout-ing a hierarchy!
                 function flatten(nodes, links) {
-                    var 
+                    var
                         max_width=0, max_depth = 1;
 
                     //get depth of node  (longest chain of parents)
@@ -381,15 +381,15 @@ function getColorCode(type) {
                     root.size = recurse(root, 0);
 
                     // now correct/balance the x positions:
-                  
-                    
+
+
                     var ky = (height - 20) / max_width;
 
-                  
+
 
                     var kx = (width - 20) / max_depth;
 
-                   
+
 		    var i
                     for (i = nodes.length; --i >= 0;) {
                         var node = nodes[i];

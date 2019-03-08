@@ -25,7 +25,7 @@ resv.controller('settingsController', ['$scope', '$rootScope', 'inmantaService',
 
     $scope.tableParams = new BackhaulTable($scope, {
         page: 1, // show first page
-        count: 10 // count per page
+        count: 25 // count per page
     }, function (params) {
         return inmantaService.getSettings($stateParams.env).then(function (data) {
             var rows = [];
