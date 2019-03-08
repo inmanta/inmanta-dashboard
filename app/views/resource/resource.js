@@ -302,4 +302,21 @@ resv.controller("resourceDetailController", ["$scope", "inmantaService", "$state
     inmantaService.getEnvironment($stateParams.env).then(function (d) {
         $scope.env = d;
     });
+
+    $scope.details = function (item) {
+        dialogs.create('views/resource/logDetail.html', 'logDetailCtrl', {
+            message: item,
+            env: $stateParams.env
+        }, {});
+    };
 }]);
+
+resv.controller('logDetailCtrl', ['$scope', '$modalInstance', 'data', "dialogs", function ($scope, $modalInstance, data, dialogs) {
+    //-- Variables -----//
+    $scope.header = " Log message details";
+    $scope.env = data.env;
+    $scope.kwargs = Object.keys(data.message.kwargs);
+    $scope.message = data.message;
+
+    $scope.icon = 'glyphicon glyphicon-info-sign';
+}]); // end WaitDialogCtrl\ No newline at end of file
