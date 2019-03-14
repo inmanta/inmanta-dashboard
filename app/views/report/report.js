@@ -6,7 +6,7 @@ var resv = angular.module('InmantaApp.reportView', ['ui.router', 'inmantaApi', '
 
 resv.config(["$stateProvider", function($stateProvider) {
     $stateProvider.state('report', {
-        url: "/environment/:env/version/:version/report?id",
+        url: "/environment/:env/dryrun/:version",
         views: {
             "body": {
                 templateUrl: "views/report/reportBody.html",
@@ -39,8 +39,9 @@ resv.controller('reportController', ['$scope', 'inmantaService', "$stateParams",
                     var out = [];
                     for (var k in d.resources) {
                         var res = angular.copy(d.resources[k]);
-                        res["id"] = k;
-                        res["changessize"] = Object.keys(res.changes).length;
+                        res.id = k;
+                        res.changessize = Object.keys(res.changes).length;
+                        res.resource_id = res.id_fields.entity_type + "[" + res.id_fields.agent_name + "," + res.id_fields.attribute + "=" + res.id_fields.attribute_value + "]";
                         out.push(res);
                     }
                     return out;
@@ -56,10 +57,10 @@ resv.controller('reportController', ['$scope', 'inmantaService', "$stateParams",
         }, true);
 
         function loadList () {
-            inmantaService.getDryruns($stateParams.env,$stateParams.version).then(function(d) {
+            inmantaService.getDryruns($stateParams.env, $stateParams.version).then(function(d) {
                 d.reverse()
                 $scope.dryruns = d
-                if(!$scope.state.id && d.length>0){
+                if(!$scope.state.id && d.length > 0){
                     $scope.state.id = d[0].id
                     $scope.data.dryrun.id = d[0].id
                     $scope.tableParams.refresh()
@@ -82,15 +83,6 @@ resv.controller('reportController', ['$scope', 'inmantaService', "$stateParams",
 
         $scope.dryrun = function() {
             inmantaService.dryrun($stateParams.env,$stateParams.version).then(function(d){$rootScope.$broadcast('refresh')});
-        }
-
-        $scope.details = function(item) {
-            inmantaService.getResource($stateParams.env, item.id).then(function (d) {
-                dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
-                    resource: d,
-                    env:$stateParams.env
-                }, {});
-            });
         }
     }
 ]);
