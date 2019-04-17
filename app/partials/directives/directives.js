@@ -28,7 +28,7 @@ inmantaApi.directive("deployProgress", ["resourceStates", function(resourceState
 
         angular.forEach(resourceStates, function(item, key) {
             var value = prog[key];
-            if (value) {
+            if (value && !item.queue) {
                 var name = key;
                 if (item.name) {
                     name = item.name;
