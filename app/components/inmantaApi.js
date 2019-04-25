@@ -618,6 +618,18 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
+    inmantaAPI.trigger_deploy = function (env, agent_trigger_method, agents) {
+        return $http.post(
+            impURL + "deploy",
+            { "agent_trigger_method": agent_trigger_method, "agents": agents },
+            { headers: { 'X-Inmanta-tid': env } }
+        ).then(
+            function (data) {
+                return data.data;
+            }
+        );
+    };
+
     if (lcmURL) {
         inmantaAPI.getLCMServices = function (env) {
             return $http.get(lcmURL + 'service_types', {headers: { 'X-Inmanta-tid': env }}).then(

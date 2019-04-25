@@ -183,7 +183,6 @@ resv.controller("resourceController",
                 return data;
             });
         });
-        $scope.resources = null;
 
         $scope.deporderInt = function (id) {
             if (!$scope.alldata[id]) {
@@ -201,20 +200,6 @@ resv.controller("resourceController",
             return out;
         };
 
-        // $scope.details = function (item) {
-        //     dialogs.create("views/resourceDetail/resourceDetail.html", "resourceDetailCtrl", {
-        //         resource: item,
-        //         env: $stateParams.env
-        //     }, {});
-        // };
-
-        // $scope.open = function (item) {
-        //     dialogs.create("views/fileDetail/fileDetail.html", "fileDetailCtrl", {
-        //         resource: item,
-        //         env: $stateParams.env
-        //     }, {});
-        // };
-
         $scope.states = function () {
             var def = $q.defer();
             var names = [];
@@ -231,7 +216,6 @@ resv.controller("resourceController",
             $scope.tableParams.filter()["status"] = name;
         }
 
-        $scope.resources = null;
         inmantaService.getEnvironment($stateParams.env).then(function (d) {
             $scope.env = d;
         });

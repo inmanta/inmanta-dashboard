@@ -11,7 +11,19 @@
                 <td data-title="'Paused'" data-sortable="'paused'" filter="{ 'paused':'text'}">{{agent.paused}}</td>
                 <td data-title="'State'" data-sortable="'state'" filter="{ 'state':'text'}">{{agent.state}}</td>
                 <td data-title="'Last Failover'" data-sortable="'last_failover'" filter="{ 'last_failover':'text'}">{{agent.last_failover|date:'dd/MM/yyyy HH:mm'}}</td>
-
+                <td>
+                    <div class="btn-group btn-default" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                            title="Trigger this agent to run a deploy of the latest deployed version.">
+                            Trigger deploy on agent
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_incremental_deploy', [agent.name])">Incremental deploy</a></li>
+                            <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_full_deploy', [agent.name])">Full deploy</a></li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
         </table>
     </div>

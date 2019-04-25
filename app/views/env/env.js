@@ -20,6 +20,7 @@ resv.config(["$stateProvider", function ($stateProvider) {
 
 resv.controller('envFunctionController', ['$scope', '$rootScope', 'inmantaService', '$stateParams', '$state', 'dialogs', function ($scope, $rootScope, inmantaService, $stateParams, $state, dialogs) {
     $scope.state = $stateParams;
+    $scope.inmantaService = inmantaService;
 
     $scope.compile = function (env) {
         inmantaService.compile(env).then(function () {

@@ -21,6 +21,7 @@ resv.config(["$stateProvider", function ($stateProvider) {
 
 resv.controller('agentController', ['$scope', 'inmantaService', "$stateParams", "$q", "BackhaulTable", "dialogs", function ($scope, inmantaService, $stateParams, $q, BackhaulTable, dialogs) {
     $scope.state = $stateParams;
+    $scope.inmantaService = inmantaService;
     $scope.highlight = "xx";
     $scope.getEnv = function (id) {
         var out = [];
