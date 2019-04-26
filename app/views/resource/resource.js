@@ -238,16 +238,16 @@ resv.controller("resourceDetailController", ["$scope", "inmantaService", "$state
         }
     }, function (prms) {
         var state = {};
-        var x;
-        for (x in prms.data) {
-            var line = prms.data[x];
-            state[line.id] = line.open;
-        }
+        angular.forEach(prms.data, function(line) {
+            state[line.action_id] = line.open;
+        });
+        
         return inmantaService.getLogForResource($stateParams.env, $stateParams.id + ",v=" + $stateParams.version).then(function (info) {
             var data = info.logs;
             var i;
             for (i in data) {
-                if (state[data[i].id]) {
+                data[i].open = false;
+                if (state[data[i].action_id]) {
                     data[i].open = true;
                 }
             }
