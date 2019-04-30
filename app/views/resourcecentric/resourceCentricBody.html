@@ -10,17 +10,20 @@
 <div class="row">
     <div class="col-md-12">
         <table class="table table-lined" ng-table="tableParams" show-filter="true">
-
             <tr ng-repeat="res in $data track by res.resource_id">
-                <td style="width:3em;" data-sortable="'deployed_version'"> <span
-                        ng-if="res.deployed_version==res.latest_version" class="glyphicon glyphicon-ok"
-                        title="Up to date"></span> </td>
+                <td style="width:3em;" data-sortable="'deployed_version'">
+                    <span ng-if="res.deployed_version==res.latest_version" class="glyphicon glyphicon-ok"
+                        title="Up to date"></span>
+                </td>
 
                 <td data-title="'Type'" data-sortable="'resource_type'" filter="{ 'resource_type':'text'}">
-                    {{res.resource_type}}</td>
+                    {{res.resource_type}}
+                </td>
                 <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}">{{res.agent}}</td>
                 <td data-title="'Value'" data-sortable="'id_attribute_value'" filter="{ 'id_attribute_value':'text'}"
-                    class="col-md-2">{{res.id_attribute_value}}</td>
+                    class="col-md-2">
+                    {{res.idItems.attribute_value}}
+                </td>
                 <td data-title="'Deployed version'" data-sortable="'deployed_version'"
                     filter="{ 'deployed_version':'text'}">
                     <a
@@ -34,9 +37,6 @@
                     {{res.last_deploy |date:'dd/MM/yyyy HH:mm'}}
                 </td>
             </tr>
-
-
         </table>
-
     </div>
 </div>

@@ -16,7 +16,7 @@
                     </td>
                     <td data-title="'Type'" data-sortable="'resource_type'" filter="{'resource_type':'text'}">{{res.resource_type}}</td>
                     <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}">{{res.agent}}</td>
-                    <td data-title="'Value'" data-sortable="'id_attribute_value'" filter="{ 'id_attribute_value':'text'}" class="col-md-2">{{res.id_attribute_value}}</td>
+                    <td data-title="'Value'" data-sortable="'id_attribute_value'" filter="{ 'id_attribute_value':'text'}" class="col-md-2">{{res.idItems.attribute_value}}</td>
                     <td data-title="'Deps'" data-sortable="'deporder'">
                         <button ng-if="res.attributes.requires.length != 0" type="button" class="btn btn-default btn-xs" ng-click="res.deps_open=!res.deps_open" >
                             <span class="glyphicon" ng-class="{'glyphicon-chevron-down': res.deps_open, 'glyphicon-chevron-right': !res.deps_open}"></span>

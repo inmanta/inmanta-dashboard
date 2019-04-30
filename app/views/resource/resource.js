@@ -168,6 +168,7 @@ resv.controller("resourceController",
                     } else {
                         item.deps_open = false;
                     }
+                    item.idItems = inmantaService.parseID(item.id);
                     $scope.alldata[item.id] = item;
                 });
                 angular.forEach(data, function (item) {

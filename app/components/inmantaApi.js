@@ -87,7 +87,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     });
 
     //utilities
-    var idRegEx = /([a-zA-Z0-9:_-]+)\[([^,]+),([^=]+)=([^\]]+)\],v=(\d+)/;
+    var idRegEx = /([a-zA-Z0-9:_-]+)\[([^,]+),([^=]+)=([^\]]+)\](,v=(\d+))?/;
 
     function parseID(id) {
         var o = idRegEx.exec(id)

@@ -23,17 +23,6 @@ resv.controller('resourceCentricController', ['$scope', '$rootScope', 'inmantaSe
                 function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTable, dialogs, $q) {
     $scope.state = $stateParams;
 
-    $scope.startDryRun = function () {
-        inmantaService.dryrun($stateParams.env, $stateParams.version).then(function (d) {
-            $scope.dryrunid = d.id;
-            $rootScope.$broadcast('refresh');
-        });
-    };
-
-    $scope.deploy = function () {
-        inmantaService.deploy($stateParams.env, $stateParams.version, true).then(function (d) { $rootScope.$broadcast('refresh'); });
-    };
-
     $scope.tableParams = new BackhaulTable($scope, {
         page: 1, // show first page
         count: 50 // count per page
@@ -43,39 +32,13 @@ resv.controller('resourceCentricController', ['$scope', '$rootScope', 'inmantaSe
             $scope.versions = info.versions;
 
             var data = info.resources;
-            $scope.counts = {};
-            $scope.vcount = 0;
-            $scope.maxcount = data.length;
             angular.forEach(data, function (item) {
-                if (!$scope.counts[item.deployed_version]) {
-                    $scope.counts[item.deployed_version] = 1;
-                    $scope.vcount++;
-                } else {
-                    $scope.counts[item.deployed_version]++;
-                }
+                item.idItems = inmantaService.parseID(item.resource_id);
             });
             return data;
         });
     });
     $scope.resources = null;
-
-    $scope.details = function (item) {
-        inmantaService.getResource($stateParams.env, item.resource_id + ",v=" + item.latest_version).then(function (d) {
-            dialogs.create('views/resourceDetail/resourceDetail.html', 'resourceDetailCtrl', {
-                resource: d,
-                env: $stateParams.env
-            }, {});
-        });
-    };
-
-    $scope.open = function (item) {
-        inmantaService.getResource($stateParams.env, item.resource_id + ",v=" + item.latest_version).then(function (d) {
-            dialogs.create('views/fileDetail/fileDetail.html', 'fileDetailCtrl', {
-                resource: d,
-                env: $stateParams.env
-            }, {});
-        });
-    };
 
     $scope.setFilter = function (field, value) {
         $scope.tableParams.filter()[field] = value;
