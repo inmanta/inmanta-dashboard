@@ -102,7 +102,7 @@ app.constant("resourceStates", {
         icon: "question-sign",
     },
     deploying: {
-        label: "success",
+        label: "primary",
         inprogress: true,
         filter: true,
         queue: false,
