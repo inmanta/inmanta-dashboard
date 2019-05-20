@@ -7,7 +7,6 @@
     <div class="modal-body">
         <!-- NAME -->
         <div ng-switch="setting.type">
-            
             <!-- Default, on type-->
             <div ng-switch-default class="form-group">
                 <label>{{setting.key}}</label>
@@ -21,6 +20,12 @@
                     <input type="checkbox" name="{{setting.key}}"  ng-model="setting.value" ng-true-value="true" ng-false-value="false"/>  
                     {{setting.key}} <span ng-if="setting.is_default" class="label label-info">default value</span>
                 </label>
+            </div>
+
+             <!-- Enum -->
+             <div ng-switch-when="enum" class="form-group">
+                <label>{{setting.key}}</label>
+                <select class="form-control" ng-model="setting.value" ng-options="opt for opt in setting.allowed_values"></select>               
             </div>
         </div>
         <p>{{setting.help}} (default value <i>{{setting.default}}</i>)</p>

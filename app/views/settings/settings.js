@@ -30,14 +30,22 @@ resv.controller('settingsController', ['$scope', '$rootScope', 'inmantaService',
         return inmantaService.getSettings($stateParams.env).then(function (data) {
             var rows = [];
             var row;
+            var meta;
             var x = 0;
             for (x in data.metadata) {
-                row = {"key": x, "help": data.metadata[x].doc,
-                        "type": data.metadata[x].type, "default": data.metadata[x].default};
+                meta = data.metadata[x]
+                row = {"key": x, "help": meta.doc,
+                        "type": meta.type, "default": meta.default};
                 if (data.settings[x] === undefined) {
-                    row.value = null;
+                    row.value = meta.default;
                 } else {
                     row.value = data.settings[x];
+                }
+                if ("allowed_values" in meta){
+                    row.allowed_values = meta.allowed_values
+                }
+                if( meta.type == "dict"){
+                    row.value = JSON.stringify(row.value)
                 }
                 rows.push(row);
             }
@@ -95,7 +103,11 @@ resv.controller('settingsEditCtrl', ['$scope', '$rootScope', 'inmantaService', '
     $scope.icon = 'glyphicon glyphicon-pencil';
 
     var save = function (env_id, setting) {
-        return inmantaService.setSetting(env_id, setting.key, setting.value);
+        var value = setting.value
+        if(setting.type == "dict"){
+            value = JSON.parse(setting.value)
+        }
+        return inmantaService.setSetting(env_id, setting.key, value);
     };
 
     $scope.submit = function () {
