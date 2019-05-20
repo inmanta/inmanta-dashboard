@@ -79,7 +79,7 @@ resv.controller('envFunctionController', ['$scope', '$rootScope', 'inmantaServic
     $scope.$on("refresh", getCompileState);
 }]);
 
-resv.controller('envController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTablePaged", 'dialogs', function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTablePaged, dialogs) {
+resv.controller('envController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "BackhaulTablePaged", 'dialogs', '$state', function ($scope, $rootScope, inmantaService, $stateParams, BackhaulTablePaged, dialogs, $state) {
     $scope.state = $stateParams;
 
     $scope.resources = null;
@@ -91,6 +91,7 @@ resv.controller('envController', ['$scope', '$rootScope', 'inmantaService', "$st
         var resVersion = res.version;
         inmantaService.dryrun($stateParams.env, resVersion).then(function (d) {
             $rootScope.$broadcast('refresh');
+            $state.go("report", {env: $stateParams.env, version: resVersion});
         });
     };
 

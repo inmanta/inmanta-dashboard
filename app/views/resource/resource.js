@@ -104,10 +104,11 @@ resv.directive("inmantaAttributeInput", ["inmantaService", function(inmantaServi
     }
 }]);
 
-resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaService", "$stateParams",
-    function ($scope, $rootScope, inmantaService, $stateParams) {
+resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaService", "$stateParams", "$state", 
+    function ($scope, $rootScope, inmantaService, $stateParams, $state) {
         $scope.dryrun = function () {
             inmantaService.dryrun($stateParams.env, $stateParams.version).then(function (d) {
+                $state.go("report", {env: $stateParams.env, version: $stateParams.version});
                 $scope.dryrunid = d.id;
                 $rootScope.$broadcast("refresh");
             });
