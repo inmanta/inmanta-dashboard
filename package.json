@@ -72,7 +72,7 @@
     "angular-ui-bootstrap": "angular-ui/bootstrap-bower#~0.14.3",
     "angular-ui-router-bower": "angular-ui/angular-ui-router-bower#~0.2.15",
     "angularjs-filters": "sumitchawla/angularjs-filters",
-    "bootstrap": "twbs/bootstrap#~3.4.1",
+    "bootstrap": "twbs/bootstrap#~4.3.1",
     "bower-angular-translate": "PascalPrecht/bower-angular-translate",
     "d3-bower": "mbostock-bower/d3-bower#~3.5.6",
     "deploy": "m-e-conroy/angular-dialog-service#5.2.8",
