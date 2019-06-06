@@ -33,9 +33,11 @@
   version "1.7.7"
   resolved "https://codeload.github.com/angular/bower-angular-sanitize/tar.gz/a7398265ce3bd131c62cb7758d95cf792f3291ac"
 
-"@bower_components/angular-spinner@urish/angular-spinner#~0.6.2", angular-spinner@urish/angular-spinner#~0.6.2:
-  version "0.6.2"
-  resolved "https://codeload.github.com/urish/angular-spinner/tar.gz/1c02c72353ebe225ffb16e4973e173a18edfece9"
+"@bower_components/angular-spinner@urish/angular-spinner#~0.8.1", angular-spinner@urish/angular-spinner#~0.8.1:
+  version "0.8.1"
+  resolved "https://codeload.github.com/urish/angular-spinner/tar.gz/6cbf56991eb21756597ca675bbde804db136cbb5"
+  dependencies:
+    spin.js "^2.0.0"
 
 "@bower_components/angular-translate@PascalPrecht/bower-angular-translate", bower-angular-translate@PascalPrecht/bower-angular-translate:
   version "0.0.0"
@@ -85,9 +87,9 @@
   version "1.0.0"
   resolved "https://codeload.github.com/esvit/ng-table/tar.gz/d6355591e09a3075cc895ba4f226156fa3c72d33"
 
-"@bower_components/spin.js@fgnass/spin.js#~2.0.0", spin.js@fgnass/spin.js#~2.0.0:
-  version "2.0.2"
-  resolved "https://codeload.github.com/fgnass/spin.js/tar.gz/89734a25ac9b1428806a024e079d93ce83977372"
+"@bower_components/spin.js@fgnass/spin.js#~2.3.2", spin.js@fgnass/spin.js#~2.3.2:
+  version "2.3.2"
+  resolved "https://codeload.github.com/fgnass/spin.js/tar.gz/f0cc4b82358bee8bbb50f0fd90090bfe4d612da1"
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -3310,6 +3312,11 @@ spdx-license-ids@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.3.tgz#81c0ce8f21474756148bbb5f3bfc0f36bf15d76e"
   integrity sha512-uBIcIl3Ih6Phe3XHK1NqboJLdGfwr1UN3k6wSD1dZpmPsIkb8AGNbZYJ1fOBk834+Gxy8rpfDxrS6XLEMZMY2g==
+
+spin.js@^2.0.0:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/spin.js/-/spin.js-2.3.2.tgz#6caa56d520673450fd5cfbc6971e6d0772c37a1a"
+  integrity sha1-bKpW1SBnNFD9XPvGlx5tB3LDeho=
 
 sprintf-js@^1.0.3:
   version "1.1.2"
