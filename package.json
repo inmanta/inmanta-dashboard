@@ -68,7 +68,7 @@
     "angular-loader": "angular/bower-angular-loader",
     "angular-mocks": "angular/bower-angular-mocks",
     "angular-sanitize": "angular/bower-angular-sanitize",
-    "angular-spinner": "urish/angular-spinner#~0.8.1",
+    "angular-spinner": "urish/angular-spinner#~1.0.1",
     "angular-ui-bootstrap": "angular-ui/bootstrap-bower#~0.14.3",
     "angular-ui-router-bower": "angular-ui/angular-ui-router-bower#~0.2.15",
     "angularjs-filters": "sumitchawla/angularjs-filters",
