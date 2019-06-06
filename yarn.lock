@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@bower_components/angular-awesome-slider@darul75/angular-awesome-slider", angular-awesome-slider@darul75/angular-awesome-slider:
+"@bower_components/angular-awesome-slider@darul75/angular-awesome-slider":
   version "2.4.4"
   resolved "https://codeload.github.com/darul75/angular-awesome-slider/tar.gz/2483d5732a2c33cd8b655f59cc316052afca6766"
 
@@ -161,6 +161,11 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-awesome-slider@darul75/angular-awesome-slider:
+  version "2.4.5"
+  uid "072ea783d120934884b19b3e8935fcc82d7201dd"
+  resolved "https://codeload.github.com/darul75/angular-awesome-slider/tar.gz/072ea783d120934884b19b3e8935fcc82d7201dd"
 
 angular@^1.0.1:
   version "1.7.7"
