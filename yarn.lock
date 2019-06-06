@@ -79,9 +79,10 @@
   version "3.3.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/9e8ec3d10fad04748176144f108d7355662ae75e"
 
-"@bower_components/keycloak@keycloak/keycloak-js-bower#~3.2.1":
-  version "3.2.1"
-  resolved "https://codeload.github.com/keycloak/keycloak-js-bower/tar.gz/6e9264e8c121f229a55dbf0658843aeb78d8b969"
+"@bower_components/keycloak@keycloak/keycloak-js-bower#~6.0.1":
+  version "4.0.0-beta.2"
+  uid "3105d5d607c49e0af024a7ccd69e0a61974e190f"
+  resolved "https://codeload.github.com/keycloak/keycloak-js-bower/tar.gz/3105d5d607c49e0af024a7ccd69e0a61974e190f"
 
 "@bower_components/ng-table@esvit/ng-table#<2.0.0", ng-table@esvit/ng-table#<2.0.0:
   version "1.0.0"

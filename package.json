@@ -59,7 +59,7 @@
     "@bower_components/font-awesome": "FortAwesome/Font-Awesome#^4.6.3",
     "@bower_components/highlightjs": "components/highlightjs",
     "@bower_components/jquery": "jquery/jquery-dist",
-    "@bower_components/keycloak": "keycloak/keycloak-js-bower#~3.2.1",
+    "@bower_components/keycloak": "keycloak/keycloak-js-bower#~6.0.1",
     "@bower_components/ng-table": "esvit/ng-table#<2.0.0",
     "@bower_components/spin.js": "fgnass/spin.js#~2.3.2",
     "angular": "angular/bower-angular",
