@@ -61,7 +61,7 @@
     "@bower_components/jquery": "jquery/jquery-dist",
     "@bower_components/keycloak": "keycloak/keycloak-js-bower#~3.2.1",
     "@bower_components/ng-table": "esvit/ng-table#<2.0.0",
-    "@bower_components/spin.js": "fgnass/spin.js#~2.0.0",
+    "@bower_components/spin.js": "fgnass/spin.js#~4.0.0",
     "angular": "angular/bower-angular",
     "angular-awesome-slider": "darul75/angular-awesome-slider",
     "angular-highlightjs": "pc035860/angular-highlightjs",
