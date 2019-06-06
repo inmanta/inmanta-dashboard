@@ -75,7 +75,7 @@
   version "9.12.0"
   resolved "https://codeload.github.com/components/highlightjs/tar.gz/8369956aa563bd5036d325cd5e5de0bce7d025f6"
 
-"@bower_components/jquery@jquery/jquery-dist", jquery@jquery/jquery-dist:
+"@bower_components/jquery@jquery/jquery-dist":
   version "3.3.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/9e8ec3d10fad04748176144f108d7355662ae75e"
 
@@ -2077,6 +2077,11 @@ jasminewd2@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.2.0.tgz#e37cf0b17f199cce23bea71b2039395246b4ec4e"
   integrity sha1-43zwsX8ZnM4jvqcbIDk5Uka07E4=
+
+jquery@jquery/jquery-dist:
+  version "3.4.1"
+  uid "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
+  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
 
 js-beautify@~1.5.4:
   version "1.5.10"
