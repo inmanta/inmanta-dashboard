@@ -47,7 +47,7 @@
   version "0.0.0"
   resolved "https://codeload.github.com/angular-ui/angular-ui-router-bower/tar.gz/2b8d5241b4c631ca2aef079bb96690b213eff449"
 
-"@bower_components/angular@angular/bower-angular", angular@angular/bower-angular:
+"@bower_components/angular@angular/bower-angular":
   version "1.7.7"
   resolved "https://codeload.github.com/angular/bower-angular/tar.gz/b333e148cf509428fd54f53c41710c4e8cf1ac2b"
 
@@ -167,10 +167,10 @@ angular-awesome-slider@darul75/angular-awesome-slider:
   uid "072ea783d120934884b19b3e8935fcc82d7201dd"
   resolved "https://codeload.github.com/darul75/angular-awesome-slider/tar.gz/072ea783d120934884b19b3e8935fcc82d7201dd"
 
-angular@^1.0.1:
-  version "1.7.7"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.7.tgz#26bd87693deadcbd5944610a7a0463fc79a18803"
-  integrity sha512-MH3JEGd8y/EkNCKJ8EV6Ch0j9X0rZTta/QVIDpBWaIdfh85/e5KO8+ZKgvWIb02MQuiS20pDFmMFlv4ZaLcLWg==
+angular@^1.0.1, angular@angular/bower-angular:
+  version "1.7.8"
+  uid "56690b5e545ad36d04e369a65171de1adbe3ce64"
+  resolved "https://codeload.github.com/angular/bower-angular/tar.gz/56690b5e545ad36d04e369a65171de1adbe3ce64"
 
 ansi-align@^2.0.0:
   version "2.0.0"
