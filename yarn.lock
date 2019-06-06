@@ -85,9 +85,10 @@
   version "1.0.0"
   resolved "https://codeload.github.com/esvit/ng-table/tar.gz/d6355591e09a3075cc895ba4f226156fa3c72d33"
 
-"@bower_components/spin.js@fgnass/spin.js#~2.0.0", spin.js@fgnass/spin.js#~2.0.0:
-  version "2.0.2"
-  resolved "https://codeload.github.com/fgnass/spin.js/tar.gz/89734a25ac9b1428806a024e079d93ce83977372"
+"@bower_components/spin.js@fgnass/spin.js#~4.0.0":
+  version "4.0.0"
+  uid c0658a33881b95a334fe4a4ab500d9245e40c09f
+  resolved "https://codeload.github.com/fgnass/spin.js/tar.gz/c0658a33881b95a334fe4a4ab500d9245e40c09f"
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -3310,6 +3311,10 @@ spdx-license-ids@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.3.tgz#81c0ce8f21474756148bbb5f3bfc0f36bf15d76e"
   integrity sha512-uBIcIl3Ih6Phe3XHK1NqboJLdGfwr1UN3k6wSD1dZpmPsIkb8AGNbZYJ1fOBk834+Gxy8rpfDxrS6XLEMZMY2g==
+
+spin.js@fgnass/spin.js#~2.0.0:
+  version "2.0.2"
+  resolved "https://codeload.github.com/fgnass/spin.js/tar.gz/89734a25ac9b1428806a024e079d93ce83977372"
 
 sprintf-js@^1.0.3:
   version "1.1.2"
