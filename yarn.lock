@@ -29,7 +29,7 @@
   version "1.7.7"
   resolved "https://codeload.github.com/angular/bower-angular-mocks/tar.gz/512cb256cd3f8e33d79ffa1b50efc7c0ac410fdb"
 
-"@bower_components/angular-sanitize@angular/bower-angular-sanitize", angular-sanitize@angular/bower-angular-sanitize:
+"@bower_components/angular-sanitize@angular/bower-angular-sanitize":
   version "1.7.7"
   resolved "https://codeload.github.com/angular/bower-angular-sanitize/tar.gz/a7398265ce3bd131c62cb7758d95cf792f3291ac"
 
@@ -166,6 +166,11 @@ angular-awesome-slider@darul75/angular-awesome-slider:
   version "2.4.5"
   uid "072ea783d120934884b19b3e8935fcc82d7201dd"
   resolved "https://codeload.github.com/darul75/angular-awesome-slider/tar.gz/072ea783d120934884b19b3e8935fcc82d7201dd"
+
+angular-sanitize@angular/bower-angular-sanitize:
+  version "1.7.8"
+  uid "845b3064da357de96f38fdbbb923f918d0d82bbe"
+  resolved "https://codeload.github.com/angular/bower-angular-sanitize/tar.gz/845b3064da357de96f38fdbbb923f918d0d82bbe"
 
 angular@^1.0.1, angular@angular/bower-angular:
   version "1.7.8"
