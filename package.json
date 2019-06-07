@@ -74,7 +74,7 @@
     "angularjs-filters": "sumitchawla/angularjs-filters",
     "bootstrap": "twbs/bootstrap#~3.4.1",
     "bower-angular-translate": "PascalPrecht/bower-angular-translate",
-    "d3-bower": "mbostock-bower/d3-bower#~3.5.6",
+    "d3-bower": "mbostock-bower/d3-bower#~5.9.2",
     "deploy": "m-e-conroy/angular-dialog-service#5.2.8",
     "es6-collections": "WebReflection/es6-collections",
     "font-awesome": "FortAwesome/Font-Awesome#^4.6.3",
