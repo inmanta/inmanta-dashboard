@@ -21,9 +21,10 @@
     angular "^1.0.1"
     highlight.js ">7.0.0"
 
-"@bower_components/angular-loader@angular/bower-angular-loader", angular-loader@angular/bower-angular-loader:
-  version "1.7.7"
-  resolved "https://codeload.github.com/angular/bower-angular-loader/tar.gz/cebc9c8e61ed4f5f56c61bd2ffef2f97a4bc4e72"
+"@bower_components/angular-loader@angular/bower-angular-loader":
+  version "1.7.8"
+  uid "94f06cc70229d87b89488d28fbcee0207ff69150"
+  resolved "https://codeload.github.com/angular/bower-angular-loader/tar.gz/94f06cc70229d87b89488d28fbcee0207ff69150"
 
 "@bower_components/angular-mocks@angular/bower-angular-mocks", angular-mocks@angular/bower-angular-mocks:
   version "1.7.7"
@@ -166,6 +167,10 @@ angular-awesome-slider@darul75/angular-awesome-slider:
   version "2.4.5"
   uid "072ea783d120934884b19b3e8935fcc82d7201dd"
   resolved "https://codeload.github.com/darul75/angular-awesome-slider/tar.gz/072ea783d120934884b19b3e8935fcc82d7201dd"
+
+angular-loader@angular/bower-angular-loader:
+  version "1.7.7"
+  resolved "https://codeload.github.com/angular/bower-angular-loader/tar.gz/cebc9c8e61ed4f5f56c61bd2ffef2f97a4bc4e72"
 
 angular@^1.0.1, angular@angular/bower-angular:
   version "1.7.8"
