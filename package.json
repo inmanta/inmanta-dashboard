@@ -44,7 +44,7 @@
     "@bower_components/angular": "angular/bower-angular",
     "@bower_components/angular-awesome-slider": "darul75/angular-awesome-slider",
     "@bower_components/angular-bootstrap": "angular-ui/bootstrap-bower#~0.14.3",
-    "@bower_components/angular-dialog-service": "m-e-conroy/angular-dialog-service#5.2.8",
+    "@bower_components/angular-dialog-service": "m-e-conroy/angular-dialog-service#v5.3.0",
     "@bower_components/angular-highlightjs": "pc035860/angular-highlightjs",
     "@bower_components/angular-loader": "angular/bower-angular-loader",
     "@bower_components/angular-mocks": "angular/bower-angular-mocks",
