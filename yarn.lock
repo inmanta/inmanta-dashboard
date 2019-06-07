@@ -10,7 +10,7 @@
   version "0.14.3"
   resolved "https://codeload.github.com/angular-ui/bootstrap-bower/tar.gz/b5e11f5861a1591a300e78a9902c1a7e7918d75b"
 
-"@bower_components/angular-dialog-service@m-e-conroy/angular-dialog-service#5.2.8", deploy@m-e-conroy/angular-dialog-service#5.2.8:
+"@bower_components/angular-dialog-service@m-e-conroy/angular-dialog-service#5.2.8":
   version "5.2.8"
   resolved "https://codeload.github.com/m-e-conroy/angular-dialog-service/tar.gz/2f09475871d8da5048aa77cde71e016768d27495"
 
@@ -951,6 +951,11 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
+
+deploy@m-e-conroy/angular-dialog-service#v5.3.0:
+  version "5.3.0"
+  uid f9869d427058135adf950fb2cffc6029a38c31d8
+  resolved "https://codeload.github.com/m-e-conroy/angular-dialog-service/tar.gz/f9869d427058135adf950fb2cffc6029a38c31d8"
 
 detect-indent@^5.0.0:
   version "5.0.0"
