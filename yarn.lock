@@ -83,13 +83,21 @@
   version "3.2.1"
   resolved "https://codeload.github.com/keycloak/keycloak-js-bower/tar.gz/6e9264e8c121f229a55dbf0658843aeb78d8b969"
 
-"@bower_components/ng-table@esvit/ng-table#<2.0.0", ng-table@esvit/ng-table#<2.0.0:
-  version "1.0.0"
-  resolved "https://codeload.github.com/esvit/ng-table/tar.gz/d6355591e09a3075cc895ba4f226156fa3c72d33"
+"@bower_components/ng-table@esvit/ng-table#<5.0.0":
+  version "0.0.0-semantic-release"
+  uid "6183d08c87442acee76ad07396d7fe6146f7072b"
+  resolved "https://codeload.github.com/esvit/ng-table/tar.gz/6183d08c87442acee76ad07396d7fe6146f7072b"
+  dependencies:
+    "@types/angular" "^1.5.13"
 
 "@bower_components/spin.js@fgnass/spin.js#~2.3.2", spin.js@fgnass/spin.js#~2.3.2:
   version "2.3.2"
   resolved "https://codeload.github.com/fgnass/spin.js/tar.gz/f0cc4b82358bee8bbb50f0fd90090bfe4d612da1"
+
+"@types/angular@^1.5.13":
+  version "1.6.54"
+  resolved "https://registry.yarnpkg.com/@types/angular/-/angular-1.6.54.tgz#f9d5a03e4da7b021a6dabe5d63e899ed4567a5bd"
+  integrity sha512-xA1FuozWXeRQ7FClUbvk8ePL+dydBeDoCWRPFTHU5+8uvVtIIfLGiHA8CMkwsbddFCYnTDVbLxG85a/HBx7LtA==
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -2497,6 +2505,10 @@ ng-annotate@^1.2.1:
     stringmap "~0.2.2"
     stringset "~0.2.1"
     tryor "~0.1.2"
+
+ng-table@esvit/ng-table#<2.0.0:
+  version "1.0.0"
+  resolved "https://codeload.github.com/esvit/ng-table/tar.gz/d6355591e09a3075cc895ba4f226156fa3c72d33"
 
 no-case@^2.2.0, no-case@^2.3.2:
   version "2.3.2"
