@@ -77,7 +77,7 @@
     "d3-bower": "mbostock-bower/d3-bower#~3.5.6",
     "deploy": "m-e-conroy/angular-dialog-service#5.2.8",
     "es6-collections": "WebReflection/es6-collections",
-    "font-awesome": "FortAwesome/Font-Awesome#^4.6.3",
+    "font-awesome": "FortAwesome/Font-Awesome#^5.9.0",
     "highlightjs": "components/highlightjs",
     "jquery": "jquery/jquery-dist",
     "keycloak-js": "^3.3.0-cr.2",
