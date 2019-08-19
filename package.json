@@ -20,14 +20,14 @@
     "grunt-ng-annotate": "^3.0.0",
     "grunt-prettify": "^0.4.0",
     "grunt-usemin": "^3.1.1",
-    "http-proxy-agent": ">=2.1.0",
+    "http-proxy-agent": "^2.1.0",
     "http-server": "^0.11.1",
     "jasmine-core": "^3.3.0",
     "minimatch": ">=3.0.2",
     "protractor": "^5.4.2",
     "shelljs": "^0.8.3",
     "typings": "^2.1.1",
-    "lodash":"^4.17.11"
+    "lodash":"^4.17.15"
   },
   "scripts": {
     "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'app/bower_components', 'junction') } catch (e) { }\"",
