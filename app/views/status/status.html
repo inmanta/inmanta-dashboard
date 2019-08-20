@@ -1,0 +1,38 @@
+<div class="row">
+    <im-breadcrumb name="'Status'"></im-breadcrumb>
+
+    <h1>Orchestrator status</h1>
+
+    <p>The status of the orchestration server, loaded extensions and active components.</p>
+    <div class="col-md-12" ng-if="status.version">
+        <div class="update-nag">
+            <div class="update-split"><i class="glyphicon glyphicon-tags"></i></div>
+            <div class="update-text">Server version <code>{{ status.version }}</code></div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="update-nag">
+            <div class="update-split"><i class="glyphicon glyphicon-hdd"></i></div>
+            <div class="update-text">Connected to <code>{{ config.backend }}</code></div>
+        </div>
+    </div>    
+  
+    <div class="col-md-12" ng-repeat="ext in status.extensions | orderBy: 'name'">
+        <div class="update-nag">
+            <div class="update-split update-info"><i class="glyphicon glyphicon-folder-open"></i></div>
+            <div class="update-text">Extension <code>{{ ext.name }}</code> version <code>{{ ext.version }}</code> from package <code>{{ ext.package }}</code></div>
+        </div>
+    </div>
+
+    <div class="col-md-12" ng-repeat="slice in status.slices | orderBy: 'name'">
+        <div class="update-nag">
+            <div class="update-split update-success"><i class="glyphicon glyphicon-dashboard"></i></div>
+            <div class="update-text">Component <code>{{ slice.name }}</code>
+                <ul>
+                    <li ng-repeat="(key, value) in slice.status">{{ key}}: <code>{{ value }}</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
