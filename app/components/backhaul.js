@@ -79,6 +79,8 @@ services.service('BackhaulTable', ["Backhaul", "NgTableParams", "$filter", funct
     return function (scope, params, getDataSub) {
         var backhaul = new Backhaul(scope);
         var tableParams = new ngTableParams(params, {
+            counts: [], // hide page counts control
+            total: 1,  // value less than count hide pagination
             getData: function (params) {
                 var filters = {};
                 angular.forEach(params.filter(), function (value, key) {

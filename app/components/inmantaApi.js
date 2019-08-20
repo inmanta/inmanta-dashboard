@@ -630,7 +630,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         );
     };
 
-    inmantaAPI.get_server_status = function () {
+    inmantaAPI.getServerStatus = function () {
         return $http.get(
             impURL + "serverstatus"
         ).then(
@@ -639,6 +639,22 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             }
         )
     };
+
+    inmantaAPI.getCompileQueue = function (env) {
+        return $http.get(
+            impURL + "compilequeue",
+            { headers: { 'X-Inmanta-tid': env } }
+        ).then(
+            function(response) {
+                angular.forEach(response.data.queue, function(el) {
+                    el.requested = formatDate(el.requested);
+                    el.started = formatDate(el.started);
+                });
+
+                return response.data;
+            }
+        )
+    };    
 
     if (lcmURL) {
         inmantaAPI.getLCMServices = function (env) {
