@@ -630,6 +630,16 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         );
     };
 
+    inmantaAPI.get_server_status = function () {
+        return $http.get(
+            impURL + "serverstatus"
+        ).then(
+            function(response) {
+                return response.data;
+            }
+        )
+    };
+
     if (lcmURL) {
         inmantaAPI.getLCMServices = function (env) {
             return $http.get(lcmURL + 'service_types', {headers: { 'X-Inmanta-tid': env }}).then(

@@ -31,7 +31,8 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.compileReport',
     'InmantaApp.formsView',
     'InmantaApp.settings',
-    'InmantaApp.fsm'
+    'InmantaApp.fsm',
+    'InmantaApp.status',
 ]);
 
 app.config(["$urlRouterProvider", function ($urlRouterProvider) {
@@ -131,7 +132,8 @@ app.service("alertService", ["$rootScope", function alertService($rootScope) {
 }]);
 
 app.config(["$httpProvider", function ($httpProvider) {
-    $httpProvider.interceptors.push(["$q", "authService", "alertService", function ($q, authService, alertService) {
+    $httpProvider.interceptors.push(["$q", "$rootScope", "authService", "alertService", function ($q, $rootScope, authService, alertService) {
+        $rootScope.connectionStatus = "connecting";
         return {
             'request': function (config) {
                 config.headers = config.headers || {};
@@ -140,7 +142,12 @@ app.config(["$httpProvider", function ($httpProvider) {
                 }
                 return config;
             },
+            'response': function(response) {
+                $rootScope.connectionStatus = "connected";
+                return response;
+            },
             'responseError': function (rejection) {
+                alert = null;
                 if (rejection.status === 401 || rejection.status === 403) {
                     if (authService.enabled) {
                         alert = "Authentication is required by the server, please log-in";
@@ -151,13 +158,18 @@ app.config(["$httpProvider", function ($httpProvider) {
                     } else {
                         alert = "Authentication is required by the server, but disabled in dashboard. Check server config.";
                     }
+                } else if (rejection.status <= 0) {
+                    // status 0 means connection refused
+                    $rootScope.connectionStatus = "disconnected";
                 } else {
                     var alert = rejection.data ? rejection.data.message : rejection.statusText;
                     if (!alert) {
                         alert = "Could not connect to server";
                     }
                 }
-                alertService.add("danger", alert);
+                if (alert) {
+                    alertService.add("danger", alert);
+                }
                 return $q.reject(rejection);
             }
         }
