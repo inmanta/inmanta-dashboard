@@ -33,6 +33,7 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.settings',
     'InmantaApp.fsm',
     'InmantaApp.status',
+    'InmantaApp.compilequeue',
 ]);
 
 app.config(["$urlRouterProvider", function ($urlRouterProvider) {

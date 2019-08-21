@@ -21,7 +21,7 @@ resv.config(["$stateProvider", function ($stateProvider) {
 resv.controller('statusController', ['$scope', '$rootScope', 'inmantaService', "$stateParams", "inmantaConfig",
         function ($scope, $rootScope, inmantaService, $stateParams, inmantaConfig) {
 
-    inmantaService.get_server_status().then(function(response) {
+    inmantaService.getServerStatus().then(function(response) {
             $scope.status = response;
         }
     );
