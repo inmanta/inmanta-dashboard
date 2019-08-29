@@ -1,0 +1,26 @@
+<div class="row">
+    <im-breadcrumb name="'Compiler queue'"></im-breadcrumb>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Compiler queue</h1>
+        <p>Recompiles of the orchestration model are queued and executed one by one. The table below shows the current compiler queue.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-lined" ng-table="tableParams">
+            <tr ng-repeat="req in $data | orderBy: 'requested'">
+                <td><i ng-if="req.started" class="fa fa-cog fa-spin"></i></td>
+                <td data-title="'Requested'">{{ req.requested | date:'dd/MM/yyyy HH:mm:ss.sss' }}</td>
+                <td data-title="'Trigger'">{{ req.metadata.type }}</td>
+                <td data-title="'Message'">{{ req.metadata.message }}</td>
+                <td data-title="'Export'">{{ req.do_export }}</td>
+                <td data-title="'Update repo'">{{ req.force_update }}</td>
+                <td data-title="'Environment variables'">{{ keys(req.environment_variables).length }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
