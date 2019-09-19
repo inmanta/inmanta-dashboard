@@ -104,7 +104,7 @@ resv.directive("inmantaAttributeInput", ["inmantaService", function(inmantaServi
     }
 }]);
 
-resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaService", "$stateParams", "$state", 
+resv.controller("resourceButtonController", ["$scope", "$rootScope", "inmantaService", "$stateParams", "$state",
     function ($scope, $rootScope, inmantaService, $stateParams, $state) {
         $scope.dryrun = function () {
             inmantaService.dryrun($stateParams.env, $stateParams.version).then(function (d) {
@@ -243,7 +243,7 @@ resv.controller("resourceDetailController", ["$scope", "inmantaService", "$state
         angular.forEach(prms.data, function(line) {
             state[line.action_id] = line.open;
         });
-        
+
         return inmantaService.getLogForResource($stateParams.env, $stateParams.id + ",v=" + $stateParams.version).then(function (info) {
             var data = info.logs;
             var i;
@@ -305,4 +305,9 @@ resv.controller('logDetailCtrl', ['$scope', '$modalInstance', 'data', "dialogs",
     $scope.message = data.message;
 
     $scope.icon = 'glyphicon glyphicon-info-sign';
+
+    $scope.close = function(){
+        $modalInstance.close();
+        $scope.$destroy();
+    }; // end close
 }]); // end WaitDialogCtrl\ No newline at end of file
