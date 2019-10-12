@@ -17,15 +17,16 @@
         </div>
 
         <div class="btn-group btn-default" role="group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                title="Trigger agents to run a deploy of the latest deployed version.">
-              Trigger deploy
-              <span class="caret"></span>
+            <button type="button" class="btn btn-default"
+                title="Force agents to deploy any undeployed desired state."
+                ng-click="inmantaService.trigger_deploy(state.env, 'push_incremental_deploy')">
+              Force deploy
             </button>
-            <ul class="dropdown-menu">
-              <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_incremental_deploy')">Incremental deploy</a></li>
-              <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_full_deploy')">Full deploy</a></li>
-            </ul>
+            <button type="button" class="btn btn-default" 
+                title="Force agents to run a check and repair."
+                ng-click="inmantaService.trigger_deploy(state.env, 'push_full_deploy')">
+              Force repair
+            </button>
         </div>
 
         <button type="button" class="btn btn-default" ui-sref="compileReport({env:state.env})"

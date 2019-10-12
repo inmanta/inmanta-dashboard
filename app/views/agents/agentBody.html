@@ -15,12 +15,12 @@
                     <div class="btn-group btn-default" role="group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
                             title="Trigger this agent to run a deploy of the latest deployed version.">
-                            Trigger deploy on agent
+                            Deploy on agent
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_incremental_deploy', [agent.name])">Incremental deploy</a></li>
-                            <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_full_deploy', [agent.name])">Full deploy</a></li>
+                            <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_incremental_deploy', [agent.name])">Force deploy</a></li>
+                            <li><a ng-click="inmantaService.trigger_deploy(state.env, 'push_full_deploy', [agent.name])">Force repair</a></li>
                         </ul>
                     </div>
                 </td>

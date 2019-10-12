@@ -22,6 +22,7 @@ resv.controller('statusController', ['$scope', '$rootScope', 'inmantaService', "
         function ($scope, $rootScope, inmantaService, $stateParams, inmantaConfig) {
 
     inmantaService.getServerStatus().then(function(response) {
+            console.log(response);
             $scope.status = response;
         }
     );

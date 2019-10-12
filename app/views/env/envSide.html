@@ -4,7 +4,7 @@
             <li ui-sref-active="active"> <a ui-sref="portal({env:state.env})"> Portal </a></li>
             <li ui-sref-active="active" ng-class="{'active':state.version}"> <a ui-sref="envs({env:state.env})"> Versions </a></li>
             <li ui-sref-active="active"> <a ui-sref="resourceCentric({env:state.env})"> Resources </a></li>
-            <li ui-sref-active="active"> <a ui-sref="fsm({env:state.env})"> Lifecycle Manager </a></li>
+            <li ui-sref-active="active" ng-if="lcm"> <a ui-sref="fsm({env:state.env})"> Lifecycle Manager </a></li>
             <li ui-sref-active="active"> <a ui-sref="params({env:state.env})">Parameters</a></li>
             <li ui-sref-active="active"> <a ui-sref="forms({env:state.env})">Forms</a></li>
             <li ui-sref-active="active"> <a ui-sref="compilequeue({env:state.env})">Compiler queue</a></li>

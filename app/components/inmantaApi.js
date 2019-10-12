@@ -635,7 +635,7 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             impURL + "serverstatus"
         ).then(
             function(response) {
-                return response.data;
+                return response.data.data;
             }
         )
     };
