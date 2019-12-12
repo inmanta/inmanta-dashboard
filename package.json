@@ -1,5 +1,5 @@
 {
-  "name": "inmanta-dashboard",
+  "name": "@inmanta/inmanta-dashboard",
   "private": true,
   "version": "0.0.0",
   "description": "Inmanta Dashboard",
