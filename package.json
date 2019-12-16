@@ -1,10 +1,14 @@
 {
   "name": "@inmanta/inmanta-dashboard",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "Inmanta Dashboard",
   "repository": "https://github.com/inmanta/inmanta-dashboard",
   "license": "MIT",
+  "files": ["dist/*"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "clean-css": ">=4.1.11",
     "grunt": "^1.0.3",
