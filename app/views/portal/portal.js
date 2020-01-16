@@ -35,20 +35,6 @@ module.controller('PortalController', ['$scope', '$rootScope', 'inmantaService',
     $scope.$on('refresh', getReport);
     getReport();
 
-    var alertForUnknown = function () {
-        inmantaService.getUnkownsForEnv($stateParams.env).then(function (unknowns) {
-            var unknowns = unknowns.filter(function (unknown) { return unknown.source == 'form' });
-            var out = {}
-            unknowns.forEach(function (unknown) { out[unknown.metadata.form] = unknown })
-            $scope.unknowns = Object.keys(out).map(function (key) {
-                return out[key]
-            });
-        })
-    };
-
-    $scope.$on('refresh', alertForUnknown);
-    alertForUnknown();
-
     var getVersionsHelper = function (range) {
         inmantaService.getVersionsPaged($stateParams.env, 0, range).then(
             function (d) {

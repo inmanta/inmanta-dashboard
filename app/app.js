@@ -29,7 +29,6 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.controllers.projects',
     'InmantaApp.controllers.side',
     'InmantaApp.compileReport',
-    'InmantaApp.formsView',
     'InmantaApp.settings',
     'InmantaApp.fsm',
     'InmantaApp.status',

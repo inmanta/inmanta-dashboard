@@ -13,19 +13,6 @@
     </div>
 
 </div>
-<div class="row" ng-show="unknowns.length>0">
-    <div class="col-md-12">
-        <h2> Required Input </h2>
-        <p class="detail">  To complete the deployment, user input is required. Below is a list of forms that require input.  </p>
-
-        <ul class="list-unstyled detail">
-                <li  ng-repeat="unknown in unknowns track by unknown.metadata.form " >
-                <a ui-sref="forms({env:state.env,form:unknown.metadata.form,'#':unknown.metadata.form})"> {{unknown.metadata.form}}</a>
-                <!--<record-editor env="state.env" type="unknown.metadata.form" /> -->
-                </li>
-        </ul>
-    </div>
-</div>
 
 <div class="row" ng-show="report.length>0">
     <div class="col-md-12">
