@@ -20,7 +20,6 @@ var app = angular.module('InmantaApp', [
     'InmantaApp.addEnv',
     'InmantaApp.editEnv',
     'InmantaApp.addProject',
-    'InmantaApp.graphView',
     'inmantaApi.config',
     'InmantaApp.agentsView',
     'InmantaApp.parametersView',
