@@ -24,6 +24,12 @@
                         </ul>
                     </div>
                 </td>
+                <td>
+                    <div class="btn-group btn-default" role="group">
+                        <button type="button" class="btn btn-default" ng-if="!agent.paused" ng-click="inmantaService.agent_action(state.env, agent.name, 'pause')">Pause Agent</button>
+                        <button type="button" class="btn btn-default" ng-if="agent.paused" ng-click="inmantaService.agent_action(state.env, agent.name, 'unpause')">Unpause Agent</button>
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
