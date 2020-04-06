@@ -269,8 +269,8 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
     };
 
     inmantaAPI.agent_action = function (env, agent_name, action) {
-        const url = `${inmantaConfig.backend}api/v2/agent/${agent_name}/${action}`;
-        return $http.post(url, {}, { headers: { "X-Inmanta-tid": env } }).then(
+        var agent_action_url = inmantaConfig.backend + "api/v2/agent/" + agent_name + "/" + action;
+        return $http.post(agent_action_url, {}, { headers: { "X-Inmanta-tid": env } }).then(
             function () {
                 $rootScope.$broadcast('refresh');
             });
