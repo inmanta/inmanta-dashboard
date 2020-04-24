@@ -1,10 +1,12 @@
 {
   "name": "@inmanta/inmanta-dashboard",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Inmanta Dashboard",
   "repository": "https://github.com/inmanta/inmanta-dashboard",
   "license": "MIT",
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
