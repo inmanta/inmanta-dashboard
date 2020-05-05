@@ -105,6 +105,12 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
 
     inmantaAPI.parseID = parseID;
 
+    inmantaAPI.getConsoleAvailable = function () { 
+        return $http.get("/console").then(function(response) {
+		    return response.status !== 404;
+        });
+    };
+
     //project
     inmantaAPI.getProjects = function () {
         return $http.get(impURL + 'project').then(function (data) {
