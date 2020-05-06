@@ -160,6 +160,9 @@ app.config(["$httpProvider", function ($httpProvider) {
                 } else if (rejection.status <= 0) {
                     // status 0 means connection refused
                     $rootScope.connectionStatus = "disconnected";
+                } else if (rejection.status === 404 && rejection.config.url.endsWith('/console')) {
+                    // Handled in the sideController
+                    alert = null;
                 } else {
                     var alert = rejection.data ? rejection.data.message : rejection.statusText;
                     if (!alert) {
