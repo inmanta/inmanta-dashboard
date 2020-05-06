@@ -8,7 +8,6 @@
                 <td data-title="'Name'" data-sortable="'name'" filter="{ 'name':'text'}"> {{agent.name}}</td>
                 <!-- this pattern is requirted because templates no longer support deffered values, we just return a list, that is filled when data is ready-->
                 <td data-title="'Active Process'" data-sortable="'primary'" filter="{ 'primary':'text'}" ng-init="env=getProcess(agent.environment, agent.primary)"><a ng-click="hl(env[0].id)"> {{env[0].hostname}} </a></td>
-                <td data-title="'Paused'" data-sortable="'paused'" filter="{ 'paused':'text'}">{{agent.paused}}</td>
                 <td data-title="'State'" data-sortable="'state'" filter="{ 'state':'text'}">{{agent.state}}</td>
                 <td data-title="'Last Failover'" data-sortable="'last_failover'" filter="{ 'last_failover':'text'}">{{agent.last_failover|date:'dd/MM/yyyy HH:mm'}}</td>
                 <td>
