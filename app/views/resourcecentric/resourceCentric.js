@@ -27,15 +27,20 @@ resv.controller('resourceCentricController', ['$scope', '$rootScope', 'inmantaSe
         page: 1, // show first page
         count: 50 // count per page
     }, function (params) {
-        return inmantaService.getResourcesState($stateParams.env).then(function (info) {
-            $scope.env = info;
-            $scope.versions = info.versions;
+        return inmantaService.getAgents($stateParams.env).then(function (agents) {
+            $scope.agents = agents;
+            }).then(function () { 
+            return inmantaService.getResourcesState($stateParams.env).then(function (info) {
+                $scope.env = info;
+                $scope.versions = info.versions;
 
-            var data = info.resources;
-            angular.forEach(data, function (item) {
-                item.idItems = inmantaService.parseID(item.resource_id);
+                var data = info.resources;
+                angular.forEach(data, function (item) {
+                    item.idItems = inmantaService.parseID(item.resource_id);
+                    item.agent_status = $scope.getAgentStatusByName(item.agent);
+                });
+                return data;
             });
-            return data;
         });
     });
     $scope.resources = null;
@@ -43,5 +48,15 @@ resv.controller('resourceCentricController', ['$scope', '$rootScope', 'inmantaSe
     $scope.setFilter = function (field, value) {
         $scope.tableParams.filter()[field] = value;
     };
+
+    $scope.getAgentStatusByName = function (name) {
+        if ($scope.agents) {
+            var agent = $scope.agents.find(function(agentItem) {
+                return agentItem.name === name;
+            });
+            return agent ? agent.state : "";
+        }
+    };
+    
 }
 ]);

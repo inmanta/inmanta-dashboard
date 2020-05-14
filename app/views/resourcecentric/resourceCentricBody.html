@@ -19,7 +19,10 @@
                 <td data-title="'Type'" data-sortable="'resource_type'" filter="{ 'resource_type':'text'}">
                     {{res.resource_type}}
                 </td>
-                <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}">{{res.agent}}</td>
+                <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}" ng-class="res.agent_status == 'down' ? 'text-danger' : res.agent_status == 'paused' ? 'text-warning' : 'text-dark'">
+                    <i ng-if="res.agent_status !== 'up'" class="glyphicon glyphicon-warning-sign"  style="width: 14px" data-toggle="tooltip" title="Agent is {{res.agent_status}}"></i> 
+                        {{res.agent}} 
+                </td>
                 <td data-title="'Value'" data-sortable="'id_attribute_value'" filter="{ 'id_attribute_value':'text'}"
                     class="col-md-2">
                     {{res.idItems.attribute_value}}
