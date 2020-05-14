@@ -289,3 +289,12 @@ a.active {
   padding-top: 0;
   padding-bottom: 0;
 }
+.color-danger {
+  color: red;
+}
+.color-warn {
+  color: orange;
+}
+.color-normal {
+  color: black;
+}

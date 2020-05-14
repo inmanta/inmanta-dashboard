@@ -158,6 +158,9 @@ resv.controller("resourceController",
             angular.forEach(params.data, function(item) {
                 open_state[item.id] = item.deps_open;
             });
+            inmantaService.getAgents($stateParams.env).then(function (agents) {
+                $scope.agents = agents;
+            });
 
             return inmantaService.getResources($stateParams.env, $stateParams.version).then(function (info) {
                 $scope.status = info.model;
@@ -170,6 +173,7 @@ resv.controller("resourceController",
                         item.deps_open = false;
                     }
                     item.idItems = inmantaService.parseID(item.id);
+                    item.agent_status = $scope.getAgentStatusByName(item.agent);
                     $scope.alldata[item.id] = item;
                 });
                 angular.forEach(data, function (item) {
@@ -217,6 +221,15 @@ resv.controller("resourceController",
         $scope.setsort = function (name) {
             $scope.tableParams.filter()["status"] = name;
         }
+
+        $scope.getAgentStatusByName = function (name) {
+            if ($scope.agents) {
+                var agent = $scope.agents.find(function(agentItem) {
+                    return agentItem.name === name;
+                });
+                return agent ? agent.state : "";
+            }
+        };
 
         inmantaService.getEnvironment($stateParams.env).then(function (d) {
             $scope.env = d;
