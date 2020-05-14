@@ -15,7 +15,7 @@
                         <button class="btn btn-link btn-xs" ui-sref="resourceDetail({env:env.id, version:res.model, resourceId: res.resource_id })"><span class="glyphicon glyphicon-zoom-in"></span></button>
                     </td>
                     <td data-title="'Type'" data-sortable="'resource_type'" filter="{'resource_type':'text'}">{{res.resource_type}}</td>
-                    <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}" ng-class="res.agent_status == 'down' ? 'color-danger' : res.agent_status == 'paused' ? 'color-warn' : 'color-normal'">
+                    <td data-title="'Agent'" data-sortable="'agent'" filter="{ 'agent':'text'}" ng-class="res.agent_status == 'down' ? 'text-danger' : res.agent_status == 'paused' ? 'text-warning' : 'text-dark'">
                         <i ng-if="res.agent_status !== 'up'" class="glyphicon glyphicon-warning-sign"  style="width: 14px" data-toggle="tooltip" title="Agent is {{res.agent_status}}"></i> 
                          {{res.agent}}
                         </td>
