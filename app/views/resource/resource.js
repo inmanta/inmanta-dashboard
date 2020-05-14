@@ -158,35 +158,36 @@ resv.controller("resourceController",
             angular.forEach(params.data, function(item) {
                 open_state[item.id] = item.deps_open;
             });
-            inmantaService.getAgents($stateParams.env).then(function (agents) {
+            
+            return inmantaService.getAgents($stateParams.env).then(function (agents) {
                 $scope.agents = agents;
-            });
-
-            return inmantaService.getResources($stateParams.env, $stateParams.version).then(function (info) {
-                $scope.status = info.model;
-                var data = info.resources;
-                $scope.alldata = {};
-                angular.forEach(data, function (item) {
-                    if (open_state[item.id]) {
-                        item.deps_open = open_state[item.id]
-                    } else {
-                        item.deps_open = false;
-                    }
-                    item.idItems = inmantaService.parseID(item.id);
-                    item.agent_status = $scope.getAgentStatusByName(item.agent);
-                    $scope.alldata[item.id] = item;
-                });
-                angular.forEach(data, function (item) {
-                    $scope.deporder(item);
-                    var requires_ids = [];
-                    angular.forEach(item.attributes.requires, function(req) {
-                        var id_dict = inmantaService.parseID(req);
-                        id_dict.id = req;
-                        requires_ids.push(id_dict);
+            }).then(function () { 
+                    return inmantaService.getResources($stateParams.env, $stateParams.version).then(function (info) {
+                    $scope.status = info.model;
+                    var data = info.resources;
+                    $scope.alldata = {};
+                    angular.forEach(data, function (item) {
+                        if (open_state[item.id]) {
+                            item.deps_open = open_state[item.id]
+                        } else {
+                            item.deps_open = false;
+                        }
+                        item.idItems = inmantaService.parseID(item.id);
+                        item.agent_status = $scope.getAgentStatusByName(item.agent);
+                        $scope.alldata[item.id] = item;
                     });
-                    item.requires_ids = parseRequires(item.attributes.requires, inmantaService.parseID);
+                    angular.forEach(data, function (item) {
+                        $scope.deporder(item);
+                        var requires_ids = [];
+                        angular.forEach(item.attributes.requires, function(req) {
+                            var id_dict = inmantaService.parseID(req);
+                            id_dict.id = req;
+                            requires_ids.push(id_dict);
+                        });
+                        item.requires_ids = parseRequires(item.attributes.requires, inmantaService.parseID);
+                    });
+                    return data;
                 });
-                return data;
             });
         });
 
