@@ -3,9 +3,10 @@
 var inmantaApi = angular.module('inmantaApi', ['inmantaApi.config']);
 
 function formatDate(d) {
-    if (d == null)
-        return d
-    return new Date(d)
+    if (!d) {
+        return "";
+    }
+    return new Date(d);
 }
 
 function formatParameter(d) {
