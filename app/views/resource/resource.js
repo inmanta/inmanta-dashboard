@@ -271,6 +271,14 @@ resv.controller("resourceDetailController", ["$scope", "inmantaService", "$state
         });
     });
 
+    function isMultiline(value) {
+        var multiline = false;
+            if (value) {
+                multiline = value.length > 80 || (value.indexOf && value.indexOf("\n") >= 0);
+            }
+        return multiline;
+    }
+
     // load the resource
     inmantaService.getResource($stateParams.env, $stateParams.id + ",v=" + $stateParams.version).then(function (resource) {
         $scope.resource = resource;
@@ -280,7 +288,7 @@ resv.controller("resourceDetailController", ["$scope", "inmantaService", "$state
                 name: key,
                 value: value,
                 undefined: value == "<<undefined>>",
-                multiline: value.length > 80 || (value.indexOf && value.indexOf("\n") >= 0),
+                multiline: isMultiline(value),
                 file: key == "hash",
             };
             element["type"] = "input";
