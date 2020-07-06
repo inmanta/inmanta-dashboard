@@ -373,9 +373,13 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
             });
     };
 
-    inmantaAPI.deleteParameter = function(env, name) {
+    inmantaAPI.deleteParameter = function(env, name, resource_id) {
         checkEnv(env)
-        return $http.delete(impURL + 'parameter/' + window.encodeURIComponent(name), { headers: { "X-Inmanta-tid": env } }).then(
+        var deleteParameterUrl = impURL + 'parameter/' + window.encodeURIComponent(name);
+        if (resource_id) {
+            deleteParameterUrl += "?resource_id=" + window.encodeURIComponent(resource_id);
+        }
+        return $http.delete(deleteParameterUrl, { headers: { "X-Inmanta-tid": env } }).then(
             function (data) {
                 console.log(data);
             },
