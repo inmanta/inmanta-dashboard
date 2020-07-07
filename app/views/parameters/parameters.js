@@ -115,7 +115,7 @@ resv.controller('paramsController', ['$scope', 'inmantaService', "$stateParams",
 
     $scope.remove = function (param) {
         console.log(param);
-        inmantaService.deleteParameter($scope.state.env, param.name).then(function (d) {
+        inmantaService.deleteParameter($scope.state.env, param.name, param.resource_id).then(function (d) {
         });
     };
 }]);
