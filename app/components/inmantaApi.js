@@ -243,7 +243,6 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
                 proc.first_seen = formatDate(proc.first_seen)
                 proc.last_seen = formatDate(proc.last_seen)
                 proc.expired = formatDate(proc.expired)
-                // .toLocaleString("en-US")
             });
             return data.data.processes
         });
