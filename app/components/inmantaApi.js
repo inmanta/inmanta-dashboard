@@ -3,8 +3,11 @@
 var inmantaApi = angular.module('inmantaApi', ['inmantaApi.config']);
 
 function formatDate(d) {
+    if (d === "") {
+        return d;
+    }
     if (!d) {
-        return "";
+        return null;
     }
     return new Date(d);
 }
