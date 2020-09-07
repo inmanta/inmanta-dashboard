@@ -8,13 +8,23 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12 detail">
+    <div class="col-md-4 detail">
         <p><strong>Started:</strong> {{compile.started|date:'dd/MM/yyyy HH:mm'}}</p>
         <p><strong>Ended:</strong> {{compile.completed|date:'dd/MM/yyyy HH:mm'}}</p>
         <p><strong>Time (s):</strong> {{(compile.completed-compile.started)/1000}}</p>
     </div>
+    <div class="col-md-4 detail">
+        <p><strong>Export:</strong> {{compile.do_export}}</p>
+        <p><strong>Update:</strong> {{compile.force_update}}</p>
+        <p><strong>Type:</strong> {{compile.metadata.type}}</p>
+    </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12 detail">
+        <p><strong>Message:</strong> {{compile.metadata.message}}</p>
+        <p><strong>User Error:</strong> <span ng-if="compile.compile_data.errors.length>0">{{compile.compile_data.errors[0].message}}</span> </p>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-lined">
