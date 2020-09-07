@@ -13,30 +13,35 @@
             <li ng-if="lsm"><a ng-href="/console/lsm/catalog?env={{state.env}}" target="_blank"><span
                         class="glyphicon glyphicon-share"></span> Web Console</a></li>
         </ul>
-        <div class="row" style="position: absolute; bottom: 100px;" ng-controller="configCtrl">
-            <div class="col-xs-3">
-                <button ng-if="!state.halted" class="btn btn-default btn-danger btn-lg" ng-click="confirmHalt()"
-                    title="Halt all operations on this environment">
-                    <strong>HALT</strong> <span class="glyphicon glyphicon-pause"></span>
-                </button>
-                <button ng-if="state.halted" class="btn btn-default btn-success btn-lg" ng-click="resumeEnv()"
-                    title="Resume operations on this environment">
-                    RESUME <span class="glyphicon glyphicon-play"></span>
-                </button>
+        <div class="row" ng-if="state.env && halted" style="position: absolute; bottom: 100px;" ng-controller="configCtrl">
+            <div class="col-xs-12">
+                <h4><span class="label label-warning" > Operations in this
+                        environment are halted</span></h4>
             </div>
         </div>
-        <div class="row" style="position: absolute; bottom: 65px;" ng-controller="configCtrl">
-            <div class="col-xs-3">
+        <div class="row" style="position: absolute; bottom: 65px; width:280px" ng-controller="configCtrl">
+            <div class="col-xs-2">
                 <a class="btn btn-default" href="https://github.com/inmanta/inmanta/issues/new" data-toggle="tooltip"
                     data-placement="top" title="Give feedback in Github" target="_blank"><span
                         class="glyphicon glyphicon-envelope"></span></a>
             </div>
-            <div class="col-xs-9">
-                <a class="btn btn-labeled btn-success" ui-sref="status()" ng-if="connectionStatus=='connected'">
-                    <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Connected
+            <div ng-if="state.env" class="col-xs-8">
+                <button ng-if="state.env && !halted" class="btn btn-labeled btn-danger" ng-click="confirmHalt()"
+                    title="Emergency Stop: Halt all operations on this environment">
+                    <span class="btn-label"><span class="glyphicon glyphicon-stop"></span> </span><strong>STOP</strong>
+                </button>
+                <button ng-if="halted" class="btn btn-labeled btn-success" ng-click="confirmResume()"
+                    title="Resume operations on this environment">
+                    <span class="btn-label"><span class="glyphicon glyphicon-play"></span></span>Resume
+                </button>
+            </div>
+            <div class="col-xs-2" ng-class="{ 'col-xs-offset-8' : !state.env}">
+                <a class="btn btn-success" ui-sref="status()" ng-if="connectionStatus=='connected'" title="Connected">
+                    <span class="glyphicon glyphicon-ok"></span>
                 </a>
-                <a class="btn btn-labeled btn-danger" ui-sref="status()" ng-if="connectionStatus=='disconnected'">
-                    <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Disconnected
+                <a class="btn btn-danger" ui-sref="status()" ng-if="connectionStatus=='disconnected'"
+                    title="Disconnected">
+                    <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </div>
         </div>
