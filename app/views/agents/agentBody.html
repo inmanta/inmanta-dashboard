@@ -12,7 +12,7 @@
                 <td data-title="'Last Failover'" data-sortable="'last_failover'" filter="{ 'last_failover':'text'}">{{agent.last_failover|date:'dd/MM/yyyy HH:mm'}}</td>
                 <td>
                     <div class="btn-group btn-default" role="group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                        <button ng-disabled="halted" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
                             title="Trigger this agent to run a deploy of the latest deployed version.">
                             Deploy on agent
                             <span class="caret"></span>
@@ -25,8 +25,8 @@
                 </td>
                 <td>
                     <div class="btn-group btn-default" role="group">
-                        <button type="button" class="btn btn-default" ng-if="!agent.paused" ng-click="inmantaService.agent_action(state.env, agent.name, 'pause')">Pause Agent</button>
-                        <button type="button" class="btn btn-default" ng-if="agent.paused" ng-click="inmantaService.agent_action(state.env, agent.name, 'unpause')">Unpause Agent</button>
+                        <button ng-disabled="halted" type="button" class="btn btn-default" ng-if="!agent.paused" ng-click="inmantaService.agent_action(state.env, agent.name, 'pause')">Pause Agent</button>
+                        <button ng-disabled="halted" type="button" class="btn btn-default" ng-if="agent.paused" ng-click="inmantaService.agent_action(state.env, agent.name, 'unpause')">Unpause Agent</button>
                     </div>
                 </td>
             </tr>

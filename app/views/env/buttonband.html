@@ -1,11 +1,11 @@
 <div class="col-md-12 page-button-band" ng-controller="envFunctionController">
     <div class="pull-right">
         <div class="btn-group btn-default" role="group">
-            <button type="button" class="btn btn-default" ng-hide="!cstate">Compiling&nbsp;<i class="fa fa-cog fa-spin"></i></button>
-            <button type="button" class="btn btn-default btn-first" ng-hide="cstate"
+            <button ng-disabled="halted" type="button" class="btn btn-default" ng-hide="!cstate">Compiling&nbsp;<i class="fa fa-cog fa-spin"></i></button>
+            <button ng-disabled="halted" type="button" class="btn btn-default btn-first" ng-hide="cstate"
                 ng-click="compile(state.env)" title="Compile the model to create a new version">Recompile</span></button>
 
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button ng-disabled="halted" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -17,12 +17,12 @@
         </div>
 
         <div class="btn-group btn-default" role="group">
-            <button type="button" class="btn btn-default"
+            <button ng-disabled="halted" type="button" class="btn btn-default"
                 title="Force agents to deploy any undeployed desired state."
                 ng-click="inmantaService.trigger_deploy(state.env, 'push_incremental_deploy')">
               Force deploy
             </button>
-            <button type="button" class="btn btn-default" 
+            <button ng-disabled="halted" type="button" class="btn btn-default" 
                 title="Force agents to run a check and repair."
                 ng-click="inmantaService.trigger_deploy(state.env, 'push_full_deploy')">
               Force repair

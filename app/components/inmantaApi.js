@@ -600,6 +600,22 @@ inmantaApi.service('inmantaService', ["$http", "inmantaConfig", "$q", "$cacheFac
         )
     };    
 
+    inmantaAPI.haltEnvironment = function(env) {
+        return $http.post(
+            inmantaConfig.backend + "api/v2/actions/environment/halt",
+            {},
+            { headers: { 'X-Inmanta-tid': env } }
+        );
+    };
+
+    inmantaAPI.resumeEnvironment = function(env) {
+        return $http.post(
+            inmantaConfig.backend + "api/v2/actions/environment/resume",
+            {},
+            { headers: { 'X-Inmanta-tid': env } }
+        );
+    };
+
     if (lcmURL) {
         inmantaAPI.getLCMServices = function (env) {
             return $http.get(lcmURL + 'service_types', {headers: { 'X-Inmanta-tid': env }}).then(
