@@ -1,3 +1,7 @@
+# Release 3.5.1 (2020-09-16)
+
+- Fix sidebar scaling issue (#103)
+
 # Release 3.5.0 (2020-09-08)
 
 - Specify environment id for the web console link (#96)
