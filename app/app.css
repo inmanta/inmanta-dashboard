@@ -289,3 +289,14 @@ a.active {
   padding-top: 0;
   padding-bottom: 0;
 }
+
+@media only screen and (max-width: 1400px) {
+  .only-wide {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1401px) {
+  .only-narrow {
+    display: none;
+  }
+}
