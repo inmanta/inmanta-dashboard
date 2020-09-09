@@ -1,17 +1,18 @@
 <div class="row">
     <div class="col-md-2 sidebar">
         <div class="row" style="position: absolute; bottom: 65px;" ng-controller="configCtrl">
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <a class="btn btn-default" href="https://github.com/inmanta/inmanta/issues/new" data-toggle="tooltip"
                     data-placement="top" title="Give feedback in Github" target="_blank"><span
                         class="glyphicon glyphicon-envelope"></span></a>
             </div>
-            <div class="col-xs-9">
-                <a class="btn btn-labeled btn-success" ui-sref="status()" ng-if="connectionStatus=='connected'">
-                    <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Connected
+            <div class="col-xs-4">
+                <a class="btn btn-success" ui-sref="status()" ng-if="connectionStatus=='connected'" title="Connected">
+                    <span class="glyphicon glyphicon-ok"></span>
                 </a>
-                <a class="btn btn-labeled btn-danger" ui-sref="status()" ng-if="connectionStatus=='disconnected'">
-                    <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Disconnected
+                <a class="btn btn-danger" ui-sref="status()" ng-if="connectionStatus=='disconnected'"
+                    title="Disconnected">
+                    <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </div>
         </div>
