@@ -1,6 +1,7 @@
 # Release 3.5.1 (2020-09-16)
 
 - Fix sidebar scaling issue (#103)
+- Fix status page label (#106)
 
 # Release 3.5.0 (2020-09-08)
 
