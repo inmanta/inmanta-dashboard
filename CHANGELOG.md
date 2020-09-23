@@ -2,6 +2,7 @@
 
 - Fix sidebar scaling issue (#103)
 - Fix status page label (#106)
+- Format file content using a monospace font
 
 # Release 3.5.0 (2020-09-08)
 
