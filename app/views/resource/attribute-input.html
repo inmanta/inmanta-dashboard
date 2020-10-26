@@ -6,5 +6,5 @@
     <input ng-if="!attribute.multiline && !attribute.undefined && !attribute.file" readonly type="{{ attribute.type }}" class="form-control" ng-model="attribute.value"></input>
     <textarea ng-if="attribute.multiline && !attribute.undefined" readonly rows="{{ textarea_rows }}" class="form-control" ng-model="attribute.value"></textarea>
     <span ng-if="attribute.file"><code style="margin-right: 1em">{{ attribute.value }}</code> <button type="button" class="btn btn-default btn-xs" ng-click="getFile(attribute.value)">show file content</button></span>
-    <textarea ng-if="attribute.file_content" style="margin-top: 1em" readonly rows="{{ textarea_rows }}" class="form-control" ng-model="attribute.file_content"></textarea>
+    <textarea ng-if="attribute.file_content" style="margin-top: 1em; font-family: monospace;" readonly rows="{{ textarea_rows }}" class="form-control" ng-model="attribute.file_content"></textarea>
 </div>
