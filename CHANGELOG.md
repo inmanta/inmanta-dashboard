@@ -1,3 +1,6 @@
+# Release 3.6.1 (?)
+
+
 # Release 3.6.0 (2020-12-17)
 
 - Fix sidebar scaling issue (#103)
