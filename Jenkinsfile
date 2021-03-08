@@ -9,7 +9,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'yarn install;grunt dist'
-            }       
+            }
+            post{
+                always { 
+                  deleteDir()
+                }
+            }
         }
     }
 }
